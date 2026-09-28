@@ -45,6 +45,7 @@ jobs:
           python tools/trace_charge_policy_sink.py --help >/dev/null
           python tools/trace_charge_bit7_callers.py --help >/dev/null
           python tools/trace_soc_osd_candidates.py --help >/dev/null
+          python tools/trace_soc_guards.py --help >/dev/null
           python tools/trace_vcp_ed_candidate.py --help >/dev/null
           python tools/trace_xdata_fields.py --help >/dev/null
           python tools/run_offline_suite.py --help >/dev/null
