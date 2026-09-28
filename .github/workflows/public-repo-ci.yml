@@ -1,0 +1,64 @@
+name: Public repo CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Public repository privacy/binary guard
+        run: python tools/check_public_repo.py
+
+      - name: Compile Python tools
+        run: python -m compileall -q tools
+
+      - name: Smoke-test analyzer CLIs
+        run: |
+          python tools/analyze_banked_abi.py --help >/dev/null
+          python tools/analyze_numeric_renderer.py --help >/dev/null
+          python tools/analyze_value_provenance.py --help >/dev/null
+          python tools/run_offline_suite.py --help >/dev/null
+
+      - name: Parse PowerShell tools
+        shell: pwsh
+        run: |
+          $failed = $false
+          Get-ChildItem tools -Filter *.ps1 | ForEach-Object {
+            $tokens = $null
+            $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile(
+              $_.FullName,
+              [ref]$tokens,
+              [ref]$errors
+            ) | Out-Null
+            if ($errors.Count -gt 0) {
+              Write-Host "PowerShell parse errors in $($_.FullName)"
+              $errors | ForEach-Object { Write-Host $_ }
+              $failed = $true
+            }
+          }
+          if ($failed) { exit 1 }
+
+      - name: Confirm proprietary firmware is absent
+        shell: bash
+        run: |
+          if git ls-files | grep -Eiq '\.(bin|exe|dll|sfx|rar|zip|dump|rom|flash|hex)$'; then
+            echo 'Forbidden proprietary/binary payload is tracked.' >&2
+            exit 1
+          fi
