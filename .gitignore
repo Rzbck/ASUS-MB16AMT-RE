@@ -1,0 +1,32 @@
+# Proprietary ASUS / Realtek firmware and updater binaries
+*.bin
+*.exe
+*.dll
+*.sfx
+*.rar
+*.zip
+
+# Local extracted updater / RE workspaces
+fw/
+firmware/
+extracted/
+work/
+tmp/
+output/
+
+# Dumps / captures that may contain proprietary firmware
+*.dump
+*.rom
+*.flash
+*.hex
+
+# Generated logs / scratch
+*.log
+*.tmp
+*.bak
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
