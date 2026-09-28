@@ -28,6 +28,7 @@ Reverse-engineering notes for the **ASUS ZenScreen Touch MB16AMT** (Realtek **RL
 - A topology-stable black screen is achieved with a borderless topmost black overlay on the MB16AMT plus VCP brightness `0`, restoring brightness afterward.
 - Static mapping confirms 14 distinct 64 KiB banks with a repeated 8051-style vector/trampoline prefix; see `docs/STATIC_MAP.md`.
 - Public RL6492 source confirms a `Pbank_switch` architecture using XDATA registers `0xFFFC..0xFFFF`, now being correlated against the ASUS image.
+- The strong numeric renderer at `1:EAEB` is generic OSD number rendering, but all three known callers are now explained without battery SOC. `DA86` is a one-second OSD countdown; see `docs/DA86_TIMER.md`.
 
 ## Firmware package fingerprints
 
@@ -49,6 +50,41 @@ SHA256: 1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c
 
 The proprietary ASUS package/binaries are **not redistributed in this repository**. See [docs/FIRMWARE.md](docs/FIRMWARE.md) for the extracted layout, hashes, updater settings, and static-analysis notes.
 
+## Reproducible local analysis
+
+The verified firmware remains local. Run the full read-only suite with:
+
+```powershell
+python tools/run_offline_suite.py "C:\path\to\V020.bin" --out work\suite
+```
+
+For a faster pass that skips the exhaustive `8:5FEF` emulation:
+
+```powershell
+python tools/run_offline_suite.py "C:\path\to\V020.bin" --out work\suite --quick
+```
+
+The suite verifies the exact V020 size/SHA before running anything. It includes:
+
+- banked ABI / CFG reconstruction;
+- generic numeric-renderer verification;
+- decoded **VCP `ED` dispatcher-candidate analysis**;
+- setting-query provenance/emulation unless `--quick` is used;
+- the PowerShell bank/vector and bank-switch mappers when `pwsh` is available.
+
+All generated output stays under `work/`, which is ignored by Git.
+
+## GitHub Actions
+
+`.github/workflows/public-repo-ci.yml` runs on pushes and pull requests. It deliberately does **not** contain or download the proprietary firmware. It checks:
+
+- obvious personal/device-unique identifiers and common secret formats;
+- accidental tracked firmware/updater binaries and dumps;
+- Python syntax/import/CLI regressions;
+- PowerShell parser errors.
+
+`tools/check_public_repo.py` is the corresponding local/CI privacy guard. It scans the current tracked tree; it does **not** rewrite or purge old Git history.
+
 ## Repository map
 
 - `HANDOFF.md` — exact current state, what is proven, what failed, what to do next.
@@ -56,9 +92,12 @@ The proprietary ASUS package/binaries are **not redistributed in this repository
 - `docs/PROTOCOLS.md` — DDC/CI, VCP, WinComm, Realtek/ASUS protocol notes.
 - `docs/FIRMWARE.md` — firmware package, bank layout, updater/plugin details.
 - `docs/STATIC_MAP.md` — incremental 8051/banked firmware map, bank fingerprints, vector evidence, and bank-switch correlation.
+- `docs/DA86_TIMER.md` — confirmed one-second DA86 OSD countdown path and SOC consequence.
 - `docs/DEAD_ENDS.md` — tested paths that should **not** be repeated blindly.
 - `docs/EXPERIMENTS.md` — key controlled experiments and observed outputs.
 - `docs/SOURCES.md` — public source-code references and provenance notes.
+- `tools/run_offline_suite.py` — one-command local V020 analysis entrypoint.
+- `tools/analyze_vcp_dispatch.py` — decoded VCP `ED` / vendor-literal dispatcher candidate finder.
 - `tools/Analyze-FirmwareMap.ps1` — read-only local V020 bank/vector mapper with image hash validation.
 - `NEXT_STEPS.md` — prioritized RE plan.
 
@@ -70,4 +109,9 @@ Known writes used during probing were limited to normal DDC/CI controls and spec
 
 ## Immediate target
 
-Find the **actual battery SOC data path used by the OSD**. The OSD clearly knows the percentage, but that value has not yet been exposed through MCCS/VCP, generic external I2C probing, `ReadMcuReg`, or the attempted Realtek debug switch.
+Find the **actual battery SOC data path used by the OSD**. The active static strategy is now:
+
+1. locate and confirm the ASUS handler for the runtime-proven VCP `0xED` charge policy;
+2. trace its internal power/charging callees and cached state;
+3. locate the alternative numeric/glyph path used by the battery OSD, since `1:EAEB`'s known callers are now non-SOC;
+4. derive the battery acquisition primitive before attempting any new runtime probe.
