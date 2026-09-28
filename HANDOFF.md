@@ -2,6 +2,15 @@
 
 **Last updated:** 2026-09-28
 
+**Latest continuation:** `8:5FEF` is completely mapped as an internal setting
+query (R7 selector, R5 current/max/min/step mode, result R7), with 130,824 offline
+checks. See `docs/SETTING_QUERY.md` and `docs/maps/setting-query-*`.
+No I2C/ADC/PMIC acquisition occurs in its transitive closure. Selectors 50..52
+convert DA21..DA23 with clamp(byte-28,0,100). D82E:D82F is reused scratch;
+one renderer-producing assignment is now traced from this query at 10:D5ED.
+Do not repeat the 8:5FEF branch audit; continue with other scratch producers,
+DA86 writers, timer dispatch and a justified VCP ED cross-reference.
+
 This file is the canonical continuation point. Read it before running new probes.
 
 ## Latest milestone — banked-call ABI (2026-09-28)

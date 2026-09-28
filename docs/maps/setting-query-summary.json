@@ -1,0 +1,81 @@
+{
+  "sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "entry": "8:5FEF",
+  "end_exclusive": "8:65A0",
+  "thunk": "1862",
+  "tests": 130824,
+  "max_steps": 1596,
+  "main_instruction_starts": 862,
+  "unvisited_main_starts": [
+    "611C",
+    "622C"
+  ],
+  "one_sided_conditions": {
+    "611A": [
+      true
+    ],
+    "622A": [
+      true
+    ]
+  },
+  "read_addresses": [
+    "D833",
+    "D834",
+    "D835",
+    "D836",
+    "D837",
+    "D838",
+    "D839",
+    "D83A",
+    "D83B",
+    "D83C",
+    "D83D",
+    "D9F9",
+    "D9FD",
+    "D9FE",
+    "D9FF",
+    "DA00",
+    "DA03",
+    "DA04",
+    "DA06",
+    "DA07",
+    "DA08",
+    "DA0A",
+    "DA0B",
+    "DA0C",
+    "DA0D",
+    "DA0E",
+    "DA0F",
+    "DA17",
+    "DA21",
+    "DA22",
+    "DA23",
+    "DA3D",
+    "DA3E",
+    "DA3F",
+    "DA41",
+    "DA42",
+    "DA43",
+    "DA44",
+    "DA68",
+    "DA92"
+  ],
+  "write_addresses": [
+    "D833",
+    "D834",
+    "D835",
+    "D836",
+    "D837",
+    "D838",
+    "D839",
+    "D83A",
+    "D83B",
+    "D83C",
+    "D83D"
+  ],
+  "banks_executed": [
+    6,
+    8
+  ],
+  "limits": "Finite offline tests plus complete manual branch reconstruction; not all combinations of entire XDATA or hardware timing. Logical-to-physical identity is the working static model. Arithmetic flags AC/OV/parity are not emulated and must not be consumed on tested paths."
+}

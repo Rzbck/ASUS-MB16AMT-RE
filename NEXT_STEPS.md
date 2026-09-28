@@ -29,6 +29,11 @@ Deliverable: `docs/STATIC_MAP.md` with bank map + candidate functions.
 
 ## P1 — Trace battery percentage from the OSD backward
 
+**8:5FEF contract DONE:** see `SETTING_QUERY.md`; query of stored settings,
+not hardware acquisition. Next analyze the remaining activation-specific
+D82E:D82F producers and DA86's timer/update path; cross-reference settings with
+the confirmed ED command only when the command handler supports the link.
+
 **New starting point:** STRONG EVIDENCE numeric renderer at `1:EAEB`, thunk
 `1670`, with six-digit extraction / formatting / glyph pointer identified.
 Use `docs/maps/numeric-renderer.json` and the final section of `STATIC_MAP.md`.

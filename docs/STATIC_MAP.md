@@ -536,3 +536,26 @@ indirect caller that reaches `4:F058`. All of these are static tasks.
 **HYPOTHESIS:** this renderer could participate in the SOC display. Its identity
 as numeric formatting does not establish that any of these three inputs is SOC.
 Neither the hardware battery source nor the conversion to 0..100 is identified.
+
+## 2026-09-28: complete setting-query contract at 8:5FEF
+
+**CONFIRMED:** `8:5FEF..659F` is fully reconstructed as a selector/mode query,
+with R7 selector, R5 mode, and byte result in R7. It reads cached internal state;
+it does not acquire ADC/I2C/PMIC data. All transitive writes are query/conversion
+scratch at D833..D83D. Selectors 50h..52h read DA21..DA23 and call
+`1B74 -> 6:C2D4`, computing `clamp(byte-28,0,100)` exactly.
+
+The complete branch table, XDATA effects, callers, callees, unreachable branches,
+renderer provenance and limitations are in [SETTING_QUERY.md](SETTING_QUERY.md)
+and `docs/maps/setting-query-*`. 130,824 bounded offline checks pass against an
+independently reconstructed contract; 860/862 main instructions are exercised,
+the remaining two being statically impossible guard fallbacks.
+
+**STRONG EVIDENCE:** modes 0/1/2/3 mean current/max/min/step; the conversion
+matches public `UserCommonAdjustRealValueToPercent`. No source field is called SOC.
+
+One D82E:D82F producer is now confirmed: `10:D5ED` queries the D824 selector in
+mode 0, then D5F3..D5F7 writes the zero-extended result before E816/E9CA renders it.
+The scratch addresses have many other uses; their global writer set is not a
+single battery variable's update function. Continue with activation-specific
+provenance and the DA86 timer path.
