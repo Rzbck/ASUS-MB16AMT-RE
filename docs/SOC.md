@@ -45,19 +45,31 @@ A narrow read-only probe compared `0x0033..0x0036` with `0xD833..0xD836` using t
 int ReadMcuReg(uint address, out byte value)
 ```
 
-Every call returned the same non-zero result `0x00002B08` and left the output byte at zero.
+Every call returned the same non-zero result `0x00002B08` and left the output byte at zero. By itself that result was not enough to establish the ABI or validity of the returned status/value.
 
-This does **not** prove that the high addresses alias their low-byte counterparts. The stronger interpretation is that the current native ABI/signature or required protocol state has not been established, so the returned values are not yet trustworthy.
+Offline PE/x86 inspection of the exported `ReadMcuReg` function at RVA `0x3CB0` then showed that one active communication branch loads the first stack argument and executes:
 
-Do not perform a D8xx runtime sweep with this signature.
+```asm
+MOV EAX,[EBP+08]
+OR  EAX,0000FF00h
+```
+
+before passing the address to the lower transport function. Thus `0x0033` and `0xD833` both become `0xFF33` on that branch. This is direct evidence that `ReadMcuReg` targets the low-byte MCU-register/SFR-style address space on this backend and is **not a valid primitive for reading XDATA `D8xx`**.
+
+Do not perform a D8xx runtime sweep with `ReadMcuReg`/`ReadMcuRegs`.
 
 ## Current direction
 
-Stop broad static searches for arbitrary `100` comparisons or generic numeric renderers. Before any further runtime memory reads:
+Stop broad static searches for arbitrary `100` comparisons or generic numeric renderers. Identify a different exported read primitive that preserves a real 16/32-bit register address.
 
-1. inspect the native `WinComm.dll` export for `ReadMcuReg` offline;
-2. determine export decoration, function RVA, RET convention and stack-argument clues;
-3. only after the native ABI is understood, make a very small read-only validation call;
-4. if a valid XDATA read primitive is established, correlate a narrow RAM region with the OSD battery percentage and then trace the matching variable statically.
+Current candidates for offline ABI inspection are:
+
+- `ReadReg`
+- `ReadRegEx`
+- `ReadRegsEx`
+- `Read32BitRegEx`
+- `Read32BitRegsEx`
+
+Only after a candidate's parameter count, output pointer convention and address width are established should a tiny read-only runtime validation be attempted. If a valid XDATA/register read primitive is established, correlate a narrow RAM region with the OSD battery percentage and then trace the matching variable statically.
 
 No firmware writes, erase operations, ISP programming, or modified-image flashing are part of this step.
