@@ -38,6 +38,7 @@ jobs:
           python tools/trace_bank12_ddc_candidate.py --help >/dev/null
           python tools/trace_ddc_rx_dispatch.py --help >/dev/null
           python tools/trace_set_vcp_handler.py --help >/dev/null
+          python tools/trace_vcp_opcode_switch.py --help >/dev/null
           python tools/trace_vcp_ed_candidate.py --help >/dev/null
           python tools/trace_xdata_fields.py --help >/dev/null
           python tools/run_offline_suite.py --help >/dev/null
