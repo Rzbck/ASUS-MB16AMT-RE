@@ -2,14 +2,25 @@
 
 **Last updated:** 2026-09-28
 
-**Latest continuation:** `8:5FEF` is completely mapped as an internal setting
-query (R7 selector, R5 current/max/min/step mode, result R7), with 130,824 offline
-checks. See `docs/SETTING_QUERY.md` and `docs/maps/setting-query-*`.
-No I2C/ADC/PMIC acquisition occurs in its transitive closure. Selectors 50..52
-convert DA21..DA23 with clamp(byte-28,0,100). D82E:D82F is reused scratch;
-one renderer-producing assignment is now traced from this query at 10:D5ED.
-Do not repeat the 8:5FEF branch audit; continue with other scratch producers,
-DA86 writers, timer dispatch and a justified VCP ED cross-reference.
+**Latest continuation:** `DA86` is now classified as a one-second OSD countdown,
+not battery SOC. User timer event `0x17` dispatches to `4:EFDB`, schedules itself
+again with `0x03E8 = 1000 ms`, decrements `DA86`, renders it through `4:F058 ->
+1670 -> 1:EAEB`, and clears/cancels event `0x17` when the value reaches zero.
+See `docs/DA86_TIMER.md`.
+
+This closes the third known raw caller of numeric renderer `1:EAEB`: all three
+known callers are now explained by generic settings/countdown UI rather than SOC.
+Do **not** continue assuming `1:EAEB` is the battery renderer. The active static
+priority is now an alternate battery digit/rendering path plus the confirmed VCP
+`ED` handler / charging-power call graph.
+
+`8:5FEF` is completely mapped as an internal setting query (R7 selector, R5
+current/max/min/step mode, result R7), with 130,824 offline checks. See
+`docs/SETTING_QUERY.md` and `docs/maps/setting-query-*`. No I2C/ADC/PMIC
+acquisition occurs in its transitive closure. Selectors 50..52 convert
+DA21..DA23 with clamp(byte-28,0,100). D82E:D82F is reused scratch; one
+renderer-producing assignment is traced from this query at 10:D5ED. Do not
+repeat the 8:5FEF branch audit.
 
 This file is the canonical continuation point. Read it before running new probes.
 
@@ -35,17 +46,13 @@ Reproduce with `uv run --no-project tools/analyze_banked_abi.py <firmware> --out
 There are no Python third-party dependencies. The script verifies image size/SHA.
 Do not infer boot recovery or live logical/physical mapping from offline tests.
 
-Next milestone in this same session: **STRONG EVIDENCE numeric renderer at
-bank 1:EAEB, thunk 1670**, matching six-digit extraction and formatting in
-`OsdPropShowNumber`. Verified callers: `10:C41E`, `10:E9F7`; manual candidate
-`4:F058` is outside the present CFG. See `docs/maps/numeric-renderer.json` and
-`tools/analyze_numeric_renderer.py` for reproduction.
+**STRONG EVIDENCE numeric renderer:** bank `1:EAEB`, thunk `1670`, matching
+six-digit extraction and formatting in public `OsdPropShowNumber`. Its three
+known callers are now classified as non-battery UI paths; retain the renderer
+identity but drop the SOC-specific assumption. See `docs/maps/numeric-renderer.json`
+and `docs/DA86_TIMER.md`.
 
-Next targets: `8:5FEF` (thunk 1862, value provider to the first caller), producers
-of XDATA D82E..D82F and DA86 (other displayed values), and the indirect path to
-`4:F058`. Do not label these locations SOC yet. SOC source and battery hardware
-remain unidentified.
-No new runtime probe is justified by the ABI work alone.
+No new runtime probe is justified by the current static work alone.
 
 ## 1. Objective
 
@@ -56,12 +63,12 @@ Primary objective: obtain the **battery percentage / SOC** that the MB16AMT OSD 
 - Product: ASUS ZenScreen Touch **MB16AMT**
 - MCCS / monitor model: `ASUS MB16AMT`
 - monitor short ID: `AUS1661`
-- observed serial: `KALMTF140771`
+- device-unique serial numbers intentionally omitted from the public repository
 - scaler: **Realtek RL6492**
 - DisplayLink composite device:
   - `USB\VID_17E9&PID_437B&MI_01...` display
   - `USB\VID_17E9&PID_437B&MI_02...` USB audio/media
-  - composite parent `USB\VID_17E9&PID_437B\4641684M0178`
+  - composite parent uses `VID_17E9&PID_437B`; device-specific suffix intentionally omitted
   - upstream Realtek hub `VID_0BDA&PID_5412`
 - touch controller: `USB\VID_0EEF&PID_C000...` (EETI-style HID)
 
@@ -354,9 +361,9 @@ Do **not** keep adding random I2C addresses or VCP scans.
 
 Highest-value next work is static firmware RE:
 
-1. use the now-reconstructed ABI and partial 8051 callsite map (`docs/maps/`);
-2. locate ASUS-specific OSD battery code by tracing numeric formatting / percentage drawing and nearby data-flow;
-3. identify I2C/ADC calls used by that path and recover the actual battery controller address/register protocol;
+1. locate the alternate number/digit path actually used by the battery OSD; the three known `1:EAEB` callers are now classified as non-battery UI;
+2. statically identify the handler for confirmed VCP `0xED` and follow it into charging/power-management state;
+3. find cached battery/power fields adjacent to that path and trace their writers back to I2C/ADC/PMIC/gauge acquisition;
 4. cross-reference those calls with RL6492 public reference functions/macros;
 5. only then design one targeted read-only runtime probe.
 
