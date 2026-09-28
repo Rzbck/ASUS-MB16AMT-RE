@@ -5,9 +5,10 @@
 - ASUS ZenScreen Touch MB16AMT
 - Realtek RL6492 scaler
 - monitor ID: `AUS1661`
-- observed serial: `KALMTF140771`
 - panel/firmware marker: `AUO B156HAK02.0`
 - firmware version marker: `V020`
+
+Device-unique serial numbers are intentionally omitted from the public repository.
 
 ## Working user-facing controls
 
@@ -44,6 +45,18 @@ Only ED changed when toggling the OSD option.
 - `ReadMcuReg()` returned zeros across `00..FF` at both 74% and 73%.
 
 Conclusion: the OSD SOC is likely obtained through an internal board path that is not directly exposed by the tested Windows-facing transports.
+
+### Numeric-renderer path status
+
+The strong numeric renderer candidate at `1:EAEB` is still valid as a generic OSD number renderer, but all three known raw callers are now explainable without battery SOC:
+
+- `10:C41E` displays a generic current setting through `8:5FEF`;
+- `10:E9F7` displays generic setting UI scratch from `D82E:D82F`;
+- `4:F058` displays `DA86`, now classified as a one-second countdown value.
+
+`DA86` is decremented once per user timer event `0x17`, rendered numerically, and when it reaches zero the path clears `DA87.bit0` and cancels event `0x17`. See `docs/DA86_TIMER.md`.
+
+Therefore the battery OSD probably uses a different digit/number rendering path. The SOC search should no longer assume `1:EAEB` is involved.
 
 ## DDC/CI observations
 
@@ -93,6 +106,6 @@ Notable runtime behavior:
 
 ## Public-source correlation
 
-`Kingdomwhisky/RTD-Scaler-TEST` provides highly useful RL6492 reference source. It confirms the Realtek concepts around normal DDC/CI (`0x6E`), debug (`0x6A`), signature protocol, debug read/write commands, and PMIC interfaces.
+`Kingdomwhisky/RTD-Scaler-TEST` provides highly useful RL6492 reference source. It confirms the Realtek concepts around normal DDC/CI (`0x6E`), debug (`0x6A`), signature protocol, debug read/write commands, timer-event management, and PMIC interfaces.
 
 Treat that repository as a structural reference, not as proof that ASUS used every reference component or compile-time option unchanged.
