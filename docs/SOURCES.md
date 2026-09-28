@@ -62,3 +62,18 @@ Prefer this evidence order:
 4. generic chipset/fuel-gauge assumptions only as hypotheses.
 
 Never promote a reference-board constant to an MB16AMT fact without testing or finding the same constant/path in the ASUS firmware.
+
+## Banked-call ABI continuation, 2026-09-28
+
+- Public reference pinned at commit `3d38340ec8518a8888fd5d8dbb181c2a7418e11c`:
+  [L51_bank.a51](https://github.com/Kingdomwhisky/RTD-Scaler-TEST/blob/3d38340ec8518a8888fd5d8dbb181c2a7418e11c/Kernel/Common/L51_bank.a51),
+  XDATA-mode SELECT/SWITCH macros. ASUS opcodes independently match the <=16-bank
+  variant without the optional bank-offset call.
+- [Keil: the code banking mechanism](https://www.keil.com/support/docs/1059.htm):
+  corroborates common thunks and a stacked bank-restoration address.
+- [Keil: 8051 instruction reference](https://www.keil.com/support/man/docs/is51/is51_instructions.asp):
+  architecture reference for decoding; the local script is a limited CFG walker,
+  not a full disassembler.
+- All new ASUS addresses/counts derive from the SHA-pinned local image via
+  `tools/analyze_banked_abi.py`. The bounded ABI model executes only the relevant
+  local instructions; no physical device was accessed.

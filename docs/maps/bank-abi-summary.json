@@ -1,0 +1,47 @@
+{
+  "sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "size": 917504,
+  "common_identical_prefix_end_exclusive": "2DC4",
+  "thunks": 741,
+  "thunks_by_logical_bank": {
+    "0": 44,
+    "1": 18,
+    "2": 19,
+    "3": 13,
+    "4": 84,
+    "5": 74,
+    "6": 104,
+    "7": 83,
+    "8": 100,
+    "9": 22,
+    "10": 38,
+    "11": 6,
+    "12": 26,
+    "13": 110
+  },
+  "ffff_raw_hits": 251,
+  "nontable_categories": {
+    "current-bank-read": 25,
+    "generic-pointer-offset-FFFF-not-bank-access": 2
+  },
+  "decoded_instruction_starts": 146439,
+  "resolved_callsite_edges": 2540,
+  "raw_long_transfer_references": 4620,
+  "unresolved_indirect_jumps": 54,
+  "raw_selector_lcalls": [
+    [
+      7,
+      "5CEC",
+      "2620",
+      false
+    ]
+  ],
+  "raw_old_misaddressed_selector_lcalls": [],
+  "reserved_opcode_sites": [],
+  "overlapping_instruction_starts": [],
+  "abi_checks": {
+    "thunk_round_trips": 10374,
+    "nested_bank_triples": 2744
+  },
+  "limits": "Static entry candidates, not runtime reachability. Logical-to-physical identity assumed for target traversal. Only the 210D byte-switch helper and 20D0 inline literal helper are modeled; other indirect jumps remain unresolved. Common source copies remain duplicated. Callsite edges, not recovered function boundaries."
+}

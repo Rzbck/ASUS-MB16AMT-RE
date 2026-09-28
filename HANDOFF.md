@@ -4,6 +4,32 @@
 
 This file is the canonical continuation point. Read it before running new probes.
 
+## Latest milestone — banked-call ABI (2026-09-28)
+
+Read the continuation section of `docs/STATIC_MAP.md` and `docs/maps/` before
+using older bank-address notes. The immediate ABI priority is now substantially
+resolved, entirely offline, against the verified V020 file:
+
+- Correct selector entries: `2600 + 10h*N`, not `2603 + 10h*N`.
+- Gates `09C2 + 12h*N` push old-bank selector and destination onto the stack.
+- 741 common thunks at `0AE8..1C45` map to banked destinations in banks 0..13.
+- Callee RET -> old-bank selector -> caller RET restores the previous bank.
+- 27 non-table FFFF occurrences: 25 MOVX-read forms (24 CFG-reached; one
+  context-supported), two generic-pointer -1 offsets, no direct write forms.
+- Public `Kernel/Common/L51_bank.a51` SELECT/SWITCH macros corroborate the ABI.
+- Offline checks pass 10,374 round trips and 2,744 nested bank triples.
+- A partial, instruction-boundary-aware graph records 2,540 thunk transfer
+  callsites; 54 indirect-jump contexts remain unresolved. This is not a complete
+  function graph or proof that every static entry executes at runtime.
+
+Reproduce with `uv run --no-project tools/analyze_banked_abi.py <firmware> --out work/abi`.
+There are no Python third-party dependencies. The script verifies image size/SHA.
+Do not infer boot recovery or live logical/physical mapping from offline tests.
+
+Next: correlate the numeric OSD renderer with public source, then trace its
+callers using the thunk map. SOC source and battery hardware remain unidentified.
+No new runtime probe is justified by the ABI work alone.
+
 ## 1. Objective
 
 Primary objective: obtain the **battery percentage / SOC** that the MB16AMT OSD displays, programmatically from Windows, then use it for automation (for example charge policy). Secondary objectives: understand ASUS firmware/update transport and preserve a topology-stable black-screen control.
@@ -311,7 +337,7 @@ Do **not** keep adding random I2C addresses or VCP scans.
 
 Highest-value next work is static firmware RE:
 
-1. build a real 8051/banked disassembly map of the 0xE0000 ASUS firmware;
+1. use the now-reconstructed ABI and partial 8051 callsite map (`docs/maps/`);
 2. locate ASUS-specific OSD battery code by tracing numeric formatting / percentage drawing and nearby data-flow;
 3. identify I2C/ADC calls used by that path and recover the actual battery controller address/register protocol;
 4. cross-reference those calls with RL6492 public reference functions/macros;

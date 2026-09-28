@@ -1,7 +1,9 @@
 [CmdletBinding()]
 param(
     [Parameter(Position = 0)]
-    [string]$FirmwarePath
+    [string]$FirmwarePath,
+
+    [string]$OutputDirectory
 )
 
 $ErrorActionPreference = 'Stop'
@@ -142,7 +144,7 @@ foreach ($offset in $ffffHits) {
     $category = 'Other'
     $selector = $null
 
-    # Selector table is local 0x2603 + N*0x10 and has:
+    # Selector ENTRY is 0x2600 + N*0x10; the DPTR instruction is entry+3:
     # F8 74 NN 90 FF FF F5 44 F0 E8 22
     if ($local -ge 0x2603 -and $local -le 0x26F3 -and (($local - 0x2603) % 0x10) -eq 0) {
         $n = [int](($local - 0x2603) / 0x10)
@@ -156,9 +158,12 @@ foreach ($offset in $ffffHits) {
     if ($category -ne 'SelectorStub') {
         $next = if (($offset + 3) -lt $fw.Length) { $fw[$offset + 3] } else { 0 }
         switch ($next) {
-            0xE0 { $category = 'ReadCurrentBank' } # MOVX A,@DPTR
+            0xE0 { $category = 'ReadCurrentBankCandidate' } # Check code boundary separately.
             0xF0 { $category = 'WriteCurrentA' }   # MOVX @DPTR,A
             default { $category = ('Other_next_{0:X2}' -f $next) }
+        }
+        if (Test-BytesAt -Data $fw -Offset ($offset + 3) -Pattern ([byte[]](0x12, 0x1D, 0x55))) {
+            $category = 'GenericPointerOffsetMinus1'
         }
     }
 
@@ -203,7 +208,7 @@ Write-Host ''
 Write-Host '===== DIRECT LCALLS TO SELECTOR STUBS ====='
 $callRows = @()
 for ($n = 0; $n -lt 16; $n++) {
-    $target = 0x2603 + ($n * 0x10)
+    $target = 0x2600 + ($n * 0x10)
     $hi = ($target -shr 8) -band 0xFF
     $lo = $target -band 0xFF
     $callPattern = [byte[]](0x12, $hi, $lo)
@@ -212,12 +217,13 @@ for ($n = 0; $n -lt 16; $n++) {
     $callRows += [PSCustomObject]@{
         Selector = ('0x{0:X2}' -f $n)
         Target   = ('0x{0:X4}' -f $target)
-        LCALLs   = $calls.Count
+        RawLCALLCandidates = $calls.Count
     }
 }
 $callRows | Format-Table -AutoSize
 
-$outDir = Split-Path -Parent $FirmwarePath
+$outDir = if ($OutputDirectory) { [System.IO.Path]::GetFullPath($OutputDirectory) } else { Split-Path -Parent $FirmwarePath }
+New-Item -ItemType Directory -Force -Path $outDir | Out-Null
 $rows | Export-Csv -Path (Join-Path $outDir 'bank-switch-all.csv') -NoTypeInformation -Encoding UTF8
 $otherRows | Export-Csv -Path (Join-Path $outDir 'bank-switch-nontable.csv') -NoTypeInformation -Encoding UTF8
 $callRows | Export-Csv -Path (Join-Path $outDir 'bank-switch-lcalls.csv') -NoTypeInformation -Encoding UTF8
@@ -227,3 +233,4 @@ Write-Host "CSV all      : $(Join-Path $outDir 'bank-switch-all.csv')"
 Write-Host "CSV non-table: $(Join-Path $outDir 'bank-switch-nontable.csv')"
 Write-Host "CSV LCALL    : $(Join-Path $outDir 'bank-switch-lcalls.csv')"
 Write-Host 'READ-ONLY: no device communication and no firmware modification.'
+Write-Host 'Raw opcode matches are NOT decoded calls. Use analyze_banked_abi.py for ABI and CFG analysis.'

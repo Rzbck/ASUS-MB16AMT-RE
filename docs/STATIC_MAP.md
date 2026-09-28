@@ -295,12 +295,178 @@ Do not move to modified-firmware flashing until all of the following are indepen
 
 ## Next static tasks
 
-1. classify the 27 non-table accesses to `0xFFFF` as reads, writes, or banked-call helpers;
-2. map callers/references to the repeated selector table at `0x2603..0x26F3`;
-3. identify the exact far-call ABI and return-to-previous-bank behavior;
-4. identify real code boundaries rather than raw opcode-byte frequencies;
-5. find high-confidence common-library signatures from the public RL6492 source;
-6. search for the compiled numeric OSD renderer and build its caller graph;
-7. trace the first plausible 0..100 battery/SOC path backward to its hardware read primitive.
+The ABI milestone below supersedes tasks 1–3 from the previous session.
+
+1. use the resolved thunk/callsite maps to identify the compiled numeric OSD renderer;
+2. resolve indirect dispatch only where it blocks the chosen OSD caller path;
+3. trace a plausible 0..100 display value backward to its hardware read primitive;
+4. retain the distinction between static reachability, logical banks and physical package offsets.
 
 Update this file incrementally as each claim moves from hypothesis to reproducible evidence.
+
+## 2026-09-28 continuation: banked-call ABI reconstructed
+
+### CONFIRMED — correction to selector entry addresses
+
+The earlier `0x2603 + 0x10*N` addresses identify the **MOV DPTR instruction inside**
+each selector. The callable entry is **`S(N) = 0x2600 + 0x10*N`**.
+The entire eleven-byte stub previously printed begins at S(N), not S(N)+3.
+The older sections above are historical observations; use these corrected entries.
+
+All fourteen banks are identical throughout `[0000,2DC4)` (11,716 bytes);
+the first bank-dependent byte is at `2DC4`. This is an image equality boundary,
+not proof of a hardware mapping boundary. Both ABI tables are within that prefix.
+
+### CONFIRMED — three layers of the ABI
+
+| Layer | Local addresses | Contents / role |
+|---|---|---|
+| Function thunks | `0AE8..1C45`, six-byte entries | 741 entries: load callee address into DPTR, LJMP to G(N) |
+| Bank call gates | `G(N)=09C2+12h*N`, N=0..15 | 18-byte routines that push restoration address and callee address |
+| Bank selectors | `S(N)=2600+10h*N`, N=0..15 | Update RAM 44 and XDATA FFFF, then RET |
+
+Each thunk has the form `MOV DPTR,#callee; LJMP G(N)`. For example:
+`0AE8 -> G(4)=0A0A -> logical bank 4, local FB6A`.
+All 741 destinations use logical banks 0..13. No thunk targets 14 or 15.
+Counts by logical bank 0..13:
+`44,18,19,13,84,74,104,83,100,22,38,6,26,110`.
+
+Decoded G(N), with addresses relative to G(N):
+
+```asm
++00 MOV  A,44h          ; previous logical bank
++02 ANL  A,#0Fh
++04 SWAP A             ; low byte of S(previous)
++05 PUSH ACC
++07 MOV  A,#26h        ; high byte of S(previous)
++09 PUSH ACC
++0B PUSH DPL           ; low byte of callee
++0D PUSH DPH           ; high byte of callee
++0F LJMP S(N)
+```
+
+On an ordinary LCALL to a thunk, stack contents after the gate (bottom to top):
+
+```text
+caller return low, caller return high,
+previous-selector low, previous-selector high,
+callee low, callee high
+```
+
+S(N) switches to N; its RET consumes the callee address. The callee's RET lands
+on S(previous), whose RET resumes the original caller. No POP 44 or separate
+hardware-register read is needed: the restoration address encodes the old bank.
+Same-bank calls use this same path; this gate has no conditional fast path.
+An LJMP to a thunk is a tail transfer using the existing caller return address.
+
+RAM `44h` therefore has a demonstrated **current-bank ABI role**, not just an
+incidental cache. Each selector updates it before writing XDATA FFFF.
+The selector preserves A, but the call gate does not: callee entry A is `26h`.
+R0 and DPTR are scratch; DPTR is FFFF after selection. The return selector
+preserves the callee's A result. No claim about interrupt timing is made.
+Banking adds four transient stack bytes above the caller return, two of which
+remain while the callee executes. Nested calls restore each previous bank.
+
+`0AE2` is a separate dynamic selector: `MOV A,R7; SWAP A; MOV DPTR,#2600; JMP @A+DPTR`.
+For R7 in 0..15 it enters S(R7). It does not itself push a restoration address.
+Do not model a call to this helper as the six-byte thunk ABI.
+
+### STRONG EVIDENCE — public source identity
+
+The ASUS gates and selectors match the `SELECT` and `SWITCH` macros in the
+public reference's `Kernel/Common/L51_bank.a51`, XDATA mode / <=16 banks,
+without the optional bank-offset call. Snapshot:
+`3d38340ec8518a8888fd5d8dbb181c2a7418e11c`.
+This corroborates the Keil-style interpretation; it does not identify ASUS's
+complete build configuration. See [reference assembly](https://github.com/Kingdomwhisky/RTD-Scaler-TEST/blob/3d38340ec8518a8888fd5d8dbb181c2a7418e11c/Kernel/Common/L51_bank.a51)
+and [Keil's mechanism description](https://www.keil.com/support/docs/1059.htm).
+
+### CONFIRMED / STRONG EVIDENCE — all 27 non-table occurrences classified
+
+There are **25 immediate MOVX-read forms and two generic-pointer offsets**.
+There is no non-table direct PBANK write in this specific 251-hit inventory.
+This does not exclude writes through a computed DPTR elsewhere.
+
+The 25 read-form sites (physical bank in decimal, local addresses in hex):
+
+| Bank | Sites |
+|---:|---|
+| 0 | 53A0 |
+| 1 | D015 |
+| 3 | F144 |
+| 4 | F225, FB5B, FEB9 |
+| 6 | C4D5, ED15, EE33, F996 |
+| 7 | 7A36, BEDB, EE54 |
+| 9 | B68E |
+| 10 | EBB2, EE08, F2FA, F321 |
+| 11 | FBEC |
+| 12 | F085, F9E2, FA18 |
+| 13 | 38B3, 522C, 5FA2 |
+
+24 are on instruction boundaries reached by the current static traversal.
+`9:B68E` has the same coherent read/store helper sequence but is not reached;
+its code interpretation remains STRONG EVIDENCE, not a runtime observation.
+Many store the current bank in XDATA parameter slots such as D83D, D893 or D89A;
+these are not the call gate's stack-based restoration mechanism.
+
+At `1:F43D` and `1:F823`, `MOV DPTR,#FFFF` is followed by `LCALL 1D55`.
+Helper 1D55 adds DPTR to the generic pointer R2:R1, selecting memory type by R3.
+FFFF is **-1 modulo 65536**, used to read the preceding byte. It is not a read
+of the bank register. This classification follows the helper's decoded paths,
+including MOVC for code pointers; it is not based on the immediate alone.
+
+### DEAD END / NEGATIVE RESULT — direct selector LCALL search
+
+No raw LCALL targets any old `2603+10h*N` address. Searching corrected selector
+entries finds just one raw `LCALL 2620` byte pattern, at `7:5CEC`, inside a
+data-like region and outside the recovered instruction map. It is not accepted
+as a call. The application uses common thunks and LJMP gates instead.
+
+### Reproducible maps and bounded verification
+
+Run the dependency-free script with uv; the input is size/SHA-checked:
+
+```powershell
+uv run --no-project tools/analyze_banked_abi.py '<path-to-V020.bin>' --out work/abi
+```
+
+Versioned derived results are under `docs/maps/`:
+
+- `bank-thunks.csv`: all 741 thunk -> logical-bank:callee mappings;
+- `bank-call-edges.csv`: 2,540 decoded callsite/tail-transfer edges through thunks;
+- `bank-nontable.csv`: all 27 occurrences and instruction-boundary evidence;
+- `bank-unresolved-indirect.csv`: 54 unresolved indirect-jump contexts;
+- `bank-abi-summary.json`: input fingerprint, counts, checks and limits.
+
+The local output additionally includes `bank-raw-references.csv` (4,620 raw
+long-transfer matches). Those matches are candidates, not proven calls.
+The graph preserves separate physical copies of common callers, includes
+same-bank transfers through thunks, and records callsites rather than inferred
+function starts. It is a usable **partial** graph, not a complete call graph.
+
+Traversal starts from vector candidates and every thunk destination. It knows
+8051 instruction lengths, conditional/direct branches and two decoded helpers:
+`20D0` consumes four inline constant bytes; `210D` consumes byte-switch records
+`target_hi,target_lo,value`, terminated by `00,00,default_hi,default_lo`.
+Treating those payloads as code caused false overlaps; the corrected traversal
+has 146,439 instruction starts, zero overlaps and zero reserved A5 opcodes.
+These checks improve confidence but do not prove runtime reachability.
+
+The script executes the actual gate/selector instructions in a small bounded
+offline model: **10,374 thunk round trips** (741 x 14 starting banks) and
+**2,744 nested bank triples** pass, including same-bank calls, stack balance,
+mirror restoration and accumulator-result preservation. Function bodies are
+stubbed by RET; this is not full hardware emulation or a recovery test.
+
+### HYPOTHESIS / unresolved scope
+
+- Target traversal assumes logical N corresponds to physical package bank N.
+  Consistent destinations support this for analysis; boot/partition relocation
+  and the exact executing image are still unproven.
+- There is no callee-bank offset adjustment in these verified selector stubs.
+  This does not rule out every other form of remapping.
+- Banks 14/15 have selector slots but no image data or thunk destinations.
+- Computed calls, remaining switch forms and dynamic-bank users remain to map.
+- No battery/SOC function has yet been identified by this ABI milestone.
+
+No display command, reset, ISP action or firmware mutation was performed.

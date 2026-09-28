@@ -4,6 +4,12 @@ The project has enough negative runtime evidence that the next session should **
 
 ## P0 — Build a usable static map of the ASUS V020 image
 
+**ABI milestone completed 2026-09-28:** 741 thunks resolved, old-bank return
+mechanism checked, all 27 non-table FFFF occurrences classified. See
+`docs/STATIC_MAP.md` and `docs/maps/`. Do not restart the old selector search.
+The partial graph has 2,540 decoded thunk-transfer sites; it does not yet resolve
+all indirect dispatch or all function boundaries. The next active priority is P1.
+
 Target:
 
 ```text
@@ -13,9 +19,9 @@ SHA256 1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c
 
 Tasks:
 
-1. split/document the `0xE0000` image into 14 x `0x10000` banks;
-2. verify repeated 8051 vectors / bank-switch conventions;
-3. create an address model that distinguishes code-bank offsets from XDATA/SFR addresses;
+1. DONE: document the `0xE0000` image as 14 x `0x10000` banks;
+2. DONE for the common call ABI: verify selectors, gates, thunks and stack return;
+3. use separate physical-bank:local and logical-bank:local identifiers; keep boot/partition identity provisional;
 4. identify common Realtek library functions by matching instruction/constant patterns against public RL6492 source;
 5. produce a symbol notebook/map even if function names are initially inferred.
 
@@ -37,6 +43,11 @@ Look for:
 - ADC/I2C reads near those call sites.
 
 A strong strategy is to identify generic OSD numeric rendering first, then enumerate its callers and locate one whose value domain is 0..100 and which coexists with charge/battery state logic.
+
+Public-source starting point: `User/RTD Series/RTD2014Osd/Code/RTD2014OsdFontProp.c`,
+`OsdPropShowNumber` at line 1728 in reference commit
+`3d38340ec8518a8888fd5d8dbb181c2a7418e11c`. Match numeric formatting and OSD writes
+together; a constant 100 alone is not enough to assign a battery function.
 
 ## P2 — Recover the ASUS board's actual power/battery device
 
