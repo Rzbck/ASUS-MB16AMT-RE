@@ -5,7 +5,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 Write-Host 'ASUS MB16AMT — read-only SOC XDATA capability probe'
-Write-Host 'NO WRITES; tests only whether ReadMcuReg can distinguish 16-bit addresses.'
+Write-Host 'NO WRITES; tests only whether the current ReadMcuReg P/Invoke yields valid/distinct reads.'
 
 $winComm = Get-ChildItem -Path $FirmwareRoot -Filter WinComm.dll -Recurse -File | Select-Object -First 1
 if (-not $winComm) { throw "WinComm.dll not found under $FirmwareRoot" }
@@ -55,7 +55,7 @@ class Native {
     [DllImport("WinComm.dll", CallingConvention=CallingConvention.Cdecl)]
     public static extern byte GetDebugSlave();
 
-    // Signature previously used by the project. Read-only.
+    // Historical project guess; ABI is not yet proven. Read-only call only.
     [DllImport("WinComm.dll", CallingConvention=CallingConvention.Cdecl)]
     public static extern int ReadMcuReg(uint address, out byte value);
 }
@@ -86,6 +86,8 @@ class Program {
         Console.WriteLine();
         Console.WriteLine("===== LOW vs HIGH ADDRESS TEST =====");
         bool allSame = true;
+        bool sawZeroRc = false;
+        bool sawNonZeroRc = false;
         for (int pass=0; pass<3; pass++) {
             Console.WriteLine("-- pass {0} --", pass + 1);
             for (int i=0; i<low.Length; i++) {
@@ -94,6 +96,8 @@ class Program {
                 int rh = Native.ReadMcuReg(high[i], out vh);
                 bool same = (rl == rh && vl == vh);
                 if (!same) allSame = false;
+                if (rl == 0 || rh == 0) sawZeroRc = true;
+                if (rl != 0 || rh != 0) sawNonZeroRc = true;
                 Console.WriteLine("0x{0:X4}: rc=0x{1:X8} val=0x{2:X2}   |   0x{3:X4}: rc=0x{4:X8} val=0x{5:X2}   {6}",
                     low[i], rl, vl, high[i], rh, vh, same ? "SAME" : "DIFF");
             }
@@ -101,12 +105,16 @@ class Program {
 
         Console.WriteLine();
         Console.WriteLine("===== RESULT =====");
-        if (allSame) {
-            Console.WriteLine("All high addresses alias their low-byte counterparts across all passes.");
-            Console.WriteLine("Conclusion: ReadMcuReg is not proving 16-bit XDATA access here; do NOT use it for a D8xx SOC scan.");
+        if (sawNonZeroRc && !sawZeroRc) {
+            Console.WriteLine("Every ReadMcuReg call returned a non-zero result code.");
+            Console.WriteLine("Conclusion: this probe does NOT establish low/high aliasing or valid XDATA reads.");
+            Console.WriteLine("Validate the native ReadMcuReg ABI/signature before any further runtime use.");
+        } else if (allSame) {
+            Console.WriteLine("Reads completed with at least one zero result code, but low/high pairs stayed identical.");
+            Console.WriteLine("Conclusion: aliasing is possible, but the native ABI must still be validated before a D8xx SOC scan.");
         } else {
-            Console.WriteLine("At least one high address differs from its low-byte counterpart.");
-            Console.WriteLine("Conclusion: 16-bit addressing may be available; next step is a narrow runtime monitor, not a broad sweep.");
+            Console.WriteLine("At least one high-address result differs from its low-byte counterpart.");
+            Console.WriteLine("Conclusion: 16-bit addressing may be available; validate the native ABI, then use only a narrow runtime monitor.");
         }
 
         int rcRel = Native.ReleaseDev();
