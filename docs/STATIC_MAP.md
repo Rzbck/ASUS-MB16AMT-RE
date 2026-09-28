@@ -151,6 +151,116 @@ This does **not** prove the ASUS build uses the reference source unchanged, but 
 
 This is now the preferred route for reconstructing cross-bank control flow. Do not assume physical file offset `bank*0x10000 + local_address` is sufficient to resolve every call until the `Pbank_switch` convention in the ASUS build is identified.
 
+## Confirmed ASUS V020 bank-switch implementation
+
+A targeted read-only scan of the ASUS V020 image found `251` raw occurrences of:
+
+```text
+90 FF FF
+```
+
+which is 8051 `MOV DPTR,#0xFFFF` when decoded as code.
+
+### Repeated 16-entry bank selector table
+
+Of those 251 hits, **224 are explained by one repeated structure**:
+
+```text
+16 selector stubs × 14 physical 64 KiB banks = 224 occurrences
+```
+
+Every physical bank contains selector stubs at the same local addresses:
+
+```text
+0x2603
+0x2613
+0x2623
+...
+0x26F3
+```
+
+The immediate bank numbers run from `0x00` through `0x0F`.
+
+Representative stub for bank `N`:
+
+```text
+F8 74 NN 90 FF FF F5 44 F0 E8 22
+```
+
+8051 decoding:
+
+```asm
+MOV  R0,A
+MOV  A,#NN
+MOV  DPTR,#0xFFFF
+MOV  0x44,A
+MOVX @DPTR,A
+MOV  A,R0
+RET
+```
+
+This is high-confidence evidence for a program-bank selection helper:
+
+- it writes the selected bank number to `MCU_FFFF_PBANK_SWITCH` (`XDATA 0xFFFF`);
+- it also mirrors that number into internal direct RAM address `0x44`;
+- it preserves accumulator `A` across the operation;
+- the helpers are laid out at fixed `0x10`-byte spacing;
+- a full generic selector table for banks `0x00..0x0F` is present even though the package image itself contains 14 physical 64 KiB blocks.
+
+Because the exact same selector table exists in all 14 blocks, the earlier hypothesis that each physical bank is mapped into a shared 16-bit code window is now strongly supported.
+
+The remaining `27` occurrences of `90 FF FF` are outside this repeated selector table. They are distributed across multiple banks and include apparent reads of the current bank (`90 FF FF E0`) plus other call/control-flow contexts. They remain to be classified individually before assigning semantics.
+
+### ASUS startup bank/XDATA initialization
+
+A second high-confidence match exists in physical bank 0 at local offset `0x6381`.
+
+Observed bytes:
+
+```text
+90 FF FC E0 44 1F F0 E4 90 FF FD F0 90 FF FE F0
+```
+
+8051 interpretation:
+
+```asm
+MOV  DPTR,#0xFFFC
+MOVX A,@DPTR
+ORL  A,#0x1F
+MOVX @DPTR,A
+CLR  A
+MOV  DPTR,#0xFFFD
+MOVX @DPTR,A
+MOV  DPTR,#0xFFFE
+MOVX @DPTR,A
+```
+
+This closely matches the public Realtek `STARTUP.a51` semantics:
+
+1. enable address remapping / XRAM / XFR and bank-switching through `0xFFFC` with mask `0x1F`;
+2. initialize `XDATA_BANK_START` at `0xFFFD` to zero;
+3. initialize `XDATA_BANK_SEL` at `0xFFFE` to zero.
+
+An earlier exact-byte signature expected the public assembly's `INC DPTR` (`A3`) encoding between these register accesses and therefore returned zero hits. That negative result is **not** evidence against the match: the ASUS binary reloads `DPTR` explicitly with `90 FF FD` and `90 FF FE` while implementing the same register-level operation.
+
+### Current bank-model confidence
+
+The following are now considered **confirmed for the ASUS V020 binary**, not merely inferred from public source:
+
+- code uses XDATA `0xFFFF` as a bank-selection register;
+- bank selector helpers exist for logical bank numbers `0x00..0x0F`;
+- the selector helper writes both `0xFFFF` and direct RAM `0x44`;
+- the same selector table is duplicated in every physical 64 KiB block;
+- startup code in physical bank 0 initializes the RL6492 banking/XDATA control registers `0xFFFC..0xFFFE` with semantics matching the Realtek reference architecture.
+
+What is **not yet proven**:
+
+- which logical bank number maps to each meaningful functional module;
+- whether every package bank `0..13` maps one-to-one to selector values `0..13` under all boot/partition states;
+- the role of selector values `0x0E` and `0x0F` when only 14 physical package banks are present;
+- whether direct RAM `0x44` is only a software mirror/current-bank cache or has additional linker/runtime semantics;
+- the exact far-call ABI used by application code around these selector stubs.
+
 ## Why this matters for the battery/OSD path
 
 The primary RE target remains the battery percentage displayed by the OSD.
@@ -185,11 +295,12 @@ Do not move to modified-firmware flashing until all of the following are indepen
 
 ## Next static tasks
 
-1. re-run vector extraction with integer-safe target decoding and capture raw bytes around all standard/extended vector locations;
-2. locate the ASUS implementation of the RL6492 `Pbank_switch` convention by matching accesses to XDATA `0xFFFC..0xFFFF`;
-3. identify real code boundaries rather than raw opcode-byte frequencies;
-4. find high-confidence common-library signatures from the public RL6492 source;
-5. search for the compiled numeric OSD renderer and build its caller graph;
-6. trace the first plausible 0..100 battery/SOC path backward to its hardware read primitive.
+1. classify the 27 non-table accesses to `0xFFFF` as reads, writes, or banked-call helpers;
+2. map callers/references to the repeated selector table at `0x2603..0x26F3`;
+3. identify the exact far-call ABI and return-to-previous-bank behavior;
+4. identify real code boundaries rather than raw opcode-byte frequencies;
+5. find high-confidence common-library signatures from the public RL6492 source;
+6. search for the compiled numeric OSD renderer and build its caller graph;
+7. trace the first plausible 0..100 battery/SOC path backward to its hardware read primitive.
 
 Update this file incrementally as each claim moves from hypothesis to reproducible evidence.
