@@ -470,3 +470,69 @@ stubbed by RET; this is not full hardware emulation or a recovery test.
 - No battery/SOC function has yet been identified by this ABI milestone.
 
 No display command, reset, ISP action or firmware mutation was performed.
+
+## 2026-09-28 continuation: numeric OSD renderer candidate
+
+### STRONG EVIDENCE — bank 1:EAEB through common thunk 1670
+
+With the ABI known, a focused decimal-formatting search identifies a strong
+`OsdPropShowNumber` analogue at **logical bank 1, EAEB**. This is a derived
+functional name, not a recovered ASUS symbol. Public comparison:
+[RTD2014OsdFontProp.c, OsdPropShowNumber](https://github.com/Kingdomwhisky/RTD-Scaler-TEST/blob/3d38340ec8518a8888fd5d8dbb181c2a7418e11c/User/RTD%20Series/RTD2014Osd/Code/RTD2014OsdFontProp.c#L1728).
+
+Independent points of correspondence:
+
+- A 32-bit unsigned input is loaded from XDATA `D838..D83B` into R4..R7.
+- Helper `1:CF81` loads 100000 into R0..R3; `1:CF89` loads the input and tail
+  jumps to the common division routine `1FB9`.
+- Subsequent quotients/remainders use divisors 10000 (`1:EB51`), 1000
+  (`1:EB69`), 100 (`1:EB81`) and 10 (`1:EB96`). `1:D0D4` moves the remainder
+  R0..R3 to R4..R7 for the next division.
+- The six digits receive glyph bias +1 and occupy `D840..D845`, least
+  significant first. This is glyph encoding, not ASCII.
+- Formatting reads `D83C`: bit 1 and mask 70h participate in leading-digit /
+  width handling; bit 0 selects the final rendering branch.
+- The reordered string starts at `D848`, terminated with FF. `1:D195` and its
+  caller at `1:ECC3` publish generic XDATA pointer `01 D8 48` at `DCC6..DCC8`.
+- The final branches enter `1:D2D8` or call `1:DC4F`, providing concrete
+  downstream rendering candidates. Their full hardware-write chains are not
+  yet reconstructed.
+
+These combined correspondences are much stronger than a lone constant 100.
+ASUS also has additional state-dependent formatting code, so this is not a
+claim of exact source identity or a byte-identical build of the public routine.
+
+### CONFIRMED static transfers / STRONG EVIDENCE manual caller
+
+The thunk map resolves `1670 -> G(1)=09D4 -> bank 1:EAEB`. A raw long-transfer
+search finds exactly three LCALL 1670 sites and no LJMP 1670 sites:
+
+| Physical bank:site | Evidence | Value feeding D838..D83B |
+|---|---|---|
+| `10:C41E` | Reached instruction boundary | `10:C507` calls thunk `1862 -> bank 8:5FEF`, then zero-extends R7 and stores it with common helper 20C4 |
+| `10:E9F7` | Reached instruction boundary | Zero-extended 16-bit value from XDATA D82E..D82F; format 30h |
+| `4:F058` | Coherent manually decoded sequence; not reached by current CFG | Zero-extended byte from XDATA DA86; format 00h |
+
+The first caller supplies the value read at DA6B to `8:5FEF` via R7 and sets
+R5=0; the returned R7 becomes the displayed number. DA6B is a selector/state
+candidate, not yet a battery value. At the third site, a subsequent DA86==0
+test triggers another path: do not rename DA86 to SOC without tracing writers.
+No raw direct LCALL/LJMP to EAEB was found in the image.
+
+### Reproduction and next target
+
+```powershell
+uv run --no-project tools/analyze_numeric_renderer.py '<path-to-V020.bin>' --out work/numeric-renderer.json
+```
+
+`docs/maps/numeric-renderer.json` records the candidate, checked helper sequences,
+data locations and caller evidence. The script rechecks the image fingerprint,
+thunk destination, exact small formatting signatures and CFG membership.
+
+Next concrete work: analyze `8:5FEF` and the producers of D82E..D82F and DA86;
+establish whether any caller is the battery-percentage display. Also find the
+indirect caller that reaches `4:F058`. All of these are static tasks.
+
+**HYPOTHESIS:** this renderer could participate in the SOC display. Its identity
+as numeric formatting does not establish that any of these three inputs is SOC.
+Neither the hardware battery source nor the conversion to 0..100 is identified.

@@ -24,6 +24,8 @@ output/
 *.log
 *.tmp
 *.bak
+__pycache__/
+*.pyc
 
 # IDE / OS
 .vscode/

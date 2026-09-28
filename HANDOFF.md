@@ -26,8 +26,16 @@ Reproduce with `uv run --no-project tools/analyze_banked_abi.py <firmware> --out
 There are no Python third-party dependencies. The script verifies image size/SHA.
 Do not infer boot recovery or live logical/physical mapping from offline tests.
 
-Next: correlate the numeric OSD renderer with public source, then trace its
-callers using the thunk map. SOC source and battery hardware remain unidentified.
+Next milestone in this same session: **STRONG EVIDENCE numeric renderer at
+bank 1:EAEB, thunk 1670**, matching six-digit extraction and formatting in
+`OsdPropShowNumber`. Verified callers: `10:C41E`, `10:E9F7`; manual candidate
+`4:F058` is outside the present CFG. See `docs/maps/numeric-renderer.json` and
+`tools/analyze_numeric_renderer.py` for reproduction.
+
+Next targets: `8:5FEF` (thunk 1862, value provider to the first caller), producers
+of XDATA D82E..D82F and DA86 (other displayed values), and the indirect path to
+`4:F058`. Do not label these locations SOC yet. SOC source and battery hardware
+remain unidentified.
 No new runtime probe is justified by the ABI work alone.
 
 ## 1. Objective

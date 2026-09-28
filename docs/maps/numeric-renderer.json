@@ -1,0 +1,42 @@
+{
+  "sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "status": "STRONG EVIDENCE: numeric OSD renderer, not SOC identification",
+  "candidate": "logical 1:EAEB",
+  "thunk": "1670",
+  "reference": "RTD2014OsdFontProp.c:OsdPropShowNumber, commit 3d38340ec8518a8888fd5d8dbb181c2a7418e11c",
+  "input_unsigned_value_xdata": "D838..D83B (big-endian)",
+  "format_flags_xdata": "D83C",
+  "digit_buffer_xdata": "D840..D845 (least significant first)",
+  "output_string_xdata": "D848 onward",
+  "output_pointer_xdata": "DCC6..DCC8 (01 D8 48)",
+  "divisors": [
+    100000,
+    10000,
+    1000,
+    100,
+    10
+  ],
+  "glyph_digit_bias": 1,
+  "terminator": "FF",
+  "raw_callers": [
+    {
+      "physical_bank": 4,
+      "site": "F058",
+      "kind": "LCALL",
+      "cfg_boundary": false
+    },
+    {
+      "physical_bank": 10,
+      "site": "C41E",
+      "kind": "LCALL",
+      "cfg_boundary": true
+    },
+    {
+      "physical_bank": 10,
+      "site": "E9F7",
+      "kind": "LCALL",
+      "cfg_boundary": true
+    }
+  ],
+  "limits": "Two callers reached from ABI seeds; 4:F058 is a coherent manual candidate not reached by this CFG. No assertion that DA86 or D82E..D82F is battery state."
+}

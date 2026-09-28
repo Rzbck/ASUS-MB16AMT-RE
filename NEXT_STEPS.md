@@ -29,6 +29,15 @@ Deliverable: `docs/STATIC_MAP.md` with bank map + candidate functions.
 
 ## P1 — Trace battery percentage from the OSD backward
 
+**New starting point:** STRONG EVIDENCE numeric renderer at `1:EAEB`, thunk
+`1670`, with six-digit extraction / formatting / glyph pointer identified.
+Use `docs/maps/numeric-renderer.json` and the final section of `STATIC_MAP.md`.
+Trace `8:5FEF` (thunk 1862) feeding caller `10:C41E`, D82E..D82F feeding
+`10:E9F7`, and DA86 feeding manual candidate `4:F058`. None is yet identified
+as SOC. Recover the missing indirect path to `4:F058` before trusting its
+runtime role. The remaining goal is value provenance, not another blind search
+for a numeric renderer.
+
 The OSD is the ground truth: it can display exact values such as 74, 73, 99, 100.
 
 Do not search only for the ASCII word `battery`; there are no useful plain-text battery strings in the image.
