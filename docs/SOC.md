@@ -37,12 +37,27 @@ Therefore `BE4A` always returns `A=0`; `INC A` makes the value `1`; `R7=1` is wh
 
 `D833` is also generic OSD state (many unrelated readers/writers) and must not be labeled SOC.
 
+## Runtime `ReadMcuReg` capability probe
+
+A narrow read-only probe compared `0x0033..0x0036` with `0xD833..0xD836` using the historical project P/Invoke guess:
+
+```text
+int ReadMcuReg(uint address, out byte value)
+```
+
+Every call returned the same non-zero result `0x00002B08` and left the output byte at zero.
+
+This does **not** prove that the high addresses alias their low-byte counterparts. The stronger interpretation is that the current native ABI/signature or required protocol state has not been established, so the returned values are not yet trustworthy.
+
+Do not perform a D8xx runtime sweep with this signature.
+
 ## Current direction
 
-Stop broad static searches for arbitrary `100` comparisons or generic numeric renderers. Use a narrow read-only runtime capability test first:
+Stop broad static searches for arbitrary `100` comparisons or generic numeric renderers. Before any further runtime memory reads:
 
-- compare `ReadMcuReg(0x33..0x36)` with `ReadMcuReg(0xD833..0xD836)`;
-- if high addresses alias the low byte, reject `ReadMcuReg` as a 16-bit XDATA reader;
-- if high addresses are distinct, use a narrow runtime correlation monitor to locate a byte that follows the OSD battery percentage, then trace that variable statically.
+1. inspect the native `WinComm.dll` export for `ReadMcuReg` offline;
+2. determine export decoration, function RVA, RET convention and stack-argument clues;
+3. only after the native ABI is understood, make a very small read-only validation call;
+4. if a valid XDATA read primitive is established, correlate a narrow RAM region with the OSD battery percentage and then trace the matching variable statically.
 
 No firmware writes, erase operations, ISP programming, or modified-image flashing are part of this step.
