@@ -1,6 +1,6 @@
 # VCP `0xED` static candidate audit
 
-Status: **candidate rejected as direct DDC/VCP-handler evidence; internal event/message interpretation is currently stronger.**
+Status: **the `9:F1C0 MOV R7,#ED` site is rejected as direct DDC/VCP-handler evidence. It packages an internal message/event record.**
 
 The runtime experiment remains authoritative that VCP `ED` controls USB charging policy on this MB16AMT:
 
@@ -9,7 +9,7 @@ The runtime experiment remains authoritative that VCP `ED` controls USB charging
 
 This document concerns only the static firmware site `9:F1C0` that happens to load immediate `0xED`.
 
-## Candidate path
+## Reconstructed path
 
 The focused V020 trace confirms:
 
@@ -20,14 +20,13 @@ The focused V020 trace confirms:
 9:F1C8  LCALL thunk 167C -> 8:E7E4
 ```
 
-`9:FD52` stores a two-byte pair:
+`9:FD52` stores a two-byte record:
 
 ```text
 DCC4 = 0x02
 DCC5 = 0xED
+CLR 25h
 ```
-
-and clears internal bit `25h`.
 
 `9:A940` then sets `DA69.bit0 = 1`.
 
@@ -43,28 +42,54 @@ Therefore the exact local chain is:
 internal state change around D9FF.bit4
   -> R7 = ED
   -> DCC4:DCC5 = 02:ED
+  -> clear internal bit 25h
   -> DA69.bit0 = 1
   -> DA6C = 0B
 ```
 
-## Why this is not promoted to the VCP `ED` handler
+## DCC4:DCC5 provenance
 
-The surrounding code is setting/OSD-state logic rather than an obvious DDC RX opcode switch. The value `0xED` is explicitly packaged into `DCC4:DCC5`, followed by generic dirty/update flags. This shape is currently more consistent with an internal event/message identifier than with the receive-side MCCS `SetVCPFeature` dispatcher.
+A dedicated instruction-boundary-aware XDATA audit found only one direct read of each field.
 
-The earlier immediate-constant scan also found six other decoded `0xED` uses as `ADD A,#ED`, which can simply implement index normalization (`A -= 0x13` modulo 256); these are not evidence of VCP semantics by themselves.
+Writers include:
+
+- `9:FD52`: `DCC4=02`, `DCC5=R7`, then `CLR 25h`;
+- `9:9460`: writes a value from `D993` into `DCC5`, then `CLR 25h`;
+- `9:94EC`: writes two adjacent values into `DCC4:DCC5`.
+
+The principal consumer around `9:A5B7` behaves like a pending-record handler:
+
+```text
+JNB 25h,A5C6
+...
+A5C6: read DCC5
+       call processing helpers
+       SETB 25h
+A5D4: DPTR = DCC4
+       jump into the common continuation
+```
+
+There is also a direct `DCC4` read at `9:A462` that jumps into the same larger dispatch region.
+
+This producer/consumer shape is strong evidence that `DCC4:DCC5` is an internal message/event record with `25h` acting as a pending/consumed state bit. Exact field names and enum semantics remain unassigned.
+
+## Consequence
+
+The literal `0xED` at `9:F1C0` is an **internal event/message identifier**, not evidence that this code is the receive-side MCCS VCP `ED` handler.
+
+The earlier immediate-constant scan found six other decoded `0xED` uses as `ADD A,#ED`. Since `ADD A,#ED` is equivalent to subtracting `0x13` modulo 256, these are plausible compiler-generated switch-index normalization sites and are now the better static targets for locating a real `SetVCPFeature`-style dispatcher.
 
 ## Current next step
 
-Trace all readers/writers of:
+Inspect the six `ADD A,#ED` regions as potential switch/table dispatchers, prioritizing regions that:
 
-- `DCC4`
-- `DCC5`
-- `DA69`
-- `DA6C`
+- access a stable DDC RX buffer / source-opcode byte;
+- cluster many known advertised VCP codes;
+- dispatch into setting/power handlers;
+- have paired get/set or reply-building behavior;
+- cross the runtime-proven charging-policy state path.
 
-The first priority is the sole direct reader of each `DCC4` and `DCC5`. If those fields feed an OSD/event queue, the `9:F1C0` false-positive interpretation becomes much stronger. If they feed DDC or power-management code, reassess.
-
-Do not rename any of these fields as charge/SOC state without provenance.
+Do not rename any XDATA field as charge/SOC state without provenance.
 
 ## Safety
 
