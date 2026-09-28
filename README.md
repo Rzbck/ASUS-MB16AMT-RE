@@ -26,6 +26,8 @@ Reverse-engineering notes for the **ASUS ZenScreen Touch MB16AMT** (Realtek **RL
 - VCP `0xE3` is **not battery percentage**; it is a 5-step ASUS control (`0,25,50,75,100`).
 - VCP power `D6=4` removes the monitor logically and makes Windows reconfigure/flicker. It is unsuitable for a topology-stable black screen.
 - A topology-stable black screen is achieved with a borderless topmost black overlay on the MB16AMT plus VCP brightness `0`, restoring brightness afterward.
+- Static mapping confirms 14 distinct 64 KiB banks with a repeated 8051-style vector/trampoline prefix; see `docs/STATIC_MAP.md`.
+- Public RL6492 source confirms a `Pbank_switch` architecture using XDATA registers `0xFFFC..0xFFFF`, now being correlated against the ASUS image.
 
 ## Firmware package fingerprints
 
@@ -53,9 +55,11 @@ The proprietary ASUS package/binaries are **not redistributed in this repository
 - `docs/FINDINGS.md` — consolidated technical findings.
 - `docs/PROTOCOLS.md` — DDC/CI, VCP, WinComm, Realtek/ASUS protocol notes.
 - `docs/FIRMWARE.md` — firmware package, bank layout, updater/plugin details.
+- `docs/STATIC_MAP.md` — incremental 8051/banked firmware map, bank fingerprints, vector evidence, and bank-switch correlation.
 - `docs/DEAD_ENDS.md` — tested paths that should **not** be repeated blindly.
 - `docs/EXPERIMENTS.md` — key controlled experiments and observed outputs.
 - `docs/SOURCES.md` — public source-code references and provenance notes.
+- `tools/Analyze-FirmwareMap.ps1` — read-only local V020 bank/vector mapper with image hash validation.
 - `NEXT_STEPS.md` — prioritized RE plan.
 
 ## Safety status
