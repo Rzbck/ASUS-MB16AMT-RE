@@ -48,19 +48,30 @@ The strongest policy evaluators are now:
 
 Earlier triage also listed bank9 `CFC3`, but the focused helper trace corrects that interpretation: `CFC3` calls helper entry `A994`, which performs `MOVX A,@DPTR` followed by `ANL A,#20`. With `DPTR=D9FF`, this tests **D9FF.bit5**, not bit7. Therefore `CFC3` is no longer considered a direct charge-policy-bit consumer.
 
+## Eliminated downstream sink: bank13:3DE6
+
+`E703` can feed its status directly to bank13 `3DE6`, but the focused sink trace and the public Realtek register map show this branch is a **display/scaler configuration reaction**, not a charger/PMIC bridge.
+
+Evidence includes writes through helpers that reach page-0 scaler registers such as:
+
+- `0x006A`, documented in the public Realtek tree as D-Dither Common Control;
+- `0x006C`, documented as Overlay Control.
+
+Therefore bank13 `3DE6` is retained as a real consumer of the policy-derived status but is **not promoted to power hardware**.
+
 ## Next step
 
 Run:
 
 ```powershell
-python tools/trace_charge_policy_callers.py <verified-v020.bin>
+python tools/trace_charge_bit7_callers.py <verified-v020.bin>
 ```
 
-The tracer prints directly to the terminal and follows:
+This tracer inventories:
 
-1. exact callers of `E703`, `EBE1`, `E759`, and `E7F2`,
-2. the bridge around `E759/E7F2`,
-3. XDATA touched by the caller region,
-4. immediate use of the returned `R5/R7` status.
+1. all direct `D9FF` + `ANL #80` sites,
+2. every decoded caller of `9:AA2A` (the helper that loads `D9FF` and extracts bit7),
+3. every caller of `9:AA2E` (generic bit7 extraction), with local context so D9FF provenance can be checked,
+4. nearby XDATA references for each caller.
 
-Promotion rule: do not call a path "power management" merely because it reads `D9FF.bit7`; require downstream calls/XDATA to reach Type-C, PMIC, charger, or otherwise independently identified power-state logic.
+Promotion rule: do not call a path "power management" merely because it consumes `D9FF.bit7`; require downstream calls/XDATA to reach Type-C, PMIC, charger, or otherwise independently identified power-state logic.
