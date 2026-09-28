@@ -57,6 +57,8 @@ def main() -> int:
          "--out", str(out / "numeric-renderer.json")])
     run([py, str(TOOLS / "analyze_vcp_dispatch.py"), str(firmware),
          "--out", str(out / "vcp-dispatch")])
+    run([py, str(TOOLS / "trace_vcp_ed_candidate.py"), str(firmware),
+         "--out", str(out / "vcp-ed-focused")])
 
     if not args.quick:
         run([py, str(TOOLS / "analyze_value_provenance.py"), str(firmware),
