@@ -79,15 +79,15 @@ The raw bytes for the later vector locations (`0x0023`, `0x002B`, etc.) must be 
 
 ### Interpretation status
 
-The fact that the same vector bytes appear at the start of every physical 64 KiB block is important, but the precise bank-switching model is not yet proven.
+The fact that the same vector bytes appear at the start of every physical 64 KiB block is important, but the precise bank-switching model is not yet proven for the ASUS build.
 
 Working hypotheses to test:
 
 1. each flash bank is independently mapped into the same 16-bit 8051 code window;
 2. some low-address routines are intentionally duplicated in each bank to provide common entry/vector behavior;
-3. far/banked calls likely use a Realtek-specific bank selector/trampoline convention that must be identified before cross-bank call graphs are trusted.
+3. far/banked calls use a Realtek bank-selector/trampoline convention that must be identified before cross-bank call graphs are trusted.
 
-These are hypotheses, not conclusions.
+These are hypotheses about the ASUS image, not conclusions.
 
 ## Parser correction discovered during first run
 
@@ -116,6 +116,40 @@ Therefore:
 ```
 
 Any first-run vector target that was based only on the buggy computed display must be treated as unverified until its raw bytes are re-read.
+
+## RL6492 bank-switch architecture from public reference source
+
+The public RL6492 source gives a concrete hardware model to correlate against the ASUS image.
+
+RL6492 defines four XDATA registers at the top of the 16-bit address space:
+
+```text
+0xFFFC  MCU_FFFC_BANK_SWICH_CONTROL
+0xFFFD  MCU_FFFD_XDATA_BANK_START
+0xFFFE  MCU_FFFE_XDATA_BANK_SEL
+0xFFFF  MCU_FFFF_PBANK_SWITCH
+```
+
+The Realtek startup assembly explicitly enables address remapping / global XRAM / XFR and states that it uses `Pbank_switch` to enable bank switching. It accesses `0xFFFC` and then initializes the following bank-related registers.
+
+Public system code also changes the active program bank by assigning a bank value directly to:
+
+```c
+MCU_FFFF_PBANK_SWITCH = ucBankAddress;
+```
+
+and the public global macro for reading the current bank is based on the same register.
+
+### Consequence for ASUS V020 analysis
+
+This does **not** prove the ASUS build uses the reference source unchanged, but it strongly narrows what to search for in compiled code:
+
+- `MOV DPTR,#0xFFFC` / accesses around XDATA `FFFC..FFFF`;
+- code that writes a bank number to XDATA `0xFFFF` immediately before/after a cross-bank transition;
+- startup sequences matching the public `STARTUP.a51` register initialization;
+- repeated low-address vector code that may be common precisely because multiple physical banks are mapped into a shared 16-bit code address space.
+
+This is now the preferred route for reconstructing cross-bank control flow. Do not assume physical file offset `bank*0x10000 + local_address` is sufficient to resolve every call until the `Pbank_switch` convention in the ASUS build is identified.
 
 ## Why this matters for the battery/OSD path
 
@@ -152,7 +186,7 @@ Do not move to modified-firmware flashing until all of the following are indepen
 ## Next static tasks
 
 1. re-run vector extraction with integer-safe target decoding and capture raw bytes around all standard/extended vector locations;
-2. determine the actual RL6492 bank-switch/far-call convention from public source and compiled patterns;
+2. locate the ASUS implementation of the RL6492 `Pbank_switch` convention by matching accesses to XDATA `0xFFFC..0xFFFF`;
 3. identify real code boundaries rather than raw opcode-byte frequencies;
 4. find high-confidence common-library signatures from the public RL6492 source;
 5. search for the compiled numeric OSD renderer and build its caller graph;
