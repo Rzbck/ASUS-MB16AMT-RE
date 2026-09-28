@@ -29,39 +29,50 @@ Deliverable: `docs/STATIC_MAP.md` with bank map + candidate functions.
 
 ## P1 — Trace battery percentage from the OSD backward
 
-**8:5FEF contract DONE:** see `SETTING_QUERY.md`; query of stored settings,
-not hardware acquisition. Next analyze the remaining activation-specific
-D82E:D82F producers and DA86's timer/update path; cross-reference settings with
-the confirmed ED command only when the command handler supports the link.
+**8:5FEF contract DONE:** see `SETTING_QUERY.md`; it is a query of stored settings,
+not hardware acquisition.
 
-**New starting point:** STRONG EVIDENCE numeric renderer at `1:EAEB`, thunk
-`1670`, with six-digit extraction / formatting / glyph pointer identified.
-Use `docs/maps/numeric-renderer.json` and the final section of `STATIC_MAP.md`.
-Trace `8:5FEF` (thunk 1862) feeding caller `10:C41E`, D82E..D82F feeding
-`10:E9F7`, and DA86 feeding manual candidate `4:F058`. None is yet identified
-as SOC. Recover the missing indirect path to `4:F058` before trusting its
-runtime role. The remaining goal is value provenance, not another blind search
-for a numeric renderer.
+**DA86 path DONE:** see `docs/DA86_TIMER.md`; `DA86` is decremented by user timer
+event `0x17`, displayed once per event through `4:F058 -> 1:EAEB`, and followed
+by zero/completion cleanup. It is a countdown path, not a SOC path.
 
-The OSD is the ground truth: it can display exact values such as 74, 73, 99, 100.
+**Important pivot:** all three known raw callers of numeric renderer `1:EAEB`
+are now explained by non-battery UI:
 
-Do not search only for the ASCII word `battery`; there are no useful plain-text battery strings in the image.
+1. `10:C41E` — generic setting display via `8:5FEF`;
+2. `10:E9F7` — generic setting UI scratch via `D82E:D82F`;
+3. `4:F058` — `DA86` one-second countdown.
+
+Therefore do **not** keep treating `1:EAEB` / public `OsdPropShowNumber` as the
+battery renderer merely because it handles decimal values. The battery OSD is
+likely using another numeric/digit/string path.
+
+The OSD remains the ground truth: it can display exact values such as 74, 73,
+99 and 100.
+
+### Active P1 tasks
+
+1. Identify the compiled DDC/VCP handler for **confirmed VCP `0xED`** and trace
+   its read/set branches into charging and power-management state.
+2. From that power-management graph, identify cached battery/charge fields and
+   trace their writers back toward I2C/ADC/PMIC/gauge acquisition.
+3. Independently enumerate alternate numeric/digit rendering paths used by OSD
+   code (direct digit glyph construction, small fixed-width number renderers,
+   percent-specific helpers, battery-status strings/icons).
+4. Search those alternate renderers for callers whose value is naturally 0..100
+   and whose surrounding logic intersects power/charge state.
+5. Resolve indirect dispatch only where it blocks these concrete paths.
 
 Look for:
 
-- decimal/percentage number rendering functions;
-- calls that feed 0..100 values into OSD formatting;
-- comparison thresholds near 20 (manual/ECO clue) and 100;
-- update timers for battery/charge UI;
-- branches tied to the charge-policy setting represented externally by VCP `ED`;
-- ADC/I2C reads near those call sites.
+- comparison thresholds near 20 and 100;
+- periodic battery/charge refresh events;
+- branches tied to charge policy represented externally by VCP `ED`;
+- cached power fields updated outside generic OSD setting code;
+- I2C/ADC/PMIC primitives reached from those writers.
 
-A strong strategy is to identify generic OSD numeric rendering first, then enumerate its callers and locate one whose value domain is 0..100 and which coexists with charge/battery state logic.
-
-Public-source starting point: `User/RTD Series/RTD2014Osd/Code/RTD2014OsdFontProp.c`,
-`OsdPropShowNumber` at line 1728 in reference commit
-`3d38340ec8518a8888fd5d8dbb181c2a7418e11c`. Match numeric formatting and OSD writes
-together; a constant 100 alone is not enough to assign a battery function.
+Do not search only for the ASCII word `battery`; there are no useful plain-text
+battery strings in the image.
 
 ## P2 — Recover the ASUS board's actual power/battery device
 
