@@ -41,27 +41,26 @@ Direct reads of `D9FF.bit7` include several paths that appear to normalize the b
 - bank9 around `A802`
 - bank10 around `BEC8`
 
-More promising policy/state-machine regions combine the charge-policy bit with other runtime state before branching:
+The strongest policy evaluators are now:
 
-- bank9 around `E70D`
-- bank9 around `EBE1` / `EC06`
-- bank9 around `CFC3`
+- bank9 `E703` / `E70D`, which loads the full `D9FF` byte and extracts bit7 through helper entry `AA2E`, then returns a small status via `R5`;
+- bank9 `EBE1` / `EC06`, which likewise evaluates `D9FF.bit7` together with `DA50` and other `D9FF` bits, returning status `0` or `6` via `R5`/`R7`.
 
-These are the next static-analysis targets.
+Earlier triage also listed bank9 `CFC3`, but the focused helper trace corrects that interpretation: `CFC3` calls helper entry `A994`, which performs `MOVX A,@DPTR` followed by `ANL A,#20`. With `DPTR=D9FF`, this tests **D9FF.bit5**, not bit7. Therefore `CFC3` is no longer considered a direct charge-policy-bit consumer.
 
 ## Next step
 
 Run:
 
 ```powershell
-python tools/trace_charge_policy_consumers.py <verified-v020.bin>
+python tools/trace_charge_policy_callers.py <verified-v020.bin>
 ```
 
-The tracer prints directly to the terminal and inventories:
+The tracer prints directly to the terminal and follows:
 
-1. direct `D9FF.bit7` consumers,
-2. helper semantics around the bit extractors,
-3. incoming control-flow into the promising regions,
-4. XDATA references and outgoing calls from those regions.
+1. exact callers of `E703`, `EBE1`, `E759`, and `E7F2`,
+2. the bridge around `E759/E7F2`,
+3. XDATA touched by the caller region,
+4. immediate use of the returned `R5/R7` status.
 
 Promotion rule: do not call a path "power management" merely because it reads `D9FF.bit7`; require downstream calls/XDATA to reach Type-C, PMIC, charger, or otherwise independently identified power-state logic.
