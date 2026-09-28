@@ -40,6 +40,7 @@ jobs:
           python tools/inspect_readregex_vendor_callers.py --help >/dev/null
           python tools/inspect_readregex_dynamic_resolution.py --help >/dev/null
           python tools/soc_recon_campaign.py --help >/dev/null
+          python tools/soc_recon_deep.py --help >/dev/null
           python tools/trace_bank12_ddc_candidate.py --help >/dev/null
           python tools/trace_ddc_rx_dispatch.py --help >/dev/null
           python tools/trace_set_vcp_handler.py --help >/dev/null
