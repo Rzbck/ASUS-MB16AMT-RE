@@ -34,6 +34,7 @@ jobs:
           python tools/analyze_numeric_renderer.py --help >/dev/null
           python tools/analyze_value_provenance.py --help >/dev/null
           python tools/analyze_vcp_dispatch.py --help >/dev/null
+          python tools/analyze_ddc_switch_candidates.py --help >/dev/null
           python tools/trace_vcp_ed_candidate.py --help >/dev/null
           python tools/trace_xdata_fields.py --help >/dev/null
           python tools/run_offline_suite.py --help >/dev/null
