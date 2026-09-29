@@ -1,6 +1,18 @@
 # Handoff — ASUS MB16AMT / RL6492 RE
 
-**Last updated:** 2026-09-28
+**Last updated:** 2026-09-29
+
+**Live continuation:** administrator access now works. Backend 6 initializes.
+Moving `GetDeviceCount` BEFORE `InitialDev` restores USB DDC GET reads; the
+enumerator invalidates the lower open handle. Both raw I2CReadEx and DDCCIRead
+returned three checksum-valid brightness samples matching Windows DDC. The
+first response following EDID failure can lose its initial byte; it is rejected.
+SOC and XDATA access remain unresolved. See `docs/LIVE_READ_BENCH.md` and
+`tools/Run-SocReadBench.ps1`. The old ReadRegEx D8xx probe is retired because
+its internal selector writes and address-space meaning were not validated.
+
+Historical `2B08` failures are transport setup failures, not evidence that the
+monitor lacks a register. Do not repeat independently closed VCP/gauge sweeps.
 
 **Latest continuation:** `DA86` is now classified as a one-second OSD countdown,
 not battery SOC. User timer event `0x17` dispatches to `4:EFDB`, schedules itself

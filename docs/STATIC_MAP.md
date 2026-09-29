@@ -559,3 +559,11 @@ mode 0, then D5F3..D5F7 writes the zero-extended result before E816/E9CA renders
 The scratch addresses have many other uses; their global writer set is not a
 single battery variable's update function. Continue with activation-specific
 provenance and the DA86 timer path.
+# 2026-09-29 live transport / host ABI continuation
+
+See [LIVE_READ_BENCH.md](LIVE_READ_BENCH.md) for verified host addresses,
+image fingerprints and live tests. Backend-6 enumeration invalidates its open
+bridge handle; enumerate before InitialDev. Raw I2CReadEx and DDCCIRead now
+return validated DDC GET responses. This establishes transport, not SOC/XDATA.
+NativeRead is a stub. ReadRegEx uses selectors; Read32BitRegEx modifies
+FDE5 and writes FDD0..FDD3. Neither is an established passive XDATA dump.

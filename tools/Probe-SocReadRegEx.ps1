@@ -4,6 +4,8 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+throw 'Retired: ReadRegEx can write register/page selectors and D8xx is not proven XDATA. Use Run-SocReadBench.ps1 for validated transport reads. See docs/LIVE_READ_BENCH.md.'
+
 Write-Host 'ASUS MB16AMT — narrow ReadRegEx XDATA probe'
 Write-Host 'READ-ONLY: no register writes, no firmware writes, no ISP programming.'
 

@@ -1,6 +1,13 @@
 # Next steps — prioritized
 
-The project has enough negative runtime evidence that the next session should **not** begin with another blind probe. Start from static analysis.
+**2026-09-29 priority override:** live read-only hardware work is now available
+in an elevated host. DDC GET works through backend 6 after moving device
+enumeration before `InitialDev`; see `docs/LIVE_READ_BENCH.md`.
+Do not classify historical `2B08` as a register/ABI failure or repeat closed
+VCP/gauge sweeps. Next: isolate the first-response byte shift using fixed GET
+requests, then derive a specific read-only SOC request/address from the ASUS
+firmware. `NativeRead` is a backend stub; `Read32BitRegEx` writes control
+registers and must not be used as a passive snapshot primitive.
 
 ## P0 — Build a usable static map of the ASUS V020 image
 
