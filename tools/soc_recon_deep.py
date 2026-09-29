@@ -341,13 +341,13 @@ def analyze_pe(pe: PE, root: Path):
         for xr in r["xrefs"]:
             for ce in xr["calls"]:
                 if ce["direct_gpa"]:
-                    status="CONFIRMED_DIRECT_RESOLVER"; score=max(score,90); evidence.append((xr["xref_off"],ce["call_off"],"direct GetProcAddress"))
+                    status="CANDIDATE_DIRECT_RESOLVER"; score=max(score,90); evidence.append((xr["xref_off"],ce["call_off"],"direct GetProcAddress"))
                 if ce["helper_gpa_hits"]:
-                    status="CONFIRMED_HELPER_RESOLVER"; score=max(score,95); evidence.append((xr["xref_off"],ce["call_off"],"helper calls GetProcAddress")); helpers.append(ce["target_off"])
+                    status="CANDIDATE_HELPER_RESOLVER"; score=max(score,95); evidence.append((xr["xref_off"],ce["call_off"],"helper calls GetProcAddress")); helpers.append(ce["target_off"])
                 slots.extend(ce["stores"])
                 uses.extend(ce["uses"])
-        if uses and status.startswith("CONFIRMED"):
-            status="CONFIRMED_RESOLVER_USED"; score=110
+        if uses and status.startswith("CANDIDATE"):
+            status="CANDIDATE_RESOLVER_USED"; score=110
         if r["name"] == "ReadRegEx": score += 20
         elif r["name"] == "ReadRegsEx": score += 18
         elif r["name"] == "NativeRead": score += 15
@@ -362,6 +362,7 @@ def main():
     ap.add_argument("root",type=Path)
     ap.add_argument("--json",type=Path)
     ap.add_argument("--all-context",action="store_true",help="Print xref/helper/use byte windows for the top candidates")
+    ap.add_argument("--objects",action="store_true",help="Verify the pinned WinIsp object resolver with CFG dataflow (uv project dependencies)")
     args=ap.parse_args()
     root=args.root.resolve()
     pes=[]
@@ -375,6 +376,12 @@ def main():
     print()
     reports=[]
     for pe in pes:
+        if args.objects:
+            from soc_recon_objects import analyze_objects, print_objects
+            object_report = analyze_objects(pe)
+            if object_report:
+                print_objects(object_report, full=args.all_context)
+                reports.append({"file":str(pe.path.relative_to(root)), "apis":[], "object_proof":object_report})
         if not iat_va(pe,"GetProcAddress"):
             continue
         if not any(list(ascii_strings(pe,n)) for n in TARGETS):
@@ -427,16 +434,22 @@ def main():
         for score,file,a in flat[:10]:
             print(f"{score:>3}  {file} :: {a['name']} :: {a['status']}")
         score,file,a=flat[0]
-        print(f"DEEP_NEXT_TARGET={file}::{a['name']}::{a['status']}")
-        if a["status"] == "CONFIRMED_RESOLVER_USED":
-            print("VERDICT: resolver + function-pointer slot + later use are all recovered.")
-            print("Runtime can now mirror the observed vendor call path instead of guessing a P/Invoke ABI.")
-        elif a["status"] in {"CONFIRMED_HELPER_RESOLVER","CONFIRMED_DIRECT_RESOLVER"}:
-            print("VERDICT: API-name -> GetProcAddress resolution is proven. Slot/use recovery is the remaining host-side step.")
+        print(f"HEURISTIC_TOP_CANDIDATE={file}::{a['name']}::{a['status']}")
+        if a["status"] == "CANDIDATE_RESOLVER_USED":
+            print("VERDICT: nearby resolver, slot and use byte patterns need dataflow verification.")
+            print("Byte-window candidates still require instruction-boundary, object provenance and ABI verification before runtime use.")
+        elif a["status"] in {"CANDIDATE_HELPER_RESOLVER","CANDIDATE_DIRECT_RESOLVER"}:
+            print("VERDICT: API-name and GetProcAddress proximity is a candidate, not an ABI proof.")
         elif a["status"] == "STRONG_CODE_XREF":
             print("VERDICT: code xref proven, but resolver linkage still not proven by current patterns.")
     else:
         print("No deep candidates found.")
+
+    if any('object_proof' in report for report in reports):
+        print('DEEP_NEXT_TARGET=ASUS_FIRMWARE_SOC_SOURCE_AND_READ_ONLY_ACCESS')
+        print('Object resolver and read ABI verified; register address-space and SOC access remain unproven.')
+    elif flat:
+        print(f"DEEP_NEXT_TARGET={flat[0][1]}::{flat[0][2]['name']}::{flat[0][2]['status']}")
 
     if args.json:
         args.json.parent.mkdir(parents=True,exist_ok=True)

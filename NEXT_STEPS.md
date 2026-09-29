@@ -4,8 +4,9 @@
 in an elevated host. DDC GET works through backend 6 after moving device
 enumeration before `InitialDev`; see `docs/LIVE_READ_BENCH.md`.
 Do not classify historical `2B08` as a register/ABI failure or repeat closed
-VCP/gauge sweeps. Next: isolate the first-response byte shift using fixed GET
-requests, then derive a specific read-only SOC request/address from the ASUS
+VCP/gauge sweeps. A DDC-only control now returns six valid replies from the first
+request; keep failed EDID reads out of the default path. Next: derive a specific
+read-only SOC request/address from the ASUS
 firmware. `NativeRead` is a backend stub; `Read32BitRegEx` writes control
 registers and must not be used as a passive snapshot primitive.
 

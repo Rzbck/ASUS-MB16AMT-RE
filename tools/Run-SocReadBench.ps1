@@ -1,7 +1,8 @@
 param(
     [string]$FirmwareRoot = "$env:TEMP\MB16AMT_RE\fw",
     [string]$OutputRoot = "$env:TEMP\MB16AMT_RE\read-bench",
-    [switch]$Run
+    [switch]$Run,
+    [switch]$IncludeEdid
 )
 $ErrorActionPreference = 'Stop'
 if (-not $Run) {
@@ -28,7 +29,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Read bench compilation failed.' }
 if ($LASTEXITCODE -ne 0) { throw 'Read bench self-test failed.' }
 $stdout = Join-Path $hostDir 'stdout.txt'
 $stderr = Join-Path $hostDir 'stderr.txt'
-$process = Start-Process -FilePath $exe -ArgumentList '--run' -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
+$mode = if ($IncludeEdid) { '--run' } else { '--ddc-only' }
+$process = Start-Process -FilePath $exe -ArgumentList $mode -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
 if (-not $process.WaitForExit(60000)) {
     $process.Kill()
     throw "Read bench exceeded 60 seconds; host stopped. Local log: $stdout"

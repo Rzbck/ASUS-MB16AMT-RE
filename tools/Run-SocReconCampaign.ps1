@@ -32,13 +32,13 @@ Write-Host "Firmware root: $FirmwareRoot"
 Write-Host
 
 Write-Host '#################### PASS A - GLOBAL CAMPAIGN ####################'
-& python $Campaign $FirmwareRoot '--details' '--json' $json 2>&1 | Tee-Object -FilePath $txt
+& uv run --project $RepoRoot --locked python $Campaign $FirmwareRoot '--details' '--json' $json 2>&1 | Tee-Object -FilePath $txt
 $rc1 = $LASTEXITCODE
 if ($rc1 -ne 0) { throw "soc_recon_campaign.py exited with code $rc1" }
 
 Write-Host
 Write-Host '#################### PASS B - DEEP RESOLVER #####################'
-& python $Deep $FirmwareRoot '--all-context' '--json' $deepJson 2>&1 | Tee-Object -FilePath $txt -Append
+& uv run --project $RepoRoot --locked python $Deep $FirmwareRoot '--objects' '--all-context' '--json' $deepJson 2>&1 | Tee-Object -FilePath $txt -Append
 $rc2 = $LASTEXITCODE
 if ($rc2 -ne 0) { throw "soc_recon_deep.py exited with code $rc2" }
 

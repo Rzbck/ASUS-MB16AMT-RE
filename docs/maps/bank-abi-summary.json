@@ -24,10 +24,10 @@
     "current-bank-read": 25,
     "generic-pointer-offset-FFFF-not-bank-access": 2
   },
-  "decoded_instruction_starts": 146439,
-  "resolved_callsite_edges": 2540,
+  "decoded_instruction_starts": 147130,
+  "resolved_callsite_edges": 2595,
   "raw_long_transfer_references": 4620,
-  "unresolved_indirect_jumps": 54,
+  "unresolved_indirect_jumps": 53,
   "raw_selector_lcalls": [
     [
       7,
@@ -43,5 +43,5 @@
     "thunk_round_trips": 10374,
     "nested_bank_triples": 2744
   },
-  "limits": "Static entry candidates, not runtime reachability. Logical-to-physical identity assumed for target traversal. Only the 210D byte-switch helper and 20D0 inline literal helper are modeled; other indirect jumps remain unresolved. Common source copies remain duplicated. Callsite edges, not recovered function boundaries."
+  "limits": "Static entry candidates, not runtime reachability. Logical-to-physical identity assumed for target traversal. The 210D byte-switch helper, 20D0 inline literal helper and verified physical 4:EC36 table are modeled; other indirect jumps remain unresolved. Common source copies remain duplicated. Callsite edges, not recovered function boundaries."
 }

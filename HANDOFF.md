@@ -14,6 +14,12 @@ its internal selector writes and address-space meaning were not validated.
 Historical `2B08` failures are transport setup failures, not evidence that the
 monitor lacks a register. Do not repeat independently closed VCP/gauge sweeps.
 
+DDC-only control: six valid replies, including the first; the wrapper defaults
+to this sequence. EDID tests are optional. The pinned WinIsp object resolver
+and ReadRegEx/ReadRegsEx ABI are now verified by CFG dataflow; see
+`docs/WINISP_OBJECT_ABI.md`. Run the existing campaign with uv; its deep pass
+includes this proof. Physical bank 4's EC36 jump table is now modeled.
+
 **Latest continuation:** `DA86` is now classified as a one-second OSD countdown,
 not battery SOC. User timer event `0x17` dispatches to `4:EFDB`, schedules itself
 again with `0x03E8 = 1000 ms`, decrements `DA86`, renders it through `4:F058 ->

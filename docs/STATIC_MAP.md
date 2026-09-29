@@ -567,3 +567,15 @@ bridge handle; enumerate before InitialDev. Raw I2CReadEx and DDCCIRead now
 return validated DDC GET responses. This establishes transport, not SOC/XDATA.
 NativeRead is a stub. ReadRegEx uses selectors; Read32BitRegEx modifies
 FDE5 and writes FDD0..FDD3. Neither is an established passive XDATA dump.
+
+The WinIsp singleton `[1020BCFC]` resolver at `10003DE0` now has 119 verified
+resolution/store pairs for 118 API slots. Vtable+0C -> `10003530` -> object+BC
+proves the cdecl ReadRegEx wrapper; command 15h proves the four-argument
+ReadRegsEx call at `1001F75A`, shared with ReadMcuRegs on command 19h.
+See [WINISP_OBJECT_ABI.md](WINISP_OBJECT_ABI.md) and its derived slot map.
+
+The 8051 CFG now follows the explicitly checked 36-entry jump table at
+physical `4:EC36` (entries EC37 onward, R7 values 1..36). This extends the
+partial graph to 2,595 resolved thunk-transfer sites and 147,130 instruction
+starts, with no overlaps or reserved opcodes. It does not prove global
+logical-to-physical bank identity. The DA86/countdown classification stands.

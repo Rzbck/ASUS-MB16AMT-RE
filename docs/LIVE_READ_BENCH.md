@@ -34,6 +34,12 @@ The vendor parser returned `0E` and left the caller's sentinel unchanged.
 Do not silently prepend a byte or accept this as a valid response. Exact cause
 of the first-frame alignment failure remains unproven.
 
+Controlled follow-up at 06:07 UTC omitted EDID entirely: both readers returned
+three valid replies, including the very first reply after opening. The default
+wrapper therefore runs DDC-only. `-IncludeEdid` explicitly reproduces the earlier
+sequence. EDID failure/slave switching is associated with the shift; this does
+not yet identify its exact low-level cause.
+
 Both EDID reads (`I2CRead` and `I2CReadEx`, slave A0, subaddress 0, 128 bytes)
 returned `2B0A` with unchanged buffers. No EDID snapshot was recovered.
 

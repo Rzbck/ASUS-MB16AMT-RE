@@ -65,11 +65,26 @@ def inventory(data):
     return thunks
 
 
+def verified_jump_tables(data):
+    """Explicitly decoded bounded tables; not speculative code-pattern scans."""
+    # 4:EC1F uses (R7-1) modulo 256 and checks <36 before multiplying by 3.
+    p = 4 * BANK_SIZE + 0xEC1F
+    expected = bytes.fromhex('ef 14 b4 24 00 40 03 02 f1 29 90 ec 37 75 f0 03 a4 c5 83 25 f0 c5 83 73')
+    assert data[p:p+len(expected)] == expected
+    entries = []
+    for n in range(36):
+        local = 0xEC37 + n*3
+        assert data[4*BANK_SIZE+local] == 2
+        entries.append((n+1, local, word(data,4*BANK_SIZE+local+1)))
+    return {(4,0xEC36):entries}
+
+
 def traverse(data, thunks):
     # These are static entry candidates: vectors and linker thunk destinations.
     # The latter need not all be reachable in the running configuration.
     seeds = {(bank, p) for bank in range(14) for p in (0, 3, 0xB, 0x13, 0x1B, 0x23, 0x2B, 0x33, 0x3B, 0x43)}
     seeds.update(thunks.values())
+    jump_tables = verified_jump_tables(data)
     pending = deque(sorted(seeds))
     decoded, edges, indirect, reserved = {}, set(), set(), set()
     while pending:
@@ -94,7 +109,10 @@ def traverse(data, thunks):
         if op in (0x22, 0x32):
             continue
         if op == 0x73:
-            indirect.add((bank, pc))
+            if (bank,pc) in jump_tables:
+                pending.extend((bank,entry) for _,entry,_ in jump_tables[bank,pc])
+            else:
+                indirect.add((bank, pc))
             continue
         target, kind = None, None
         if op in (0x02, 0x12):
@@ -294,6 +312,9 @@ def main():
                 raw_refs.append((b, f'{a:04X}', 'LCALL' if chunk[a] == 0x12 else 'LJMP', f'{t:04X}', (b, a) in decoded))
     write_csv(args.out / 'bank-raw-references.csv', ['physical_bank', 'site', 'kind', 'thunk', 'cfg_boundary'], raw_refs)
     write_csv(args.out / 'bank-unresolved-indirect.csv', ['physical_bank', 'site'], [(b, f'{a:04X}') for b, a in indirect])
+    write_csv(args.out / 'bank-verified-jump-tables.csv', ['physical_bank','jump_site','input_R7','entry','target'],
+              [(b,f'{p:04X}',f'{value:02X}',f'{entry:04X}',f'{target:04X}')
+               for (b,p),rows in verified_jump_tables(data).items() for value,entry,target in rows])
     summary = {
         'sha256': SHA, 'size': len(data), 'common_identical_prefix_end_exclusive': '2DC4',
         'thunks': len(thunks), 'thunks_by_logical_bank': dict(sorted(Counter(n for n, a in thunks.values()).items())),
@@ -304,7 +325,7 @@ def main():
         'reserved_opcode_sites': [(b, f'{p:04X}') for b, p in reserved],
         'overlapping_instruction_starts': [(b, f'{a:04X}', f'{c:04X}') for b, a, c in overlaps],
         'abi_checks': tests,
-        'limits': 'Static entry candidates, not runtime reachability. Logical-to-physical identity assumed for target traversal. Only the 210D byte-switch helper and 20D0 inline literal helper are modeled; other indirect jumps remain unresolved. Common source copies remain duplicated. Callsite edges, not recovered function boundaries.',
+        'limits': 'Static entry candidates, not runtime reachability. Logical-to-physical identity assumed for target traversal. The 210D byte-switch helper, 20D0 inline literal helper and verified physical 4:EC36 table are modeled; other indirect jumps remain unresolved. Common source copies remain duplicated. Callsite edges, not recovered function boundaries.',
     }
     (args.out / 'bank-abi-summary.json').write_text(json.dumps(summary, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(summary, indent=2))

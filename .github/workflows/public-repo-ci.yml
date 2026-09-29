@@ -36,6 +36,10 @@ jobs:
         with:
           python-version: '3.12'
 
+      - uses: astral-sh/setup-uv@v6
+      - name: Test bounded object provenance engine
+        run: uv run --locked python tools/test_x86_object_flow.py
+
       - name: Public repository privacy/binary guard
         run: python tools/check_public_repo.py
 

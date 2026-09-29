@@ -196,9 +196,9 @@ static class SocReadBench {
         try {
             if(args.Length==1 && args[0]=="--self-test") {SelfTest();return 0;}
             if(args.Length==0 || args[0]=="--help") {
-                Console.WriteLine("SocReadBench --run | --self-test. Fixed EDID/GET VCP transport validation; no memory sweep."); return 0;
+                Console.WriteLine("SocReadBench --run | --ddc-only | --self-test. Fixed EDID/GET VCP transport validation; no memory sweep."); return 0;
             }
-            if(args.Length!=1||args[0]!="--run") throw new ArgumentException("Use --run or --self-test.");
+            if(args.Length!=1||(args[0]!="--run" && args[0]!="--ddc-only")) throw new ArgumentException("Use --run, --ddc-only or --self-test.");
             if(IntPtr.Size!=4) throw new Exception("x86 host required");
             if(!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator)) throw new Exception("Run elevated: the vendor bridge loader requires administrator rights.");
             string root=AppDomain.CurrentDomain.BaseDirectory;
@@ -220,8 +220,10 @@ static class SocReadBench {
                 // Do not enumerate after opening the bridge.
                 Console.WriteLine("DebugMode={0}; debug=0x{1:X2}; isp=0x{2:X2}; continuous=0x{3:X2}",GetDebugMode(),GetDebugSlave(),GetIspSlave(),GetIspContinuousSlave());
                 PointerMap();
-                EdidTest("I2CRead/EDID",delegate(IntPtr p){return I2CRead(0xA0,0,128,p);});
-                EdidTest("I2CReadEx/EDID",delegate(IntPtr p){return I2CReadEx(0xA0,0,128,p,1);});
+                if(args[0]!="--ddc-only") {
+                    EdidTest("I2CRead/EDID",delegate(IntPtr p){return I2CRead(0xA0,0,128,p);});
+                    EdidTest("I2CReadEx/EDID",delegate(IntPtr p){return I2CReadEx(0xA0,0,128,p,1);});
+                }
 
                 DdcTest("I2CReadEx/VCP10",delegate(IntPtr p){return I2CReadEx(0x6E,0,11,p,0);});
                 DdcTest("DDCCIRead/VCP10",delegate(IntPtr p){return DDCCIRead(0x6E,0,11,p);});
@@ -231,5 +233,3 @@ static class SocReadBench {
         } catch(Exception e) {Console.Error.WriteLine(e.GetType().Name+": "+e.Message);return 1;}
     }
 }
-
-

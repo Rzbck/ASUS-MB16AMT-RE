@@ -1,0 +1,8 @@
+[project]
+name = "mb16amt-static-analysis"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = ["capstone==5.0.6"]
+
+[tool.uv]
+package = false
