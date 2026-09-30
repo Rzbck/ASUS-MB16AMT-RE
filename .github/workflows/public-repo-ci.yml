@@ -80,6 +80,8 @@ jobs:
           python tools/trace_battery_proxy.py --help >/dev/null
           python tools/trace_pmic_i2c_candidates.py --help >/dev/null
           python tools/trace_pmic_helper_candidates.py --help >/dev/null
+          python tools/trace_pmic_fbfa.py --help >/dev/null
+          python tools/trace_typec_hwiic_registers.py --help >/dev/null
           python tools/trace_xdata_fields.py --help >/dev/null
           python tools/run_offline_suite.py --help >/dev/null
 
