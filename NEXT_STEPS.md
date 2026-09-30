@@ -223,3 +223,5 @@ Every new experiment should state before execution:
 6. why the same question was not already answered by a previous test.
 
 This should prevent another loop of generic scans and repeated handshakes.
+
+Manufacturer evidence: official MB16AMT manual documents QC3.0 and 5–9 V/2 A. Do not equate charging capability with USB-PD or repeat failed PD reads. Identify source/charger detection, preserving current wiring and no negotiation writes. See docs/POWER_INPUT_LIVE.md.

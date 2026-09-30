@@ -133,3 +133,14 @@ non-display consumers of 9:EBE1/EC06 through to an actual power output or source
 classification; 13:3DE6 is already eliminated as a display/scaler sink. A usable
 input-power conclusion still requires a proven controller read or an independent
 VBUS/current measurement, not a subtraction of battery measurements.
+
+## Manufacturer evidence: avoid assuming USB-PD is the charging protocol
+
+The [official ASUS English manual](https://dlcdnets.asus.com/pub/ASUS/LCD%20Monitors/MB16AMT/ASUS_MB16AMT_English.pdf), printed pages 3-7 and 3-10 (PDF pages 25 and 28), explicitly documents QC3.0, a 5–9 V / 2 A rating, and adapter modes of 5 V / 2 A or 9 V / 2 A. It states that the no-charging mode takes less than 100 mA and that charging-from-PC mode can still consume the battery if the USB source is insufficient.
+
+These are manufacturer specifications, not measurements of this unit or wiring.
+QC3.0 support does not establish a USB-PD contract. Failed hub PD APIs therefore
+do not rule out a separate charging detector/controller. Do not force a voltage,
+emulate a charging negotiation or infer the present input power from the label.
+The next hardware identification must consider source/charger detection as well
+as PD; independently measured VBUS/current would distinguish these hypotheses.

@@ -250,3 +250,14 @@ Start from the live machine, not another generic firmware scan.
 The desired deliverable is not another list of possible PMIC addresses. It is a measured answer to:
 
 > **How many watts/current are actually entering the MB16AMT in the user's present setup, what component/policy sets that limit, and can it be safely raised enough to eliminate discharge at brightness 100% while USB video remains active?**
+
+## Manufacturer evidence: avoid assuming USB-PD is the charging protocol
+
+The [official ASUS English manual](https://dlcdnets.asus.com/pub/ASUS/LCD%20Monitors/MB16AMT/ASUS_MB16AMT_English.pdf), printed pages 3-7 and 3-10 (PDF pages 25 and 28), explicitly documents QC3.0, a 5–9 V / 2 A rating, and adapter modes of 5 V / 2 A or 9 V / 2 A. It states that the no-charging mode takes less than 100 mA and that charging-from-PC mode can still consume the battery if the USB source is insufficient.
+
+These are manufacturer specifications, not measurements of this unit or wiring.
+QC3.0 support does not establish a USB-PD contract. Failed hub PD APIs therefore
+do not rule out a separate charging detector/controller. Do not force a voltage,
+emulate a charging negotiation or infer the present input power from the label.
+The next hardware identification must consider source/charger detection as well
+as PD; independently measured VBUS/current would distinguish these hypotheses.
