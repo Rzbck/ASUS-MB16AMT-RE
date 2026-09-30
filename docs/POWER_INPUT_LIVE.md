@@ -110,3 +110,26 @@ devices; the upstream Genesys hubs remained. This is an unavailable data path,
 not an EC-request rejection. Do not classify this API as a dead end. No reset,
 rescan, power command or control mutation was used to recover the device.
 Resume the single targeted read when the monitor's USB data devices reappear.
+
+## 17:28–17:30 UTC: USB returned; targeted status read rejected
+
+The monitor USB devices reappeared. Backend 6 enumerated one device and opened
+successfully. The hash-pinned RsHub_SmbusGetTPCPDStatus call was executed once:
+C0/EC, value 2FD4, index 1, length 3; return 0x1F, output A5-A5-A5 unchanged,
+guards intact. Valid DDC brightness replies bracketed the call. This is now a
+confirmed unsuccessful read in the current device state, not an absent-device
+result. Do not repeat or enumerate nearby requests without new evidence.
+
+A subsequent passive run explicitly read brightness=100 and ED=0, then three
+samples at 17:30:19–23 UTC measured 4177 mV, -784 mA, -3.275 W (V*I),
+-3.280 W (AveragePower), 28.05 C. ASUS source conversion returned 100 while
+the gauge SOC word was 97: these are distinct quantities. No OSD visual reading
+was made in this run. Twelve preceding samples also consistently showed about
+-3.28 W. No controls were changed in these runs.
+
+There is still no proven input-current-limit setting to optimize at full
+brightness. Next firmware target, supporting the live investigation: follow the
+non-display consumers of 9:EBE1/EC06 through to an actual power output or source
+classification; 13:3DE6 is already eliminated as a display/scaler sink. A usable
+input-power conclusion still requires a proven controller read or an independent
+VBUS/current measurement, not a subtraction of battery measurements.

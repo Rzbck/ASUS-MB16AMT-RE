@@ -128,3 +128,6 @@ Do not escalate to broad arbitrary I2C writes or blind scans. The battery path s
 - `WinIspPlugIn.dll` RE for a genuinely read-only dump/query primitive;
 - tracing the OSD battery rendering path back to its data source;
 - controlled VCP `ED` charge-policy automation (already proven).
+
+## 14. Targeted active-handle Type-C status EC read (2026-09-30)
+RsHub_SmbusGetTPCPDStatus was called once on the active, verified RHub handle: C0/EC, value 2FD4, index 1, length 3. Return 0x1F, sentinel unchanged, guards intact, valid DDC before/after. Not usable in the current state; do not repeat without board-specific evidence. See POWER_INPUT_LIVE.md.

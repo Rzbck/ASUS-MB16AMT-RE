@@ -2,6 +2,8 @@
 
 ## Latest live result (2026-09-30)
 
+**17:30 UTC update (supersedes absence below):** USB returned; the targeted EC status read returned 0x1F without modifying the guarded buffer, with valid DDC before/after. Passive controls=100/ED0; three fresh battery samples=4177 mV, -784 mA, -3.275 W. No settings changed. Do not repeat EC. Next: resolve the non-display 9:EBE1/EC06 policy consumers to a proven power output/source classification; actual USB input power remains unmeasured.
+
 **16:39 UTC follow-up:** current USB data path is absent (no monitor Realtek/DisplayLink/touch devices; backend count=0, InitialDev=0x2B04). The new guarded `-HubStatus` probe was not sent. Resume it once enumeration returns; no reset or power-cycle was attempted.
 
 See [POWER_INPUT_LIVE.md](docs/POWER_INPUT_LIVE.md): completed supervised brightness/ED campaign, original 100/ED0 restored twice with readback. At ED0, 100% brightness discharges (~1.9–2.6 W observed); 25% and 0% charge positively. ED1 at 100% approaches -7.9 W. These are battery watts, not USB input watts. USB2 high-speed topology and 500 mA DisplayLink configuration descriptor are verified; actual VBUS, input current, PD contract and current limit remain unknown. Next distinct live read: validate active RHub handle/module and test the three-byte RsHub_SmbusGetTPCPDStatus IN request once. No current-limit write is justified yet. Keep injected tracing separate from state-changing campaigns.

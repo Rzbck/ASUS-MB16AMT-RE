@@ -182,7 +182,7 @@ static class GaugeWatch {
             int rc=DDCCIWrite(0x6E,0x51,2,new byte[]{1,code});Thread.Sleep(150);
             Sample sample=Read(32,0xA5,delegate(IntPtr p){return I2CReadEx(0x6E,0,11,p,0);});
             byte[] b=sample.Bytes;int checksum=0x50;for(int i=0;i<11;i++)checksum^=b[i];
-            if(rc==0&&sample.Rc==0&&b[0]==0x6E&&b[1]==0x88&&b[2]==2&&b[3]==0&&b[4]==code&&checksum==0)return (ushort)((b[8]<<8)|b[9]);
+            if(rc==0&&sample.Rc==0&&sample.Guards&&sample.Changed&&b[0]==0x6E&&b[1]==0x88&&b[2]==2&&b[3]==0&&b[4]==code&&checksum==0)return (ushort)((b[8]<<8)|b[9]);
             Thread.Sleep(200);
         }throw new Exception("VCP read failed "+code.ToString("X2"));
     }
@@ -251,6 +251,7 @@ static class GaugeWatch {
                 if(args[0]=="--hub-status") {HubStatus();return 0;}
                 if(restoreOnly) {SetKnownVcp(0x10,ushort.Parse(args[1]));SetKnownVcp(0xED,ushort.Parse(args[2]));Console.WriteLine("RESTORE_CONFIRMED brightness={0} ED={1}",args[1],args[2]);return 0;}
                 if(args[0]=="--campaign") {Campaign();return 0;}
+                Console.WriteLine("OBSERVE_CONTROLS brightness={0} ED={1}",GetVcp(0x10),GetVcp(0xED));
                 int consecutiveFailures=0;
                 int samples=0;
                 while(!Stop && (sampleLimit==0 || samples<sampleLimit)) {
