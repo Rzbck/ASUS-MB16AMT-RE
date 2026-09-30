@@ -17,7 +17,7 @@ jobs:
       - name: Compile x86 hosts and test without vendor DLLs or hardware
         shell: pwsh
         run: |
-          foreach ($name in @('SocReadBench','GaugeSurvey')) {
+          foreach ($name in @('SocReadBench','GaugeSurvey','GaugeWatch')) {
             $source = (Resolve-Path "tools/$name.cs").Path
             $exe = Join-Path $env:RUNNER_TEMP "$name.exe"
             & "$env:WINDIR\Microsoft.NET\Framework\v4.0.30319\csc.exe" /nologo /platform:x86 "/out:$exe" $source
