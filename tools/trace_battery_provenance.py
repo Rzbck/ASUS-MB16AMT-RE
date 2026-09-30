@@ -126,7 +126,26 @@ def main():
         assert m.x[0xDCC6:0xDCC9] == bytes.fromhex('01 d8 37')
         assert m.x[0xD83F] == 0x3A
 
-    report = dict(sha256=SHA, warning_text=warning,
+    # Cache sanitizer: every byte value, no device access.
+    for value in range(256):
+        m = Machine(data, thunks)
+        m.x[0xD9F7] = value
+        m.run(8, 0xF3D4, budget=40)
+        assert m.x[0xD9F7] == (value if value <= 100 else 50)
+        assert bool(m.c) == (value <= 100)
+    # Shared storage ABI builder: offset 02BE, length 1, XDATA pointer D9F7.
+    m = Machine(data, thunks)
+    m.run(8, 0x99BA, budget=40)
+    assert tuple(m.r(i) for i in (6,7,4,5,3,2,1)) == (2,190,0,1,1,217,247)
+    for location in (0x9BFCC, 0x9C01B, 0xCF2EA):
+        assert data[location:location+11] == bytes.fromhex('90 da 4c e0 90 d9 f7 f0 12 1a 8a')
+    assert data[0x8F813:0x8F822] == bytes.fromhex('12 99 ba 12 19 4c 12 f3 d4 40 03 12 fe 89 22')
+    assert data[0x8FE89:0x8FE92] == bytes.fromhex('12 f3 d4 12 99 ba 02 01 d0')
+    assert data[0x9E7EF:0x9E7F8] == bytes.fromhex('12 cf a5 12 e7 03 12 16 2e')
+
+    report = dict(cache_sanitizer_checks=256, cache_storage_offset='02BE',
+        cache_field='D9F7', cache_storage_length=1,
+        sha256=SHA, warning_text=warning,
         warning_selector='30', warning_branch='1:E76D', warning_trigger='10:D760(R7=7)',
         acquisition='0:5A5C -> 0:681E -> 0:6D00',
         slave_8bit='AA', slave_7bit='55', register='10', read_length=4,

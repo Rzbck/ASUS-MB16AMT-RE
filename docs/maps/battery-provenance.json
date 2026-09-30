@@ -1,4 +1,8 @@
 {
+  "cache_sanitizer_checks": 256,
+  "cache_storage_offset": "02BE",
+  "cache_field": "D9F7",
+  "cache_storage_length": 1,
   "sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
   "warning_text": "Out of battery soon!",
   "warning_selector": "30",

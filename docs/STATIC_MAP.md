@@ -1,6 +1,8 @@
 # Static firmware map — ASUS MB16AMT V020
 
-## Battery chain verified � 2026-09-30
+**Follow-up:** D9F7 is a saved copy of DA4C, with one-byte storage offset 02BE and a 0..100 validator (invalid -> 50). All 256 validator inputs pass. The updater also reaches the ED policy evaluator E703 before display/scaler sink 13:3DE6. See `BATTERY_PERCENTAGE.md`. No live read route is established.
+
+## Battery chain verified — 2026-09-30
 
 `I2C AA:10 (4 bytes) -> 0:5A5C -> 0:6EB9 -> DA4C -> 10:F8F4 -> 1:D7A1` is now traced and checked offline. See [exact acquisition, curve, filter, writers and renderer](BATTERY_PERCENTAGE.md) and [verification counts](maps/battery-provenance.json). DA4C is the battery percentage consumed by the OSD; live read access remains unresolved. The alternate renderer explains why the three known 1:EAEB callers were unrelated. Expanded bounded dispatch decoding yields 158,425 instructions / 2,986 thunk edges / 20 unresolved indirect jumps. Earlier graph counts below are historical.
 

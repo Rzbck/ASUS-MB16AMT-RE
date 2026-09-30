@@ -74,6 +74,7 @@ jobs:
           python tools/trace_soc_f7b2_indirect.py --help >/dev/null
           python tools/trace_soc_be4a_source.py --help >/dev/null
           python tools/trace_vcp_ed_candidate.py --help >/dev/null
+          python tools/trace_battery_provenance.py --help >/dev/null
           python tools/trace_xdata_fields.py --help >/dev/null
           python tools/run_offline_suite.py --help >/dev/null
 

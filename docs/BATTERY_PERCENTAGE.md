@@ -61,4 +61,14 @@ On 2026-09-29 at 18:15:23Z, six valid DDC control responses preceded one firmwar
 
 The user's latest OSD observation was 100%; it is not a measurement made by these tools. Exact fuel-gauge model and the physical units of u/v remain unproven. Their address and ratio are consistent with capacity words, but do not identify a particular chip.
 
-Next: trace D9F7 cache provenance and existing read-only protocol routes to DA4C or the internal I2C bus. Do not treat scaler register reads as XDATA access, repeat address sweeps, or invoke firmware routines that toggle pins.
+## Cache provenance and charge-policy intersection (follow-up)
+
+All three decoded direct copies to D9F7 originate in DA4C: `9:BFCC`, `9:C01B`, `12:F2EA`. Each calls thunk 1A8A -> `8:FE89`. That routine sanitizes D9F7 through `8:F3D4`, builds a one-byte storage request at logical offset **02BE**, source pointer 01:D9F7 (`8:99BA`), and tail-calls common `0:01D0`.
+
+The paired load path `8:F813` uses the same arguments, calls 194C -> `6:E924`, then validates the loaded byte. Values 0..100 are preserved; 101..255 become 50 and trigger the save path. All 256 sanitizer inputs and the shared ABI builder are checked offline. The lower storage wrappers use base slave A0; the EEPROM interpretation is strong evidence, but a complete physical bus/address trace is still required. No storage read or write was invoked on hardware.
+
+This establishes D9F7 as a saved/restored display cache, not a second live sensor. No host-readable exposure is established. Reading it would not guarantee a current OSD value.
+
+The updater branch `9:E7EF` calls CFA5, then E703, then thunk 162E -> `13:3DE6`. E703 consumes the confirmed VCP ED policy bit D9FF.bit7 (see [CHARGE_POLICY.md](CHARGE_POLICY.md)). Thus battery update and charge-policy paths intersect in a display/scaler reaction. This does not prove ED alters the ratio, filter or gauge hardware.
+
+Next: identify an existing read-only protocol route to DA4C or the internal I2C bus; establish acquisition scheduling and cache validity. Do not treat scaler register reads as XDATA access, repeat address sweeps, or invoke firmware routines that toggle pins.
