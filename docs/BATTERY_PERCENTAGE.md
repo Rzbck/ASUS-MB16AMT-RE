@@ -72,3 +72,12 @@ This establishes D9F7 as a saved/restored display cache, not a second live senso
 The updater branch `9:E7EF` calls CFA5, then E703, then thunk 162E -> `13:3DE6`. E703 consumes the confirmed VCP ED policy bit D9FF.bit7 (see [CHARGE_POLICY.md](CHARGE_POLICY.md)). Thus battery update and charge-policy paths intersect in a display/scaler reaction. This does not prove ED alters the ratio, filter or gauge hardware.
 
 Next: identify an existing read-only protocol route to DA4C or the internal I2C bus; establish acquisition scheduling and cache validity. Do not treat scaler register reads as XDATA access, repeat address sweeps, or invoke firmware routines that toggle pins.
+
+
+## Targeted GET VCP exclusion
+
+The real GET handler `9:A3A0` reads D993 and dispatches through the inline table at A3D1 (47 entries, default A875). Its high vendor branches expose E0: DA06/DA42; E3: DA17; E4: DA44; E9 and EB: D9FD; ED: D9FF.bit7; F0: DA0E; F1: DA00. FD reaches reply finalization directly. None of these decoded branches obtains DA4C.
+
+The verifier runs these nine branches with 256 source-state patterns and three different battery/cache values, stopping at the transport thunk 1298: 6,912 executions. Replies are invariant to the changed battery/cache values, and no executed read reaches DA4C, D9F7 or DCC2. This is a targeted exclusion, not proof about every possible protocol/firmware mode. It strengthens the closed generic VCP search; no hardware sweep was repeated.
+
+The default command path `9:EC87 -> 1856 -> 13:6628` was also checked: helpers 5D9A/5D91 construct the DDC NULL response (6E 80 plus checksum), then call transport. It is not a memory proxy. The next concrete target is RX routing upstream of `9:EC5B`, following buffer D990, to determine whether a separate read handler exists before normal command dispatch.

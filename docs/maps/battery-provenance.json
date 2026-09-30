@@ -1,4 +1,33 @@
 {
+  "vendor_get_checks": 6912,
+  "vendor_get_state_reads": {
+    "E0": [
+      "DA06",
+      "DA42"
+    ],
+    "E3": [
+      "DA17"
+    ],
+    "E4": [
+      "DA44"
+    ],
+    "E9": [
+      "D9FD"
+    ],
+    "EB": [
+      "D9FD"
+    ],
+    "ED": [
+      "D9FF"
+    ],
+    "F0": [
+      "DA0E"
+    ],
+    "F1": [
+      "DA00"
+    ],
+    "FD": []
+  },
   "cache_sanitizer_checks": 256,
   "cache_storage_offset": "02BE",
   "cache_field": "D9F7",

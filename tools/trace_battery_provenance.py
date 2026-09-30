@@ -50,6 +50,18 @@ class Acquisition(Machine):
         super().jump(target, call)
 
 
+class ReplyDone(Exception):
+    pass
+
+
+class GetVcp(Machine):
+    def jump(self, target, call=False):
+        if target == 0x1298:
+            assert self.bank == 9 and not call
+            raise ReplyDone()  # Never enter transport.
+        super().jump(target, call)
+
+
 class RenderDone(Exception):
     pass
 
@@ -143,7 +155,32 @@ def main():
     assert data[0x8FE89:0x8FE92] == bytes.fromhex('12 f3 d4 12 99 ba 02 01 d0')
     assert data[0x9E7EF:0x9E7F8] == bytes.fromhex('12 cf a5 12 e7 03 12 16 2e')
 
-    report = dict(cache_sanitizer_checks=256, cache_storage_offset='02BE',
+    vendor_checks = 0
+    vendor_reads = {}
+    for opcode in (0xE0,0xE3,0xE4,0xE9,0xEB,0xED,0xF0,0xF1,0xFD):
+        reads = set()
+        for state in range(256):
+            replies = []
+            for battery in (1,73,100):
+                m = GetVcp(data, thunks)
+                m.x[0xD993] = opcode
+                for address in (0xDA06,0xDA42,0xDA17,0xDA44,0xD9FD,0xD9FF,0xDA0E,0xDA00):
+                    m.x[address] = state
+                m.x[0xDA4C] = battery
+                m.x[0xD9F7] = battery
+                try: m.run(9,0xA3A0,budget=10000)
+                except ReplyDone: pass
+                else: raise AssertionError('Missing DDC transport boundary')
+                used = {a for _,_,a in m.reads}
+                assert not used & {0xDA4C,0xD9F7,0xDCC2}
+                reads |= used
+                replies.append(bytes(m.x[0xD9C0:0xD9CB]))
+                vendor_checks += 1
+            assert len(set(replies)) == 1
+        vendor_reads[f'{opcode:02X}'] = [f'{a:04X}' for a in sorted(reads) if a >= 0xDA00 or a in (0xD9FD,0xD9FF)]
+
+    report = dict(vendor_get_checks=vendor_checks, vendor_get_state_reads=vendor_reads,
+        cache_sanitizer_checks=256, cache_storage_offset='02BE',
         cache_field='D9F7', cache_storage_length=1,
         sha256=SHA, warning_text=warning,
         warning_selector='30', warning_branch='1:E76D', warning_trigger='10:D760(R7=7)',

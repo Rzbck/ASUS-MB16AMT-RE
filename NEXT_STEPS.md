@@ -1,5 +1,7 @@
 # Next steps — prioritized
 
+**GET VCP follow-up:** nine vendor branches at 9:A3A0 checked offline (6,912 executions); no DA4C/D9F7/DCC2 read and no battery-dependent reply. The default 9:EC87 -> 1856 -> 13:6628 is a DDC NULL reply, not a memory proxy. Next: trace the RX routing upstream of 9:EC5B and D990 for a separate read handler. See the battery provenance document.
+
 ## Active priority — 2026-09-30
 
 1. DONE: D9F7 cache provenance: copied from DA4C, saved/restored at logical storage offset 02BE, invalid values replaced by 50. Host-readable exposure remains unproven.
