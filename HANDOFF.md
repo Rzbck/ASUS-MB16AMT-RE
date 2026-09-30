@@ -1,5 +1,9 @@
 # Handoff â€” ASUS MB16AMT / RL6492 RE
 
+## Latest milestone — 2026-09-30
+
+**Battery OSD provenance identified.** Read `docs/BATTERY_PERCENTAGE.md` first. Internal GPIO I2C AA:10 returns two LE16 words; 0:5A5C converts their ratio, 0:6EB9 filters it, 9:E79E writes **DA4C**, and 10:F8F4 renders digits through 1:D7A1. Exhaustive curve verification passed (65,536 inputs), plus acquisition/filter/render checks. A single source-derived live read via USB returned 2B0A with unchanged buffer after six valid DDC controls. No live SOC value recovered. Next: D9F7 restore provenance and a proven read-only protocol route to DA4C/internal bus. Do not repeat generic scans. Historical priorities below are superseded.
+
 **Last updated:** 2026-09-29
 
 **Live continuation:** administrator access now works. Backend 6 initializes.

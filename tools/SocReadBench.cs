@@ -198,7 +198,7 @@ static class SocReadBench {
             if(args.Length==0 || args[0]=="--help") {
                 Console.WriteLine("SocReadBench --run | --ddc-only | --self-test. Fixed EDID/GET VCP transport validation; no memory sweep."); return 0;
             }
-            if(args.Length!=1||(args[0]!="--run" && args[0]!="--ddc-only")) throw new ArgumentException("Use --run, --ddc-only or --self-test.");
+            if(args.Length!=1||(args[0]!="--run" && args[0]!="--ddc-only" && args[0]!="--battery-source")) throw new ArgumentException("Use --run, --ddc-only, --battery-source or --self-test.");
             if(IntPtr.Size!=4) throw new Exception("x86 host required");
             if(!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator)) throw new Exception("Run elevated: the vendor bridge loader requires administrator rights.");
             string root=AppDomain.CurrentDomain.BaseDirectory;
@@ -220,13 +220,19 @@ static class SocReadBench {
                 // Do not enumerate after opening the bridge.
                 Console.WriteLine("DebugMode={0}; debug=0x{1:X2}; isp=0x{2:X2}; continuous=0x{3:X2}",GetDebugMode(),GetDebugSlave(),GetIspSlave(),GetIspContinuousSlave());
                 PointerMap();
-                if(args[0]!="--ddc-only") {
+                if(args[0]=="--run") {
                     EdidTest("I2CRead/EDID",delegate(IntPtr p){return I2CRead(0xA0,0,128,p);});
                     EdidTest("I2CReadEx/EDID",delegate(IntPtr p){return I2CReadEx(0xA0,0,128,p,1);});
                 }
 
                 DdcTest("I2CReadEx/VCP10",delegate(IntPtr p){return I2CReadEx(0x6E,0,11,p,0);});
                 DdcTest("DDCCIRead/VCP10",delegate(IntPtr p){return DDCCIRead(0x6E,0,11,p);});
+                if(args[0]=="--battery-source") {
+                    // Firmware 0:681E -> 0:6D00 specifies slave AA, subaddress
+                    // 10, four bytes. External USB bus reachability is unproven.
+                    Sample source=Read(4,0xA5,delegate(IntPtr p){return I2CReadEx(0xAA,0x10,4,p,1);});
+                    Show("FIRMWARE_SOURCE_AA_10",0,source,false,"raw="+BitConverter.ToString(source.Bytes)+"; no SOC inference without validated bus/data");
+                }
                 Console.WriteLine("SOC=UNRESOLVED; XDATA=UNVALIDATED; no snapshot sweep performed.");
             } finally {Console.WriteLine("ReleaseDev=0x{0:X8}",ReleaseDev());}
             return 0;

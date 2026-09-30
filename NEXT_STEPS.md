@@ -1,5 +1,13 @@
 # Next steps â€” prioritized
 
+## Active priority — 2026-09-30
+
+1. Trace D9F7 (restored into DA4C/DCC2 at 4:F42C), its writers and any host-readable protocol exposure.
+2. Find an existing read-only route to **DA4C** or internal P5.6/P5.7 I2C AA:10. The external bridge exact read failed 2B0A; do not repeat address sweeps.
+3. Establish DA58 update timing, startup/cache validity, and device identity without writes.
+
+The source/conversion/filter/OSD chain is now verified: see `docs/BATTERY_PERCENTAGE.md`. Earlier alternate-renderer search priority is complete. Hardware SOC read access remains the objective.
+
 **2026-09-29 priority override:** live read-only hardware work is now available
 in an elevated host. DDC GET works through backend 6 after moving device
 enumeration before `InitialDev`; see `docs/LIVE_READ_BENCH.md`.

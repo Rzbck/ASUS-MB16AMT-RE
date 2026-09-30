@@ -1,5 +1,9 @@
 # Battery SOC investigation
 
+## Current result — 2026-09-30
+
+The actual OSD battery field is **DA4C**, populated from internal GPIO I2C AA:10, an integer piecewise conversion and a smoothing filter. The exact chain and reproducible offline checks are in [BATTERY_PERCENTAGE.md](BATTERY_PERCENTAGE.md). No live percentage has yet been read: the precise source read through the external USB bridge returned 2B0A. The user-reported 100% is only an observation. Earlier rejected paths below remain closed.
+
 ## Goal
 
 Recover the exact 0..100 battery percentage displayed by the ASUS MB16AMT OSD and identify its source/provenance.

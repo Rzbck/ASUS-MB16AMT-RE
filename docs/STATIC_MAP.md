@@ -1,5 +1,9 @@
 # Static firmware map â€” ASUS MB16AMT V020
 
+## Battery chain verified — 2026-09-30
+
+`I2C AA:10 (4 bytes) -> 0:5A5C -> 0:6EB9 -> DA4C -> 10:F8F4 -> 1:D7A1` is now traced and checked offline. See [exact acquisition, curve, filter, writers and renderer](BATTERY_PERCENTAGE.md) and [verification counts](maps/battery-provenance.json). DA4C is the battery percentage consumed by the OSD; live read access remains unresolved. The alternate renderer explains why the three known 1:EAEB callers were unrelated. Expanded bounded dispatch decoding yields 158,425 instructions / 2,986 thunk edges / 20 unresolved indirect jumps. Earlier graph counts below are historical.
+
 This document is the incremental static-analysis map for the ASUS MB16AMT RL6492 firmware.
 
 The goal is to accumulate only reproducible facts and clearly labeled hypotheses until the OSD, battery/SOC, charging, power-management, and eventually safe firmware-modification paths are understood.

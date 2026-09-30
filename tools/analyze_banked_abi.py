@@ -10,6 +10,7 @@ import argparse
 import csv
 import hashlib
 import json
+import re
 
 SHA = '1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c'
 BANK_SIZE = 0x10000
@@ -66,7 +67,7 @@ def inventory(data):
 
 
 def verified_jump_tables(data):
-    """Explicitly decoded bounded tables; not speculative code-pattern scans."""
+    """Recognize bounded compiler tables, followed only from reachable jump sites."""
     # 4:EC1F uses (R7-1) modulo 256 and checks <36 before multiplying by 3.
     p = 4 * BANK_SIZE + 0xEC1F
     expected = bytes.fromhex('ef 14 b4 24 00 40 03 02 f1 29 90 ec 37 75 f0 03 a4 c5 83 25 f0 c5 83 73')
@@ -75,8 +76,32 @@ def verified_jump_tables(data):
     for n in range(36):
         local = 0xEC37 + n*3
         assert data[4*BANK_SIZE+local] == 2
-        entries.append((n+1, local, word(data,4*BANK_SIZE+local+1)))
-    return {(4,0xEC36):entries}
+        entries.append((n, local, word(data,4*BANK_SIZE+local+1)))
+    tables = {(4,0xEC36):entries}
+    # Compiler idioms with an explicit unsigned A<count guard and an adjacent
+    # table of LJMPs. Used only when traversal reaches the matching JMP site.
+    pattern = re.compile(rb'\xb4(?P<count>.)\x00(?:\x50.|\x40\x03\x02..)\x90(?P<base>..)(?P<scale>\xf8\x28\x28|\x75\xf0\x03\xa4\xc5\x83\x25\xf0\xc5\x83)\x73', re.S)
+    for bank in range(14):
+        chunk = data[bank*BANK_SIZE:(bank+1)*BANK_SIZE]
+        for match in pattern.finditer(chunk, 0x2DC4):
+            count = match['count'][0]
+            base = int.from_bytes(match['base'], 'big')
+            site = match.end()-1
+            if base != site+1 or not count or base+3*count > BANK_SIZE:
+                continue
+            guard = match.start()+3
+            if chunk[guard] == 0x50:
+                offset = chunk[guard+1]
+                target = guard+2+(offset if offset < 128 else offset-256)
+                if not base+3*count <= target < BANK_SIZE:
+                    continue  # Rejected selectors must bypass the entire table.
+            if match['scale'] == bytes.fromhex('f8 28 28') and count > 86:
+                continue  # 8-bit 3*A must not wrap.
+            if not all(chunk[base+3*n] == 2 for n in range(count)):
+                continue
+            if (bank,site) not in tables:
+                tables[bank,site] = [(n,base+3*n,word(chunk,base+3*n+1)) for n in range(count)]
+    return tables
 
 
 def traverse(data, thunks):
@@ -312,7 +337,7 @@ def main():
                 raw_refs.append((b, f'{a:04X}', 'LCALL' if chunk[a] == 0x12 else 'LJMP', f'{t:04X}', (b, a) in decoded))
     write_csv(args.out / 'bank-raw-references.csv', ['physical_bank', 'site', 'kind', 'thunk', 'cfg_boundary'], raw_refs)
     write_csv(args.out / 'bank-unresolved-indirect.csv', ['physical_bank', 'site'], [(b, f'{a:04X}') for b, a in indirect])
-    write_csv(args.out / 'bank-verified-jump-tables.csv', ['physical_bank','jump_site','input_R7','entry','target'],
+    write_csv(args.out / 'bank-verified-jump-tables.csv', ['physical_bank','jump_site','selector_index','entry','target'],
               [(b,f'{p:04X}',f'{value:02X}',f'{entry:04X}',f'{target:04X}')
                for (b,p),rows in verified_jump_tables(data).items() for value,entry,target in rows])
     summary = {

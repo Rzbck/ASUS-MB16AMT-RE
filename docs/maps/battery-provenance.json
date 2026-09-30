@@ -1,0 +1,38 @@
+{
+  "sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "warning_text": "Out of battery soon!",
+  "warning_selector": "30",
+  "warning_branch": "1:E76D",
+  "warning_trigger": "10:D760(R7=7)",
+  "acquisition": "0:5A5C -> 0:681E -> 0:6D00",
+  "slave_8bit": "AA",
+  "slave_7bit": "55",
+  "register": "10",
+  "read_length": 4,
+  "bus_pins": {
+    "clock": "FE0E / P5.6",
+    "data": "FE0F / P5.7"
+  },
+  "raw_format": "two little-endian unsigned 16-bit words; x=(first*10000//second)&FFFF",
+  "raw_percentage_return": "0:5BAF R7; FF invalid",
+  "filter": "0:6EB9; cached DCC2, countdown DCC1",
+  "runtime_displayed_field": "DA4C",
+  "previous_field": "DA4D",
+  "writer": "9:E79E..E7A2",
+  "renderer": "10:F8F4, R3 value; digits D837; pointer 01 D8 37; string id 3A -> 1:D7A1",
+  "curve_checks": 65536,
+  "acquisition_mock_checks": 36,
+  "filter_checks": 2754,
+  "renderer_checks": 101,
+  "cfg": {
+    "instructions": 158425,
+    "thunk_edges": 2986,
+    "unresolved": 20
+  },
+  "limitations": [
+    "Hardware acquisition mocked; no live DA4C value read.",
+    "Fuel-gauge identity and physical units of the two words remain unproven.",
+    "GPIO and warning classification use static code and reference register names.",
+    "Logical-to-physical bank identity remains the existing working map."
+  ]
+}

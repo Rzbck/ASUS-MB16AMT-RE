@@ -2,9 +2,11 @@ param(
     [string]$FirmwareRoot = "$env:TEMP\MB16AMT_RE\fw",
     [string]$OutputRoot = "$env:TEMP\MB16AMT_RE\read-bench",
     [switch]$Run,
-    [switch]$IncludeEdid
+    [switch]$IncludeEdid,
+    [switch]$BatterySource
 )
 $ErrorActionPreference = 'Stop'
+if ($IncludeEdid -and $BatterySource) { throw 'BatterySource requires the DDC-only control sequence.' }
 if (-not $Run) {
     Write-Host 'Use -Run from an elevated PowerShell to validate fixed EDID / GET VCP reads.'
     Write-Host 'No SOC claim, memory sweep, SET VCP, debug switch or programming operation.'
@@ -29,7 +31,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Read bench compilation failed.' }
 if ($LASTEXITCODE -ne 0) { throw 'Read bench self-test failed.' }
 $stdout = Join-Path $hostDir 'stdout.txt'
 $stderr = Join-Path $hostDir 'stderr.txt'
-$mode = if ($IncludeEdid) { '--run' } else { '--ddc-only' }
+$mode = if ($BatterySource) { '--battery-source' } elseif ($IncludeEdid) { '--run' } else { '--ddc-only' }
 $process = Start-Process -FilePath $exe -ArgumentList $mode -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
 if (-not $process.WaitForExit(60000)) {
     $process.Kill()
