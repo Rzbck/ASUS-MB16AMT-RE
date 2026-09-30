@@ -1,5 +1,9 @@
 # Handoff — ASUS MB16AMT / RL6492 RE
 
+## Current mission: complete OSD mapping
+
+The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). The new atlas verifies 512 resource resolver cases and the 36 timer-event targets; navigation, full language/font encoding and setting updates remain incomplete. No hardware mutation or flash is authorized by this mapping task.
+
 ## Current hardware experiment gate
 
 No USB power tester is available (user confirmed). The validated software paths

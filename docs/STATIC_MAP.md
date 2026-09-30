@@ -621,3 +621,6 @@ and 10:BEC8 writes selection scratch D830. These are not controller registers.
 Next bounded analysis: classify callers of 8:5FEF/thunk 1862 with selectors
 04/43, preserving the distinction between raw call candidates and reachable CFG
 sites. Derive a hardware-facing read before any further device experiment.
+
+## OSD atlas mission
+See [OSD_ATLAS.md](OSD_ATLAS.md) for current coverage. New 1:E43B resource resolver: 512 offline cases verify generic pointer return R3:R2:R1 equals D893..D895 with writes limited to that scratch. Atlas also exports all 36 exact 4:EC1F event targets. Text candidates retain unknown glyphs; full OSD mapping remains incomplete.

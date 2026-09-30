@@ -1,0 +1,4023 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "bank_model": "Existing logical/physical static identity assumption; not a new hardware proof.",
+  "counts": {
+    "decoded_instructions": 158425,
+    "unresolved_indirect_sites": 20,
+    "verified_jump_tables": 52,
+    "resource_executions": 512
+  },
+  "timer_dispatch": {
+    "entry": "4:EC1F",
+    "jump": "4:EC36",
+    "events": [
+      {
+        "event_R7": "01",
+        "entry": "4:EC37",
+        "target": "4:ECA3"
+      },
+      {
+        "event_R7": "02",
+        "entry": "4:EC3A",
+        "target": "4:ECAB"
+      },
+      {
+        "event_R7": "03",
+        "entry": "4:EC3D",
+        "target": "4:ECB1"
+      },
+      {
+        "event_R7": "04",
+        "entry": "4:EC40",
+        "target": "4:ECD8"
+      },
+      {
+        "event_R7": "05",
+        "entry": "4:EC43",
+        "target": "4:ECD1"
+      },
+      {
+        "event_R7": "06",
+        "entry": "4:EC46",
+        "target": "4:F129"
+      },
+      {
+        "event_R7": "07",
+        "entry": "4:EC49",
+        "target": "4:ECE6"
+      },
+      {
+        "event_R7": "08",
+        "entry": "4:EC4C",
+        "target": "4:ECF5"
+      },
+      {
+        "event_R7": "09",
+        "entry": "4:EC4F",
+        "target": "4:EE27"
+      },
+      {
+        "event_R7": "0A",
+        "entry": "4:EC52",
+        "target": "4:EE12"
+      },
+      {
+        "event_R7": "0B",
+        "entry": "4:EC55",
+        "target": "4:EEC5"
+      },
+      {
+        "event_R7": "0C",
+        "entry": "4:EC58",
+        "target": "4:EF47"
+      },
+      {
+        "event_R7": "0D",
+        "entry": "4:EC5B",
+        "target": "4:EF4E"
+      },
+      {
+        "event_R7": "0E",
+        "entry": "4:EC5E",
+        "target": "4:F08C"
+      },
+      {
+        "event_R7": "0F",
+        "entry": "4:EC61",
+        "target": "4:F0A3"
+      },
+      {
+        "event_R7": "10",
+        "entry": "4:EC64",
+        "target": "4:F0AA"
+      },
+      {
+        "event_R7": "11",
+        "entry": "4:EC67",
+        "target": "4:F0AF"
+      },
+      {
+        "event_R7": "12",
+        "entry": "4:EC6A",
+        "target": "4:F129"
+      },
+      {
+        "event_R7": "13",
+        "entry": "4:EC6D",
+        "target": "4:F0B2"
+      },
+      {
+        "event_R7": "14",
+        "entry": "4:EC70",
+        "target": "4:F0B5"
+      },
+      {
+        "event_R7": "15",
+        "entry": "4:EC73",
+        "target": "4:F0B8"
+      },
+      {
+        "event_R7": "16",
+        "entry": "4:EC76",
+        "target": "4:F0BB"
+      },
+      {
+        "event_R7": "17",
+        "entry": "4:EC79",
+        "target": "4:EFDB"
+      },
+      {
+        "event_R7": "18",
+        "entry": "4:EC7C",
+        "target": "4:F0DB"
+      },
+      {
+        "event_R7": "19",
+        "entry": "4:EC7F",
+        "target": "4:EFCD"
+      },
+      {
+        "event_R7": "1A",
+        "entry": "4:EC82",
+        "target": "4:ECDF"
+      },
+      {
+        "event_R7": "1B",
+        "entry": "4:EC85",
+        "target": "4:F0DE"
+      },
+      {
+        "event_R7": "1C",
+        "entry": "4:EC88",
+        "target": "4:F0E1"
+      },
+      {
+        "event_R7": "1D",
+        "entry": "4:EC8B",
+        "target": "4:F129"
+      },
+      {
+        "event_R7": "1E",
+        "entry": "4:EC8E",
+        "target": "4:EED3"
+      },
+      {
+        "event_R7": "1F",
+        "entry": "4:EC91",
+        "target": "4:EF1F"
+      },
+      {
+        "event_R7": "20",
+        "entry": "4:EC94",
+        "target": "4:F0E8"
+      },
+      {
+        "event_R7": "21",
+        "entry": "4:EC97",
+        "target": "4:F129"
+      },
+      {
+        "event_R7": "22",
+        "entry": "4:EC9A",
+        "target": "4:F0F0"
+      },
+      {
+        "event_R7": "23",
+        "entry": "4:EC9D",
+        "target": "4:F0FD"
+      },
+      {
+        "event_R7": "24",
+        "entry": "4:ECA0",
+        "target": "4:EFBD"
+      }
+    ]
+  },
+  "resource_resolver": {
+    "entry": "1:E43B",
+    "selector": "R7",
+    "additional_argument": "R5; semantics unresolved",
+    "return": "R3:R2:R1 generic pointer, also D893..D895",
+    "writes": [
+      "D893",
+      "D894",
+      "D895"
+    ],
+    "entries": [
+      {
+        "selector": "00",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "2E84",
+        "steps": 53,
+        "first_segment_base_font_candidate": "MMenu",
+        "first_segment_length": 5
+      },
+      {
+        "selector": "00",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "2FC7",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Close",
+        "first_segment_length": 5
+      },
+      {
+        "selector": "01",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "3060",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Splendid",
+        "first_segment_length": 8
+      },
+      {
+        "selector": "01",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "3286",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Color",
+        "first_segment_length": 5
+      },
+      {
+        "selector": "02",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "36D7",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Standard MMode",
+        "first_segment_length": 14
+      },
+      {
+        "selector": "02",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "37F9",
+        "steps": 53,
+        "first_segment_base_font_candidate": "sRGB MMode",
+        "first_segment_length": 10
+      },
+      {
+        "selector": "03",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "40BE",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Level 0",
+        "first_segment_length": 7
+      },
+      {
+        "selector": "03",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "416F",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Level 1",
+        "first_segment_length": 7
+      },
+      {
+        "selector": "04",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "4433",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Brightness",
+        "first_segment_length": 10
+      },
+      {
+        "selector": "04",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "44E5",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Contrast",
+        "first_segment_length": 8
+      },
+      {
+        "selector": "05",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "4E0D",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Sharpness",
+        "first_segment_length": 9
+      },
+      {
+        "selector": "05",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "4EBA",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Trace Free",
+        "first_segment_length": 10
+      },
+      {
+        "selector": "06",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "58A8",
+        "steps": 53,
+        "first_segment_base_font_candidate": "HDMMI",
+        "first_segment_length": 5
+      },
+      {
+        "selector": "06",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "5926",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Type<43>C",
+        "first_segment_length": 6
+      },
+      {
+        "selector": "07",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "59B9",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Type<43>C DP",
+        "first_segment_length": 9
+      },
+      {
+        "selector": "07",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "5A8B",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Type<43>C USB",
+        "first_segment_length": 10
+      },
+      {
+        "selector": "08",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "5B72",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Splendid Demo MMode",
+        "first_segment_length": 19
+      },
+      {
+        "selector": "08",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "5D16",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Auto Rotation",
+        "first_segment_length": 13
+      },
+      {
+        "selector": "09",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "6E1B",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Setting 1",
+        "first_segment_length": 9
+      },
+      {
+        "selector": "09",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "6F07",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Setting 2",
+        "first_segment_length": 9
+      },
+      {
+        "selector": "0A",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "7265",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Load",
+        "first_segment_length": 4
+      },
+      {
+        "selector": "0A",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "71CB",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Save",
+        "first_segment_length": 4
+      },
+      {
+        "selector": "0B",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "553F",
+        "steps": 53,
+        "first_segment_base_font_candidate": "H<43>Position",
+        "first_segment_length": 10
+      },
+      {
+        "selector": "0B",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "561A",
+        "steps": 53,
+        "first_segment_base_font_candidate": "V<43>Position",
+        "first_segment_length": 10
+      },
+      {
+        "selector": "0C",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "56F7",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Phase",
+        "first_segment_length": 5
+      },
+      {
+        "selector": "0C",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "5771",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Clock",
+        "first_segment_length": 5
+      },
+      {
+        "selector": "0D",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "6ABA",
+        "steps": 53,
+        "first_segment_base_font_candidate": "OSD Timeout",
+        "first_segment_length": 11
+      },
+      {
+        "selector": "0D",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "6BF4",
+        "steps": 53,
+        "first_segment_base_font_candidate": "DDC<46>CI",
+        "first_segment_length": 6
+      },
+      {
+        "selector": "0E",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "6D77",
+        "steps": 35,
+        "first_segment_base_font_candidate": "English",
+        "first_segment_length": 7
+      },
+      {
+        "selector": "0E",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "6D77",
+        "steps": 35,
+        "first_segment_base_font_candidate": "English",
+        "first_segment_length": 7
+      },
+      {
+        "selector": "0F",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "92C0",
+        "steps": 53,
+        "first_segment_base_font_candidate": "MMore",
+        "first_segment_length": 5
+      },
+      {
+        "selector": "0F",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "9344",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Back",
+        "first_segment_length": 4
+      },
+      {
+        "selector": "10",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "79BD",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Reset",
+        "first_segment_length": 5
+      },
+      {
+        "selector": "10",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "9168",
+        "steps": 53,
+        "first_segment_base_font_candidate": "NO",
+        "first_segment_length": 2
+      },
+      {
+        "selector": "11",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "48D8",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Cool",
+        "first_segment_length": 4
+      },
+      {
+        "selector": "11",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "495D",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Normal",
+        "first_segment_length": 6
+      },
+      {
+        "selector": "12",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "4A7C",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Reddish",
+        "first_segment_length": 7
+      },
+      {
+        "selector": "12",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "4B44",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Natural",
+        "first_segment_length": 7
+      },
+      {
+        "selector": "13",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "13",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "14",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "5382",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Full",
+        "first_segment_length": 4
+      },
+      {
+        "selector": "14",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "542E",
+        "steps": 53,
+        "first_segment_base_font_candidate": "4<4F>3",
+        "first_segment_length": 3
+      },
+      {
+        "selector": "15",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "91C5",
+        "steps": 53,
+        "first_segment_base_font_candidate": "ON",
+        "first_segment_length": 2
+      },
+      {
+        "selector": "15",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "923E",
+        "steps": 53,
+        "first_segment_base_font_candidate": "OFF",
+        "first_segment_length": 3
+      },
+      {
+        "selector": "16",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "9117",
+        "steps": 53,
+        "first_segment_base_font_candidate": "YES",
+        "first_segment_length": 3
+      },
+      {
+        "selector": "16",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "9168",
+        "steps": 53,
+        "first_segment_base_font_candidate": "NO",
+        "first_segment_length": 2
+      },
+      {
+        "selector": "17",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "7A73",
+        "steps": 53,
+        "first_segment_base_font_candidate": "MMobile Phone",
+        "first_segment_length": 13
+      },
+      {
+        "selector": "17",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "7B92",
+        "steps": 53,
+        "first_segment_base_font_candidate": "NB<46>PC",
+        "first_segment_length": 5
+      },
+      {
+        "selector": "18",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "7CCB",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Charging From NB<46>PC",
+        "first_segment_length": 19
+      },
+      {
+        "selector": "18",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "7E6B",
+        "steps": 53,
+        "first_segment_base_font_candidate": "No Charging From NB<46>PC",
+        "first_segment_length": 22
+      },
+      {
+        "selector": "19",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "7A73",
+        "steps": 53,
+        "first_segment_base_font_candidate": "MMobile Phone",
+        "first_segment_length": 13
+      },
+      {
+        "selector": "19",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "7CCB",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Charging From NB<46>PC",
+        "first_segment_length": 19
+      },
+      {
+        "selector": "1A",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "4CB8",
+        "steps": 53,
+        "first_segment_base_font_candidate": "K",
+        "first_segment_length": 1
+      },
+      {
+        "selector": "1A",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "4CE2",
+        "steps": 53,
+        "first_segment_base_font_candidate": "R",
+        "first_segment_length": 1
+      },
+      {
+        "selector": "1B",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "4CE2",
+        "steps": 53,
+        "first_segment_base_font_candidate": "R",
+        "first_segment_length": 1
+      },
+      {
+        "selector": "1B",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "4D12",
+        "steps": 53,
+        "first_segment_base_font_candidate": "G",
+        "first_segment_length": 1
+      },
+      {
+        "selector": "1C",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "958E",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Alignment1",
+        "first_segment_length": 10
+      },
+      {
+        "selector": "1C",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "9599",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Alignment2",
+        "first_segment_length": 10
+      },
+      {
+        "selector": "1D",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "4E05",
+        "steps": 53,
+        "first_segment_base_font_candidate": "<4F>",
+        "first_segment_length": 1
+      },
+      {
+        "selector": "1D",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "4E07",
+        "steps": 53,
+        "first_segment_base_font_candidate": "SEC",
+        "first_segment_length": 3
+      },
+      {
+        "selector": "1E",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "3116",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Blue Light Filter",
+        "first_segment_length": 17
+      },
+      {
+        "selector": "1E",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "3060",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Splendid",
+        "first_segment_length": 8
+      },
+      {
+        "selector": "1F",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "73E5",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Crosshair",
+        "first_segment_length": 9
+      },
+      {
+        "selector": "1F",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "74B9",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Timer",
+        "first_segment_length": 5
+      },
+      {
+        "selector": "20",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "A62A",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Not support wwhen sRGB mode",
+        "first_segment_length": 27
+      },
+      {
+        "selector": "20",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "A87D",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Not support wwhen Reading mode",
+        "first_segment_length": 30
+      },
+      {
+        "selector": "21",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "7C23",
+        "steps": 35,
+        "first_segment_base_font_candidate": "NB<46>PC<4F>",
+        "first_segment_length": 6
+      },
+      {
+        "selector": "21",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "7C23",
+        "steps": 35,
+        "first_segment_base_font_candidate": "NB<46>PC<4F>",
+        "first_segment_length": 6
+      },
+      {
+        "selector": "22",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "3602",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Shortcut",
+        "first_segment_length": 8
+      },
+      {
+        "selector": "22",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "3602",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Shortcut",
+        "first_segment_length": 8
+      },
+      {
+        "selector": "23",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "93D2",
+        "steps": 35,
+        "first_segment_base_font_candidate": "ENTER and RIGHT to Burn In Off",
+        "first_segment_length": 30
+      },
+      {
+        "selector": "23",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "93D2",
+        "steps": 35,
+        "first_segment_base_font_candidate": "ENTER and RIGHT to Burn In Off",
+        "first_segment_length": 30
+      },
+      {
+        "selector": "24",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "A4EC",
+        "steps": 35,
+        "first_segment_base_font_candidate": "OUT OF RANGE",
+        "first_segment_length": 12
+      },
+      {
+        "selector": "24",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "A4EC",
+        "steps": 35,
+        "first_segment_base_font_candidate": "OUT OF RANGE",
+        "first_segment_length": 12
+      },
+      {
+        "selector": "25",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "A615",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Safe MMode OFF",
+        "first_segment_length": 14
+      },
+      {
+        "selector": "25",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "A607",
+        "steps": 53,
+        "first_segment_base_font_candidate": "Safe MMode ON",
+        "first_segment_length": 13
+      },
+      {
+        "selector": "26",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "26",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "27",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "27",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "28",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "28",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "29",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "95AD",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Keys Unlocked",
+        "first_segment_length": 13
+      },
+      {
+        "selector": "29",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "95AD",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Keys Unlocked",
+        "first_segment_length": 13
+      },
+      {
+        "selector": "2A",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "9713",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Keys Locked",
+        "first_segment_length": 11
+      },
+      {
+        "selector": "2A",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "9713",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Keys Locked",
+        "first_segment_length": 11
+      },
+      {
+        "selector": "2B",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "9864",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Check <49>Quick Start Guide<4A>",
+        "first_segment_length": 25
+      },
+      {
+        "selector": "2B",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "9864",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Check <49>Quick Start Guide<4A>",
+        "first_segment_length": 25
+      },
+      {
+        "selector": "2C",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "9A52",
+        "steps": 35,
+        "first_segment_base_font_candidate": "to cancel this function",
+        "first_segment_length": 23
+      },
+      {
+        "selector": "2C",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "9A52",
+        "steps": 35,
+        "first_segment_base_font_candidate": "to cancel this function",
+        "first_segment_length": 23
+      },
+      {
+        "selector": "2D",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "93F1",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Powwer Key Locked",
+        "first_segment_length": 17
+      },
+      {
+        "selector": "2D",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "93F1",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Powwer Key Locked",
+        "first_segment_length": 17
+      },
+      {
+        "selector": "2E",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "9C69",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Powwer is insufficient noww.",
+        "first_segment_length": 28
+      },
+      {
+        "selector": "2E",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "9C69",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Powwer is insufficient noww.",
+        "first_segment_length": 28
+      },
+      {
+        "selector": "2F",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "9E81",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Please keep charging the device.",
+        "first_segment_length": 32
+      },
+      {
+        "selector": "2F",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "9E81",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Please keep charging the device.",
+        "first_segment_length": 32
+      },
+      {
+        "selector": "30",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "A0EF",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Out of battery soon!",
+        "first_segment_length": 20
+      },
+      {
+        "selector": "30",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "A0EF",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Out of battery soon!",
+        "first_segment_length": 20
+      },
+      {
+        "selector": "31",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "A317",
+        "steps": 35,
+        "first_segment_base_font_candidate": "please charge the device.",
+        "first_segment_length": 25
+      },
+      {
+        "selector": "31",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "A317",
+        "steps": 35,
+        "first_segment_base_font_candidate": "please charge the device.",
+        "first_segment_length": 25
+      },
+      {
+        "selector": "32",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "806A",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Charging from NB<46>PC USB could extend ZenScreen battery",
+        "first_segment_length": 54
+      },
+      {
+        "selector": "32",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "806A",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Charging from NB<46>PC USB could extend ZenScreen battery",
+        "first_segment_length": 54
+      },
+      {
+        "selector": "33",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "8541",
+        "steps": 35,
+        "first_segment_base_font_candidate": "life<57> it<4C>s normal that the battery wwill still be consumed due to",
+        "first_segment_length": 65
+      },
+      {
+        "selector": "33",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "8541",
+        "steps": 35,
+        "first_segment_base_font_candidate": "life<57> it<4C>s normal that the battery wwill still be consumed due to",
+        "first_segment_length": 65
+      },
+      {
+        "selector": "34",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "8A44",
+        "steps": 35,
+        "first_segment_base_font_candidate": "insufficient powwer from USB.",
+        "first_segment_length": 29
+      },
+      {
+        "selector": "34",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "8A44",
+        "steps": 35,
+        "first_segment_base_font_candidate": "insufficient powwer from USB.",
+        "first_segment_length": 29
+      },
+      {
+        "selector": "35",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "8DA3",
+        "steps": 35,
+        "first_segment_base_font_candidate": "",
+        "first_segment_length": 0
+      },
+      {
+        "selector": "35",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "8DA3",
+        "steps": 35,
+        "first_segment_base_font_candidate": "",
+        "first_segment_length": 0
+      },
+      {
+        "selector": "36",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "8E65",
+        "steps": 35,
+        "first_segment_base_font_candidate": "WWould you like to charge from NB<46>PC<E6>",
+        "first_segment_length": 37
+      },
+      {
+        "selector": "36",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "8E65",
+        "steps": 35,
+        "first_segment_base_font_candidate": "WWould you like to charge from NB<46>PC<E6>",
+        "first_segment_length": 37
+      },
+      {
+        "selector": "37",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "6170",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Input Device",
+        "first_segment_length": 12
+      },
+      {
+        "selector": "37",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "6170",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Input Device",
+        "first_segment_length": 12
+      },
+      {
+        "selector": "38",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "38",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "39",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "39",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "3A",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "3A",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "3B",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "3B",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "3C",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "3C",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "3D",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "3D",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "3E",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "3E",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "3F",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "3F",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "40",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "AB14",
+        "steps": 35,
+        "first_segment_base_font_candidate": "In Compliance wwith Energy<43>related Product!the",
+        "first_segment_length": 46
+      },
+      {
+        "selector": "40",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "AB14",
+        "steps": 35,
+        "first_segment_base_font_candidate": "In Compliance wwith Energy<43>related Product!the",
+        "first_segment_length": 46
+      },
+      {
+        "selector": "41",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "AE89",
+        "steps": 53,
+        "first_segment_base_font_candidate": "max brightness setting is fixed in the ECO",
+        "first_segment_length": 42
+      },
+      {
+        "selector": "41",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "B1F1",
+        "steps": 53,
+        "first_segment_base_font_candidate": "MMode. WWould you like to remain in the ECO",
+        "first_segment_length": 43
+      },
+      {
+        "selector": "42",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "B5FB",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Confirm                   Cancel ",
+        "first_segment_length": 33
+      },
+      {
+        "selector": "42",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "B5FB",
+        "steps": 35,
+        "first_segment_base_font_candidate": "Confirm                   Cancel ",
+        "first_segment_length": 33
+      },
+      {
+        "selector": "43",
+        "input_R5": 0,
+        "pointer_tag": "FF",
+        "address": "B8DD",
+        "steps": 52,
+        "first_segment_base_font_candidate": "Turning on standby mode may keep consuming battery",
+        "first_segment_length": 50
+      },
+      {
+        "selector": "43",
+        "input_R5": 1,
+        "pointer_tag": "FF",
+        "address": "BD56",
+        "steps": 52,
+        "first_segment_base_font_candidate": "even the connected NB<46>PC is in sleep mode.",
+        "first_segment_length": 42
+      },
+      {
+        "selector": "44",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "44",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "45",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "45",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "46",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "46",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "47",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "47",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "48",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "48",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "49",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "49",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "4A",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "4A",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "4B",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "4B",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "4C",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "4C",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "4D",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "4D",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "4E",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "4E",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "4F",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "4F",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "50",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "50",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "51",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "51",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "52",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "52",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "53",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "53",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "54",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "54",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "55",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "55",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "56",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "56",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "57",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "57",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "58",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "58",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "59",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "59",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "5A",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "5A",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "5B",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "5B",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "5C",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "5C",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "5D",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "5D",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "5E",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "5E",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "5F",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "5F",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "60",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "60",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "61",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "61",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "62",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "62",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "63",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "63",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "64",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "64",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "65",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "65",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "66",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "66",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "67",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "67",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "68",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "68",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "69",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "69",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "6A",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "6A",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "6B",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "6B",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "6C",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "6C",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "6D",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "6D",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "6E",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "6E",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "6F",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "6F",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "70",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "70",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "71",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "71",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "72",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "72",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "73",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "73",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "74",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "74",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "75",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "75",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "76",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "76",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "77",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "77",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "78",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "78",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "79",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "79",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "7A",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "7A",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "7B",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "7B",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "7C",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "7C",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "7D",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "7D",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "7E",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "7E",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "7F",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "7F",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "80",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "80",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "81",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "81",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "82",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "82",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "83",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "83",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "84",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "84",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "85",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "85",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "86",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "86",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "87",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "87",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "88",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "88",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "89",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "89",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "8A",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "8A",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "8B",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "8B",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "8C",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "8C",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "8D",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "8D",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "8E",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "8E",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "8F",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "8F",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "90",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "90",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "91",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "91",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "92",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "92",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "93",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "93",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "94",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "94",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "95",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "95",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "96",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "96",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "97",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "97",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "98",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "98",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "99",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "99",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "9A",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "9A",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "9B",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "9B",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "9C",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "9C",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "9D",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "9D",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "9E",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "9E",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "9F",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "9F",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A0",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A0",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A1",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A1",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A2",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A2",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A3",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A3",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A4",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A4",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A5",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A5",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A6",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A6",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A7",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A7",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A8",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A8",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A9",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "A9",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "AA",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "AA",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "AB",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "AB",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "AC",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "AC",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "AD",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "AD",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "AE",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "AE",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "AF",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "AF",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B0",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B0",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B1",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B1",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B2",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B2",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B3",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B3",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B4",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B4",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B5",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B5",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B6",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B6",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B7",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B7",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B8",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B8",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B9",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "B9",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "BA",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "BA",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "BB",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "BB",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "BC",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "BC",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "BD",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "BD",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "BE",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "BE",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "BF",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "BF",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C0",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C0",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C1",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C1",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C2",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C2",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C3",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C3",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C4",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C4",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C5",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C5",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C6",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C6",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C7",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C7",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C8",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C8",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C9",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "C9",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "CA",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "CA",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "CB",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "CB",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "CC",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "CC",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "CD",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "CD",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "CE",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "CE",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "CF",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "CF",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D0",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D0",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D1",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D1",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D2",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D2",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D3",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D3",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D4",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D4",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D5",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D5",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D6",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D6",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D7",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D7",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D8",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D8",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D9",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "D9",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "DA",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "DA",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "DB",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "DB",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "DC",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "DC",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "DD",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "DD",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "DE",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "DE",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "DF",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "DF",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E0",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E0",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E1",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E1",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E2",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E2",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E3",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E3",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E4",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E4",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E5",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E5",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E6",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E6",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E7",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E7",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E8",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E8",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E9",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "E9",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "EA",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "EA",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "EB",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "EB",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "EC",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "EC",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "ED",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "ED",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "EE",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "EE",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "EF",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "EF",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F0",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F0",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F1",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F1",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F2",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F2",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F3",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F3",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F4",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F4",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F5",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F5",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F6",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F6",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F7",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F7",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F8",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F8",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F9",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "F9",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "FA",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "FA",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "FB",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "FB",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "FC",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "FC",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "FD",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "FD",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "FE",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "FE",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "FF",
+        "input_R5": 0,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      },
+      {
+        "selector": "FF",
+        "input_R5": 1,
+        "pointer_tag": "00",
+        "address": "0000",
+        "steps": 23
+      }
+    ]
+  },
+  "limits": [
+    "Base-font text candidates only; unknown glyphs are preserved as tokens.",
+    "First FF-terminated segment only; language indexing and token effects unresolved.",
+    "512 argument cases, not an exhaustive ABI proof.",
+    "CFG reachability is static, not evidence that a path runs on the monitor."
+  ]
+}

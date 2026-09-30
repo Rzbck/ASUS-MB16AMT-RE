@@ -1,0 +1,99 @@
+# ASUS MB16AMT V020 — OSD reverse-engineering atlas
+
+The current objective is a complete, reproducible OSD map for later modification
+planning. **The complete map is not finished.** This page is the entry point;
+the coverage table distinguishes reconstructed behavior from open work.
+All analysis here is offline. No monitor command, patch or flash is performed.
+
+Addresses use the repository's existing static bank model for the SHA-pinned
+V020 image. A bank-local address is not automatically a validated flash patch
+offset. Do not use this atlas as permission or instructions to flash an image.
+
+## Architecture established so far
+
+```mermaid
+flowchart LR
+  E[Key / event input: incomplete] --> S[Menu state and selection: incomplete]
+  S --> Q[Setting query 8:5FEF]
+  Q --> N[Numeric renderer 1:EAEB]
+  S --> T[Text family/index resolver 1:E43B]
+  T --> R[String renderer 1:D7A1]
+  B[Battery acquisition and filter] --> P[DA4C]
+  P --> G[Decimal glyph builder 10:F8F4]
+  G --> R
+  C[Timer event 17] --> D[DA86 countdown]
+  D --> N
+  R --> H[Font / OSD SRAM / display registers: incomplete]
+  N --> H
+```
+
+This shows proven subchains and their unresolved boundaries; it is not a
+complete call graph. Menu labels, setting selectors and timer IDs are separate
+namespaces and must not be equated merely because their numeric values match.
+
+## Coverage and evidence
+
+| Layer | Verified evidence | Remaining work |
+|---|---|---|
+| Bank/call ABI | Existing thunk inventory; current traversal 158,425 instructions, 52 recognized bounded tables, 20 unresolved indirect sites | Resolve OSD-relevant indirect flow; preserve static bank-model qualification |
+| Input/navigation | No complete end-to-end key pipeline yet | Key sampling, debounce, key enum, dispatch and transition graph |
+| Menu states | DA6B is a setting selector in proven query callers; DA6C/DA6D occur in control flow | State meanings, transitions, modal dialogs, shortcut behavior |
+| Value reads | Full 8:5FEF contract; R7 selector, R5 mode; R7 result | Tie every OSD selection to label and adjustment handler |
+| Value updates | Scattered proven setters and DDC handlers | Min/max/step handling, validation, dirty flags and persistence for every setting |
+| Text selection | New 1:E43B resolver map; 256 selectors × R5 values 0/1 executed | Legal family index bounds, all variants, language segment selection |
+| Text encoding | Base-font candidate transcription; battery warning fixture | Wide glyph fragments, punctuation, F9..FE controls, all languages |
+| Numeric rendering | 1:EAEB: D838..D83B input, D83C flags; known setting and countdown callers | Complete layout/format flags and hardware sink integration |
+| Battery display | Source → conversion → filter → DA4C → 10:F8F4 → 1:D7A1 | Live filtered DA4C read remains unavailable; broader layout integration |
+| Timer events | Exact 36-entry 4:EC1F dispatch; event 17 → 4:EFDB | Meaning and caller/scheduling provenance of other 35 IDs |
+| Font/icons/palette | References exist, no complete exported map | Font storage/widths, icon formats, palettes, SRAM allocation and coordinates |
+| Future modifications | No patch applied | Per-resource constraints, pointers, sizes, checksums and recovery prerequisites |
+
+## Text family/index resolver — new verified subchain
+
+`1:E43B` clears pointer scratch `D893..D895`, dispatches on R7 via the common
+inline byte-switch helper at `210D`, builds a generic pointer and returns it in
+`R3:R2:R1`. The returned register bytes match the scratch bytes in all 512
+executed cases. Writes are confined to those three scratch bytes in these cases.
+
+R5 behaves as an index for many families (**strong semantic evidence**). For
+example, R7=04 returns Brightness for R5=0 and Contrast for R5=1; R7=15 gives
+ON/OFF; R7=18 gives the two charge-from-PC choices. R7=30 returns the code pointer
+FF:A0EF and the independently verified warning `Out of battery soon!`.
+
+The test supplies `DCC6..DCC8=01:D837` for the dynamic text pointer. Code pointer
+tag FF and RAM pointer tag 01 are different address spaces; do not treat a RAM
+string as a patchable text resource. R5=0/1 coverage does not establish all legal
+indices or the full ABI for dynamic cases.
+
+- [Machine-readable atlas](maps/osd-atlas.json): all tested resolver arguments,
+  returned pointers and first-segment candidates; exact timer event targets.
+- [Readable first-segment index](maps/osd-resource-index.md): R5=0 view.
+- [Setting query](SETTING_QUERY.md): exact value contract and callers.
+- [Numeric renderer map](maps/numeric-renderer.json): historical map; its old
+  CFG note for 4:F058 is superseded by the recovered timer dispatch.
+- [Timer chain](DA86_TIMER.md) and [battery chain](BATTERY_PERCENTAGE.md).
+
+The current text transcription intentionally exposes unknown glyphs as `<XX>`.
+Duplicated M/W fragments are not asserted to be literal repeated letters. The
+first FF-terminated segment is not the whole multilingual resource. Full bitmap
+and control-code reconstruction is required before claiming exact display text.
+
+## Reproduce
+
+```powershell
+uv run --locked --offline python tools/map_osd_atlas.py <local-V020.bin> --out docs/maps
+```
+
+The tool reuses the existing bank decoder and bounded 8051 interpreter, checks
+the firmware hash, refuses unknown instructions/budget overruns, asserts the
+warning fixture and timer target, and exports derived metadata only. Neither
+firmware bytes nor font bitmaps are published.
+
+## Next precise targets
+
+1. Recover resolver family bounds and language traversal around 1:D7D7 and
+   1:D800; reconstruct split glyphs and F9..FE tokens from their consumers.
+2. Map the menu event/state machine and key pipeline to these label families.
+3. Connect each setting to read/update/persistence and renderer coordinates.
+4. Finish hardware font/map/palette writes, then describe modification points
+   with explicit unresolved constraints. No flashing belongs to this mission.

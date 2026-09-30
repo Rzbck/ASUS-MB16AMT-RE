@@ -1,5 +1,9 @@
 # ASUS MB16AMT reverse engineering
 
+## Current mission: complete OSD mapping
+
+The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). The new atlas verifies 512 resource resolver cases and the 36 timer-event targets; navigation, full language/font encoding and setting updates remain incomplete. No hardware mutation or flash is authorized by this mapping task.
+
 **100% -> 99% live validation:** on 2026-09-30, the user reported OSD 99%; three fresh source samples were 6360/6742, 6359/6742, 6359/6742. The exact firmware curve independently returns **99%** for all three (raw ratios 9433/9431 basis points). Brightness was 100, so it is not the source of this result. See [evidence](docs/BATTERY_LIVE_PROXY.md). Direct DA4C access and transient filter timing remain unresolved.
 
 Reverse-engineering notes for the **ASUS ZenScreen Touch MB16AMT** (Realtek **RL6492** scaler), with a current focus on:
