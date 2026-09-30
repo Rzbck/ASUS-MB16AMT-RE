@@ -1,5 +1,42 @@
 # Next steps — prioritized
 
+## PRIORITY OVERRIDE — direct-machine power-input RE (2026-09-30)
+
+For the current charging/power objective, **read `HANDOFF_DIRECT_MACHINE.md` first**. It supersedes the older recommendation below to keep doing static firmware analysis before touching the machine.
+
+The battery/gauge path is now sufficiently validated for live power measurements. At high brightness with USB video active, the battery has been observed around `-0.70 A` at `~4.15 V`, i.e. about **-2.9 W**, while an aggressive brightness reduction moves battery power toward approximately `0 W`. The immediate engineering question is therefore no longer "where is battery SOC?" but:
+
+```text
+How much power/current is actually entering the MB16AMT in the user's current powered-hub setup,
+what component/policy limits it,
+and can that limit safely be raised enough to eliminate the ~3 W battery deficit at brightness 100%?
+```
+
+### P0 now
+
+1. Work directly on the Windows machine and keep the current cabling/hub topology unless a specific later test requires otherwise.
+2. Run persistent gauge telemetry (`tools/Run-GaugeWatch.ps1`) while investigating USB/hub/source power state.
+3. Inspect Windows/driver/hub/USB-C telemetry for negotiated or available current/power if exposed.
+4. Dynamically instrument the official ASUS communication stack (`WinComm.dll`, `WinOperateCScaler.dll`, `WinIspPlugIn.dll`, `Comm_UsbHubI2C.dll`, `Comm_TypeCI2C.dll`, `Comm_RealtekUSB.dll`, Realtek hub libraries) using read-only observation, hooks, debugger, Frida/API Monitor, USBPcap/Wireshark, ETW/ProcMon, or a consolidated x86 harness as appropriate.
+5. Identify the actual MB16AMT power-controller/current-limit path empirically. Do not assume the RL6492 reference SY9329/`0xE0` mapping.
+6. Correlate live controller/USB observations with battery `I_mA`, `VI_W`, `AP_W`, voltage and temperature while changing brightness/load.
+7. Determine whether the deficit is an external source/hub limit or an ASUS/controller policy limit.
+8. Only if a specific reversible current-limit setting is proven, test it conservatively with continuous telemetry and a known restore path.
+9. Update `HANDOFF.md`, `HANDOFF_DIRECT_MACHINE.md`, `NEXT_STEPS.md` and focused docs/maps with reproducible evidence; keep proprietary binaries out of the public repo and check CI after changes.
+
+### Static PMIC paths now classified as eliminated / non-priority
+
+Do not restart these unless new live evidence specifically points back to them:
+
+- `7:8480`: dominated by internal `DC8B..DC90` bitfield/state work, not a convincing PMIC/I2C helper.
+- `9:FBFA`: manipulates scaler/internal registers (`0x0094`, `0x0090`, `0x0091`); upstream immediate `E0` is not evidence of an I2C slave.
+- direct decoded search of RL6492-reference Type-C HW-I2C range `0x7F60..0x7F6A`: zero matches in ASUS V020.
+- guessed external-bridge PMIC reads at `0xE0`: historical `0x2B0A`; external bridge access is not proof of the internal scaler I2C topology.
+
+Avoid generating another broad candidate report as the next action. The preferred deliverable is a **measured live answer** for VBUS/input-current/current-limit and the component or policy controlling it.
+
+---
+
 **100% -> 99% live validation:** on 2026-09-30, the user reported OSD 99%; three fresh source samples were 6360/6742, 6359/6742, 6359/6742. The exact firmware curve independently returns **99%** for all three (raw ratios 9433/9431 basis points). Brightness was 100, so it is not the source of this result. See [evidence](docs/BATTERY_LIVE_PROXY.md). Direct DA4C access and transient filter timing remain unresolved. Timer setup is now localized to 5:E268: it sets D988:D989 and the reload bytes D95E/D960; derive its caller arguments and clock selection before assigning a wall-clock duration.
 
 **Live reader follow-up:** the documented wrapper passed a second independent run; six total source samples are 6742/6742 -> raw target 100%. See `docs/maps/battery-live-observations.json`. Next precise work: finish FE GET coverage for a DA4C read route and establish timer divider D988:D989 (ISR 0:011A -> 4:F90A, countdown DA52:DA53 -> 9:BF79). Do not infer exact display timing from 03E8 alone.
