@@ -2,11 +2,12 @@
 
 Read-only/offline. No device access.
 
-This follows up trace_pmic_i2c_candidates.py. The first pass found a notable
-call at 7:7A95 with a nearby setup containing E0/01/08 before helper 7:8480.
-Because MCS-51 compiler calling conventions can make any one register ambiguous,
-this tool inspects *all* decoded callers of the strongest helper candidates,
-reconstructs recent immediate R0..R7 setup, and prints helper bodies/XDATA refs.
+This follows up trace_pmic_i2c_candidates.py. The first pass found several
+0xE0-related call paths. The second pass showed that 7:8480 is mostly an
+internal bitfield/data transformer, while wrappers 13:6771 and 13:49E3 both
+converge on logical helper 9:FBFA after loading R7=0x08. This tool therefore
+inspects all decoded callers of the strongest candidates, reconstructs recent
+immediate R0..R7 setup, and prints helper bodies/XDATA refs.
 
 Hypothesis only: RL6492 reference firmware can use a SY9329-like PMIC at 8-bit
 slave 0xE0, with VBUS/current ADC registers 0x07/0x08. Do not treat matches as
@@ -22,10 +23,11 @@ from analyze_banked_abi import BANK_SIZE, LENGTHS, SHA, inventory, traverse, wor
 from mcs51 import decode
 
 HELPERS = [
-    (7, 0x8480, "candidate_from_7_7A95"),
-    (5, 0xEEE1, "candidate_from_7_D7ED"),
-    (13, 0x6771, "candidate_from_13_5F04"),
-    (13, 0x49E3, "candidate_from_10_F2E6"),
+    (7, 0x8480, "candidate_from_7_7A95_probably_internal_data"),
+    (5, 0xEEE1, "generic_masked_register_helper_candidate"),
+    (13, 0x6771, "wrapper_converging_to_9_FBFA"),
+    (13, 0x49E3, "wrapper_converging_to_9_FBFA"),
+    (9, 0xFBFA, "converged_candidate_from_13_6771_and_13_49E3"),
 ]
 
 
@@ -88,7 +90,7 @@ def reg_imm(data: bytes, bank: int, pc: int):
     return None
 
 
-def recent_reg_setup(data, starts, bank, call_pc, limit=18):
+def recent_reg_setup(data, starts, bank, call_pc, limit=22):
     regs = {}
     rows = neighborhood(starts, bank, call_pc, limit, 0)[:-1]
     for q in rows:
@@ -116,7 +118,7 @@ def print_window(data, thunks, starts, bank, pc, before=14, after=8):
         print(f"{mark} {bank}:{q:04X}  {text}")
 
 
-def helper_region(data, thunks, decoded, bank, target, span=0x120):
+def helper_region(data, thunks, decoded, bank, target, span=0x180):
     print(f"-- body neighborhood {bank}:{target:04X}..{min(0x10000,target+span):04X} --")
     c = data[bank * BANK_SIZE:(bank + 1) * BANK_SIZE]
     refs = []
@@ -145,7 +147,7 @@ def helper_region(data, thunks, decoded, bank, target, span=0x120):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("firmware", type=Path)
-    ap.add_argument("--body-span", type=lambda x: int(x, 0), default=0x120)
+    ap.add_argument("--body-span", type=lambda x: int(x, 0), default=0x180)
     args = ap.parse_args()
 
     data = args.firmware.read_bytes()
@@ -180,14 +182,16 @@ def main():
             if 0x06 in vals: flags.append("HAS_06")
             if 0x01 in vals: flags.append("HAS_01")
             print(f"-- caller {b}:{pc:04X} regs[{format_regs(regs)}] {' '.join(flags)} --")
-            print_window(data, thunks, starts, b, pc, 16, 5)
+            print_window(data, thunks, starts, b, pc, 20, 6)
             print()
         helper_region(data, thunks, decoded, hb, hp, args.body_span)
         print()
 
     print("===== TARGETED INTERPRETATION =====")
-    print("Promote 7:8480 only if its callers show a stable argument role for E0 and 06/07/08,")
-    print("and its body/outgoing calls reach hardware-I2C state/registers rather than generic UI/data code.")
+    print("7:8480 is currently downgraded unless deeper descendants prove hardware I2C.")
+    print("The priority target is 9:FBFA because both 13:6771 and 13:49E3 converge there.")
+    print("Promote 9:FBFA only if its body/descendants touch a coherent Type-C/HW-I2C register path")
+    print("and the argument convention explains the observed E0/01/08 call sites.")
     print("Do not write PMIC registers; the next live step should be read-only ADC/status exposure only.")
     return 0
 
