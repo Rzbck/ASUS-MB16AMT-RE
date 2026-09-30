@@ -4,6 +4,23 @@
 
 This handoff supersedes the old "do more static analysis first" recommendation in `HANDOFF.md` / `NEXT_STEPS.md` for the current power-input objective. Static work remains useful only when it directly supports a live experiment.
 
+## Latest direct-machine campaign — preserve this before continuing
+
+See `docs/POWER_INPUT_LIVE_CAMPAIGN_2026-09-30.md` for the full preserved campaign summary.
+
+Key results now established on the live machine:
+
+- OSD/source agreement has now been observed at **100%, 99% and 97%**. At 97%, three reads were `6190/6742`, ratio `9181`, ASUS raw target `97%`.
+- Direct-machine timer analysis indicates an approximately **1 second acquisition cadence**; combined with the recovered 13-invocation filter, the displayed percentage changes by about **1 point every 13 seconds** while the raw target remains different. Keep this as strong evidence until the exact timer/divider derivation is preserved in repo artifacts.
+- One live state was approximately `4.03 V`, `-0.65 A`, `-2.62 W`, `32.15 C` battery-side.
+- Observed USB path: Intel controller -> multiple Genesys hubs -> Realtek hub -> DisplayLink. The active DisplayLink path was reported as **USB 2.0** and its descriptor reported **500 mA**. This is descriptor/request information only, **not** a measurement of total monitor input current.
+- `ED=0` versus `ED=1` has a large real battery-power effect. At brightness 100%, one `ED=0` campaign began around `-1.9 W` battery-side, while `ED=1` increased discharge beyond `-6 W` and later approached about `-7.8 W`. Do not subtract these as exact USB input watts because the measurements include filtering/transients and differing sample times.
+- With `ED=0`, low brightness can produce positive charging: at 25% the battery balance was already positive, and at 0% about **+1.3 W** was observed battery-side. Returning to 100% returned the battery to discharge.
+- Original settings were restored and re-read after testing: **brightness 100%, ED=0**. A first instrumented process had exited before restoration, so subsequent experiments used an independent restore/supervisor path.
+- Dynamic traces so far exposed the known ASUS gauge GET traffic and transport but **did not reveal a direct VBUS/input-current/current-limit transaction**.
+
+The unresolved question remains the same: actual live VBUS/input current and the component/policy that limits it at high brightness.
+
 ## Objective
 
 Determine why the ASUS MB16AMT battery still discharges while video is active over USB at high brightness, and whether the condition can be improved safely through firmware/configuration so that:
@@ -41,9 +58,9 @@ flow=DISCHARGING
 
 The independent gauge `AveragePower` and `V*I` agree closely. `RemainingCapacity / AverageCurrent` also matched the reported `TimeToEmpty`, which strongly validates the decoded live current/capacity telemetry.
 
-Brightness sweep already showed the battery current moving from about `-2.9 W` at high brightness toward approximately `0 W` at very low brightness. The exact intermediate brightness plateaus were not held long enough for precision, but the qualitative relationship is clear.
+Brightness sweep already showed the battery current moving from about `-2.9 W` at high brightness toward approximately `0 W` at very low brightness. The latest direct-machine campaign extends this: with `ED=0`, 25% brightness was already battery-positive and 0% reached approximately `+1.3 W` battery-side, while returning to 100% returned to discharge.
 
-Therefore the current target is roughly **3 W additional net power at the battery** merely to stop discharge at full brightness, plus additional input power if positive charging is desired.
+Therefore the current target remains additional input power / reduced limiting sufficient to eliminate the high-brightness battery deficit, plus margin for positive charging.
 
 ## Confirmed battery source / OSD chain
 
@@ -97,7 +114,7 @@ negotiated power mode if exposed
 port current capability
 ```
 
-Do not infer this from `5V IN` or cable `3.1A` markings.
+Do not infer this from `5V IN`, cable `3.1A`, or the DisplayLink `500 mA` descriptor.
 
 ### 2. Instrument the ASUS updater/communication stack dynamically
 
@@ -210,13 +227,13 @@ Do not use `D6=4`; it logically removes the display and causes Windows topology 
 
 Start from the live machine, not another generic firmware scan.
 
-1. Read the current repo and existing battery/gauge docs/tools.
+1. Read the current repo and existing battery/gauge docs/tools, especially `docs/POWER_INPUT_LIVE_CAMPAIGN_2026-09-30.md`.
 2. Start persistent gauge telemetry.
 3. Inspect the current USB/hub/device power topology and any available negotiated-current information.
 4. Instrument the ASUS/Realtek communication stack to identify the actual Type-C/power-controller transactions or relevant internal registers.
 5. Build a consolidated read-only runtime harness if needed.
 6. Correlate power-controller observations with battery `I_mA/AP_W` under controlled brightness/load changes.
-7. Determine whether the ~3 W deficit at full brightness is due to external source limitation or a firmware/controller limit.
+7. Determine whether the high-brightness deficit is due to external source limitation or a firmware/controller limit.
 8. If a safe reversible current-limit knob is proven, test it conservatively while continuously monitoring battery current, voltage, temperature, and device stability.
 9. Update repository documentation and handoff with exact reproducible evidence.
 
