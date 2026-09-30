@@ -1,5 +1,7 @@
 # Battery SOC investigation
 
+**LIVE BREAKTHROUGH 2026-09-30:** ASUS GET FE/EF/F0 reaches internal AA:10 through 12:E431 -> 1508 -> 0:6D00. Three live replies: 6E 84 56 1A 56 1A BA, source words 6742/6742, exact raw target **100%**. Use `tools/Run-SocReadBench.ps1 -Run -BatteryProxy`. See [BATTERY_LIVE_PROXY.md](BATTERY_LIVE_PROXY.md). DA4C itself remains unread; raw target and filtered display can differ during transitions. Earlier no-live-source statements below are historical. Next: establish runtime DA4C exposure through the FE GET handler or another proven read route.
+
 ## Current result — 2026-09-30
 
 The actual OSD battery field is **DA4C**, populated from internal GPIO I2C AA:10, an integer piecewise conversion and a smoothing filter. The exact chain and reproducible offline checks are in [BATTERY_PERCENTAGE.md](BATTERY_PERCENTAGE.md). No live percentage has yet been read: the precise source read through the external USB bridge returned 2B0A. The user-reported 100% is only an observation. Earlier rejected paths below remain closed.

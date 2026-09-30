@@ -1,5 +1,6 @@
 // Narrow live transport validation. No SET VCP, debug switch, ISP or arbitrary
-// register access. DDCCIWrite is used ONLY to send the fixed GET VCP request.
+// register access. DDCCIWrite sends fixed GET requests, including the verified
+// FE/EF/F0 proxy to the internal battery source (AA:10, four bytes).
 // Build x86; WinComm's exports are cdecl (verified in the bundled PE32 image).
 using System;
 using System.IO;
@@ -164,6 +165,47 @@ static class SocReadBench {
         }
         Console.WriteLine("{0} VERDICT={1} samples={2} stable={3}",name,good==3?"CONFIRMED_DDC_GET":"REJECTED_FOR_SNAPSHOTS",good,stable);
     }
+    static int BatteryCurve(uint x) {
+        if(x<550) return 0;
+        if(x<2950) return (int)((((x-550)*29/24)+100)/100);
+        if(x<8050) return (int)((((x-2950)*56/51)+2999)/100);
+        if(x<9450) return (int)((x+550)/100);
+        return x<=10000?100:255;
+    }
+    static bool GaugeFrame(byte[] b) {
+        if(b.Length<7||b[0]!=0x6E||b[1]!=0x84) return false;
+        int check=0x50; for(int i=0;i<7;i++) check^=b[i];
+        bool stale=b[2]==2 && b[3]==0 && b[4]==0x10 && b[5]==0;
+        return check==0 && !stale && (b[4]!=0||b[5]!=0);
+    }
+    static void BatteryProxy() {
+        for(int n=0;n<3;n++) {
+            // Establish both live transport and a known stale-TX rejection marker.
+            int rc=DDCCIWrite(0x6E,0x51,2,new byte[]{1,0x10});
+            if(rc!=0) throw new Exception("Proxy control request failed");
+            Thread.Sleep(100);
+            Sample control=Read(256,0xA5,delegate(IntPtr p){return I2CReadEx(0x6E,0,11,p,0);});
+            if(control.Rc!=0||!Vcp(control.Bytes,0x10)) throw new Exception("Proxy control reply invalid");
+            byte[] query={1,0xFE,0xEF,0xF0,0,0x10,4};
+            rc=DDCCIWrite(0x6E,0x51,(ushort)query.Length,query);
+            Console.WriteLine("GET_FE_EF_F0_AA10 request rc=0x{0:X8}",rc);
+            if(rc!=0) break;
+            Thread.Sleep(150);
+            Sample sample=Read(256,(byte)(n%2==0?0xA5:0x5A),delegate(IntPtr p){return I2CReadEx(0x6E,0,7,p,0);});
+            byte[] b=sample.Bytes;
+            int check=0x50; for(int i=0;i<7;i++) check^=b[i];
+            bool frame=sample.Rc==0 && sample.Changed && b[0]==0x6E && b[1]==0x84 && check==0;
+            bool stale=b[2]==2 && b[3]==0 && b[4]==0x10 && b[5]==0;
+            int first=b[2]|(b[3]<<8),second=b[4]|(b[5]<<8);
+            bool valid=frame && GaugeFrame(b);
+            Show("INTERNAL_GAUGE_PROXY",n,sample,valid,"frame="+BitConverter.ToString(b,0,7)+" stale_control="+stale+" first="+first+" second="+second);
+            if(!valid) break;
+            uint ratio=((uint)first*10000/(uint)second)&65535;
+            int target=BatteryCurve(ratio);
+            Console.WriteLine("BATTERY_SOURCE first={0} second={1} ratio_basis_points={2} raw_target_percent={3} displayed_DA4C=NOT_READ",first,second,ratio,target<=100?target.ToString():"INVALID");
+            Thread.Sleep(300);
+        }
+    }
     static void PointerMap() {
         ProcessModule win=null;
         foreach(ProcessModule m in Process.GetCurrentProcess().Modules) if(m.ModuleName.Equals("WinComm.dll",StringComparison.OrdinalIgnoreCase)) win=m;
@@ -188,6 +230,14 @@ static class SocReadBench {
         v[10]=0x50; for(int i=0;i<10;i++) v[10]^=v[i];
         if(!Vcp(v,0x10)||Vcp(v,0xCA)) throw new Exception("VCP response validation");
         v[10]^=1; if(Vcp(v,0x10)) throw new Exception("VCP checksum rejection");
+        byte[] gauge={0x6E,0x84,0x56,0x1A,0x56,0x1A,0xBA};
+        if(!GaugeFrame(gauge)) throw new Exception("Gauge fixture");
+        gauge[6]^=1; if(GaugeFrame(gauge)) throw new Exception("Gauge checksum rejection");
+        if(GaugeFrame(new byte[]{0x6E,0x84,2,0,0x10,0,0xA8})) throw new Exception("Stale control rejection");
+        if(GaugeFrame(new byte[]{0x6E,0x84,0,0,0,0,0xBA})) throw new Exception("Zero denominator rejection");
+        uint[] xs={0,549,550,2949,2950,2951,8049,8050,9449,9450,10000,10001};
+        int[] ys={0,0,1,29,29,30,85,86,99,100,100,255};
+        for(int i=0;i<xs.Length;i++) if(BatteryCurve(xs[i])!=ys[i]) throw new Exception("Battery curve boundary");
         Sample s=Read(8,0xA5,delegate(IntPtr p){return 0;});
         if(s.Changed||!s.Guards) throw new Exception("Unchanged buffer detection");
         Console.WriteLine("SELF_TEST_PASS: checksums, request identity, sentinels, guards. No DLL loaded.");
@@ -196,9 +246,9 @@ static class SocReadBench {
         try {
             if(args.Length==1 && args[0]=="--self-test") {SelfTest();return 0;}
             if(args.Length==0 || args[0]=="--help") {
-                Console.WriteLine("SocReadBench --run | --ddc-only | --self-test. Fixed EDID/GET VCP transport validation; no memory sweep."); return 0;
+                Console.WriteLine("SocReadBench --run | --ddc-only | --battery-source | --battery-proxy | --self-test. Fixed EDID/GET VCP transport validation; no memory sweep."); return 0;
             }
-            if(args.Length!=1||(args[0]!="--run" && args[0]!="--ddc-only" && args[0]!="--battery-source")) throw new ArgumentException("Use --run, --ddc-only, --battery-source or --self-test.");
+            if(args.Length!=1||(args[0]!="--run" && args[0]!="--ddc-only" && args[0]!="--battery-source" && args[0]!="--battery-proxy")) throw new ArgumentException("Use --run, --ddc-only, --battery-source, --battery-proxy or --self-test.");
             if(IntPtr.Size!=4) throw new Exception("x86 host required");
             if(!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator)) throw new Exception("Run elevated: the vendor bridge loader requires administrator rights.");
             string root=AppDomain.CurrentDomain.BaseDirectory;
@@ -233,6 +283,7 @@ static class SocReadBench {
                     Sample source=Read(4,0xA5,delegate(IntPtr p){return I2CReadEx(0xAA,0x10,4,p,1);});
                     Show("FIRMWARE_SOURCE_AA_10",0,source,false,"raw="+BitConverter.ToString(source.Bytes)+"; no SOC inference without validated bus/data");
                 }
+                if(args[0]=="--battery-proxy") BatteryProxy();
                 Console.WriteLine("SOC=UNRESOLVED; XDATA=UNVALIDATED; no snapshot sweep performed.");
             } finally {Console.WriteLine("ReleaseDev=0x{0:X8}",ReleaseDev());}
             return 0;

@@ -1,5 +1,7 @@
 # Static firmware map — ASUS MB16AMT V020
 
+**LIVE BREAKTHROUGH 2026-09-30:** ASUS GET FE/EF/F0 reaches internal AA:10 through 12:E431 -> 1508 -> 0:6D00. Three live replies: 6E 84 56 1A 56 1A BA, source words 6742/6742, exact raw target **100%**. Use `tools/Run-SocReadBench.ps1 -Run -BatteryProxy`. See [BATTERY_LIVE_PROXY.md](BATTERY_LIVE_PROXY.md). DA4C itself remains unread; raw target and filtered display can differ during transitions. Earlier no-live-source statements below are historical. Next: establish runtime DA4C exposure through the FE GET handler or another proven read route.
+
 **GET VCP follow-up:** nine vendor branches at 9:A3A0 checked offline (6,912 executions); no DA4C/D9F7/DCC2 read and no battery-dependent reply. The default 9:EC87 -> 1856 -> 13:6628 is a DDC NULL reply, not a memory proxy. Next: trace the RX routing upstream of 9:EC5B and D990 for a separate read handler. See the battery provenance document.
 
 **Follow-up:** D9F7 is a saved copy of DA4C, with one-byte storage offset 02BE and a 0..100 validator (invalid -> 50). All 256 validator inputs pass. The updater also reaches the ED policy evaluator E703 before display/scaler sink 13:3DE6. See `BATTERY_PERCENTAGE.md`. No live read route is established.

@@ -57,6 +57,8 @@ The CFG now recognizes guarded adjacent LJMP tables, including the warning and n
 
 ## Live result and remaining uncertainty
 
+**2026-09-30 update:** the internal source is now readable through ASUS FE/EF/F0 GET; three hardware replies returned 6742/6742, raw target 100%. See [BATTERY_LIVE_PROXY.md](BATTERY_LIVE_PROXY.md). The failed direct USB read below used a different route. DA4C itself remains unread.
+
 On 2026-09-29 at 18:15:23Z, six valid DDC control responses preceded one firmware-derived `I2CReadEx(AA,10,4,buffer,1)` through backend 6. It returned 0x2B0A after 500 ms, unchanged A5 sentinel bytes, intact guards. No valid source data or live percentage was obtained. `Run-SocReadBench.ps1 -Run -BatterySource` reproduces that bounded probe. It is not a working SOC reader. The external bridge has not been shown to reach the internal GPIO bus.
 
 The user's latest OSD observation was 100%; it is not a measurement made by these tools. Exact fuel-gauge model and the physical units of u/v remain unproven. Their address and ratio are consistent with capacity words, but do not identify a particular chip.

@@ -1,0 +1,26 @@
+{
+  "sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "entry": "12:E431",
+  "command": "GET 01 / VCP FE / subcommand EF / target F0",
+  "payload": "01 fe ef f0 00 10 04",
+  "internal_read": "0:6D00 AA:10 length=4",
+  "tests": [
+    {
+      "i2c_success": true,
+      "frame": "6e8434127856b2"
+    },
+    {
+      "i2c_success": false,
+      "frame": "6e8402001000a8"
+    },
+    {
+      "i2c_success": true,
+      "frame": "6e84e803e803ba"
+    },
+    {
+      "i2c_success": false,
+      "frame": "6e8402001000a8"
+    }
+  ],
+  "warning": "I2C failure is not reported; stale TX bytes may have a valid checksum. Reject prior brightness payload 02 00 10 00. No live percentage claim from framing alone."
+}
