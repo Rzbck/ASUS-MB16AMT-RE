@@ -1,0 +1,35 @@
+{
+  "protocol": "GET FE/EF/F0, internal AA:10, length 4",
+  "request_payload": "01 fe ef f0 00 10 04",
+  "observations": [
+    {
+      "utc_start": "2026-09-30T05:58:56.3415743Z",
+      "samples": 3,
+      "reply": "6e84561a561aba",
+      "first": 6742,
+      "second": 6742,
+      "ratio_basis_points": 10000,
+      "raw_target_percent": 100,
+      "displayed_da4c": null
+    },
+    {
+      "utc_start": "2026-09-30T06:02:35.9969542Z",
+      "samples": 3,
+      "reply": "6e84561a561aba",
+      "first": 6742,
+      "second": 6742,
+      "ratio_basis_points": 10000,
+      "raw_target_percent": 100,
+      "displayed_da4c": null
+    }
+  ],
+  "validation": [
+    "Each source request preceded by a fresh checksum-valid brightness GET reply",
+    "All six source replies checksum-valid; guards intact; stale-control marker absent",
+    "Second run used the documented PowerShell wrapper end to end"
+  ],
+  "limitations": [
+    "No direct read of filtered DA4C",
+    "Raw word units and exact gauge model not established"
+  ]
+}

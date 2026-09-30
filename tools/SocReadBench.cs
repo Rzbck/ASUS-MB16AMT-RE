@@ -284,7 +284,7 @@ static class SocReadBench {
                     Show("FIRMWARE_SOURCE_AA_10",0,source,false,"raw="+BitConverter.ToString(source.Bytes)+"; no SOC inference without validated bus/data");
                 }
                 if(args[0]=="--battery-proxy") BatteryProxy();
-                Console.WriteLine("SOC=UNRESOLVED; XDATA=UNVALIDATED; no snapshot sweep performed.");
+                Console.WriteLine("DISPLAYED_DA4C=NOT_READ; source observations, if any, are reported above; no snapshot sweep performed.");
             } finally {Console.WriteLine("ReleaseDev=0x{0:X8}",ReleaseDev());}
             return 0;
         } catch(Exception e) {Console.Error.WriteLine(e.GetType().Name+": "+e.Message);return 1;}

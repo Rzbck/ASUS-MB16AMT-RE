@@ -51,3 +51,12 @@ This command reads the **source of the percentage** and computes the unfiltered 
 Fuel-gauge identity and units of the two words remain unproven. No claim that 6742 is mAh is required for the ratio proof.
 
 Next: investigate other FE GET branches for runtime memory exposure, while keeping the verified source reader usable. Do not execute FE SET branches or assume all commands bearing GET are free of writes.
+
+
+## Repeatability and remaining display timing
+
+The documented wrapper was tested end to end in a second run at 06:02:35Z, after the first run at 05:58:56Z. All six source samples agreed. Sanitized observations are in [battery-live-observations.json](maps/battery-live-observations.json).
+
+Static timing facts: `9:BF65` checks the DA52:DA53 countdown, reloads it with 03E8 at `9:BF6F`, then calls the updater at `9:BF79`. `4:F925..F93F` decrements this word; common timer ISR `0:011A` calls that routine through 0DDC. The ISR divider uses D988:D989 and D92B:D92C. Until the divider/reload clock is established, 1000 ticks must not be presented as a proven duration. `9:F298` provides an additional updater call when DA4C=0.
+
+The other decoded FE GET paths inspected so far return settings/constants, diagnostic data, or stored data; the EF/F0 branch is the proven live source path. No runtime DA4C proxy has yet been established. The next precise tasks are to finish that FE GET coverage and derive the timer divider, so a filtered estimate cannot be mistaken for an actual display read.

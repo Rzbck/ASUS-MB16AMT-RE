@@ -7,10 +7,10 @@ param(
     [switch]$BatteryProxy
 )
 $ErrorActionPreference = 'Stop'
-if (($IncludeEdid -and ($BatterySource -or $BatteryProxy)) -or ($BatterySource -and $BatteryProxy)) { throw 'BatterySource requires the DDC-only control sequence.' }
+if (($IncludeEdid -and ($BatterySource -or $BatteryProxy)) -or ($BatterySource -and $BatteryProxy)) { throw 'Select at most one of IncludeEdid, BatterySource and BatteryProxy.' }
 if (-not $Run) {
-    Write-Host 'Use -Run from an elevated PowerShell to validate fixed EDID / GET VCP reads.'
-    Write-Host 'No SOC claim, memory sweep, SET VCP, debug switch or programming operation.'
+    Write-Host 'Use -Run -BatteryProxy from an elevated PowerShell for the verified battery-source GET.'
+    Write-Host 'Reports the raw target percentage; filtered DA4C remains unread. No SET VCP, debug or programming operation.'
     return
 }
 $principal = [Security.Principal.WindowsPrincipal]::new([Security.Principal.WindowsIdentity]::GetCurrent())

@@ -9,6 +9,16 @@ Reverse-engineering notes for the **ASUS ZenScreen Touch MB16AMT** (Realtek **RL
 
 > Start with **[HANDOFF.md](HANDOFF.md)**. It is the canonical state for the next session / next agent.
 
+## Live battery source reader
+
+The ASUS-specific **GET FE/EF/F0** proxy now reads the monitor's internal battery source without entering ISP/debug mode. Run in an elevated PowerShell with the official updater DLLs under `%TEMP%\MB16AMT_RE\fw`:
+
+```powershell
+.\tools\Run-SocReadBench.ps1 -Run -BatteryProxy
+```
+
+Two independent runs returned source words **6742/6742**, giving **100%** through the exact firmware conversion. The output labels this `raw_target_percent`: the OSD applies a further stateful filter in DA4C, which has not yet been read directly. See [protocol, safeguards and evidence](docs/BATTERY_LIVE_PROXY.md).
+
 ## Current high-confidence findings
 
 - Monitor: ASUS MB16AMT, MCCS model string `ASUS MB16AMT`, monitor ID `AUS1661`.
