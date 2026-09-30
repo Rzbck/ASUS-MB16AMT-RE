@@ -598,3 +598,4 @@ logical-to-physical bank identity. The DA86/countdown classification stands.
 
 ## Live power follow-up (2026-09-30)
 The validated gauge path now supports a supervised brightness/ED campaign; see [POWER_INPUT_LIVE.md](POWER_INPUT_LIVE.md). This does not identify a PMIC current-limit register. USB descriptors and host transport hooks provide no direct VBUS/current measurement. Preserve that distinction from battery V*I.
+The EC/2FD4/1 three-byte status ABI and active handle provenance were rechecked in the pinned RHub/bridge DLLs. The live attempt at 16:38 UTC could not open a device, so it provides no controller-status bytes.

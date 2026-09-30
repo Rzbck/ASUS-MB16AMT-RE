@@ -2,12 +2,13 @@ param(
  [string]$FirmwareRoot = "$env:TEMP\MB16AMT_RE\fw",
  [string]$OutputRoot = "$env:TEMP\MB16AMT_RE\read-bench",
  [ValidateRange(0,10000)][int]$Samples = 0,
- [switch]$Campaign
+ [switch]$Campaign,
+ [switch]$HubStatus
 )
 $ErrorActionPreference='Stop'
 $principal=[Security.Principal.WindowsPrincipal]::new([Security.Principal.WindowsIdentity]::GetCurrent())
 if(-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)){throw 'Elevated PowerShell required'}
-if($Campaign -and $Samples){throw 'Choose Campaign or Samples'}
+if(($Campaign -and $Samples) -or ($HubStatus -and ($Campaign -or $Samples))){throw 'Choose Campaign, HubStatus or Samples'}
 $root=(Resolve-Path -LiteralPath $FirmwareRoot).Path
 $hostDir=Join-Path $OutputRoot (Get-Date -Format 'yyyyMMdd-HHmmss-fff')
 New-Item -ItemType Directory -Path $hostDir -Force | Out-Null
@@ -18,6 +19,7 @@ $source=Join-Path $PSScriptRoot 'GaugeWatch.cs';$exe=Join-Path $hostDir 'GaugeWa
 if($LASTEXITCODE -ne 0){throw 'Compilation failed'}
 & $exe --self-test
 if($LASTEXITCODE -ne 0){throw 'Self-test failed'}
+if($HubStatus){& $exe --hub-status;if($LASTEXITCODE -ne 0){throw "Hub status failed: $LASTEXITCODE"};return}
 if(-not $Campaign){& $exe --watch $Samples;if($LASTEXITCODE -ne 0){throw "Watch failed: $LASTEXITCODE"};return}
 # Only the documented brightness and ED controls are changed. The native host
 # restores in finally; this separate supervisor also restores after host failure.
@@ -35,7 +37,9 @@ try {
  Get-Content -LiteralPath $stderr
  if($child.ExitCode -ne 0){throw "Campaign host failed: $($child.ExitCode)"}
 } finally {
- if(-not $child.HasExited){$child.WaitForExit()}
+ if(-not $child.HasExited){
+  if(-not $child.WaitForExit(5000)){Stop-Process -Id $child.Id -Force;$child.WaitForExit()}
+ }
  $plan=Get-Content -LiteralPath $stdout | Select-String '^RESTORE_PLAN brightness=(\d+) ED=(\d+)$' | Select-Object -First 1
  if($plan){
   $brightness=[int]$plan.Matches[0].Groups[1].Value;$policy=[int]$plan.Matches[0].Groups[2].Value

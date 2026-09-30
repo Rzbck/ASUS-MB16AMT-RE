@@ -95,3 +95,18 @@ Resolve the actual active RHub module through the lower bridge's function pointe
 and guard the output buffer before one bounded test, with valid DDC reads before
 and after. Do not repeat the old failed B0/B3 PD helpers without new evidence.
 Only a successful, interpretable response can support a controller/input claim.
+
+### Follow-up at 16:38–16:39 UTC
+
+The guarded probe is implemented as `Run-GaugeWatch.ps1 -HubStatus`, pinned to
+the inspected lower-bridge and RHub library hashes. The active transfer pointer
+selects the owning RHub module, avoiding ambiguity from two loaded DLL copies.
+Three-byte sentinel/guard checks and valid DDC transactions bracket the probe.
+
+The first attempt stopped **before the status request**: device count was zero,
+and InitialDev returned `0x2B04`. Independent present-only PnP and USB hub GET
+enumerations no longer contained the monitor's Realtek, DisplayLink or touch
+devices; the upstream Genesys hubs remained. This is an unavailable data path,
+not an EC-request rejection. Do not classify this API as a dead end. No reset,
+rescan, power command or control mutation was used to recover the device.
+Resume the single targeted read when the monitor's USB data devices reappear.

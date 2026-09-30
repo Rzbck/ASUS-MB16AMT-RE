@@ -17,6 +17,31 @@ static class GaugeWatch {
     const int TransportRetries = 3;
     const int MaxConsecutiveSampleFailures = 5;
     static volatile bool Stop;
+    [DllImport("kernel32.dll", CharSet=CharSet.Ansi)] static extern IntPtr GetProcAddress(IntPtr module,string name);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)] delegate int HubStatusReader(IntPtr handle,IntPtr output,int length);
+
+    static void HubStatus() {
+        PrimeBrightness();
+        ProcessModule lower=null,owner=null;
+        foreach(ProcessModule m in Process.GetCurrentProcess().Modules)
+            if(string.Equals(m.ModuleName,"RtHub_USB2I2C.dll",StringComparison.OrdinalIgnoreCase))lower=m;
+        if(lower==null || Hash(lower.FileName)!=ExpectedLower)throw new Exception("Unknown active lower bridge");
+        IntPtr handle=Marshal.ReadIntPtr(IntPtr.Add(lower.BaseAddress,0x1E7A4));
+        IntPtr transfer=Marshal.ReadIntPtr(IntPtr.Add(lower.BaseAddress,0x1E7F0));
+        foreach(ProcessModule m in Process.GetCurrentProcess().Modules) {
+            long p=(uint)transfer.ToInt32(),start=(uint)m.BaseAddress.ToInt32();
+            if(p>=start && p<start+m.ModuleMemorySize)owner=m;
+        }
+        if(handle==IntPtr.Zero || owner==null || Hash(owner.FileName)!="ecfcf99017ef283f5fb6f1a7e07ca732811690445e2eb900f6fd7a9d75bbf8c5")throw new Exception("Unknown active RHub owner or handle");
+        IntPtr entry=GetProcAddress(owner.BaseAddress,"RsHub_SmbusGetTPCPDStatus");
+        if(entry==IntPtr.Zero || entry.ToInt64()-owner.BaseAddress.ToInt64()!=0x25AE0)throw new Exception("Unexpected status export");
+        HubStatusReader reader=(HubStatusReader)Marshal.GetDelegateForFunctionPointer(entry,typeof(HubStatusReader));
+        Sample sample=Read(3,0xA5,delegate(IntPtr p){return reader(handle,p,3);});
+        Console.WriteLine("HUB_STATUS request=C0/EC value=2FD4 index=1 length=3 rc=0x{0:X8} changed={1} guards={2} bytes={3}",sample.Rc,sample.Changed,sample.Guards,BitConverter.ToString(sample.Bytes));
+        PrimeBrightness();
+        Console.WriteLine("HUB_STATUS_DDC_CONTROL_PASS");
+        if(!sample.Guards)throw new Exception("Hub status buffer guard failure");
+    }
 
     [DllImport("kernel32.dll", CharSet=CharSet.Unicode)] static extern bool SetDllDirectory(string path);
     [DllImport("WinComm.dll", CallingConvention=CallingConvention.Cdecl)] static extern void Initiallize();
@@ -204,7 +229,7 @@ static class GaugeWatch {
         try {
             if(args.Length==1 && args[0]=="--self-test") { SelfTest(); return 0; }
             bool restoreOnly=args.Length==3 && args[0]=="--restore-controls";
-            if(!restoreOnly && ((args.Length!=1 && args.Length!=2) || (args[0]!="--watch" && args[0]!="--campaign"))) { Console.WriteLine("GaugeWatch --watch [sample-count] | --campaign | --self-test"); return args.Length==0?0:2; }
+            if(!restoreOnly && ((args.Length!=1 && args.Length!=2) || (args[0]!="--watch" && args[0]!="--campaign" && args[0]!="--hub-status") || (args.Length==2 && args[0]!="--watch"))) { Console.WriteLine("GaugeWatch --watch [sample-count] | --campaign | --hub-status | --self-test"); return args.Length==0?0:2; }
             int sampleLimit=args.Length==2?int.Parse(args[1],CultureInfo.InvariantCulture):0;
             if(sampleLimit<0 || sampleLimit>10000) throw new Exception("Invalid sample count");
             if(IntPtr.Size!=4) throw new Exception("x86 host required");
@@ -223,6 +248,7 @@ static class GaugeWatch {
             Console.WriteLine("Devices before open={0}",GetDeviceCount());
             int init=InitialDev(); Console.WriteLine("InitialDev=0x{0:X8}",init); if(init!=0) return 2;
             try {
+                if(args[0]=="--hub-status") {HubStatus();return 0;}
                 if(restoreOnly) {SetKnownVcp(0x10,ushort.Parse(args[1]));SetKnownVcp(0xED,ushort.Parse(args[2]));Console.WriteLine("RESTORE_CONFIRMED brightness={0} ED={1}",args[1],args[2]);return 0;}
                 if(args[0]=="--campaign") {Campaign();return 0;}
                 int consecutiveFailures=0;

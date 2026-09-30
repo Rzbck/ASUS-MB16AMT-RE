@@ -43,4 +43,3 @@ def main():
  finally:session.detach()
  print('Detached; local trace:',a.out)
 if __name__=='__main__':main()
-

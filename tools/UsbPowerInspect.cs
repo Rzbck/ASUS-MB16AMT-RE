@@ -55,4 +55,3 @@ public static class UsbPowerInspect {
   }return 0;
  }
 }
-
