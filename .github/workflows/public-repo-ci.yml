@@ -14,15 +14,17 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Compile x86 host and test without vendor DLLs or hardware
+      - name: Compile x86 hosts and test without vendor DLLs or hardware
         shell: pwsh
         run: |
-          $source = (Resolve-Path tools/SocReadBench.cs).Path
-          $exe = Join-Path $env:RUNNER_TEMP 'SocReadBench.exe'
-          & "$env:WINDIR\Microsoft.NET\Framework\v4.0.30319\csc.exe" /nologo /platform:x86 "/out:$exe" $source
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          & $exe --self-test
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          foreach ($name in @('SocReadBench','GaugeSurvey')) {
+            $source = (Resolve-Path "tools/$name.cs").Path
+            $exe = Join-Path $env:RUNNER_TEMP "$name.exe"
+            & "$env:WINDIR\Microsoft.NET\Framework\v4.0.30319\csc.exe" /nologo /platform:x86 "/out:$exe" $source
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            & $exe --self-test
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
