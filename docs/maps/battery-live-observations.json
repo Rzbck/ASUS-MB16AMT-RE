@@ -21,12 +21,43 @@
       "ratio_basis_points": 10000,
       "raw_target_percent": 100,
       "displayed_da4c": null
+    },
+    {
+      "utc_start": "2026-09-30T06:49:38.4398694Z",
+      "user_reported_osd_percent": 99,
+      "samples": [
+        {
+          "reply": "6e84d818561a36",
+          "first": 6360,
+          "second": 6742,
+          "ratio_basis_points": 9433,
+          "raw_target_percent": 99,
+          "displayed_da4c": null
+        },
+        {
+          "reply": "6e84d718561a39",
+          "first": 6359,
+          "second": 6742,
+          "ratio_basis_points": 9431,
+          "raw_target_percent": 99,
+          "displayed_da4c": null
+        },
+        {
+          "reply": "6e84d718561a39",
+          "first": 6359,
+          "second": 6742,
+          "ratio_basis_points": 9431,
+          "raw_target_percent": 99,
+          "displayed_da4c": null
+        }
+      ]
     }
   ],
   "validation": [
     "Each source request preceded by a fresh checksum-valid brightness GET reply",
     "All six source replies checksum-valid; guards intact; stale-control marker absent",
-    "Second run used the documented PowerShell wrapper end to end"
+    "Second run used the documented PowerShell wrapper end to end",
+    "User-reported OSD changed 100 to 99; three new live samples independently convert to 99 (raw ratio 9433/9431 basis points), while brightness GET remained 100."
   ],
   "limitations": [
     "No direct read of filtered DA4C",

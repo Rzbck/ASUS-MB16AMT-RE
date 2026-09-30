@@ -60,3 +60,18 @@ The documented wrapper was tested end to end in a second run at 06:02:35Z, after
 Static timing facts: `9:BF65` checks the DA52:DA53 countdown, reloads it with 03E8 at `9:BF6F`, then calls the updater at `9:BF79`. `4:F925..F93F` decrements this word; common timer ISR `0:011A` calls that routine through 0DDC. The ISR divider uses D988:D989 and D92B:D92C. Until the divider/reload clock is established, 1000 ticks must not be presented as a proven duration. `9:F298` provides an additional updater call when DA4C=0.
 
 The other decoded FE GET paths inspected so far return settings/constants, diagnostic data, or stored data; the EF/F0 branch is the proven live source path. No runtime DA4C proxy has yet been established. The next precise tasks are to finish that FE GET coverage and derive the timer divider, so a filtered estimate cannot be mistaken for an actual display read.
+
+
+## Independent 100% -> 99% validation
+
+At 2026-09-30 06:49:38Z, following the user's report that the OSD had dropped to 99%, three fresh source reads returned:
+
+| Source reply | u | v | Integer ratio x | Firmware target |
+|---|---:|---:|---:|---:|
+| 6E 84 D8 18 56 1A 36 | 6360 | 6742 | 9433 | 99 |
+| 6E 84 D7 18 56 1A 39 | 6359 | 6742 | 9431 | 99 |
+| 6E 84 D7 18 56 1A 39 | 6359 | 6742 | 9431 | 99 |
+
+For this curve segment the target is `(x+550)//100`, so a raw ratio around 94.3% correctly produces the observed 99%. The numerator changed between samples; the denominator remained 6742. All source frames passed checksum/guard/stale-payload checks. Brightness controls read 100 during this run, independently excluding confusion with that VCP value.
+
+This confirms live variation in the previously traced battery source and agreement of the firmware conversion with two reported OSD values. It does not establish the duration of transient display lag or directly read DA4C. These captured inputs are now included in the original-instruction acquisition and proxy regression tests.
