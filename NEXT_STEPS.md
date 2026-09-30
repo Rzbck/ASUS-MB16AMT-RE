@@ -1,5 +1,9 @@
 # Next steps — prioritized
 
+## Latest live result (2026-09-30)
+
+See [POWER_INPUT_LIVE.md](docs/POWER_INPUT_LIVE.md): completed supervised brightness/ED campaign, original 100/ED0 restored twice with readback. At ED0, 100% brightness discharges (~1.9–2.6 W observed); 25% and 0% charge positively. ED1 at 100% approaches -7.9 W. These are battery watts, not USB input watts. USB2 high-speed topology and 500 mA DisplayLink configuration descriptor are verified; actual VBUS, input current, PD contract and current limit remain unknown. Next distinct live read: validate active RHub handle/module and test the three-byte RsHub_SmbusGetTPCPDStatus IN request once. No current-limit write is justified yet. Keep injected tracing separate from state-changing campaigns.
+
 ## PRIORITY OVERRIDE — direct-machine power-input RE (2026-09-30)
 
 For the current charging/power objective, **read `HANDOFF_DIRECT_MACHINE.md` first**. It supersedes the older recommendation below to keep doing static firmware analysis before touching the machine.

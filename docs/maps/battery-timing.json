@@ -1,0 +1,38 @@
+{
+  "sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "setup": "4:F3B3 -> 16E2 -> 5:E268 (argument 1)",
+  "clock_cases": [
+    {
+      "ffed": 2,
+      "clock_selector": 0,
+      "divider": 1,
+      "intermediate_us": 1000,
+      "reload": "E373",
+      "subtracted_counts": 7308
+    },
+    {
+      "ffed": 0,
+      "clock_selector": 8,
+      "divider": 1,
+      "intermediate_us": 1000,
+      "reload": "F6E2",
+      "subtracted_counts": 2333
+    },
+    {
+      "ffed": 0,
+      "clock_selector": 0,
+      "divider": 1,
+      "intermediate_us": 1000,
+      "reload": "FB56",
+      "subtracted_counts": 1193
+    }
+  ],
+  "countdown_checks": 1002,
+  "updater": "9:BF65 checks zero, reloads 1000, calls 9:E77F",
+  "confidence": "Nominal 1 ms timer matches ScalerTimer1SetTimerCount in the public reference; normal battery period approximately 1 s, filter step approximately 13 s while differing.",
+  "limitations": [
+    "Physical clock frequency and ISR jitter not measured",
+    "DA58 can defer acquisition; DA4C=0 has an additional updater path",
+    "This does not directly read or synchronize the live display cache"
+  ]
+}

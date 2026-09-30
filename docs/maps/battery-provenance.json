@@ -54,7 +54,7 @@
   "writer": "9:E79E..E7A2",
   "renderer": "10:F8F4, R3 value; digits D837; pointer 01 D8 37; string id 3A -> 1:D7A1",
   "curve_checks": 65536,
-  "acquisition_mock_checks": 45,
+  "acquisition_mock_checks": 48,
   "filter_checks": 2754,
   "renderer_checks": 101,
   "cfg": {

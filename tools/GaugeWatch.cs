@@ -1,6 +1,6 @@
 // Persistent read-only battery telemetry watcher through the verified ASUS
-// GET FE/EF/F0 proxy. No Control(), DataFlash, SET VCP, debug, ISP, reset,
-// programming or arbitrary write operation is used.
+// GET FE/EF/F0 proxy. Campaign mode additionally sets verified VCP 10/ED,
+// with restoration. No DataFlash, debug, ISP, reset or arbitrary writes.
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -128,6 +128,7 @@ static class GaugeWatch {
         return x<=10000?100:255;
     }
 
+    static string Phase="observe";
     static void OneSample() {
         Stopwatch sw=Stopwatch.StartNew();
         byte[] p06=ProxyRead4(0x06); ushort temp=U16(p06,0), volt=U16(p06,2);
@@ -145,11 +146,51 @@ static class GaugeWatch {
         string flow=current<0?"DISCHARGING":current>0?"CHARGING":"NEAR_ZERO";
         string asusText=asus<=100?asus.ToString():"INVALID";
         Console.WriteLine(
-            "GAUGE_WATCH {0:HH:mm:ss.fff} V_mV={1} I_mA={2} VI_W={3} AP_W={4} flow={5} RM_mAh={6} FCC_mAh={7} SOC_pct={8} ASUS_pct={9} TEMP_C={10} CYCLES={11} sample_ms={12}",
+            "GAUGE_WATCH {0:HH:mm:ss.fff} V_mV={1} I_mA={2} VI_W={3} AP_W={4} flow={5} RM_mAh={6} FCC_mAh={7} SOC_pct={8} ASUS_pct={9} TEMP_C={10} CYCLES={11} sample_ms={12} phase={13}",
             DateTime.Now,volt,current,vi.ToString("F3",CultureInfo.InvariantCulture),gaugePower.ToString("F3",CultureInfo.InvariantCulture),flow,
-            rm,fcc,soc,asusText,tempC.ToString("F2",CultureInfo.InvariantCulture),cycles,sw.ElapsedMilliseconds);
+            rm,fcc,soc,asusText,tempC.ToString("F2",CultureInfo.InvariantCulture),cycles,sw.ElapsedMilliseconds,Phase);
+        if(tempC>45 || volt<3400 || volt>4400) throw new Exception("Campaign telemetry limit reached; restore controls");
     }
 
+    static ushort GetVcp(byte code) {
+        for(int attempt=0;attempt<3;attempt++) {
+            int rc=DDCCIWrite(0x6E,0x51,2,new byte[]{1,code});Thread.Sleep(150);
+            Sample sample=Read(32,0xA5,delegate(IntPtr p){return I2CReadEx(0x6E,0,11,p,0);});
+            byte[] b=sample.Bytes;int checksum=0x50;for(int i=0;i<11;i++)checksum^=b[i];
+            if(rc==0&&sample.Rc==0&&b[0]==0x6E&&b[1]==0x88&&b[2]==2&&b[3]==0&&b[4]==code&&checksum==0)return (ushort)((b[8]<<8)|b[9]);
+            Thread.Sleep(200);
+        }throw new Exception("VCP read failed "+code.ToString("X2"));
+    }
+    static void SetKnownVcp(byte code,ushort value) {
+        if((code!=0x10&&code!=0xED)||(code==0x10&&value>100)||(code==0xED&&value>1))throw new Exception("Control outside allowed experiment");
+        int rc=DDCCIWrite(0x6E,0x51,4,new byte[]{3,code,(byte)(value>>8),(byte)value});
+        if(rc!=0)throw new Exception("Set control failed");Thread.Sleep(400);
+        if(GetVcp(code)!=value)throw new Exception("Control readback mismatch");
+        Console.WriteLine("CONTROL {0:o} vcp={1:X2} value={2}",DateTime.UtcNow,code,value);
+    }
+    static void Campaign() {
+        ushort originalBrightness=GetVcp(0x10),originalEd=GetVcp(0xED);
+        if(originalBrightness>100||originalEd>1)throw new Exception("Unexpected original settings");
+        Console.WriteLine("RESTORE_PLAN brightness={0} ED={1}",originalBrightness,originalEd);
+        try {
+            int[] brightness={100,100,100,75,50,25,0,100};
+            int[] policy={0,1,0,0,0,0,0,0};
+            for(int phase=0;phase<brightness.Length&&!Stop;phase++) {
+                SetKnownVcp(0xED,(ushort)policy[phase]);SetKnownVcp(0x10,(ushort)brightness[phase]);
+                Phase="p"+phase+"_b"+brightness[phase]+"_ed"+policy[phase];
+                Console.WriteLine("PHASE_START {0:o} phase={1} duration_s={2}",DateTime.UtcNow,Phase,phase==1?75:45);
+                Stopwatch hold=Stopwatch.StartNew();
+                while(!Stop&&hold.Elapsed.TotalSeconds<(phase==1?75:45)){OneSample();Thread.Sleep(600);}
+            }
+        } finally {
+            // Attempt both restores even if the first one fails.
+            Exception restoreError=null;
+            try{SetKnownVcp(0x10,originalBrightness);}catch(Exception e){restoreError=e;}
+            try{SetKnownVcp(0xED,originalEd);}catch(Exception e){restoreError=e;}
+            if(restoreError!=null)throw new Exception("RESTORE_FAILED: "+restoreError.Message);
+            Console.WriteLine("RESTORE_CONFIRMED brightness={0} ED={1}",originalBrightness,originalEd);
+        }
+    }
     static void SelfTest() {
         byte[] x={0x56,0x1A,0xD2,0xFD};
         if(U16(x,0)!=6742 || S16(x,2)!=-558) throw new Exception("decode self-test failed");
@@ -162,7 +203,10 @@ static class GaugeWatch {
     static int Main(string[] args) {
         try {
             if(args.Length==1 && args[0]=="--self-test") { SelfTest(); return 0; }
-            if(args.Length!=1 || args[0]!="--watch") { Console.WriteLine("GaugeWatch --watch | --self-test"); return args.Length==0?0:2; }
+            bool restoreOnly=args.Length==3 && args[0]=="--restore-controls";
+            if(!restoreOnly && ((args.Length!=1 && args.Length!=2) || (args[0]!="--watch" && args[0]!="--campaign"))) { Console.WriteLine("GaugeWatch --watch [sample-count] | --campaign | --self-test"); return args.Length==0?0:2; }
+            int sampleLimit=args.Length==2?int.Parse(args[1],CultureInfo.InvariantCulture):0;
+            if(sampleLimit<0 || sampleLimit>10000) throw new Exception("Invalid sample count");
             if(IntPtr.Size!=4) throw new Exception("x86 host required");
             if(!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator)) throw new Exception("Run elevated: vendor bridge initialization requires administrator rights.");
             string root=AppDomain.CurrentDomain.BaseDirectory;
@@ -172,17 +216,21 @@ static class GaugeWatch {
             Directory.SetCurrentDirectory(root); SetDllDirectory(Path.Combine(root,"Comm"));
             SetCurWorkingPath(root.TrimEnd('\\')); SetSettingFilePath(Path.Combine(root,"IspSetting.ini"));
             Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs e) { e.Cancel=true; Stop=true; };
-            Console.WriteLine("GAUGE WATCH {0:o}; persistent bridge; ASUS FE GET read-only telemetry; Ctrl+C to stop",DateTime.UtcNow);
+            Console.WriteLine("GAUGE WATCH {0:o}; persistent bridge; mode={1}; ASUS FE GET telemetry; Ctrl+C to stop",DateTime.UtcNow,args[0]);
             Initiallize(); Console.WriteLine("Comm modules={0}",GetCommCount());
             int select=SetCommByID(6); Console.WriteLine("SetCommByID(6)=0x{0:X8}; active={1}",select,GetCommID());
             if(select!=0 || GetCommID()!=6) return 2;
             Console.WriteLine("Devices before open={0}",GetDeviceCount());
             int init=InitialDev(); Console.WriteLine("InitialDev=0x{0:X8}",init); if(init!=0) return 2;
             try {
+                if(restoreOnly) {SetKnownVcp(0x10,ushort.Parse(args[1]));SetKnownVcp(0xED,ushort.Parse(args[2]));Console.WriteLine("RESTORE_CONFIRMED brightness={0} ED={1}",args[1],args[2]);return 0;}
+                if(args[0]=="--campaign") {Campaign();return 0;}
                 int consecutiveFailures=0;
-                while(!Stop) {
+                int samples=0;
+                while(!Stop && (sampleLimit==0 || samples<sampleLimit)) {
                     try {
                         OneSample();
+                        samples++;
                         consecutiveFailures=0;
                     } catch(Exception sampleError) {
                         consecutiveFailures++;

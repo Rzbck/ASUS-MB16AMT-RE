@@ -75,3 +75,22 @@ At 2026-09-30 06:49:38Z, following the user's report that the OSD had dropped to
 For this curve segment the target is `(x+550)//100`, so a raw ratio around 94.3% correctly produces the observed 99%. The numerator changed between samples; the denominator remained 6742. All source frames passed checksum/guard/stale-payload checks. Brightness controls read 100 during this run, independently excluding confusion with that VCP value.
 
 This confirms live variation in the previously traced battery source and agreement of the firmware conversion with two reported OSD values. It does not establish the duration of transient display lag or directly read DA4C. These captured inputs are now included in the original-instruction acquisition and proxy regression tests.
+
+
+## Independent 97% validation and timing follow-up
+
+At 2026-09-30 07:00:34Z the user reported OSD 97%. Three validated replies were `6E 84 2E 18 56 1A C0`: u=6190, v=6742, x=9181, converted target `(9181+550)//100 = 97`. The captured input is covered by the original-instruction acquisition and proxy checks. Live agreement now spans 100%, 99% and 97%, without modifying charging or brightness settings.
+
+### Timer evidence
+
+`4:F3B3` passes R6:R7=0001 to 16E2 -> `5:E268`. Executing this setup offline for its three clock branches yields divider D988:D989=0001, intermediate D98C:D98D=03E8, and reloads E373/F6E2/FB56. These correspond to subtracting 7308/2333/1193 counts from FFFF. TL1/TH1 receive the matching reload bytes. `4:F90A` decrements DA52:DA53 with zero saturation (1,002 tested inputs); `9:BF6F` reloads 1000 and calls the battery updater.
+
+The instruction sequence matches public `ScalerTimer1SetTimerCount(WORD usTimerMs)` in `Kernel/Scaler/ScalerCommonFunction/Code/ScalerCommonTimerFunction.c:1074`, reference revision 3d38340ec8518a8888fd5d8dbb181c2a7418e11c. That function takes milliseconds and uses the same 1000 multiplier, divider, clock selection and reload structure. Therefore the intended normal acquisition cadence is approximately one second; a continuing difference moves the display filter one point every 13 normal calls, approximately 13 seconds. **Strong evidence for nominal timing**, not a physical timing measurement or a guarantee under every state: DA58 can defer acquisition, zero percentage has another update path, and interrupt/scheduler delay is not measured.
+
+Reproduce with `tools/trace_battery_timing.py`; see [battery-timing.json](maps/battery-timing.json).
+
+### FE GET routing coverage
+
+`tools/trace_fe_get_routes.py` checks all 65,536 combinations of the two FE GET selector bytes, plus eight metadata gate cases, stopping at service entrypoints. The only primary selectors reaching services are 10, 16, CC, E1, E9 and EF. EF/F0 reaches AA internal I2C, EF/F1 reaches slave 16. Other branches reach setting replies, fixed metadata, diagnostic logs, or the storage dispatcher F684.
+
+No direct DA4C/D9F7/DCC2 read occurs in this dispatch. This is not a proof about the complete transitive services: the checks stop before their execution. [fe-get-routes.json](maps/fe-get-routes.json) preserves exact selector destinations. The remaining precise cache-read candidate is the transitive storage/diagnostic service path, especially `12:F684`; do not send unverified selectors to hardware merely because they are under GET.

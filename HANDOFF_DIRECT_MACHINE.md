@@ -1,5 +1,9 @@
 # Direct-machine handoff — ASUS MB16AMT power-input / charging RE
 
+## Latest live result (2026-09-30)
+
+See [POWER_INPUT_LIVE.md](docs/POWER_INPUT_LIVE.md): completed supervised brightness/ED campaign, original 100/ED0 restored twice with readback. At ED0, 100% brightness discharges (~1.9–2.6 W observed); 25% and 0% charge positively. ED1 at 100% approaches -7.9 W. These are battery watts, not USB input watts. USB2 high-speed topology and 500 mA DisplayLink configuration descriptor are verified; actual VBUS, input current, PD contract and current limit remain unknown. Next distinct live read: validate active RHub handle/module and test the three-byte RsHub_SmbusGetTPCPDStatus IN request once. No current-limit write is justified yet. Keep injected tracing separate from state-changing campaigns.
+
 **Status date:** 2026-09-30
 
 This handoff supersedes the old "do more static analysis first" recommendation in `HANDOFF.md` / `NEXT_STEPS.md` for the current power-input objective. Static work remains useful only when it directly supports a live experiment.

@@ -35,7 +35,7 @@ def main():
     thunks=inventory(data)
     assert thunks[0x1508]==(0,0x6D00)
     records=[]
-    for payload in (bytes.fromhex('34 12 78 56'), bytes.fromhex('e8 03 e8 03'), bytes.fromhex('d8 18 56 1a'), bytes.fromhex('d7 18 56 1a')):
+    for payload in (bytes.fromhex('34 12 78 56'), bytes.fromhex('e8 03 e8 03'), bytes.fromhex('d8 18 56 1a'), bytes.fromhex('d7 18 56 1a'), bytes.fromhex('2e 18 56 1a')):
         for success in (True,False):
             m=Proxy(data,thunks,payload,success)
             m.x[0xD990:0xD999]=bytes.fromhex('51 87 01 fe ef f0 00 10 04')

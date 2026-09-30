@@ -36,6 +36,14 @@
     {
       "i2c_success": false,
       "frame": "6e8402001000a8"
+    },
+    {
+      "i2c_success": true,
+      "frame": "6e842e18561ac0"
+    },
+    {
+      "i2c_success": false,
+      "frame": "6e8402001000a8"
     }
   ],
   "warning": "I2C failure is not reported; stale TX bytes may have a valid checksum. Reject prior brightness payload 02 00 10 00. No live percentage claim from framing alone."
