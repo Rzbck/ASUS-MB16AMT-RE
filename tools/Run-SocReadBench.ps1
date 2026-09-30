@@ -4,13 +4,16 @@ param(
     [switch]$Run,
     [switch]$IncludeEdid,
     [switch]$BatterySource,
-    [switch]$BatteryProxy
+    [switch]$BatteryProxy,
+    [switch]$GaugeSurvey
 )
 $ErrorActionPreference = 'Stop'
-if (($IncludeEdid -and ($BatterySource -or $BatteryProxy)) -or ($BatterySource -and $BatteryProxy)) { throw 'Select at most one of IncludeEdid, BatterySource and BatteryProxy.' }
+$selected = @($IncludeEdid, $BatterySource, $BatteryProxy, $GaugeSurvey | Where-Object { $_ }).Count
+if ($selected -gt 1) { throw 'Select at most one of IncludeEdid, BatterySource, BatteryProxy and GaugeSurvey.' }
 if (-not $Run) {
-    Write-Host 'Use -Run -BatteryProxy from an elevated PowerShell for the verified battery-source GET.'
-    Write-Host 'Reports the raw target percentage; filtered DA4C remains unread. No SET VCP, debug or programming operation.'
+    Write-Host 'Use -Run -BatteryProxy for the verified battery-source GET.'
+    Write-Host 'Use -Run -GaugeSurvey for read-only standard gauge telemetry (voltage/current/capacity/timing/SOC candidates).'
+    Write-Host 'No SET VCP, debug, ISP or programming operation.'
     return
 }
 $principal = [Security.Principal.WindowsPrincipal]::new([Security.Principal.WindowsIdentity]::GetCurrent())
@@ -23,8 +26,10 @@ $hostDir = Join-Path $OutputRoot (Get-Date -Format 'yyyyMMdd-HHmmss-fff')
 New-Item -ItemType Directory -Path $hostDir -Force | Out-Null
 Copy-Item -LiteralPath (Join-Path $root 'WinComm.dll') -Destination $hostDir
 Copy-Item -LiteralPath (Join-Path $root 'Comm') -Destination $hostDir -Recurse
-$source = Join-Path $PSScriptRoot 'SocReadBench.cs'
-$exe = Join-Path $hostDir 'SocReadBench.exe'
+$sourceName = if ($GaugeSurvey) { 'GaugeSurvey.cs' } else { 'SocReadBench.cs' }
+$exeName = if ($GaugeSurvey) { 'GaugeSurvey.exe' } else { 'SocReadBench.exe' }
+$source = Join-Path $PSScriptRoot $sourceName
+$exe = Join-Path $hostDir $exeName
 $compiler = "$env:WINDIR\Microsoft.NET\Framework\v4.0.30319\csc.exe"
 & $compiler /nologo /platform:x86 "/out:$exe" $source
 if ($LASTEXITCODE -ne 0) { throw 'Read bench compilation failed.' }
@@ -32,7 +37,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Read bench compilation failed.' }
 if ($LASTEXITCODE -ne 0) { throw 'Read bench self-test failed.' }
 $stdout = Join-Path $hostDir 'stdout.txt'
 $stderr = Join-Path $hostDir 'stderr.txt'
-$mode = if ($BatteryProxy) { '--battery-proxy' } elseif ($BatterySource) { '--battery-source' } elseif ($IncludeEdid) { '--run' } else { '--ddc-only' }
+$mode = if ($GaugeSurvey) { '--gauge-survey' } elseif ($BatteryProxy) { '--battery-proxy' } elseif ($BatterySource) { '--battery-source' } elseif ($IncludeEdid) { '--run' } else { '--ddc-only' }
 $process = Start-Process -FilePath $exe -ArgumentList $mode -WindowStyle Hidden -PassThru -RedirectStandardOutput $stdout -RedirectStandardError $stderr
 if (-not $process.WaitForExit(60000)) {
     $process.Kill()
