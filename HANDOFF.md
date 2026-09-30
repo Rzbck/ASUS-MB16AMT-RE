@@ -1,5 +1,16 @@
 # Handoff — ASUS MB16AMT / RL6492 RE
 
+## Current hardware experiment gate
+
+No USB power tester is available (user confirmed). The validated software paths
+provide battery telemetry but no input VBUS/current or proven current-limit
+register. Full-brightness improvement remains unachieved. See
+[POWER_MEASUREMENT_GATE.md](docs/POWER_MEASUREMENT_GATE.md) for the evidence,
+why battery watts cannot identify the bottleneck, and the minimal passive
+external observation. Do not repeat closed reads or substitute speculative
+writes. Offline query-consumer work remains unresolved; only new protocol
+proof or new physical measurement can justify another input-power test.
+
 ## Latest live result (2026-09-30)
 
 **Return-route correction:** the known 9:EBE1/EC06 return feeds E703 then the already identified display sink 13:3DE6. Verified edge summary is in docs/maps/charge-policy-return-route.json. Next unresolved ED dependency: callers of generic setting query 8:5FEF with selectors 04/43, not another pass over EBE1. No hardware controls changed in this analysis.
