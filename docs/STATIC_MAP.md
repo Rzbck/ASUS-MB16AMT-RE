@@ -601,3 +601,23 @@ The validated gauge path now supports a supervised brightness/ED campaign; see [
 The EC/2FD4/1 three-byte status ABI and active handle provenance were rechecked in the pinned RHub/bridge DLLs. The live attempt at 16:38 UTC could not open a device, so it provides no controller-status bytes.
 
 17:30 UTC live follow-up: EC status request now executed on active handle, rc=0x1F, no payload, guards intact and DDC healthy. This does not establish a PD/controller mapping. See POWER_INPUT_LIVE.md.
+
+## Corrected EBE1 priority: decoded return route is display-side
+
+The verified V020 decoded direct-edge inventory has only 9:E759 calling EBE1,
+and only 9:E7F2 calling E703. E759 belongs to E703: E75C copies R7 to R5,
+E75E jumps to E77C, and E77C returns R5 through R7. E7F5 then passes that
+result to 13:3DE6, the previously identified display/scaler sink.
+`trace_charge_policy_callers.py --summary` now asserts these exact transfers and
+writes `docs/maps/charge-policy-return-route.json` without proprietary bytes.
+Do not continue looking for a new PMIC call along this already traced return.
+
+This is not a proof that ED has no hardware consumer. In particular the proven
+setting-query selectors 04/43 return the inverse of D9FF.bit7; downstream users
+of that generic getter can hide the dependency from a direct bit-reference
+search. Those consumers and packed-state copies remain unresolved. The direct
+8:635E branch returns this query value; 9:A802 feeds the VCP reply helpers,
+and 10:BEC8 writes selection scratch D830. These are not controller registers.
+Next bounded analysis: classify callers of 8:5FEF/thunk 1862 with selectors
+04/43, preserving the distinction between raw call candidates and reachable CFG
+sites. Derive a hardware-facing read before any further device experiment.

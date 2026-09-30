@@ -75,3 +75,23 @@ This tracer inventories:
 4. nearby XDATA references for each caller.
 
 Promotion rule: do not call a path "power management" merely because it consumes `D9FF.bit7`; require downstream calls/XDATA to reach Type-C, PMIC, charger, or otherwise independently identified power-state logic.
+
+## Corrected EBE1 priority: decoded return route is display-side
+
+The verified V020 decoded direct-edge inventory has only 9:E759 calling EBE1,
+and only 9:E7F2 calling E703. E759 belongs to E703: E75C copies R7 to R5,
+E75E jumps to E77C, and E77C returns R5 through R7. E7F5 then passes that
+result to 13:3DE6, the previously identified display/scaler sink.
+`trace_charge_policy_callers.py --summary` now asserts these exact transfers and
+writes `docs/maps/charge-policy-return-route.json` without proprietary bytes.
+Do not continue looking for a new PMIC call along this already traced return.
+
+This is not a proof that ED has no hardware consumer. In particular the proven
+setting-query selectors 04/43 return the inverse of D9FF.bit7; downstream users
+of that generic getter can hide the dependency from a direct bit-reference
+search. Those consumers and packed-state copies remain unresolved. The direct
+8:635E branch returns this query value; 9:A802 feeds the VCP reply helpers,
+and 10:BEC8 writes selection scratch D830. These are not controller registers.
+Next bounded analysis: classify callers of 8:5FEF/thunk 1862 with selectors
+04/43, preserving the distinction between raw call candidates and reachable CFG
+sites. Derive a hardware-facing read before any further device experiment.

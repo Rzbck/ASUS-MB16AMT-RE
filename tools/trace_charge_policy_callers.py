@@ -11,6 +11,7 @@ from __future__ import annotations
 from pathlib import Path
 import argparse
 import hashlib
+import json
 
 from analyze_banked_abi import BANK_SIZE, LENGTHS, SHA, inventory, traverse, word
 from mcs51 import decode
@@ -86,12 +87,27 @@ def dptr_refs(data,decoded,bank,lo,hi):
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument("firmware",type=Path)
+    ap.add_argument("--summary",type=Path,help="Write compact decoded-edge evidence, without firmware bytes")
     args=ap.parse_args()
     data=args.firmware.read_bytes()
     if len(data)!=0xE0000 or hashlib.sha256(data).hexdigest()!=SHA:
         raise SystemExit("Refusing an image other than verified ASUS V020")
     thunks=inventory(data)
     decoded,*_=traverse(data,thunks); decoded=set(decoded)
+    if args.summary:
+        edges={f'{b}:{pc:04X}':[f'{cb}:{cp:04X}' for cb,cp,_ in incoming_exact(data,decoded,thunks,(b,pc))]
+               for b,pc in [(9,0xE703),(9,0xEBE1)]}
+        assert edges == {'9:E703':['9:E7F2'],'9:EBE1':['9:E759']}, edges
+        assert resolved_target(data,thunks,9,0xE7F5)==(13,0x3DE6)
+        chunk=data[9*BANK_SIZE:10*BANK_SIZE]
+        assert chunk[0xE75C:0xE760]==bytes.fromhex('AD07801C')
+        assert chunk[0xE77C:0xE77F]==bytes.fromhex('AF0522')
+        args.summary.write_text(json.dumps({'firmware_sha256':SHA,
+            'decoded_incoming_sites':edges,
+            'return_route':['9:EBE1 -> R7','9:E75C R5=R7','9:E77C R7=R5; RET',
+                            '9:E7F2 calls E703','9:E7F5 calls 13:3DE6'],
+            'conclusion':'Known EBE1 return route feeds the already identified display/scaler sink.',
+            'limits':'Decoded direct edges only; not proof against indirect entries, packed-state copies or consumers of setting query selectors 04/43.'},indent=2)+'\n')
 
     print("ASUS MB16AMT V020 — charge-policy caller/return trace")
     print(f"SHA256: {SHA}")

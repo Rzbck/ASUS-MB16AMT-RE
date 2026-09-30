@@ -2,6 +2,8 @@
 
 ## Latest live result (2026-09-30)
 
+**Return-route correction:** the known 9:EBE1/EC06 return feeds E703 then the already identified display sink 13:3DE6. Verified edge summary is in docs/maps/charge-policy-return-route.json. Next unresolved ED dependency: callers of generic setting query 8:5FEF with selectors 04/43, not another pass over EBE1. No hardware controls changed in this analysis.
+
 **17:30 UTC update (supersedes absence below):** USB returned; the targeted EC status read returned 0x1F without modifying the guarded buffer, with valid DDC before/after. Passive controls=100/ED0; three fresh battery samples=4177 mV, -784 mA, -3.275 W. No settings changed. Do not repeat EC. Next: resolve the non-display 9:EBE1/EC06 policy consumers to a proven power output/source classification; actual USB input power remains unmeasured.
 
 **16:39 UTC follow-up:** current USB data path is absent (no monitor Realtek/DisplayLink/touch devices; backend count=0, InitialDev=0x2B04). The new guarded `-HubStatus` probe was not sent. Resume it once enumeration returns; no reset or power-cycle was attempted.

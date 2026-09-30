@@ -1,0 +1,20 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "decoded_incoming_sites": {
+    "9:E703": [
+      "9:E7F2"
+    ],
+    "9:EBE1": [
+      "9:E759"
+    ]
+  },
+  "return_route": [
+    "9:EBE1 -> R7",
+    "9:E75C R5=R7",
+    "9:E77C R7=R5; RET",
+    "9:E7F2 calls E703",
+    "9:E7F5 calls 13:3DE6"
+  ],
+  "conclusion": "Known EBE1 return route feeds the already identified display/scaler sink.",
+  "limits": "Decoded direct edges only; not proof against indirect entries, packed-state copies or consumers of setting query selectors 04/43."
+}

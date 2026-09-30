@@ -117,7 +117,7 @@ def main():
     decoded,*_=traverse(data,thunks)
     decoded=set(decoded)
 
-    print("ASUS MB16AMT V020 — exhaustive charge-bit7 helper caller trace")
+    print("ASUS MB16AMT V020 — decoded charge-bit7 helper caller trace")
     print(f"SHA256: {SHA}")
     print("READ-ONLY OFFLINE ANALYSIS; NO DEVICE I/O")
     print()
@@ -129,6 +129,7 @@ def main():
     print("===== DIRECT D9FF + ANL #80 SITES =====")
     for b,dp,mask in direct_bit7_sites(data,decoded):
         print(f"{b}:{dp:04X} -> mask at {b}:{mask:04X}")
+        print_window(data,decoded,thunks,b,dp,before=0x10,after=0x55)
     print()
 
     callers=[]
