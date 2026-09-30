@@ -14,6 +14,8 @@ static class GaugeWatch {
     const string ExpectedWinComm = "d237f4fbe3ab3acfc4170558785b422aeaea055627522510105f5517b0d78739";
     const string ExpectedBackend = "90f61a228eb4c58dfca72e597e5366549483022765e7cb4c49b21fe883a1907f";
     const string ExpectedLower = "1fa6235d6a00c139ed2827c4a6f0de382796b5435a788b4bf1b3e38bfa032a7d";
+    const int TransportRetries = 3;
+    const int MaxConsecutiveSampleFailures = 5;
     static volatile bool Stop;
 
     [DllImport("kernel32.dll", CharSet=CharSet.Unicode)] static extern bool SetDllDirectory(string path);
@@ -66,23 +68,58 @@ static class GaugeWatch {
         if(b[2]==0x02 && b[3]==0x00 && b[4]==0x10 && b[5]==0x00) return false;
         return true;
     }
+    static string Head(byte[] b,int count) {
+        return BitConverter.ToString(b,0,Math.Min(count,b.Length));
+    }
+
+    // The verified FE proxy can return stale TX data when its internal I2C read
+    // fails. Keep the brightness GET as a known marker before every gauge read,
+    // but tolerate bounded transient DDC timing failures instead of terminating
+    // the whole watch on the first bad frame.
     static void PrimeBrightness() {
-        int rc=DDCCIWrite(0x6E,0x51,2,new byte[]{1,0x10});
-        if(rc!=0) throw new Exception("Brightness control request failed: 0x"+rc.ToString("X8"));
-        Thread.Sleep(100);
-        Sample s=Read(32,0xA5,delegate(IntPtr p){return I2CReadEx(0x6E,0,11,p,0);});
-        if(s.Rc!=0 || !s.Changed || !Vcp10(s.Bytes)) throw new Exception("Brightness control reply invalid; refusing watch sample.");
+        string last="none";
+        for(int attempt=1;attempt<=TransportRetries;attempt++) {
+            int rc=DDCCIWrite(0x6E,0x51,2,new byte[]{1,0x10});
+            if(rc!=0) {
+                last="write_rc=0x"+rc.ToString("X8");
+                Console.WriteLine("GAUGE_WATCH_RETRY stage=control_write attempt={0}/{1} {2}",attempt,TransportRetries,last);
+                Thread.Sleep(180);
+                continue;
+            }
+            Thread.Sleep(120);
+            Sample s=Read(32,0xA5,delegate(IntPtr p){return I2CReadEx(0x6E,0,11,p,0);});
+            if(s.Rc==0 && s.Changed && Vcp10(s.Bytes)) return;
+            last="read_rc=0x"+s.Rc.ToString("X8")+" changed="+s.Changed+" frame="+Head(s.Bytes,11);
+            Console.WriteLine("GAUGE_WATCH_RETRY stage=control_read attempt={0}/{1} {2}",attempt,TransportRetries,last);
+            Thread.Sleep(180);
+        }
+        throw new Exception("Brightness control remained invalid after retries: "+last);
     }
+
     static byte[] ProxyRead4(byte reg) {
-        PrimeBrightness();
-        byte[] query={1,0xFE,0xEF,0xF0,0,reg,4};
-        int rc=DDCCIWrite(0x6E,0x51,(ushort)query.Length,query);
-        if(rc!=0) throw new Exception("Gauge proxy request failed at 0x"+reg.ToString("X2")+": 0x"+rc.ToString("X8"));
-        Thread.Sleep(150);
-        Sample s=Read(32,0x5A,delegate(IntPtr p){return I2CReadEx(0x6E,0,7,p,0);});
-        if(s.Rc!=0 || !s.Changed || !ProxyFrame4(s.Bytes)) throw new Exception("Invalid/stale gauge proxy response at 0x"+reg.ToString("X2"));
-        byte[] payload=new byte[4]; Array.Copy(s.Bytes,2,payload,0,4); return payload;
+        string last="none";
+        for(int attempt=1;attempt<=TransportRetries;attempt++) {
+            PrimeBrightness();
+            byte[] query={1,0xFE,0xEF,0xF0,0,reg,4};
+            int rc=DDCCIWrite(0x6E,0x51,(ushort)query.Length,query);
+            if(rc!=0) {
+                last="write_rc=0x"+rc.ToString("X8");
+                Console.WriteLine("GAUGE_WATCH_RETRY stage=gauge_write reg=0x{0:X2} attempt={1}/{2} {3}",reg,attempt,TransportRetries,last);
+                Thread.Sleep(200);
+                continue;
+            }
+            Thread.Sleep(170);
+            Sample s=Read(32,0x5A,delegate(IntPtr p){return I2CReadEx(0x6E,0,7,p,0);});
+            if(s.Rc==0 && s.Changed && ProxyFrame4(s.Bytes)) {
+                byte[] payload=new byte[4]; Array.Copy(s.Bytes,2,payload,0,4); return payload;
+            }
+            last="read_rc=0x"+s.Rc.ToString("X8")+" changed="+s.Changed+" frame="+Head(s.Bytes,7);
+            Console.WriteLine("GAUGE_WATCH_RETRY stage=gauge_read reg=0x{0:X2} attempt={1}/{2} {3}",reg,attempt,TransportRetries,last);
+            Thread.Sleep(200);
+        }
+        throw new Exception("Gauge proxy remained invalid at 0x"+reg.ToString("X2")+" after retries: "+last);
     }
+
     static int BatteryCurve(uint x) {
         if(x<550) return 0;
         if(x<2950) return (int)((((x-550)*29/24)+100)/100);
@@ -142,9 +179,18 @@ static class GaugeWatch {
             Console.WriteLine("Devices before open={0}",GetDeviceCount());
             int init=InitialDev(); Console.WriteLine("InitialDev=0x{0:X8}",init); if(init!=0) return 2;
             try {
+                int consecutiveFailures=0;
                 while(!Stop) {
-                    OneSample();
-                    for(int i=0;i<5 && !Stop;i++) Thread.Sleep(100);
+                    try {
+                        OneSample();
+                        consecutiveFailures=0;
+                    } catch(Exception sampleError) {
+                        consecutiveFailures++;
+                        Console.WriteLine("GAUGE_WATCH_WARN sample_failed={0}/{1} message={2}",consecutiveFailures,MaxConsecutiveSampleFailures,sampleError.Message);
+                        if(consecutiveFailures>=MaxConsecutiveSampleFailures) throw;
+                        Thread.Sleep(600);
+                    }
+                    for(int i=0;i<6 && !Stop;i++) Thread.Sleep(100);
                 }
             } finally { Console.WriteLine("ReleaseDev=0x{0:X8}",ReleaseDev()); }
             return 0;
