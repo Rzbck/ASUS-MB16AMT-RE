@@ -100,6 +100,73 @@ def full_sampling(data, thunks):
                       'Cache equivalence and suppression are verified byte behavior; flags and button names remain to be classified.']}
 
 
+def hold_contract(data, thunks):
+    class ToggleReached(Exception):pass
+    class Held(Machine):
+        def __init__(self,*args):
+            super().__init__(*args); self.delay_calls = 0
+        def jump(self,target,call=False):
+            if self.bank == 2 and self.origin == 0xF375 and target == 0x15C2:
+                raise ToggleReached
+            if target == 0x0DAC:
+                assert (self.r(6),self.r(7)) == (0,1)
+                self.delay_calls += 1
+            super().jump(target,call)
+    # Exact caller gate, after the earlier mode/lock conditions at E346.
+    for word in range(65536):
+        m = Machine(data,thunks)
+        m.x[0xD820:0xD822] = word.to_bytes(2,'big')
+        try:m.run(2,0xE3A9,budget=9)
+        except AssertionError as error:
+            assert str(error).startswith('Instruction budget exceeded at')
+        else:raise AssertionError('Expected hold-call boundary')
+        assert (m.bank,m.pc) == (2,0xE3B6 if word == 0x0010 else 0xE3BD)
+        assert not m.writes
+    for old in range(256):
+        m = Held(data,thunks); m.x[0xD9FD] = old
+        try:m.run(2,0xF345,budget=300)
+        except ToggleReached:pass
+        else:raise AssertionError('Expected post-toggle call boundary')
+        assert m.x[0xD9FD] == old ^ 64
+        assert {a for _,_,a in m.writes} == {0xD9FD}
+    counts = []
+    for source in (0,3):
+        for old in (0,64):
+            m = Held(data,thunks)
+            m.sr(6,0);m.sr(7,16)
+            m.x[0xFF09] = 187; m.x[0xFE0D] = 1;m.sbit(0x96,1)
+            m.x[0xDCA2:0xDCA4] = bytes((0,16))
+            m.x[0xD9FD] = old; m.x[0xDCC9] = source << 4
+            m.x[0xDCB7] = 3; m.sbit(0xCA,0)
+            try:m.run(2,0xF2C6,budget=2000000)
+            except ToggleReached:pass
+            else:raise AssertionError('Expected full hold completion')
+            expected_count = 2500 if source == 3 else 5000
+            assert m.delay_calls == expected_count
+            assert m.x[0xD9FD] == old ^ 64
+            assert bytes(m.x[0xD824:0xD826]) == bytes((0,0))
+            counts.append(expected_count)
+    # Immediate released input aborts after the first loop pass, without toggle.
+    abort = Held(data,thunks); abort.sr(6,0);abort.sr(7,16)
+    abort.x[0xFF09] = 0; abort.x[0xFE0D] = 1;abort.sbit(0x96,1)
+    abort.x[0xDCB7] = 3; abort.x[0xDCC9] = 0x30;abort.sbit(0xCA,0)
+    abort.run(2,0xF2C6,budget=10000)
+    assert abort.c == 0 and abort.x[0xD9FD] == 0
+    assert abort.delay_calls == 1
+    return {'caller':'2:E346 -> E3A9..E3B6, only word 0010 calls F2C6 after earlier gates',
+            'caller_checks':65536,'entry':'2:F2C6',
+            'count':'5000 by default; 2500 if 7:F2FC returns 3',
+            'fixture_source':'DCC9 high nibble 0/3; DCB7&1F=3; DA6B=0, D9FE.bit5=0, DA0F.bit0=0',
+            'loop':'Call 0DAC with argument 1, decrement BE16 D824:D825, resample DF25 and compare against original D822:D823; stop on count zero or changed input.',
+            'on_zero':'2:F34F..F374 toggles D9FD.bit6, preserving all other bits; reaches call 15C2 at F375',
+            'toggle_checks':256,'full_hold_checks':len(counts),'observed_delay_call_counts':counts,
+            'release_abort_checks':1,
+            'limits':['Post-toggle call 15C2 is a boundary; its side effects/persistence are not executed or classified here.',
+                      'Counts are delay requests, not measured milliseconds; CAh=0 selects real delay early return in fixtures.',
+                      'A key-lock interpretation of D9FD.bit6 is strong evidence, not a named setting or physical-button proof.',
+                      'Earlier caller gates and all alternative hold-loop conditions remain to be mapped.']}
+
+
 def build(data):
     assert len(data) == 0xE0000 and hashlib.sha256(data).hexdigest() == SHA
     thunks = inventory(data)
@@ -141,6 +208,7 @@ def build(data):
         assert {a for _,_,a in m.writes} == {0xDC9E,0xDC9F}
     return {'firmware_sha256':SHA,
             'full_sampling':full_sampling(data,thunks),
+            'hold_contract':hold_contract(data,thunks),
             'initial_sampling':{'entry':'2:DF25','boundary':'2:DF91 -> F27A, before first D826 read at F27D',
                 'reads':['FF09 -> D828','FE0D','SFR bit 96h'],
                 'output':'BE16 D826:D827', 'checks':sampling_checks,
@@ -180,6 +248,8 @@ def main():
           'getter/copy/writer:',result['runtime_word']['getter_checks'],
           result['runtime_word']['copy_checks'],result['runtime_word']['writer_checks'])
     print('Full sampling/retry cap:',result['full_sampling']['checks'],result['full_sampling']['retry_cap_cases'])
+    print('Hold caller/toggle/full:',result['hold_contract']['caller_checks'],
+          result['hold_contract']['toggle_checks'],result['hold_contract']['full_hold_checks'])
 
 
 if __name__ == '__main__':main()

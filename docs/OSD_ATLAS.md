@@ -36,7 +36,7 @@ namespaces and must not be equated merely because their numeric values match.
 | Layer | Verified evidence | Remaining work |
 |---|---|---|
 | Bank/call ABI | Existing thunk inventory; current traversal 158,425 instructions, 52 recognized bounded tables, 20 unresolved indirect sites | Resolve OSD-relevant indirect flow; preserve static bank-model qualification |
-| Input/navigation | ADC/GPIO classifier, cached stability/return path and current/previous input words verified; DA6C event service mapped | Physical debounce timing, button names, repeat and menu transitions |
+| Input/navigation | ADC/GPIO classifier, stability cache, word storage and 0010 hold/bit6 toggle verified; DA6C event service mapped | Physical timing, button names, repeat, save effects and menu transitions |
 | Menu states | DA6B setting selector; DA0A low nibble feeds nine category handlers through D823 | Handler labels, key transitions, modal dialogs, shortcut behavior |
 | Value reads | Full 8:5FEF contract; R7 selector, R5 mode; R7 result | Tie every OSD selection to label and adjustment handler |
 | Value updates | Scattered proven setters and DDC handlers | Min/max/step handling, validation, dirty flags and persistence for every setting |

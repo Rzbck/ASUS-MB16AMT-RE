@@ -93,6 +93,33 @@ the routine's real early-return branch: no timer interrupt or elapsed duration
 is fabricated. Thus mask/cache/retry behavior is verified under these fixtures,
 while **physical debounce timing and clock/timer provenance remain open**.
 
+## Hold path for code 0010
+
+Inside `2:E346`, the gate at **E3A9..E3B4** calls **F2C6** only when the
+saved input word D820:D821 is exactly **0010**. All 65,536 possible words
+were checked after the routine's earlier gates; no other word reaches that
+call boundary. This links the analog BB..C4 classification to a hold operation.
+
+`2:F2C6` saves the supplied word in D822:D823, initializes BE16 D824:D825
+to **5000**, or **2500** if getter 7:F2FC returns 3. Under its allowed state
+conditions, each pass calls 0DAC with argument one, decrements the counter and
+resamples DF25. A changed input exits without toggling. At counter zero,
+**F34F..F374 toggles D9FD.bit6**, preserving its other seven bits, and reaches
+the banked call **15C2 → 8:DDB3** at F375.
+
+256 old-byte cases verify the exact toggle. Four full holds verify delay-call
+counts 5000/5000/2500/2500 with bit6 initially clear/set. An immediate release
+aborts after one pass with carry clear and no toggle. Full-hold fixtures set
+DCC9 high nibble to 0/3, DCB7 low five bits to 3, DA6B=0, D9FE.bit5=0 and
+DA0F.bit0=0; earlier caller gates and alternative state conditions remain open.
+
+The post-toggle call is a tested boundary: its persistence or other side
+effects are **not executed or established** here. CAh is clear in fixtures,
+so delay counts do not prove elapsed milliseconds. The known getter selector
+33 returns the inverse of this same D9FD.bit6. Its gating/hold behavior gives
+**strong evidence for a key-lock function**, while the setting's exact UI name,
+physical button name, repeat behavior and save contract still need proof.
+
 ## Distinct display/system-state inputs
 
 The [DA6C event service](OSD_EVENTS.md) calls `9:9CD9` before B8B2. That
@@ -109,5 +136,6 @@ uv run --locked --offline python tools/map_osd_input.py <local-V020.bin> --out d
 
 [Derived checks](maps/osd-input.json) contain masks/addresses and counts,
 without proprietary bytes. Next: **E6B6/E20F** input consumers, button names,
-repeat behavior and DA6D/menu transitions; identify bit24h's producer and the
-delay clock/timer. Physical timings remain qualified until that proof.
+repeat behavior and DA6D/menu transitions; identify bit24h's producer, the
+delay clock/timer and **8:DDB3** post-toggle effects. Physical timings remain
+qualified until that proof.

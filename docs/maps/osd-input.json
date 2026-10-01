@@ -17,6 +17,30 @@
       "Cache equivalence and suppression are verified byte behavior; flags and button names remain to be classified."
     ]
   },
+  "hold_contract": {
+    "caller": "2:E346 -> E3A9..E3B6, only word 0010 calls F2C6 after earlier gates",
+    "caller_checks": 65536,
+    "entry": "2:F2C6",
+    "count": "5000 by default; 2500 if 7:F2FC returns 3",
+    "fixture_source": "DCC9 high nibble 0/3; DCB7&1F=3; DA6B=0, D9FE.bit5=0, DA0F.bit0=0",
+    "loop": "Call 0DAC with argument 1, decrement BE16 D824:D825, resample DF25 and compare against original D822:D823; stop on count zero or changed input.",
+    "on_zero": "2:F34F..F374 toggles D9FD.bit6, preserving all other bits; reaches call 15C2 at F375",
+    "toggle_checks": 256,
+    "full_hold_checks": 4,
+    "observed_delay_call_counts": [
+      5000,
+      5000,
+      2500,
+      2500
+    ],
+    "release_abort_checks": 1,
+    "limits": [
+      "Post-toggle call 15C2 is a boundary; its side effects/persistence are not executed or classified here.",
+      "Counts are delay requests, not measured milliseconds; CAh=0 selects real delay early return in fixtures.",
+      "A key-lock interpretation of D9FD.bit6 is strong evidence, not a named setting or physical-button proof.",
+      "Earlier caller gates and all alternative hold-loop conditions remain to be mapped."
+    ]
+  },
   "initial_sampling": {
     "entry": "2:DF25",
     "boundary": "2:DF91 -> F27A, before first D826 read at F27D",
