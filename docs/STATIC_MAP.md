@@ -1,6 +1,6 @@
 # Static firmware map — ASUS MB16AMT V020
 
-**CONFIRMED complete language SET/refresh:** [OSD_LANGUAGE_SET.md](OSD_LANGUAGE_SET.md) adds1,344 complete original SET/refresh paths and672 integrated synthetic-success saves to133,120 boundary fixtures. DA72 bit3 clear resetsDA6B=0/publishesDA6C=0B through10:F439; set defers refresh/event and leaves dirtybit0 pending. No live hardware operation. DA72 gate producers are next.
+**CONFIRMED deferred language release:** [OSD_OVERLAY_GATE.md](OSD_OVERLAY_GATE.md) verifiesDA72.bit3 producers andFC11 clearingbits3/4 after reset/eventpublication. 512 leaf,48 complete producer,168 composed deferred SET/release and1,344 storage fixtures pass offline. Overlay ownership interpretation is strong evidence; next9:A1D1..A212 gates. Complete OSD mapping remains unfinished.
 
 **97% confirmed live:** three source reads at 07:00:34Z returned 6190/6742 -> x=9181 -> target 97%, matching the user OSD report. Timer setup 5:E268 now matches the reference millisecond routine: nominal acquisition ~1 s and continued filter steps ~13 s (strong evidence, physical timing unmeasured). FE GET dispatch was checked in 65,544 offline cases; remaining cache-read investigation is inside service 12:F684 and diagnostic leaves, not selector guessing. See [BATTERY_LIVE_PROXY.md](BATTERY_LIVE_PROXY.md).
 

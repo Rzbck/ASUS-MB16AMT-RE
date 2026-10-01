@@ -22,7 +22,7 @@ and masks1F. The following test of accumulator bit0 therefore tests original
 DA72 bit3 regardless of incoming carry. When that bit is set, the handler
 returns. When clear, it calls15F8 ->10:F439, whose entry calls18BC ->13:6803
 then invokes multiple5:F920 selector operations. The verifier stops before
-F439; its complete effects and the semantic meaning of DA72 bit3 remain open.
+F439 in this earlier boundary check; complete-path fixtures follow below.
 
 The [verifier](../tools/map_osd_language_set.py) runs actual instructions for
 65,536 low-code/packed-old-language combinations,65,536 low/high-payload
@@ -61,5 +61,5 @@ With DA72 bit3 set, the other672 complete SETs bypass F439, retain DA6B=56,
 leave DA6C=0, and keep dirty bit0. Calling the event dispatcher immediately
 afterward still leaves the dirty bit pending: SET did not publish event0B.
 This does not prove permanent loss; later event producers/interrupts have
-not been executed. Next: trace DA72 bit3 setters/clearers and the command
-states that use this deferred path.
+not been executed in this verifier. [OSD_OVERLAY_GATE.md](OSD_OVERLAY_GATE.md)
+now verifies the setters/clearers and a composed FC11 release/save route.

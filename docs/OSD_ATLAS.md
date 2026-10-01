@@ -1,6 +1,6 @@
 # ASUS MB16AMT V020 — OSD reverse-engineering atlas
 
-**CONFIRMED complete language SET/refresh:** [OSD_LANGUAGE_SET.md](OSD_LANGUAGE_SET.md) adds1,344 complete original SET/refresh paths and672 integrated synthetic-success saves to133,120 boundary fixtures. DA72 bit3 clear resetsDA6B=0/publishesDA6C=0B through10:F439; set defers refresh/event and leaves dirtybit0 pending. No live hardware operation. DA72 gate producers are next.
+**CONFIRMED deferred language release:** [OSD_OVERLAY_GATE.md](OSD_OVERLAY_GATE.md) verifiesDA72.bit3 producers andFC11 clearingbits3/4 after reset/eventpublication. 512 leaf,48 complete producer,168 composed deferred SET/release and1,344 storage fixtures pass offline. Overlay ownership interpretation is strong evidence; next9:A1D1..A212 gates. Complete OSD mapping remains unfinished.
 
 The current objective is a complete, reproducible OSD map for later modification
 planning. **The complete map is not finished.** This page is the entry point;
