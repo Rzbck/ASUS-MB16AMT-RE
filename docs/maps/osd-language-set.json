@@ -1,0 +1,126 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "code_packed_language_checks": 65536,
+  "high_payload_checks": 65536,
+  "dirty_checks": 1024,
+  "refresh_gate_checks": 1024,
+  "dispatch": "9:9452 opcodeD993 ->9:9883 readsD995 ->inline9:988A",
+  "mapping": [
+    {
+      "code": "01",
+      "index": 15,
+      "branch": "9:98CD"
+    },
+    {
+      "code": "02",
+      "index": 0,
+      "branch": "9:98D6"
+    },
+    {
+      "code": "03",
+      "index": 1,
+      "branch": "9:98DD"
+    },
+    {
+      "code": "04",
+      "index": 2,
+      "branch": "9:98E6"
+    },
+    {
+      "code": "05",
+      "index": 4,
+      "branch": "9:98EF"
+    },
+    {
+      "code": "06",
+      "index": 16,
+      "branch": "9:98F8"
+    },
+    {
+      "code": "07",
+      "index": 17,
+      "branch": "9:9901"
+    },
+    {
+      "code": "08",
+      "index": 12,
+      "branch": "9:990A"
+    },
+    {
+      "code": "09",
+      "index": 6,
+      "branch": "9:9913"
+    },
+    {
+      "code": "0A",
+      "index": 3,
+      "branch": "9:991C"
+    },
+    {
+      "code": "0C",
+      "index": 13,
+      "branch": "9:9924"
+    },
+    {
+      "code": "0D",
+      "index": 14,
+      "branch": "9:992C"
+    },
+    {
+      "code": "11",
+      "index": 9,
+      "branch": "9:9934"
+    },
+    {
+      "code": "12",
+      "index": 8,
+      "branch": "9:993C"
+    },
+    {
+      "code": "14",
+      "index": 5,
+      "branch": "9:9944"
+    },
+    {
+      "code": "1A",
+      "index": 10,
+      "branch": "9:994C"
+    },
+    {
+      "code": "1E",
+      "index": 7,
+      "branch": "9:9954"
+    },
+    {
+      "code": "1F",
+      "index": 11,
+      "branch": "9:995C"
+    },
+    {
+      "code": "23",
+      "index": 19,
+      "branch": "9:9964"
+    },
+    {
+      "code": "30",
+      "index": 18,
+      "branch": "9:996C"
+    },
+    {
+      "code": "31",
+      "index": 20,
+      "branch": "9:9974"
+    }
+  ],
+  "unsupported": "Default9:997A retainsDA03 but still ORsDA69 bit0.",
+  "packed_write": "Valid codes writeDA03=(old&C0)|index, including unchanged selections.",
+  "payload": "D994 is not read on these paths; exhaustive high-byte fixtures give identical effects.",
+  "notification": "Prologue writesDCC5=CC and clearsbit25; DCC4 remains unchanged. Unlike OSD FD52, it does not assignDCC4=2.",
+  "refresh": "9:D2A3 rotatesDA72 three times and masks1F;9:9CA5 tests resultingbit0, exactly originalDA72 bit3. Clear invokes15F8->10:F439; set returns without it.",
+  "limits": [
+    "Offline bytearray execution only; no monitor command.",
+    "Clear-bit3 cases stop before10:F439; refresh internals and subsequent event/save execution are not proved here.",
+    "NoDA6C/DA87 write occurs before that boundary or on the complete set-bit3 path.",
+    "DA72 bit3 meaning is not assigned from this branch alone."
+  ]
+}

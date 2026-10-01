@@ -1,5 +1,7 @@
 # Static firmware map — ASUS MB16AMT V020
 
+**CONFIRMED receive-side language SET:** [OSD_LANGUAGE_SET.md](OSD_LANGUAGE_SET.md) and its reproducible map establish the21-code inverse GET mapping into DA03, preserved high2, ignored payload high byte, and dirty marking even for unsupported codes. DCC4 is retained; DA72 bit3 gates10:F439. 133,120 bounded offline fixtures pass; refresh internals remain open.
+
 **97% confirmed live:** three source reads at 07:00:34Z returned 6190/6742 -> x=9181 -> target 97%, matching the user OSD report. Timer setup 5:E268 now matches the reference millisecond routine: nominal acquisition ~1 s and continued filter steps ~13 s (strong evidence, physical timing unmeasured). FE GET dispatch was checked in 65,544 offline cases; remaining cache-read investigation is inside service 12:F684 and diagnostic leaves, not selector guessing. See [BATTERY_LIVE_PROXY.md](BATTERY_LIVE_PROXY.md).
 
 **100% -> 99% live validation:** on 2026-09-30, the user reported OSD 99%; three fresh source samples were 6360/6742, 6359/6742, 6359/6742. The exact firmware curve independently returns **99%** for all three (raw ratios 9433/9431 basis points). Brightness was 100, so it is not the source of this result. See [evidence](BATTERY_LIVE_PROXY.md). Direct DA4C access and transient filter timing remain unresolved. Timer setup is now localized to 5:E268: it sets D988:D989 and the reload bytes D95E/D960; derive its caller arguments and clock selection before assigning a wall-clock duration.
