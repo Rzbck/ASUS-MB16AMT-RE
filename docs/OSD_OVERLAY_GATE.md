@@ -57,10 +57,38 @@ the OSD before clearing it. Exact physical screen names remain unassigned.
 The composed release proves a route exists, not that every deferred runtime
 SET necessarily reaches FC11. Interrupts and later event producers are absent.
 
-Next precise target:9:A1D1..A212, including its conditional clear9:A203..A20C
-versus FC11 call. Determine the state/flag gates and connect them to the menu
-command dispatcher before assigning modal or popup semantics.
+## Navigation release gate before menu dispatch
+
+[map_osd_overlay_navigation.py](../tools/map_osd_overlay_navigation.py) verifies
+the actual9:A1D1..A212 block:262,144 fixtures exhaust all DA6B/DA72 bytes
+with DA91=0/3 and DA50=0/20, plus1,024 fixtures cover every DA91 and DA50
+source byte separately. The [report](maps/osd-overlay-navigation.json) records
+boundary counts. It stops before FC11 or the next dispatch guard.
+
+| Condition, evaluated in order | Result before menu dispatch |
+|---|---|
+| DA6B=58 | Jump A384/RET; no gate handling |
+| DA6B in53..55 inclusive | Bypass gate handling; retain DA72 |
+| Otherwise DA72 bit3 clear | Bypass release; retain DA72 |
+| Otherwise DA91=3 OR DA50 bit5 set | Clear DA72 bits3/4 atA203..A20C; no FC11 call |
+| Otherwise | A20F calls FC11, then continues A212 |
+
+Only the direct-clear case writes XDATA in this bounded block, and only DA72.
+No event/dirty write occurs before dispatch on that branch. This local result
+does not establish that a pending setting is globally lost or never saved.
+Arbitrary byte fixtures are mechanical coverage, not additional legal states.
+The physical meanings of DA91 and DA50 bit5 remain unknown.
+
+The shared A212 continuation tests **DA68 bit1**. Set: LJMP19AC ->8:E49A,
+the verified alternate callback selector. Clear: continue normal-path guards
+before9:A23E, the verified normal callback selector. Exact bytes/thunk are
+checked; this verifier does not execute the intervening A21F guards. See
+[OSD_HANDLERS.md](OSD_HANDLERS.md).
+
+Next precise target: preceding9:A129..A1D1 mode/timer/navigation guards,
+including1532 ->7:FED0 and AB44, and the A21F normal-path guard.
 
 ```powershell
 uv run --locked --offline python tools/map_osd_overlay_gate.py $fw --out docs/maps/osd-overlay-gate.json
+uv run --locked --offline python tools/map_osd_overlay_navigation.py $fw --out docs/maps/osd-overlay-navigation.json
 ```

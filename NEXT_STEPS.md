@@ -4,7 +4,7 @@
 
 The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). Verified layers now include text pointers/segments, common font-byte output, the separate cell-stream renderer, menu category dispatch and menu-text language provenance. The complete map remains unfinished. No hardware mutation or flash is part of this task.
 
-Latest OSD milestone: [docs/OSD_OVERLAY_GATE.md](docs/OSD_OVERLAY_GATE.md) verifies512 DA72 bit setter/clearer fixtures,48 complete drawing producer paths,168 composed deferred SETCC ->FC11 release paths, and1,344 following synthetic-success saves. FC11 resets the OSD/publishesevent0B before clearingDA72.bits3/4; packedlanguage survives into payloadbyte6. An overlay ownership/refresh-suppression interpretation is strong evidence, physical screen names unassigned. Next precise target: **9:A1D1..A212 conditional gate clearing versus FC11 and command dispatch**, then modal/re-entry/native glyphs. Full OSD mapping and physical completion remain unfinished.
+Latest OSD milestone: [docs/OSD_OVERLAY_GATE.md](docs/OSD_OVERLAY_GATE.md) adds263,168 navigation gate fixtures at9:A1D1:state58 returns,states53..55 bypass release, otherwiseDA72.bit3 gates directclear whenDA91=3 orDA50.bit5 versusFC11. Directclear only writesDA72; no event publication locally. A212 DA68.bit1 links alternate8:E49A versus normal-path guards before9:A23E. Earlier full producers/deferred SET/release/save proof remains valid. Next precise target: **preceding9:A129..A1D1 mode/timer/navigation guards andA21F normal-path guard**. Full OSD mapping and physical completion remain unfinished.
 
 ## Current hardware experiment gate
 

@@ -1,0 +1,25 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "gate_state_checks": 262144,
+  "source_field_checks": 1024,
+  "boundary_counts": {
+    "direct_clear": 96768,
+    "dispatch": 132096,
+    "full_release": 32256,
+    "state58_return": 1024
+  },
+  "entry": "9:A1D1; this is a block within navigation, not its complete entry.",
+  "state58": "DA6B=58 jumps9:A384 RET before gate handling or menu dispatch.",
+  "protected_states": "DA6B53..55 inclusive bypass gate handling; original flags retained.",
+  "gate_clear": "For other states, DA72.bit3 clear bypasses release and retains flags.",
+  "direct_clear": "For other states withDA72.bit3 set, DA91=3 orDA50.bit5 set clearsDA72.bits3/4 via9:A203..A20C before dispatch; no FC11 call or other XDATA write in this block.",
+  "full_release": "Otherwise9:A20F callsFC11, then continues9:A212. Verifier stops before this callee; complete FC11/deferred-language proof is in map_osd_overlay_gate.",
+  "dispatch_link": "9:A212 testsDA68.bit1: set LJMP19AC->8:E49A alternate handler selector; clear continues normal-path guards before known9:A23E selector.",
+  "limits": [
+    "All execution offline; no hardware operation.",
+    "Preceding navigation gates and physical meanings ofDA91/DA50 flags remain unassigned.",
+    "Exhaustive fixtures at this block do not prove arbitrary DA6B values are legal menu states.",
+    "Direct-clear bypasses FC11 locally; no global claim that pending dirty settings are lost.",
+    "DA68 branch bytes checked statically; normal-path guards afterA21F are not executed by this verifier."
+  ]
+}
