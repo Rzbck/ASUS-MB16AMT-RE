@@ -85,8 +85,9 @@ before9:A23E, the verified normal callback selector. Exact bytes/thunk are
 checked; this verifier does not execute the intervening A21F guards. See
 [OSD_HANDLERS.md](OSD_HANDLERS.md).
 
-Next precise target: preceding9:A129..A1D1 mode/timer/navigation guards,
-including1532 ->7:FED0 and AB44, and the A21F normal-path guard.
+The preceding9:A129..A1D1 mode/timer/navigation guards and A21F normal-path
+guard are now verified in [OSD_NAVIGATION_GUARDS.md](OSD_NAVIGATION_GUARDS.md).
+Next:9:A334..A384 fallback and the preceding command/repeat flag lifecycle.
 
 ```powershell
 uv run --locked --offline python tools/map_osd_overlay_gate.py $fw --out docs/maps/osd-overlay-gate.json

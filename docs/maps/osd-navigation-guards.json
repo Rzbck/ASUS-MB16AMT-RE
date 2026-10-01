@@ -1,0 +1,26 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "comparison_checks": 65536,
+  "command_mode_checks": 131072,
+  "raw_mode_checks": 8192,
+  "command_boundary_counts": {
+    "early_return": 33,
+    "fallback": 130907,
+    "overlay_block": 132
+  },
+  "timer_gate_checks": 2816,
+  "timer_word_checks": 65536,
+  "normal_guard_checks": 131072,
+  "comparison": "9:AB44 comparesDA6D againstD820; carry means unsignedcommand<threshold.",
+  "threshold": "9:A16F setsD820=6 whenDA68.bit1 set, else5. 1532/7:FED0 returnsDCB7&1F through7:E873.",
+  "command_gate": "Mode5 +DC77nonzero +command<threshold +setting!=5 returns early. Otherwisecommand<threshold and(mode3 OR mode5/8 withsetting5) reachesA1D1 overlay-release block. Other combinations goA334 fallback.",
+  "timer_gate": "9:A129 requests0B7E/5:E77F iffDCB7&1F is1/5/6,DA4E.bit4 clear,FE0B=0,DA92.bit2 set;R5event16,R6:R7=(BE16DA5E:DA5F+500)mod65536.",
+  "normal_guard": "9:A21F transitions1640/10:AD44 withR7=5D iffDA00.bit2 set,DA6B=0 anddirectbit1C clear. 19A0/12:FEFB returnsbit1C ascarry. Otherwise reachesknownA23E normal callback selector.",
+  "limits": [
+    "Offline actual helper instructions; no hardware command.",
+    "Boundaries stop before timer scheduler, fallbackA334, overlay blockA1D1, callback selection body andstate5D transition.",
+    "Command coverage uses32 masked modes, allcommands andfoursettingfixtures; raw mode high bits checked separately. Not everysetting/mode pair.",
+    "Timer500 is an argument increment, not a measured wall-clock delay; unmodeled clock/interrupt effects excluded.",
+    "Physical meanings ofDCB7 modes,DC77,DA4E/DA92 andbit1C remain unassigned; not a full navigation entry proof."
+  ]
+}

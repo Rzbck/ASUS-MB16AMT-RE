@@ -1,6 +1,6 @@
 # ASUS MB16AMT V020 — OSD reverse-engineering atlas
 
-**CONFIRMED navigation release gates:** [OSD_OVERLAY_GATE.md](OSD_OVERLAY_GATE.md) adds263,168 offline fixtures for9:A1D1..A212:state58 earlyreturn,53..55 bypass,DA91=3/DA50.bit5 directDA72 clear versusFC11 release. DA68.bit1 selects alternate versus normal continuation. Next upstreammode/timer/navigation gates; complete OSD mapping remains unfinished.
+**CONFIRMED navigation command/mode guards:** [OSD_NAVIGATION_GUARDS.md](OSD_NAVIGATION_GUARDS.md) verifies404,224 offline comparison,mode/command,timer andnormal-transition fixtures. D820 threshold5/6,DCB7&1F routing,conditionaltimer16 argument+500 andstate5D guard are explicit. Physical mode labels remain unassigned; next9:A334 fallback. Full OSD map unfinished.
 
 The current objective is a complete, reproducible OSD map for later modification
 planning. **The complete map is not finished.** This page is the entry point;

@@ -4,7 +4,7 @@
 
 The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). Verified layers now include text pointers/segments, common font-byte output, the separate cell-stream renderer, menu category dispatch and menu-text language provenance. The complete map remains unfinished. No hardware mutation or flash is part of this task.
 
-Latest OSD milestone: [docs/OSD_OVERLAY_GATE.md](docs/OSD_OVERLAY_GATE.md) adds263,168 navigation gate fixtures at9:A1D1:state58 returns,states53..55 bypass release, otherwiseDA72.bit3 gates directclear whenDA91=3 orDA50.bit5 versusFC11. Directclear only writesDA72; no event publication locally. A212 DA68.bit1 links alternate8:E49A versus normal-path guards before9:A23E. Earlier full producers/deferred SET/release/save proof remains valid. Next precise target: **preceding9:A129..A1D1 mode/timer/navigation guards andA21F normal-path guard**. Full OSD mapping and physical completion remain unfinished.
+Latest OSD milestone: [docs/OSD_NAVIGATION_GUARDS.md](docs/OSD_NAVIGATION_GUARDS.md) verifies404,224 offline fixtures:unsignedcommand comparison againstD820 threshold5/6,modeDCB7&1F routing tooverlay-release/fallback/return,conditional timer16 withDA5E:DA5F+500, andnormal guardDA00.bit2/menu0/RAMbit1C ->state5D transition. Physical mode labels/timing remain unassigned. Earlier SET/overlay/release/save evidence remains valid. Next precise target: **9:A334..A384 fallback mode4/6 command/timer behavior**, then precedingnavigationentry/DA6E repeat lifecycle. Full OSD mapping and physical completion remain unfinished.
 
 ## Current hardware experiment gate
 

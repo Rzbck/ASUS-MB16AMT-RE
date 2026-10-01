@@ -1,6 +1,6 @@
 # Static firmware map — ASUS MB16AMT V020
 
-**CONFIRMED navigation release gates:** [OSD_OVERLAY_GATE.md](OSD_OVERLAY_GATE.md) adds263,168 offline fixtures for9:A1D1..A212:state58 earlyreturn,53..55 bypass,DA91=3/DA50.bit5 directDA72 clear versusFC11 release. DA68.bit1 selects alternate versus normal continuation. Next upstreammode/timer/navigation gates; complete OSD mapping remains unfinished.
+**CONFIRMED navigation command/mode guards:** [OSD_NAVIGATION_GUARDS.md](OSD_NAVIGATION_GUARDS.md) verifies404,224 offline comparison,mode/command,timer andnormal-transition fixtures. D820 threshold5/6,DCB7&1F routing,conditionaltimer16 argument+500 andstate5D guard are explicit. Physical mode labels remain unassigned; next9:A334 fallback. Full OSD map unfinished.
 
 **97% confirmed live:** three source reads at 07:00:34Z returned 6190/6742 -> x=9181 -> target 97%, matching the user OSD report. Timer setup 5:E268 now matches the reference millisecond routine: nominal acquisition ~1 s and continued filter steps ~13 s (strong evidence, physical timing unmeasured). FE GET dispatch was checked in 65,544 offline cases; remaining cache-read investigation is inside service 12:F684 and diagnostic leaves, not selector guessing. See [BATTERY_LIVE_PROXY.md](BATTERY_LIVE_PROXY.md).
 
