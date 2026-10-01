@@ -12,6 +12,58 @@ from analyze_banked_abi import SHA, inventory, traverse, verified_jump_tables
 from emulate_mcs51 import Machine
 
 
+def display_events(data, thunks, decoded, edges, timer):
+    chunk = data[9*65536:10*65536]
+    expected = {1:0xB8E0,2:0xB935,7:0xB956,8:0xB956,9:0xBA15,
+                10:0xBA1D,11:0xBA6E,12:0xB8E0,14:0xBAC2,15:0xBAD3}
+    # Compare independent transcribed cases with the embedded switch records.
+    pos = 0xB8BE; actual = {}
+    while int.from_bytes(chunk[pos:pos+2],'big'):
+        assert pos < 0xB8DE
+        target = int.from_bytes(chunk[pos:pos+2],'big')
+        assert chunk[pos+2] not in actual
+        actual[chunk[pos+2]] = target
+        pos += 3
+    fallback = int.from_bytes(chunk[pos+2:pos+4],'big')
+    assert actual == expected and fallback == 0xBAE1 and pos+4 == 0xB8E0
+    for value in range(256):
+        m = Machine(data,thunks); m.x[0xDA6C] = value; m.x[0xD820] = 255
+        # Six instructions end exactly after the modeled 210D dispatch. The
+        # deliberate budget stop avoids entering any handler/peripheral path.
+        try:m.run(9,0xB8B2,budget=6)
+        except AssertionError as error:
+            assert str(error).startswith('Instruction budget exceeded at')
+        else:raise AssertionError('Expected exact dispatch budget boundary')
+        assert (m.bank,m.pc) == (9,expected.get(value,fallback))
+        assert m.x[0xD820] == 0 and m.x[0xDA6C] == value
+        assert {a for _,_,a in m.writes} == {0xD820}
+        m = Machine(data,thunks); m.x[0xDA6C] = value
+        m.run(9,0xBAE1,budget=20)
+        assert m.x[0xDA6C] == 0 and {a for _,_,a in m.writes} == {0xDA6C}
+    sources = []
+    for timer_id,target,value in ((4,0xECD8,1),(5,0xECD1,2),(12,0xEF47,9),
+                                  (26,0xECDF,12),(28,0xF0E1,14)):
+        assert timer[timer_id-1]['target'] == f'4:{target:04X}'
+        m = Machine(data,thunks); m.x[0xDA6C] = 255
+        m.run(4,target,budget=20)
+        assert m.x[0xDA6C] == value and {a for _,_,a in m.writes} == {0xDA6C}
+        sources.append({'timer_R7':f'{timer_id:02X}','writer':f'4:{target:04X}',
+                        'DA6C_value':f'{value:02X}','consumer_target':f'9:{expected[value]:04X}'})
+    assert (9,0xFBA6) in decoded and chunk[0xFBA6:0xFBA9] == bytes.fromhex('12 B8 B2')
+    assert any(b==6 and pc==0xFC3E and db==9 and dst==0xFB97
+               for b,pc,kind,t,db,dst in edges)
+    return {'entry':'9:B8B2','selector':'DA6C','switch_helper':'210D at 9:B8BB',
+            'targets':{f'{v:02X}':f'9:{pc:04X}' for v,pc in expected.items()},
+            'fallback':'9:BAE1','prologue':'D820=0; DA6C read without clearing it',
+            'clear_tail':'9:BAE1 -> DA6C=0 -> RET',
+            'dispatch_checks':256,'clear_checks':256,'timer_writer_checks':5,
+            'timer_sources':sources,
+            'caller_chain':'6:FC3E -> thunk 1472 -> 9:FB97; 9:FBA6 -> 9:B8B2',
+            'limits':['Handler side effects and conditions are not emulated by the dispatch check.',
+                      'A pending display-event interpretation is strong evidence; this is not a proved raw-key enum.',
+                      'Five exact timer writers are linked; other writers and scheduling remain open.']}
+
+
 def build(data):
     if len(data) != 0xE0000 or hashlib.sha256(data).hexdigest() != SHA:
         raise ValueError('Expected verified ASUS V020')
@@ -60,6 +112,7 @@ def build(data):
             'counts':{'decoded_instructions':len(decoded),'unresolved_indirect_sites':len(indirect),
                       'verified_jump_tables':len(tables),'resource_executions':len(resources)},
             'timer_dispatch':{'entry':'4:EC1F','jump':'4:EC36','events':timer},
+            'display_event_dispatch':display_events(data,thunks,decoded,edges,timer),
             'resource_resolver':{'entry':'1:E43B','selector':'R7','additional_argument':'R5; semantics unresolved',
                 'return':'R3:R2:R1 generic pointer, also D893..D895',
                 'writes':['D893','D894','D895'], 'entries':resources},

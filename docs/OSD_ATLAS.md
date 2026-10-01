@@ -36,7 +36,7 @@ namespaces and must not be equated merely because their numeric values match.
 | Layer | Verified evidence | Remaining work |
 |---|---|---|
 | Bank/call ABI | Existing thunk inventory; current traversal 158,425 instructions, 52 recognized bounded tables, 20 unresolved indirect sites | Resolve OSD-relevant indirect flow; preserve static bank-model qualification |
-| Input/navigation | No complete end-to-end key pipeline yet | Key sampling, debounce, key enum, dispatch and transition graph |
+| Input/navigation | DA6C display-event dispatcher and service caller established; raw-key pipeline unresolved | Key sampling, debounce, key enum and menu transition graph |
 | Menu states | DA6B setting selector; DA0A low nibble feeds nine category handlers through D823 | Handler labels, key transitions, modal dialogs, shortcut behavior |
 | Value reads | Full 8:5FEF contract; R7 selector, R5 mode; R7 result | Tie every OSD selection to label and adjustment handler |
 | Value updates | Scattered proven setters and DDC handlers | Min/max/step handling, validation, dirty flags and persistence for every setting |
@@ -44,7 +44,7 @@ namespaces and must not be equated merely because their numeric values match.
 | Text encoding | Segment scanner/prefix classifier; DA03 low six bits feed menu language; validator accepts 0..20 | Language names/selection/persistence, wide glyph fragments, punctuation, all font banks |
 | Numeric rendering | 1:EAEB: D838..D83B input, D83C flags; known setting and countdown callers | Complete layout/format flags and hardware sink integration |
 | Battery display | Source → conversion → filter → DA4C → 10:F8F4 → 1:D7A1 | Live filtered DA4C read remains unavailable; broader layout integration |
-| Timer events | Exact 36-entry 4:EC1F dispatch; event 17 → 4:EFDB | Meaning and caller/scheduling provenance of other 35 IDs |
+| Timer events | Exact 36-entry dispatch; 17→countdown; five leaf writers feed DA6C | Other handler meanings, producer conditions and scheduling |
 | Font/icons/palette | 22 extension tables/shared FA mapped; width dispatch checked for all stored indices; cell streams to 0092 | Legal glyph bounds, resource identities/pixels, palettes, SRAM setup and coordinates |
 | Future modifications | No patch applied | Per-resource constraints, pointers, sizes, checksums and recovery prerequisites |
 
@@ -61,6 +61,10 @@ guard cases verify the common-font arithmetic. See
 separate from the E43B/D7A1 text path. Its resolver, FE/FD cell-stream format,
 0092 drawing leaf, menu category source and language provenance are now checked
 in [OSD_CELL_RENDERER.md](OSD_CELL_RENDERER.md).
+
+Event follow-up: [OSD_EVENTS.md](OSD_EVENTS.md) connects five timer leaves to
+the DA6C dispatcher at 9:B8B2, verifies every selector and its clear tail, and
+identifies service caller 6:FC3E -> 9:FB97. The raw-key pipeline remains open.
 
 ## Text family/index resolver — new verified subchain
 

@@ -193,6 +193,67 @@
       }
     ]
   },
+  "display_event_dispatch": {
+    "entry": "9:B8B2",
+    "selector": "DA6C",
+    "switch_helper": "210D at 9:B8BB",
+    "targets": {
+      "01": "9:B8E0",
+      "02": "9:B935",
+      "07": "9:B956",
+      "08": "9:B956",
+      "09": "9:BA15",
+      "0A": "9:BA1D",
+      "0B": "9:BA6E",
+      "0C": "9:B8E0",
+      "0E": "9:BAC2",
+      "0F": "9:BAD3"
+    },
+    "fallback": "9:BAE1",
+    "prologue": "D820=0; DA6C read without clearing it",
+    "clear_tail": "9:BAE1 -> DA6C=0 -> RET",
+    "dispatch_checks": 256,
+    "clear_checks": 256,
+    "timer_writer_checks": 5,
+    "timer_sources": [
+      {
+        "timer_R7": "04",
+        "writer": "4:ECD8",
+        "DA6C_value": "01",
+        "consumer_target": "9:B8E0"
+      },
+      {
+        "timer_R7": "05",
+        "writer": "4:ECD1",
+        "DA6C_value": "02",
+        "consumer_target": "9:B935"
+      },
+      {
+        "timer_R7": "0C",
+        "writer": "4:EF47",
+        "DA6C_value": "09",
+        "consumer_target": "9:BA15"
+      },
+      {
+        "timer_R7": "1A",
+        "writer": "4:ECDF",
+        "DA6C_value": "0C",
+        "consumer_target": "9:B8E0"
+      },
+      {
+        "timer_R7": "1C",
+        "writer": "4:F0E1",
+        "DA6C_value": "0E",
+        "consumer_target": "9:BAC2"
+      }
+    ],
+    "caller_chain": "6:FC3E -> thunk 1472 -> 9:FB97; 9:FBA6 -> 9:B8B2",
+    "limits": [
+      "Handler side effects and conditions are not emulated by the dispatch check.",
+      "A pending display-event interpretation is strong evidence; this is not a proved raw-key enum.",
+      "Five exact timer writers are linked; other writers and scheduling remain open."
+    ]
+  },
   "resource_resolver": {
     "entry": "1:E43B",
     "selector": "R7",
