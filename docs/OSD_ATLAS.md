@@ -1,6 +1,6 @@
 # ASUS MB16AMT V020 — OSD reverse-engineering atlas
 
-**CONFIRMED clock rebasing and delay provenance:** [OSD_CLOCK.md](OSD_CLOCK.md) verifies caller-selected coefficients independently of FFEE/FFED, and D893 clock reset with saturated active-deadline rebasing. Added196,608 coefficient,262,144 slot and2,304 complete rebase fixtures. Timer2 identity is source-correlated strong evidence; tick rate unproved. Next0:6399/5:CA9B setup and reset decision. Full OSD map unfinished.
+**CONFIRMED Timer2 setup:** [OSD_CLOCK.md](OSD_CLOCK.md) adds66,560 full setup fixtures with Timer0/1 stopped, verifying count/reload/enable flags and D928 history. Mode4 first count00D3 differs from reloadF6E2. No measured duration assigned. Next clock-source/divider and running-timer conversion/reset decision. Full OSD map unfinished.
 
 The current objective is a complete, reproducible OSD map for later modification
 planning. **The complete map is not finished.** This page is the entry point;

@@ -1,0 +1,37 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "mode_register_checks": 65536,
+  "old_mode_checks": 1024,
+  "entry": "5:CA9B;0:63BF MOV R7,A after0:639C CLRA ->0:63C0 call0D16 suppliesmode0.",
+  "SFR_contract": "CC:CD receivecount low:high; CA:CB receivereload low:high. ClearET2/TR2/TF2,writebytes,clearbit1E,enableET2/TR2. Alloriginalinstructions execute.",
+  "counts": [
+    {
+      "mode": "01",
+      "count": "E373",
+      "reload": "E373"
+    },
+    {
+      "mode": "02",
+      "count": "F6E2",
+      "reload": "F6E2"
+    },
+    {
+      "mode": "04",
+      "count": "00D3",
+      "reload": "F6E2"
+    },
+    {
+      "mode": "other including00",
+      "count": "FB56",
+      "reload": "FB56"
+    }
+  ],
+  "history": "D928 becomes1 for mode1; mode2 becomes3 iffFFED bits5..2 equal1, otherwise2. Other modes retainD928.",
+  "limits": [
+    "Offline only; nohardwaretimer configured.",
+    "TR0/TR1 initiallyclear inallfixtures; their running-timer deadline conversion branches are excluded.",
+    "SFR addresses matchTimer2 register layout; physicalclock source/divider/frequency notproved.",
+    "Mode4 firstcount differsfromreload; do not assign a constanttickperiod fromreload alone.",
+    "Initialization caller prefix checked statically, not a completeMCUinitialization run."
+  ]
+}

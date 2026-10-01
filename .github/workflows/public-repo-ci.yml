@@ -74,6 +74,7 @@ jobs:
           python tools/map_osd_event09.py --help >/dev/null
           python tools/map_osd_event02.py --help >/dev/null
           python tools/map_osd_clock.py --help >/dev/null
+          python tools/map_osd_timer2_setup.py --help >/dev/null
           python tools/analyze_banked_abi.py --help >/dev/null
           python tools/analyze_numeric_renderer.py --help >/dev/null
           python tools/analyze_value_provenance.py --help >/dev/null

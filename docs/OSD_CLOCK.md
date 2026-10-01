@@ -68,10 +68,42 @@ FFF4 backup, Timer2 flag clear, watchdog register handling and timer-counter
 increment. This supports a system Timer2 interpretation; physical period
 remains unverified.
 
-Next precise targets: **interrupt002B enable/reload/clock-source setup** and
-the upstream **5:D83F..D893 reset decision**, then caller clock-mode identities.
+## Timer2 count/reload setup with Timer0/1 stopped
+
+[map_osd_timer2_setup.py](../tools/map_osd_timer2_setup.py) verifies65,536
+mode/FFED fixtures and1,024 prior D928 fixtures. Every original CA9B..CC1F
+instruction executes with TR0/TR1 initially clear. The running Timer0/1
+deadline-conversion branches are outside this proof.
+
+| R7 mode | First count (TH2:TL2) | Reload (RCAP2H:RCAP2L) |
+|---|---|---|
+| 01 | E373 | E373 |
+| 02 | F6E2 | F6E2 |
+| 04 | 00D3 | F6E2 |
+| Other, including00 | FB56 | FB56 |
+
+CA9B saves the mode in D822 and prepares D823..D827. It disables ET2/TR2,
+clears TF2, writes count bytes to SFR CC/CD and reload bytes to CA/CB,
+clears RAM bit1E, then enables ET2/TR2. The mode2 FFED branch affects D928
+(3 if FFED bits5..2 equal1, else2), but not the checked count/reload bytes.
+Mode1 sets D928=1; other modes preserve it. Full derived data and limitations
+are in [osd-timer2-setup.json](maps/osd-timer2-setup.json).
+
+The checked initialization prefix0:63BF supplies R7=0 and calls0D16 ->5:CA9B.
+Earlier0:6399..63BD clears/stops timer flags, selects Timer0/1 mode11,
+clears T2CON bit0 (auto-reload), sets Timer2 priority and global interrupt
+enable. This prefix is decoded, not a complete initialization execution proof.
+No hardware register is written by the verifier; all SFR/XDATA are bytearrays.
+
+Mode4's first count and reload differ. No constant physical tick period can
+be assigned from reload alone. Actual clock-source/divider setup and running
+Timer0/1 adjustment remain open; register counts are not measured durations.
+
+Next precise targets: **clock-source/divider setup and running Timer0/1
+conversion branches** and the upstream **5:D83F..D893 reset decision**.
 Preserve the distinction between clock provenance and a wall-clock rate.
 
 ```powershell
 uv run --locked --offline python tools/map_osd_clock.py $fw --out docs/maps/osd-clock.json
+uv run --locked --offline python tools/map_osd_timer2_setup.py $fw --out docs/maps/osd-timer2-setup.json
 ```
