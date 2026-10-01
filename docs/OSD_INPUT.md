@@ -113,12 +113,41 @@ aborts after one pass with carry clear and no toggle. Full-hold fixtures set
 DCC9 high nibble to 0/3, DCB7 low five bits to 3, DA6B=0, D9FE.bit5=0 and
 DA0F.bit0=0; earlier caller gates and alternative state conditions remain open.
 
-The post-toggle call is a tested boundary: its persistence or other side
-effects are **not executed or established** here. CAh is clear in fixtures,
+The hold tests stop at the post-toggle call; its handoff is reconstructed in
+the next section. CAh is clear in fixtures,
 so delay counts do not prove elapsed milliseconds. The known getter selector
 33 returns the inverse of this same D9FD.bit6. Its gating/hold behavior gives
 **strong evidence for a key-lock function**, while the setting's exact UI name,
 physical button name, repeat behavior and save contract still need proof.
+
+## Post-toggle validation and storage handoff
+
+`15C2 -> 8:DDB3` first calls the state validator **8:786B**, then selects
+arguments for the existing shared storage ABI at **01D0**. The exact handoff:
+
+| Argument | Value |
+|---|---|
+| R3:R2:R1 | XDATA generic pointer 01:D9FD |
+| R4:R5 | Length 0024 (36 bytes, D9FD..DA20 inclusive) |
+| R6:R7, DA87.bit3 clear | Logical storage offset 000E |
+| R6:R7, DA87.bit3 set | 0032 + 0024 * ((D9FE >> 2) & 3) |
+
+The four selected offsets are **0032, 0056, 007A, 009E**. This is the same
+shared ABI previously identified for the D9F7 cache at logical offset 02BE;
+logical storage offsets must not be treated as physical flash offsets.
+The 36-byte source includes D9FD.bit6 and the language byte DA03.
+
+**65,536 checks** execute DDB6..DE1A for every DA87/D9FE byte combination,
+verifying pointer, length and offset. That selection writes no XDATA.
+Sixteen additional fixtures execute the full DDB3 validator/handoff, with
+bit6 clear/set, all four slot indices and both DA87.bit3 states. The bit6 value
+survives validation in these fixtures and the expected handoff is reached.
+
+Execution stops before **01D0**. This establishes the source/length/slot
+selection after the hold toggle. Actual storage-medium mapping, write/update
+semantics and completion are still open; no hardware or storage write occurred.
+The full validator checks cover sixteen fixtures, not every combination of
+all 36 state bytes.
 
 ## Distinct display/system-state inputs
 
@@ -138,4 +167,6 @@ uv run --locked --offline python tools/map_osd_input.py <local-V020.bin> --out d
 without proprietary bytes. Next: **E6B6/E20F** input consumers, button names,
 repeat behavior and DA6D/menu transitions; identify bit24h's producer, the
 delay clock/timer and **8:DDB3** post-toggle effects. Physical timings remain
-qualified until that proof.
+qualified until that proof. DDB3's validator/handoff is now checked; the next
+storage target is **01D0** from its DE1A call, retaining the logical-offset
+qualification.

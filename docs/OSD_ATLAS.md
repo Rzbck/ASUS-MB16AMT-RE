@@ -39,7 +39,7 @@ namespaces and must not be equated merely because their numeric values match.
 | Input/navigation | ADC/GPIO classifier, stability cache, word storage and 0010 hold/bit6 toggle verified; DA6C event service mapped | Physical timing, button names, repeat, save effects and menu transitions |
 | Menu states | DA6B setting selector; DA0A low nibble feeds nine category handlers through D823 | Handler labels, key transitions, modal dialogs, shortcut behavior |
 | Value reads | Full 8:5FEF contract; R7 selector, R5 mode; R7 result | Tie every OSD selection to label and adjustment handler |
-| Value updates | Scattered proven setters and DDC handlers | Min/max/step handling, validation, dirty flags and persistence for every setting |
+| Value updates | Scattered setters/DDC; hold toggle's validator and 36-byte storage handoff verified | Full adjustments, dirty flags, writer completion and persistence for every setting |
 | Text selection | New 1:E43B resolver map; 256 selectors × R5 values 0/1 executed | Legal family index bounds, all variants, language segment selection |
 | Text encoding | Segment scanner/prefix classifier; DA03 low six bits feed menu language; validator accepts 0..20 | Language names/selection/persistence, wide glyph fragments, punctuation, all font banks |
 | Numeric rendering | 1:EAEB: D838..D83B input, D83C flags; known setting and countdown callers | Complete layout/format flags and hardware sink integration |

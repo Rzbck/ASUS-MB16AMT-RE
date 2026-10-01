@@ -41,6 +41,20 @@
       "Earlier caller gates and all alternative hold-loop conditions remain to be mapped."
     ]
   },
+  "post_toggle_handoff": {
+    "entry": "8:DDB3 -> validator 8:786B -> DDB6 handoff selection -> DE1A call 01D0",
+    "handoff_checks": 65536,
+    "full_validator_handoff_checks": 16,
+    "source_pointer": "R3:R2:R1=01:D9FD (XDATA)",
+    "length": "R4:R5=0024 (36 bytes)",
+    "destination": "R6:R7=000E if DA87.bit3=0; otherwise 0032+0024*((D9FE>>2)&3)",
+    "full_fixture_result": "D9FD.bit6 survives the full validator for both values, all four profile indices and both DA87.bit3 states.",
+    "limits": [
+      "The 01D0 writer is a stopping boundary; storage medium, physical offsets, erase/update behavior and write completion remain unproved.",
+      "Handoff parameters are exhaustive over DA87/D9FE; full-validator coverage uses 16 synthetic state fixtures.",
+      "No device or storage write is performed."
+    ]
+  },
   "initial_sampling": {
     "entry": "2:DF25",
     "boundary": "2:DF91 -> F27A, before first D826 read at F27D",

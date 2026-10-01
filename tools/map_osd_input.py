@@ -167,6 +167,51 @@ def hold_contract(data, thunks):
                       'Earlier caller gates and all alternative hold-loop conditions remain to be mapped.']}
 
 
+def post_toggle_handoff(data, thunks):
+    class Ready(Exception):pass
+    class Save(Machine):
+        def jump(self,target,call=False):
+            if (self.bank,self.origin,target) == (8,0xDE1A,0x01D0):
+                raise Ready
+            super().jump(target,call)
+    checks = 0
+    for flags in range(256):
+        for packed in range(256):
+            m = Save(data,thunks)
+            m.x[0xDA87] = flags; m.x[0xD9FE] = packed
+            try:m.run(8,0xDDB6,budget=500)
+            except Ready:pass
+            else:raise AssertionError('Expected storage-handoff boundary')
+            offset = 0x32+0x24*((packed>>2)&3) if flags&8 else 0x0E
+            assert (m.r(6),m.r(7)) == (0,offset)
+            assert (m.r(4),m.r(5)) == (0,0x24)
+            assert (m.r(3),m.r(2),m.r(1)) == (1,0xD9,0xFD)
+            assert not m.writes
+            checks += 1
+    validated = 0
+    for flags in (0,8):
+        for profile in range(4):
+            for lock in (0,64):
+                m = Save(data,thunks)
+                m.x[0xDA87] = flags; m.x[0xD9FE] = profile << 2
+                m.x[0xD9FD] = 1 | lock
+                try:m.run(8,0xDDB3,budget=10000)
+                except Ready:pass
+                else:raise AssertionError('Expected validated storage-handoff boundary')
+                assert m.x[0xD9FD]&64 == lock
+                assert (m.r(6),m.r(7)) == (0,0x32+0x24*profile if flags&8 else 0x0E)
+                assert (m.r(3),m.r(2),m.r(1)) == (1,0xD9,0xFD)
+                validated += 1
+    return {'entry':'8:DDB3 -> validator 8:786B -> DDB6 handoff selection -> DE1A call 01D0',
+            'handoff_checks':checks,'full_validator_handoff_checks':validated,
+            'source_pointer':'R3:R2:R1=01:D9FD (XDATA)', 'length':'R4:R5=0024 (36 bytes)',
+            'destination':'R6:R7=000E if DA87.bit3=0; otherwise 0032+0024*((D9FE>>2)&3)',
+            'full_fixture_result':'D9FD.bit6 survives the full validator for both values, all four profile indices and both DA87.bit3 states.',
+            'limits':['The 01D0 writer is a stopping boundary; storage medium, physical offsets, erase/update behavior and write completion remain unproved.',
+                      'Handoff parameters are exhaustive over DA87/D9FE; full-validator coverage uses 16 synthetic state fixtures.',
+                      'No device or storage write is performed.']}
+
+
 def build(data):
     assert len(data) == 0xE0000 and hashlib.sha256(data).hexdigest() == SHA
     thunks = inventory(data)
@@ -209,6 +254,7 @@ def build(data):
     return {'firmware_sha256':SHA,
             'full_sampling':full_sampling(data,thunks),
             'hold_contract':hold_contract(data,thunks),
+            'post_toggle_handoff':post_toggle_handoff(data,thunks),
             'initial_sampling':{'entry':'2:DF25','boundary':'2:DF91 -> F27A, before first D826 read at F27D',
                 'reads':['FF09 -> D828','FE0D','SFR bit 96h'],
                 'output':'BE16 D826:D827', 'checks':sampling_checks,
@@ -250,6 +296,8 @@ def main():
     print('Full sampling/retry cap:',result['full_sampling']['checks'],result['full_sampling']['retry_cap_cases'])
     print('Hold caller/toggle/full:',result['hold_contract']['caller_checks'],
           result['hold_contract']['toggle_checks'],result['hold_contract']['full_hold_checks'])
+    print('Post-toggle handoff/validated:',result['post_toggle_handoff']['handoff_checks'],
+          result['post_toggle_handoff']['full_validator_handoff_checks'])
 
 
 if __name__ == '__main__':main()
