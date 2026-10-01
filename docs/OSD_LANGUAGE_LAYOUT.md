@@ -64,9 +64,40 @@ They begin at CD7E and stop before F142; CA2A's earlier drawing calls and
 DA70.bit0 alternate path are excluded.
 
 The fields' role as a selection/highlight rectangle is **strong evidence**.
-Final register programming, physical dimensions and coordinate orientation
-remain unproved here; these numbers are the prepared fields before F142.
 Language names are not assigned from index order alone.
+
+## Confirmed window packing and register-transfer preparation
+
+An additional **336 fixtures** execute the entire `CD7E -> F142 -> 1AC0 /
+13:36BB -> 38C5 -> 64CA -> 0F4A / 6:C3B9` path. Only FFF3 busy bits3/4
+read clear as synthetic completion. Fixtures use RAM39=1, FFFF=13, zero
+initial window configuration and four nonzero synthetic DAD3 values. No
+burst engine or actual screen is emulated.
+
+F142 adds BE16 **DBFD:DBFE** to the first/third fields and **DBFF:DC00** to
+the second/fourth, modulo65536. It passes them as R6:R7, R4:R5, R2:R3 and
+D84C:D84D. The callee13:36BB stores them in **D846..D84D** and prepares
+**D84E..D859**, a 12-byte payload. Bytes3/6 combine the low nibbles of each
+coordinate pair's high bytes; bytes4/5 and7/8 contain their low bytes. Bits
+above bit11 are discarded by packing. Four offset pairs include arithmetic
+wraps to check this behavior; they do not establish legal screen ranges.
+
+The reference [ScalerOsdDrawWindow implementation](https://github.com/Kingdomwhisky/RTD-Scaler-TEST/blob/3d38340ec8518a8888fd5d8dbb181c2a7418e11c/Kernel/Scaler/ScalerFunction/Lib/Code/ScalerOSD/Windows/OsdDrawWindow.c#L59)
+provides the same four-argument order, 12-byte layout, window address formulas,
+rotation update and structure clearing. The **XStart/YStart/XEnd/YEnd** naming
+is therefore strong source-correlated evidence for these firmware fields;
+physical orientation/visibility are untested.
+
+For the checked geometry, window selector6 gives control address **0118**.
+The actual code prepares XDATA source **01:D84E**, count12, destination
+port **0092**. Burst registers are 009F=0, FFF4=92, FFF6=13 (bank fixture),
+FFF7:FFF8=D84E and FFF9:FFFA=000C. The hardware would transfer the prepared
+buffer; this model checks register programming and does not perform that copy.
+
+After the burst code returns under synthetic completion, the actual firmware
+updates the low bit at control address **01A1** to0, then `2139` clears
+**DC8B..DC91**. Explicit stacks are balanced. Earlier CA2A drawing, its
+DA70.bit0 alternate route and the full menu entry remain excluded.
 
 ## Reproduce and precise continuation
 
@@ -75,7 +106,7 @@ uv run --locked --offline python tools/map_osd_language_layout.py <local-V020.bi
 ```
 
 [Derived check report](maps/osd-language-layout.json) contains no firmware
-resources. Next: **10:F142 -> 13:38C5**, its D83C..D845 consumers and scaling
-prerequisites; then language-list drawing at D662/F249 and C436/EBCD to bind
-indices to rendered names. Full entry/apply drawing and other dirty-save leaves
-remain unfinished.
+resources. Next: language-list drawing at **D662/F249 and C436/EBCD** to bind
+indices to rendered names, with real entry prerequisites reconstructed; then
+the full apply drawing and other dirty-save leaves. DAD3's producer/units and
+real burst completion remain unproved.

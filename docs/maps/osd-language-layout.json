@@ -244,10 +244,21 @@
       ]
     }
   ],
+  "window": {
+    "checks": 336,
+    "chain": "CD7E ->F142 ->1AC0/13:36BB ->38C5 ->64CA ->0F4A/6:C3B9; final2139 clears DC8B..DC91.",
+    "translation": "F142 adds BE16 DBFD:DBFE to first/third fields and DBFF:DC00 to second/fourth, modulo65536. Handoff is R6:R7/R4:R5/R2:R3 plus D84C:D84D.",
+    "packing": "13:36BB stores D846..D84D and packs coordinate nibbles/lows into payload bytes3..8 of D84E..D859. High bits above bit11 are discarded by this packing.",
+    "burst": "One12-byte XDATA source01:D84E prepared for port0092, window-control address0118. Source bank fixture13; FFF6..FFFA contain bank13/sourceD84E/count12; 009F=0/FFF4=92.",
+    "rotation": "After burst: control address01A1, low bit written0, then config DC8B..DC91 cleared by actual2139.",
+    "coverage": "All21 indices x four offset pairs (including arithmetic wraps) x four synthetic nonzero DAD3 values. Initial window config zero, direct bit05 set by geometry. This is not a legal screen-coordinate or clock-range assertion.",
+    "qualification": "Actual instruction execution through the whole window path. FFF3 bits3/4 read clear as synthetic completion; RAM39=1 and FFFF=13 are fixture state. Burst hardware does not copy bytes in this model; payload/register programming, not physical completion, is verified."
+  },
   "limits": [
     "All execution is offline; no monitor/storage command.",
     "Entry checks compose separate caller/prologue/history/seed contracts; full entry drawing between them is not executed.",
-    "Geometry fixtures start at CD7E after refresh setup and stop before F142; physical dimensions, orientation and final hardware coordinates remain unproved.",
+    "Arithmetic fixtures stop before F142; additional window fixtures execute through it with synthetic burst completion. Earlier CA2A drawing/DA70 alternate path remain excluded.",
+    "Coordinate orientation matches pinned reference window code; physical size, visibility, legal ranges and persistence are not tested.",
     "Language names, full apply drawing and other dirty-save leaves remain open."
   ]
 }

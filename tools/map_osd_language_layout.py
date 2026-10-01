@@ -29,6 +29,63 @@ class History(Entry):
             raise Boundary
 
 
+class Window(Machine):
+    """Execute window code; only burst-engine busy bits are synthetic."""
+    def __init__(self,*args):
+        super().__init__(*args);self.frames = [];self.ports = []
+    def readx(self,address):
+        value = super().readx(address)
+        return value&~0x18 if address == 0xFFF3 else value
+    def writex(self,address,value):
+        if address in (0x90,0x91,0x92,0x94):
+            self.ports.append((address,value&255))
+        super().writex(address,value)
+    def jump(self,target,call=False):
+        if (self.bank,self.origin,target) == (13,0x64E5,0x0F4A):
+            self.frames.append({'payload':bytes(self.x[0xD84E:0xD85A]),
+                                'source':(self.r(3),self.r(2),self.r(1)),
+                                'count':self.r(4)*256+self.r(5),
+                                'port':int.from_bytes(self.x[0xD89B:0xD89D],'big')})
+        super().jump(target,call)
+
+
+def window_checks(data,thunks,geometry):
+    checks = 0
+    for row in geometry:
+        for first_offset,second_offset in ((0,0),(45,604),(65520,65504),(65535,65535)):
+            for clock_fixture in (12000000,48000000,60000000,108000000):
+                m = Window(data,thunks);m.x[0xD833] = 0x56;m.x[0xD834] = row['index']
+                m.x[0xDBFD:0xDBFF] = first_offset.to_bytes(2,'big')
+                m.x[0xDBFF:0xDC01] = second_offset.to_bytes(2,'big')
+                m.x[0xDAD3:0xDAD7] = clock_fixture.to_bytes(4,'big')
+                m.x[0xFFFF] = 13;m.ram[0x39] = 1
+                m.run(10,0xCD7E,budget=5000)
+                x0,y0,x1,y1 = ((v+(first_offset if i%2 == 0 else second_offset))&65535
+                               for i,v in enumerate(row['D83C_D83E_D840_D842']))
+                expected = bytes((0,0,0,((x0>>8)&15)*16|((y0>>8)&15),x0&255,y0&255,
+                                  ((x1>>8)&15)*16|((y1>>8)&15),x1&255,y1&255,0,7,0x81))
+                assert len(m.frames) == 1 and m.frames[0]['payload'] == expected
+                assert m.frames[0]['source'] == (1,0xD8,0x4E)
+                assert (m.frames[0]['count'],m.frames[0]['port']) == (12,0x92)
+                assert bytes(m.x[0xD846:0xD84E]) == b''.join(v.to_bytes(2,'big') for v in (x0,y0,x1,y1))
+                assert (m.x[0xFFF6],m.x[0xFFF7],m.x[0xFFF8]) == (13,0xD8,0x4E)
+                assert int.from_bytes(m.x[0xFFF9:0xFFFB],'big') == 12
+                assert (m.x[0xFFF4],m.x[0x009F]) == (0x92,0)
+                assert m.x[0xD85A:0xD85C] == bytes.fromhex('01 A1')
+                assert m.ports[-1] == (0x92,0) and m.x[0x90:0x92] == bytes.fromhex('01 A1')
+                assert bytes(m.x[0xDC8B:0xDC92]) == b'\0'*7
+                assert not m.stack and not m.calls
+                checks += 1
+    return {'checks':checks,
+            'chain':'CD7E ->F142 ->1AC0/13:36BB ->38C5 ->64CA ->0F4A/6:C3B9; final2139 clears DC8B..DC91.',
+            'translation':'F142 adds BE16 DBFD:DBFE to first/third fields and DBFF:DC00 to second/fourth, modulo65536. Handoff is R6:R7/R4:R5/R2:R3 plus D84C:D84D.',
+            'packing':'13:36BB stores D846..D84D and packs coordinate nibbles/lows into payload bytes3..8 of D84E..D859. High bits above bit11 are discarded by this packing.',
+            'burst':'One12-byte XDATA source01:D84E prepared for port0092, window-control address0118. Source bank fixture13; FFF6..FFFA contain bank13/sourceD84E/count12; 009F=0/FFF4=92.',
+            'rotation':'After burst: control address01A1, low bit written0, then config DC8B..DC91 cleared by actual2139.',
+            'coverage':'All21 indices x four offset pairs (including arithmetic wraps) x four synthetic nonzero DAD3 values. Initial window config zero, direct bit05 set by geometry. This is not a legal screen-coordinate or clock-range assertion.',
+            'qualification':'Actual instruction execution through the whole window path. FFF3 bits3/4 read clear as synthetic completion; RAM39=1 and FFFF=13 are fixture state. Burst hardware does not copy bytes in this model; payload/register programming, not physical completion, is verified.'}
+
+
 def stopped(m,bank,pc,budget=1000):
     try:m.run(bank,pc,budget=budget)
     except Boundary:pass
@@ -141,9 +198,11 @@ def build(data):
             'geometry':'10:CA2A row56 branch ->CD7E..CEC6 uses selected index in D834, splits0..7/8..15/16..20 and prepares four BE16 fields D83C/D83E/D840/D842, D844:D845=00:07 and direct bit05=1 before F142 with R7=6.',
             'formula':'g=index//8, n=index%8: (12*(25+13*g),72+36*n,780 if g==2 else12*(25+13*g)+155,108+36*n). Third group omits the minus1 used by the first two.',
             'indices':geometry,
+            'window':window_checks(data,thunks,geometry),
             'limits':['All execution is offline; no monitor/storage command.',
                       'Entry checks compose separate caller/prologue/history/seed contracts; full entry drawing between them is not executed.',
-                      'Geometry fixtures start at CD7E after refresh setup and stop before F142; physical dimensions, orientation and final hardware coordinates remain unproved.',
+                      'Arithmetic fixtures stop before F142; additional window fixtures execute through it with synthetic burst completion. Earlier CA2A drawing/DA70 alternate path remain excluded.',
+                      'Coordinate orientation matches pinned reference window code; physical size, visibility, legal ranges and persistence are not tested.',
                       'Language names, full apply drawing and other dirty-save leaves remain open.']}
 
 

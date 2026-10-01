@@ -98,6 +98,11 @@ handoff, DA6B transition-prefix writes, the DA03-derived preview seed and
 three groups of prepared selection coordinates. Full entry drawing and
 final physical coordinate interpretation remain open.
 
+The same layout checks now execute F142 through13:36BB's 12-byte packing,
+control address0118, XDATA buffer01:D84E and burst-register preparation for
+port0092, then rotation update01A1 and window-config clearing. All336 fixtures
+use synthetic burst completion; physical display effects remain untested.
+
 ## Text family/index resolver — new verified subchain
 
 `1:E43B` clears pointer scratch `D893..D895`, dispatches on R7 via the common

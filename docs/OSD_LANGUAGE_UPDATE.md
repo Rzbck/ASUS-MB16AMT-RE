@@ -103,7 +103,8 @@ uv run --locked --offline python tools/map_osd_language_update.py <local-V020.bi
 [Derived checks](maps/osd-language-update.json) publish no resource bytes.
 [Entry/layout follow-up](OSD_LANGUAGE_LAYOUT.md) checks the row32-to56 caller,
 DA6B transition prefix, staged-value seed and CD7E refresh geometry with explicit
-drawing boundaries. Next precise targets: **10:F142 -> 13:38C5** field consumers,
+drawing boundaries, then executes window packing/register preparation with
+synthetic burst completion. Next precise targets: **10:D662/F249 and C436/EBCD**
 language-list drawing and full apply drawing, then the other **9:BA6E** dirty-flag
 leaves. Tie language names to each index through rendered resources.
 Physical button labels, storage completion and the complete OSD map remain open.
