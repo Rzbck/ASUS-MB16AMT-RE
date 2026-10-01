@@ -41,11 +41,12 @@ namespaces and must not be equated merely because their numeric values match.
 | Value reads | Full 8:5FEF contract; R7 selector, R5 mode; R7 result | Tie every OSD selection to label and adjustment handler |
 | Value updates | Scattered setters/DDC; hold validator, 36-byte page/FIFO/error save contract verified | Full adjustments, dirty flags and persistence for every setting; real storage completion |
 | Text selection | New 1:E43B resolver map; 256 selectors × R5 values 0/1 executed | Legal family index bounds, all variants, language segment selection |
-| Text encoding | Segment/font dispatch; DA03 language0..20; row56 preview and apply writer checked | Language names, row32-to56 transition/full redraw/save, wide glyph fragments and legal token bounds |
+| Text encoding | Segment/font dispatch; DA03 language0..20; row56 preview/apply/save; 21 complete row32-to56 entry fixtures and explicit language-list segments | Full apply/exit variants, native/accents and complete names, wide glyph fragments/legal token bounds |
 | Numeric rendering | 1:EAEB: D838..D83B input, D83C flags; known setting and countdown callers | Complete layout/format flags and hardware sink integration |
 | Battery display | Source → conversion → filter → DA4C → 10:F8F4 → 1:D7A1 | Live filtered DA4C read remains unavailable; broader layout integration |
 | Timer events | Exact 36-entry dispatch; 17→countdown; five leaf writers feed DA6C | Other handler meanings, producer conditions and scheduling |
 | Font/icons/palette | 22 extension tables/shared FA mapped; width dispatch checked for all stored indices; cell streams to 0092 | Legal glyph bounds, resource identities/pixels, palettes, SRAM setup and coordinates |
+| Windows/layout | Language group geometry, offset translation, 12-byte packing and window6 burst-register path checked with synthetic completion | Full initialization, other windows/dialogs, physical display/coordinate limits and burst timing |
 | Future modifications | No patch applied | Per-resource constraints, pointers, sizes, checksums and recovery prerequisites |
 
 Updated text layer: [OSD_TEXT_FORMAT.md](OSD_TEXT_FORMAT.md) verifies the
@@ -102,6 +103,11 @@ The same layout checks now execute F142 through13:36BB's 12-byte packing,
 control address0118, XDATA buffer01:D84E and burst-register preparation for
 port0092, then rotation update01A1 and window-config clearing. All336 fixtures
 use synthetic burst completion; physical display effects remain untested.
+
+[Language-list integration](OSD_LANGUAGE_LIST.md) executes ordinary row32
+entry through RET for all21 stored languages, with no drawing callee skipped.
+It binds all21 list positions to explicit-index FF segments in family0E at
+1:6D77; native/accents remain partial candidates rather than assigned names.
 
 ## Text family/index resolver — new verified subchain
 

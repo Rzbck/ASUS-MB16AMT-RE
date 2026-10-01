@@ -106,7 +106,8 @@ uv run --locked --offline python tools/map_osd_language_layout.py <local-V020.bi
 ```
 
 [Derived check report](maps/osd-language-layout.json) contains no firmware
-resources. Next: language-list drawing at **D662/F249 and C436/EBCD** to bind
-indices to rendered names, with real entry prerequisites reconstructed; then
-the full apply drawing and other dirty-save leaves. DAD3's producer/units and
-real burst completion remain unproved.
+resources. [Language-list follow-up](OSD_LANGUAGE_LIST.md) now executes the
+ordinary entry through RET for all21 stored languages under explicit synthetic
+state and binds each name index to its segment/position. Next: full **9:C63A**
+apply drawing and **9:FA18** exit, plus native glyphs and other dirty-save leaves.
+DAD3's producer/units and real burst completion remain unproved.

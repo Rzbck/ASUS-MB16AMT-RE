@@ -1,0 +1,398 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "name_selection_checks": 63,
+  "full_entry_checks": 21,
+  "segments": [
+    {
+      "index": 0,
+      "segment_start": "1:6D77",
+      "segment_end": "1:6D7E",
+      "length": 7,
+      "row": 5,
+      "column": 26,
+      "base_font_candidate": "English"
+    },
+    {
+      "index": 1,
+      "segment_start": "1:6D7F",
+      "segment_end": "1:6D87",
+      "length": 8,
+      "row": 7,
+      "column": 26,
+      "base_font_candidate": "Fran<8F>ais"
+    },
+    {
+      "index": 2,
+      "segment_start": "1:6D88",
+      "segment_end": "1:6D8F",
+      "length": 7,
+      "row": 9,
+      "column": 26,
+      "base_font_candidate": "Deutsch"
+    },
+    {
+      "index": 3,
+      "segment_start": "1:6D90",
+      "segment_end": "1:6D97",
+      "length": 7,
+      "row": 11,
+      "column": 26,
+      "base_font_candidate": "Espa<B1>ol"
+    },
+    {
+      "index": 4,
+      "segment_start": "1:6D98",
+      "segment_end": "1:6DA0",
+      "length": 8,
+      "row": 13,
+      "column": 26,
+      "base_font_candidate": "Italiano"
+    },
+    {
+      "index": 5,
+      "segment_start": "1:6DA1",
+      "segment_end": "1:6DAB",
+      "length": 10,
+      "row": 15,
+      "column": 26,
+      "base_font_candidate": "Nederlands"
+    },
+    {
+      "index": 6,
+      "segment_start": "1:6DAC",
+      "segment_end": "1:6DB3",
+      "length": 7,
+      "row": 17,
+      "column": 26,
+      "base_font_candidate": "Pycc<A4><AA><A9>"
+    },
+    {
+      "index": 7,
+      "segment_start": "1:6DB4",
+      "segment_end": "1:6DBA",
+      "length": 6,
+      "row": 19,
+      "column": 26,
+      "base_font_candidate": "Polski"
+    },
+    {
+      "index": 8,
+      "segment_start": "1:6DBB",
+      "segment_end": "1:6DC2",
+      "length": 7,
+      "row": 5,
+      "column": 39,
+      "base_font_candidate": "<8D>e<C6>tina"
+    },
+    {
+      "index": 9,
+      "segment_start": "1:6DC3",
+      "segment_end": "1:6DCB",
+      "length": 8,
+      "row": 7,
+      "column": 39,
+      "base_font_candidate": "Hrvatski"
+    },
+    {
+      "index": 10,
+      "segment_start": "1:6DCC",
+      "segment_end": "1:6DD3",
+      "length": 7,
+      "row": 9,
+      "column": 39,
+      "base_font_candidate": "MMagyar"
+    },
+    {
+      "index": 11,
+      "segment_start": "1:6DD4",
+      "segment_end": "1:6DDA",
+      "length": 6,
+      "row": 11,
+      "column": 39,
+      "base_font_candidate": "Rom<86>n<82>"
+    },
+    {
+      "index": 12,
+      "segment_start": "1:6DDB",
+      "segment_end": "1:6DE4",
+      "length": 9,
+      "row": 13,
+      "column": 39,
+      "base_font_candidate": "Portugu<98>s"
+    },
+    {
+      "index": 13,
+      "segment_start": "1:6DE5",
+      "segment_end": "1:6DEB",
+      "length": 6,
+      "row": 15,
+      "column": 39,
+      "base_font_candidate": "T<CE>rk<8F>e"
+    },
+    {
+      "index": 14,
+      "segment_start": "1:6DEC",
+      "segment_end": "1:6DF1",
+      "length": 5,
+      "row": 17,
+      "column": 39,
+      "base_font_candidate": "<59><5A><5B><5C><5D>"
+    },
+    {
+      "index": 15,
+      "segment_start": "1:6DF2",
+      "segment_end": "1:6DF7",
+      "length": 5,
+      "row": 19,
+      "column": 39,
+      "base_font_candidate": "<5F><60><61><62><63>"
+    },
+    {
+      "index": 16,
+      "segment_start": "1:6DF8",
+      "segment_end": "1:6DFC",
+      "length": 4,
+      "row": 5,
+      "column": 52,
+      "base_font_candidate": "<65><66><67><68>"
+    },
+    {
+      "index": 17,
+      "segment_start": "1:6DFD",
+      "segment_end": "1:6E01",
+      "length": 4,
+      "row": 7,
+      "column": 52,
+      "base_font_candidate": "<69><6A><6B><6C>"
+    },
+    {
+      "index": 18,
+      "segment_start": "1:6E02",
+      "segment_end": "1:6E05",
+      "length": 3,
+      "row": 9,
+      "column": 52,
+      "base_font_candidate": "<6D><6E><6F>"
+    },
+    {
+      "index": 19,
+      "segment_start": "1:6E06",
+      "segment_end": "1:6E09",
+      "length": 3,
+      "row": 11,
+      "column": 52,
+      "base_font_candidate": "<70><71><72>"
+    },
+    {
+      "index": 20,
+      "segment_start": "1:6E0A",
+      "segment_end": "1:6E1A",
+      "length": 16,
+      "row": 13,
+      "column": 52,
+      "base_font_candidate": "Bahasa Indonesia"
+    }
+  ],
+  "entry_fixtures": [
+    {
+      "stored_language": 0,
+      "steps": 911759,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 0
+    },
+    {
+      "stored_language": 1,
+      "steps": 911759,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 1
+    },
+    {
+      "stored_language": 2,
+      "steps": 911759,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 2
+    },
+    {
+      "stored_language": 3,
+      "steps": 911759,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 3
+    },
+    {
+      "stored_language": 4,
+      "steps": 911759,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 4
+    },
+    {
+      "stored_language": 5,
+      "steps": 911759,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 5
+    },
+    {
+      "stored_language": 6,
+      "steps": 911759,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 6
+    },
+    {
+      "stored_language": 7,
+      "steps": 911759,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 7
+    },
+    {
+      "stored_language": 8,
+      "steps": 911789,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 8
+    },
+    {
+      "stored_language": 9,
+      "steps": 911789,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 9
+    },
+    {
+      "stored_language": 10,
+      "steps": 911789,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 10
+    },
+    {
+      "stored_language": 11,
+      "steps": 911789,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 11
+    },
+    {
+      "stored_language": 12,
+      "steps": 911789,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 12
+    },
+    {
+      "stored_language": 13,
+      "steps": 911789,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 13
+    },
+    {
+      "stored_language": 14,
+      "steps": 911789,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 14
+    },
+    {
+      "stored_language": 15,
+      "steps": 911789,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 15
+    },
+    {
+      "stored_language": 16,
+      "steps": 911785,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 16
+    },
+    {
+      "stored_language": 17,
+      "steps": 911785,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 17
+    },
+    {
+      "stored_language": 18,
+      "steps": 911785,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 18
+    },
+    {
+      "stored_language": 19,
+      "steps": 911785,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 19
+    },
+    {
+      "stored_language": 20,
+      "steps": 911785,
+      "list_calls": 21,
+      "window_bursts": 116,
+      "port_writes": 3213,
+      "return_setting": "56",
+      "preview": 20
+    }
+  ],
+  "resource": "Family0E/index0 ->code1:6D77, exactly21 FF-delimited name segments before next family09 resource1:6E1B.",
+  "selector": "1:DC4F/FC8F/E43B resolves family D853=0E/indexD854=0; actual DC8A..DCA2 loop skips D855 name segments. It uses explicit index, independently of stored DA03 in checked fixtures.",
+  "list": "10:D153..D1C1 iterates D82F0..20; D1BB ->1A4E/1:DC4F receives rows5+2*(index%8), columns26+13*(index//8), style3 and D853:D854:D855=0E:00:index.",
+  "full_entry": "9:F550 returns with DA6B56 and DA48:DA49=00:stored-language after21 list calls in each complete fixture. No drawing callee is skipped.",
+  "limits": [
+    "Every fixture executes offline in bounded interpreter, not on a monitor.",
+    "Full entry uses Window synthetic FFF3 busy-bit completion, RAM39=1, FFFF=13, DAD3=60000000 and DC09/DBFC=40. These are fixtures, not proven live startup state.",
+    "Burst-engine copies, display visibility, interrupts and physical timing are not emulated.",
+    "Base-font candidates reuse the atlas partial alphabet; extension tokens and duplicated letters remain unresolved. Do not promote candidates to complete language-ID names.",
+    "Only ordinary row32 command0 entry is integrated, not all exit/apply/re-entry state variants."
+  ]
+}

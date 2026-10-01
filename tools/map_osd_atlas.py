@@ -12,6 +12,16 @@ from analyze_banked_abi import SHA, inventory, traverse, verified_jump_tables
 from emulate_mcs51 import Machine
 
 
+def base_font_candidate(payload):
+    """Existing partial base-font alphabet; extension tokens stay explicit."""
+    upper = 'ABCDEFGHIJKLMMNOPQRSTUVWWXYZ'
+    lower = 'abcdefghijklmnopqrstuvwwxyz'
+    glyphs = {i+11:c for i,c in enumerate(upper)} | {i+39:c for i,c in enumerate(lower)}
+    glyphs.update({i+1:str(i) for i in range(10)})
+    glyphs.update({0:' ', 0x42:'.', 0x4D:'!'})
+    return ''.join(glyphs.get(x,f'<{x:02X}>') for x in payload)
+
+
 def display_events(data, thunks, decoded, edges, timer):
     chunk = data[9*65536:10*65536]
     expected = {1:0xB8E0,2:0xB935,7:0xB956,8:0xB956,9:0xBA15,
@@ -71,11 +81,6 @@ def build(data):
     decoded, edges, indirect, reserved, overlaps = traverse(data, thunks)
     assert not reserved and not overlaps
     tables = verified_jump_tables(data)
-    upper = 'ABCDEFGHIJKLMMNOPQRSTUVWWXYZ'
-    lower = 'abcdefghijklmnopqrstuvwwxyz'
-    glyphs = {i+11:c for i,c in enumerate(upper)} | {i+39:c for i,c in enumerate(lower)}
-    glyphs.update({i+1:str(i) for i in range(10)})
-    glyphs.update({0:' ', 0x42:'.', 0x4D:'!'})
     resources = []
     for selector in range(256):
         for arg5 in (0, 1):
@@ -96,8 +101,7 @@ def build(data):
                 chunk = data[65536:131072]
                 end = chunk.find(b'\xff', address, min(address+192,65536))
                 if end >= address:
-                    row['first_segment_base_font_candidate'] = ''.join(
-                        glyphs.get(x,f'<{x:02X}>') for x in chunk[address:end])
+                    row['first_segment_base_font_candidate'] = base_font_candidate(chunk[address:end])
                     row['first_segment_length'] = end-address
             resources.append(row)
     warning = next(r for r in resources if r['selector']=='30' and r['input_R5']==0)
