@@ -1,6 +1,6 @@
 # ASUS MB16AMT V020 — OSD reverse-engineering atlas
 
-**CONFIRMED navigation fallback/timer chain:** [OSD_NAVIGATION_GUARDS.md](OSD_NAVIGATION_GUARDS.md) verifiesA334 mode4/6 command/event/status gates,0D/0E cancellation and05/0C request ->DA6C02/09. Full16-slot cancellation/allocation fixtures includeexistingtimer/fulltable/duplicate behavior. All offline; physical timing unknown. Next9:B935/BA15 eventconsumers; complete OSD map unfinished.
+**CONFIRMED complete event09 consumer:** [OSD_EVENTS.md](OSD_EVENTS.md) verifies256 wholepaths/131,072 statuswriter fixtures. Resetmenu0/statuslow3,retainedpackedlanguage/gate/dirty,andclearedpendingevent. Nested0B publication is overwrittenbyouterBAE1; no globalpermanentlossclaim. Event02openatclockwait/unsupported82. Nextinterpreter82 support andevent02; fullOSDmapunfinished.
 
 The current objective is a complete, reproducible OSD map for later modification
 planning. **The complete map is not finished.** This page is the entry point;

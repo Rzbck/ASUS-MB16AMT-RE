@@ -4,7 +4,7 @@
 
 The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). Verified layers now include text pointers/segments, common font-byte output, the separate cell-stream renderer, menu category dispatch and menu-text language provenance. The complete map remains unfinished. No hardware mutation or flash is part of this task.
 
-Latest OSD milestone: [docs/OSD_NAVIGATION_GUARDS.md](docs/OSD_NAVIGATION_GUARDS.md) resolvesA334 fallback:mode4/6,command<5,event!=7/status!=3 gates; cancel0D/0E thenrequesttimer05/0C withargument5000 ->DA6C02/09. 131,072 status,262,144 decision,3,072 event-byte,960 complete slot,18 existingtimer,2 fulltable and1 duplicatecancel checks pass offline. Physical status/mode names and clockunits remain unassigned. Next precise target: **event02 consumer9:B935 andevent09 consumer9:BA15, their callees/state/timers**, then navigationentry/DA6E lifecycle. Full OSD mapping remains unfinished.
+Latest OSD milestone: [docs/OSD_EVENTS.md](docs/OSD_EVENTS.md) verifies256 complete event09 paths and131,072 statuswriter fixtures. Event09 resetsDA6B=0,writesDCC9low3,retainsDA03/DA72/dirtyDA69/DCCA,andclearsDA6C. Withdirtybit0,nestedF439 publishes0B at8:E829 butouterBAE1 overwrites0 at9:BAE5; localoverwrite isconfirmed,notpermanentglobalsettingsloss. Event02 reachesclockwait2:FA66;waitexit fixture thenhitsunsupported82 at2:FDF8. Next precise target: **verify/addANL C,bit82 support,event02waitexit paths andRAM42:43 producer**, thennavigationentry/DA6E lifecycle. FullOSDmap remainsunfinished.
 
 ## Current hardware experiment gate
 

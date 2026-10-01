@@ -1,6 +1,6 @@
 # Static firmware map — ASUS MB16AMT V020
 
-**CONFIRMED navigation fallback/timer chain:** [OSD_NAVIGATION_GUARDS.md](OSD_NAVIGATION_GUARDS.md) verifiesA334 mode4/6 command/event/status gates,0D/0E cancellation and05/0C request ->DA6C02/09. Full16-slot cancellation/allocation fixtures includeexistingtimer/fulltable/duplicate behavior. All offline; physical timing unknown. Next9:B935/BA15 eventconsumers; complete OSD map unfinished.
+**CONFIRMED complete event09 consumer:** [OSD_EVENTS.md](OSD_EVENTS.md) verifies256 wholepaths/131,072 statuswriter fixtures. Resetmenu0/statuslow3,retainedpackedlanguage/gate/dirty,andclearedpendingevent. Nested0B publication is overwrittenbyouterBAE1; no globalpermanentlossclaim. Event02openatclockwait/unsupported82. Nextinterpreter82 support andevent02; fullOSDmapunfinished.
 
 **97% confirmed live:** three source reads at 07:00:34Z returned 6190/6742 -> x=9181 -> target 97%, matching the user OSD report. Timer setup 5:E268 now matches the reference millisecond routine: nominal acquisition ~1 s and continued filter steps ~13 s (strong evidence, physical timing unmeasured). FE GET dispatch was checked in 65,544 offline cases; remaining cache-read investigation is inside service 12:F684 and diagnostic leaves, not selector guessing. See [BATTERY_LIVE_PROXY.md](BATTERY_LIVE_PROXY.md).
 

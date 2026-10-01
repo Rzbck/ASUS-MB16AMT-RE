@@ -1,0 +1,26 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "status_writer_checks": 131072,
+  "complete_event09_checks": 256,
+  "steps": 2066304,
+  "event_write_sequences_by_initial_dirty": {
+    "0": [
+      "9:BAE5=00"
+    ],
+    "1": [
+      "8:E829=0B",
+      "9:BAE5=00"
+    ]
+  },
+  "chain": "9:B8B2 ->BA15 ->15F8/10:F439 ->R7=3 ->BACE/18C8/7:F82D ->BAE1 eventclear ->RET.",
+  "status_writer": "7:F82D replacesDCC9 low nibble withR7&0F, preserveshigh; onlyR7=2 clearsDCCA.bit6 whenitwas set. Event09 supplies3 and retainsDCCA.",
+  "complete_effects": "UndercheckedfixturesDA6B=0,DA03/DA72/DA69retained,DCC9low=3,DA6C=0; noI2Cstoragewrites.",
+  "nested_event": "Initialdirtybit0 causesF439/E7E4 towriteDA6C0B, thenouterBAE1 overwritesitwith0. Dirtybit0 remains; this handlerdoesnotsaveit.",
+  "coverage": "4 menustates x4 DA72flags x4 DCC9bytes x2 DCCA.bit6 x2 dirtyflags; otherstatezeroexceptbank13/RAM39=1/DAD3nonzero.",
+  "limits": [
+    "Offline only; existing Window supplies synthetic burstbusy completion.",
+    "Nested eventoverwrite is localproof, not globalpermanentloss; laterproducers/interrupts couldpublishanother0B.",
+    "No physicalstatus nameisassignedtoDCC9low3.",
+    "Event02 wholeexecution remainsopenat2:FA77..FAAE RAMclock-dependentwait; zero-clock snapshotdoesnotprogress."
+  ]
+}
