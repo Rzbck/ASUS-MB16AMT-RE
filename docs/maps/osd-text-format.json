@@ -1,0 +1,186 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "segment_scanner": {
+    "entry": "1:D7D7",
+    "boundary": "1:D7F1",
+    "pointer": "D861 tag, D862:D863 big-endian address",
+    "count": "direct RAM 26h (copied from D842 by caller)",
+    "rule": "Skip count FF-terminated segments; leave pointer just after the final skipped FF.",
+    "scratch_writes": [
+      "D862",
+      "D863"
+    ],
+    "synthetic_checks": 15,
+    "actual_code_resource_checks": 21,
+    "warning_resource_segments": [
+      {
+        "skip_count": 0,
+        "start": "1:A0EF",
+        "length": 20,
+        "terminator": "1:A103",
+        "steps": 4
+      },
+      {
+        "skip_count": 1,
+        "start": "1:A104",
+        "length": 22,
+        "terminator": "1:A11A",
+        "steps": 929
+      },
+      {
+        "skip_count": 2,
+        "start": "1:A11B",
+        "length": 20,
+        "terminator": "1:A12F",
+        "steps": 1942
+      },
+      {
+        "skip_count": 3,
+        "start": "1:A130",
+        "length": 29,
+        "terminator": "1:A14D",
+        "steps": 2867
+      },
+      {
+        "skip_count": 4,
+        "start": "1:A14E",
+        "length": 24,
+        "terminator": "1:A166",
+        "steps": 4188
+      },
+      {
+        "skip_count": 5,
+        "start": "1:A167",
+        "length": 20,
+        "terminator": "1:A17B",
+        "steps": 5289
+      },
+      {
+        "skip_count": 6,
+        "start": "1:A17C",
+        "length": 25,
+        "terminator": "1:A195",
+        "steps": 6214
+      },
+      {
+        "skip_count": 7,
+        "start": "1:A196",
+        "length": 32,
+        "terminator": "1:A1B6",
+        "steps": 7359
+      },
+      {
+        "skip_count": 8,
+        "start": "1:A1B7",
+        "length": 23,
+        "terminator": "1:A1CE",
+        "steps": 8812
+      },
+      {
+        "skip_count": 9,
+        "start": "1:A1CF",
+        "length": 32,
+        "terminator": "1:A1EF",
+        "steps": 9869
+      },
+      {
+        "skip_count": 10,
+        "start": "1:A1F0",
+        "length": 33,
+        "terminator": "1:A211",
+        "steps": 11322
+      },
+      {
+        "skip_count": 11,
+        "start": "1:A212",
+        "length": 32,
+        "terminator": "1:A232",
+        "steps": 12819
+      },
+      {
+        "skip_count": 12,
+        "start": "1:A233",
+        "length": 35,
+        "terminator": "1:A256",
+        "steps": 14272
+      },
+      {
+        "skip_count": 13,
+        "start": "1:A257",
+        "length": 20,
+        "terminator": "1:A26B",
+        "steps": 15857
+      },
+      {
+        "skip_count": 14,
+        "start": "1:A26C",
+        "length": 16,
+        "terminator": "1:A27C",
+        "steps": 16782
+      },
+      {
+        "skip_count": 15,
+        "start": "1:A27D",
+        "length": 13,
+        "terminator": "1:A28A",
+        "steps": 17531
+      },
+      {
+        "skip_count": 16,
+        "start": "1:A28B",
+        "length": 39,
+        "terminator": "1:A2B2",
+        "steps": 18148
+      },
+      {
+        "skip_count": 17,
+        "start": "1:A2B3",
+        "length": 35,
+        "terminator": "1:A2D6",
+        "steps": 19909
+      },
+      {
+        "skip_count": 18,
+        "start": "1:A2D7",
+        "length": 15,
+        "terminator": "1:A2E6",
+        "steps": 21494
+      },
+      {
+        "skip_count": 19,
+        "start": "1:A2E7",
+        "length": 15,
+        "terminator": "1:A2F6",
+        "steps": 22199
+      },
+      {
+        "skip_count": 20,
+        "start": "1:A2F7",
+        "length": 31,
+        "terminator": "1:A316",
+        "steps": 22904
+      }
+    ]
+  },
+  "prefix_classifier": {
+    "entry": "1:D803",
+    "checks": 256,
+    "special_tokens": [
+      "F8",
+      "F9",
+      "FA",
+      "FB",
+      "FC",
+      "FD",
+      "FE"
+    ],
+    "action": "1:D0AF stores token at D867 and increments direct RAM 28h.",
+    "limits": "Classification verified; downstream semantic meaning of each token still needs proof."
+  },
+  "modification_constraint": "Changing a segment length moves later segments; FF bytes delimit the scanner. Preserve/rebuild all affected addresses and segment structure before considering a patch.",
+  "limits": [
+    "Segment skip tests stop before hardware rendering.",
+    "21 scanned segments fill the interval between two resolved resource pointers; they are not a proven supported/named-language list.",
+    "No hardware writes, language changes, firmware patch or flash."
+  ]
+}

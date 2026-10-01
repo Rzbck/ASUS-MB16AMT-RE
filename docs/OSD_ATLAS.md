@@ -48,6 +48,12 @@ namespaces and must not be equated merely because their numeric values match.
 | Font/icons/palette | References exist, no complete exported map | Font storage/widths, icon formats, palettes, SRAM allocation and coordinates |
 | Future modifications | No patch applied | Per-resource constraints, pointers, sizes, checksums and recovery prerequisites |
 
+Updated text layer: [OSD_TEXT_FORMAT.md](OSD_TEXT_FORMAT.md) verifies the
+FF-segment traversal (36 checks) and the F8..FE prefix classifier (256 checks),
+records language-dependent width/font bank dispatch, and identifies font-byte
+writes at FF06. Language names, glyph bounds and complete hardware setup remain
+open; the original coverage rows above describe the initial atlas baseline.
+
 ## Text family/index resolver — new verified subchain
 
 `1:E43B` clears pointer scratch `D893..D895`, dispatches on R7 via the common

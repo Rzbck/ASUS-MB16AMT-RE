@@ -240,3 +240,6 @@ Every new experiment should state before execution:
 This should prevent another loop of generic scans and repeated handshakes.
 
 Manufacturer evidence: official MB16AMT manual documents QC3.0 and 5–9 V/2 A. Do not equate charging capability with USB-PD or repeat failed PD reads. Identify source/charger detection, preserving current wiring and no negotiation writes. See docs/POWER_INPUT_LIVE.md.
+
+OSD text follow-up: FF segment skipping and F8..FE classification are now checked offline (36 and 256 cases). See docs/OSD_TEXT_FORMAT.md and docs/maps/osd-text-format.json. Width/font dispatch branches and FF06 font-byte output are localized. Next: prove width/font table bounds and the menu language validator, then key/state transitions.
+

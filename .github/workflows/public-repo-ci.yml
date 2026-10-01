@@ -50,6 +50,8 @@ jobs:
 
       - name: Smoke-test analyzer CLIs
         run: |
+          python tools/map_osd_atlas.py --help >/dev/null
+          python tools/map_osd_text.py --help >/dev/null
           python tools/analyze_banked_abi.py --help >/dev/null
           python tools/analyze_numeric_renderer.py --help >/dev/null
           python tools/analyze_value_provenance.py --help >/dev/null

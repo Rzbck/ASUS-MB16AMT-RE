@@ -624,3 +624,6 @@ sites. Derive a hardware-facing read before any further device experiment.
 
 ## OSD atlas mission
 See [OSD_ATLAS.md](OSD_ATLAS.md) for current coverage. New 1:E43B resource resolver: 512 offline cases verify generic pointer return R3:R2:R1 equals D893..D895 with writes limited to that scratch. Atlas also exports all 36 exact 4:EC1F event targets. Text candidates retain unknown glyphs; full OSD mapping remains incomplete.
+
+OSD text follow-up: FF segment skipping and F8..FE classification are now checked offline (36 and 256 cases). See OSD_TEXT_FORMAT.md and maps/osd-text-format.json. Width/font dispatch branches and FF06 font-byte output are localized. Next: prove width/font table bounds and the menu language validator, then key/state transitions.
+

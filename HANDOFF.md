@@ -441,3 +441,6 @@ Secondary path: inspect `WinIspPlugIn.dll` further for a **non-destructive read/
 ## 14. What the next agent should ask the user to do
 
 Ideally: nothing immediately. First spend time on static analysis and public-source correlation. Only ask the user for a new probe once it tests a specific hypothesis that the firmware/source analysis supports.
+
+OSD text follow-up: FF segment skipping and F8..FE classification are now checked offline (36 and 256 cases). See docs/OSD_TEXT_FORMAT.md and docs/maps/osd-text-format.json. Width/font dispatch branches and FF06 font-byte output are localized. Next: prove width/font table bounds and the menu language validator, then key/state transitions.
+
