@@ -1,0 +1,24 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "callback_gate_checks": 512,
+  "callback_gate": "9:FD9D/FE7F -> C031 only if DA68.bit6 clear; otherwise return. The same flag sends C031 toward navigation at C049, not C0E6 adjustment.",
+  "generic_setter_checks": 65536,
+  "generic_setter": "8:8B52 with selector32 does not update DA03; writes only D824=32. Proposed byte/current packed-language byte exhaustive.",
+  "writer_checks": 65536,
+  "dirty_flag_checks": 256,
+  "writer": "9:C6B0..C6C2: DA03=(old&C0)|(DA49&3F); helperA93F sets DA69.bit0; next167C ->8:E7E4 is a stop boundary.",
+  "equality_checks": 4096,
+  "display_event_checks": 512,
+  "display_event": "167C ->8:E7E4: if DA69!=0, DA6C=0B; zero leaves DA6C unchanged. DA69 is preserved. Existing DA6C dispatcher sends0B to9:BA6E.",
+  "preview_checks": 10752,
+  "preview": "Normal callback row56: command1 ->9:E7F9 increments staged DA48:DA49 modulo21; command2 ->9:FEEB ->E7F9 decrements modulo21. Uses19D6 ->8:B9A9, upper20/lower0/step1, stops before19DC refresh atE831. DA03 remains unchanged.",
+  "apply_root": "Normal row56 command0 ->9:C63A; the checked C6B0 tail commits staged DA49 to DA03 and sets DA69.bit0.",
+  "entry_comparison": "9:C63A queries current selector32; with DA48=0 and staged DA49=current, returns via C743. Changed low6 values reach C652 before UI effects.",
+  "limits": [
+    "Every run is offline; no language/monitor/storage change.",
+    "C6B0 tail proves the staged-byte writer and dirty flag; it does not execute preceding drawing or following E7E4 effects.",
+    "The equality fixtures use low6 values and DA48=0; entry transition into row56 and further preview/apply drawing effects remain open.",
+    "The writer masks six bits but does not clamp0..20; the separate validator supplies the established stored range.",
+    "Physical button/command labels and complete save/redraw flag lifecycle remain unproved."
+  ]
+}

@@ -41,7 +41,7 @@ namespaces and must not be equated merely because their numeric values match.
 | Value reads | Full 8:5FEF contract; R7 selector, R5 mode; R7 result | Tie every OSD selection to label and adjustment handler |
 | Value updates | Scattered setters/DDC; hold validator, 36-byte page/FIFO/error save contract verified | Full adjustments, dirty flags and persistence for every setting; real storage completion |
 | Text selection | New 1:E43B resolver map; 256 selectors × R5 values 0/1 executed | Legal family index bounds, all variants, language segment selection |
-| Text encoding | Segment scanner/prefix classifier; DA03 low six bits feed menu language; validator accepts 0..20 | Language names/selection/persistence, wide glyph fragments, punctuation, all font banks |
+| Text encoding | Segment/font dispatch; DA03 language0..20; row56 preview and apply writer checked | Language names, row32-to56 transition/full redraw/save, wide glyph fragments and legal token bounds |
 | Numeric rendering | 1:EAEB: D838..D83B input, D83C flags; known setting and countdown callers | Complete layout/format flags and hardware sink integration |
 | Battery display | Source → conversion → filter → DA4C → 10:F8F4 → 1:D7A1 | Live filtered DA4C read remains unavailable; broader layout integration |
 | Timer events | Exact 36-entry dispatch; 17→countdown; five leaf writers feed DA6C | Other handler meanings, producer conditions and scheduling |
@@ -85,6 +85,10 @@ Callback follow-up: [OSD_HANDLERS.md](OSD_HANDLERS.md) maps DA6B/DA6D pointers
 through2133 and the carry-sensitive alternate guard, adding coherent handler
 bodies through explicit CFG roots. Shared prelude1934 ->10:FEB0 now has an
 exhaustive state-byte contract; its field consumers remain open.
+
+Language update follow-up: [OSD_LANGUAGE_UPDATE.md](OSD_LANGUAGE_UPDATE.md)
+verifies staged row56 selection, masked DA03 update, DA69 dirty flag and display
+event0B. Row32 navigation and the generic setter exclusion are kept explicit.
 
 ## Text family/index resolver — new verified subchain
 

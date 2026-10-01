@@ -32,7 +32,7 @@ Examples, using the table's local callback addresses:
 
 These row identities use the existing [setting-query contract](SETTING_QUERY.md).
 They do not establish a physical button name. For row32, FE7F jumps to FD9D;
-FE82 jumps to F406. Thus the two adjustment-side callbacks share one routine,
+FE82 jumps to F406. Thus the two command1/2 callbacks share one routine,
 which can consult DA6D, rather than requiring separate language setters.
 
 ## Alternate table: carry-sensitive bounds
@@ -85,8 +85,9 @@ uv run --locked --offline python tools/map_osd_handlers.py <local-V020.bin> --ou
 ```
 
 The [complete checked cell matrix](maps/osd-handlers.json) includes all callback
-addresses, guards and coverage counts without firmware bytes. Next:
-**row32 -> 9:FD9D / FE7F -> 9:C031 -> C0E6**, separating navigation mode from
-adjustment mode, then `19D6 -> 8:B9A9` and `1652 -> 8:8B52` to bridge language
-read/update/display. Also follow DA6E repeat-flag resets using the extended CFG.
-The shared prelude fields DBFD..DC00 still require downstream interpretation.
+addresses, guards and coverage counts without firmware bytes. Next: the [language update map](OSD_LANGUAGE_UPDATE.md) now verifies row32's
+navigation-only gate and row56 preview/apply roots. Follow the row32-to56 entry
+transition, refresh10:CA2A and display event0B at9:BA6E. C0E6 remains the
+numeric adjustment branch for other eligible callbacks; it is not established
+as a row32 language update path. Shared prelude fields DBFD..DC00 still require
+downstream interpretation.
