@@ -114,6 +114,8 @@ uv run --locked --offline python tools/map_osd_language_list.py <local-V020.bin>
 Without `--lifecycle`, full entry still runs but apply/exit cycles are omitted.
 `--segments-only` checks pointers and exit gates without integrated entry.
 [Derived report](maps/osd-language-list.json) includes no resource payloads.
-Next precise target: **DCC4:DCC5=02:CC downstream consumers**, then
-re-entry/modal/high-flag transition variants; reconstruct accented/native glyph
-fragments before assigning remaining language names.
+[Notification follow-up](OSD_NOTIFICATIONS.md) now resolves DCC4/DCC5 through
+GET02/52 and maps GETCC's language protocol values. Indices14/15/16 correlate
+to Simplified/Traditional Chinese/Japanese as strong source evidence; the
+native glyphs remain undecoded. Next: **language SETCC mapping/save/redraw**,
+then re-entry/modal/high-flag variants and remaining glyph fragments.

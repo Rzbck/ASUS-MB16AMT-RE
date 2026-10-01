@@ -112,6 +112,12 @@ The lifecycle campaign adds21 complete preview/unchanged-apply/changed-apply/
 exit cycles and131,072 bounded FA18 target-gate cases; DCC4:DCC5=02CC's
 downstream meaning remains a precise open target.
 
+[OSD notifications](OSD_NOTIFICATIONS.md) resolves that pair: GET02 returns
+DCC4 status, GET52 reports DCC5 once and acknowledges it, and GETCC translates
+DA03 through a21-entry protocol-code table. All reply/checksum instructions run
+offline and stop before transport. This also explains the earlier ED marker
+without treating it as a receive-side SET handler.
+
 ## Text family/index resolver — new verified subchain
 
 `1:E43B` clears pointer scratch `D893..D895`, dispatches on R7 via the common

@@ -1,6 +1,6 @@
 # VCP `0xED` static candidate audit
 
-Status: **the `9:F1C0 MOV R7,#ED` site is rejected as direct DDC/VCP-handler evidence. It packages an internal message/event record.**
+Status: **the `9:F1C0 MOV R7,#ED` site is rejected as direct receive-side SET-handler evidence. It packages a change-report record.** The later [OSD notification audit](OSD_NOTIFICATIONS.md) executes its GET02/52 consumers and establishes exact status/acknowledgement behavior. Earlier consumer uncertainty below is historical.
 
 The runtime experiment remains authoritative that VCP `ED` controls USB charging policy on this MB16AMT:
 
@@ -71,15 +71,20 @@ A5D4: DPTR = DCC4
 
 There is also a direct `DCC4` read at `9:A462` that jumps into the same larger dispatch region.
 
-This producer/consumer shape is strong evidence that `DCC4:DCC5` is an internal message/event record with `25h` acting as a pending/consumed state bit. Exact field names and enum semantics remain unassigned.
+The later [verified consumer audit](OSD_NOTIFICATIONS.md) proves GET02 returns DCC4, GET52 returns DCC5 once when bit25 is clear, then sets bit25 and DCC4=1. DCC4 status/DCC5 changed-control-ID naming strongly matches the pinned DDC definitions.
 
 ## Consequence
 
-The literal `0xED` at `9:F1C0` is an **internal event/message identifier**, not evidence that this code is the receive-side MCCS VCP `ED` handler.
+The literal `0xED` at `9:F1C0` is a **reported changed-control identifier**, not evidence that this code is the receive-side MCCS VCP `ED` handler.
 
 The earlier immediate-constant scan found six other decoded `0xED` uses as `ADD A,#ED`. Since `ADD A,#ED` is equivalent to subtracting `0x13` modulo 256, these are plausible compiler-generated switch-index normalization sites and are now the better static targets for locating a real `SetVCPFeature`-style dispatcher.
 
 ## Current next step
+
+The immediate-constant search recommendation below is historical. The current
+OSD continuation is the language SETCC mapping/save/redraw comparison documented
+in [OSD_NOTIFICATIONS.md](OSD_NOTIFICATIONS.md); do not repeat the closed literal
+heuristic merely because another OSD marker uses a VCP identifier.
 
 Inspect the six `ADD A,#ED` regions as potential switch/table dispatchers, prioritizing regions that:
 

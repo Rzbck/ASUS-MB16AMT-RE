@@ -1,0 +1,112 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "marker_checks": 65536,
+  "status_get_checks": 512,
+  "active_get_checks": 2048,
+  "language_get_checks": 168,
+  "sequence_checks": 1,
+  "get_targets": {
+    "02": "9:A462",
+    "52": "9:A5B7",
+    "CC": "9:A726"
+  },
+  "marker": "9:FD52 setsDCC4=2/DCC5=R7 and clears directbit25, preserving all other RAM24 bits.",
+  "status": "GET02 replies type0/max2/currentDCC4; leaves record and bit25 unchanged.",
+  "active": "GET52: bit25clear ->reply type0/maxFF/currentDCC5, then setbit25; already-set ->current0 without readingDCC5. Both paths setDCC4=1 and retainDCC5.",
+  "sequence": "FD52 R7CC ->GET02 current2 ->GET52 currentCC ->GET02 current1 ->GET52 current0.",
+  "language": "GETCC readsDA03&3F and MOVC code9:9426+index; type0/max31/currenttranslatedcode. Record/bit25 unchanged. Checked valid indices0..20 with all high-bit combinations.",
+  "language_protocol_codes": [
+    {
+      "internal_index": 0,
+      "GET_CC_current": "02"
+    },
+    {
+      "internal_index": 1,
+      "GET_CC_current": "03"
+    },
+    {
+      "internal_index": 2,
+      "GET_CC_current": "04"
+    },
+    {
+      "internal_index": 3,
+      "GET_CC_current": "0A"
+    },
+    {
+      "internal_index": 4,
+      "GET_CC_current": "05"
+    },
+    {
+      "internal_index": 5,
+      "GET_CC_current": "14"
+    },
+    {
+      "internal_index": 6,
+      "GET_CC_current": "09"
+    },
+    {
+      "internal_index": 7,
+      "GET_CC_current": "1E"
+    },
+    {
+      "internal_index": 8,
+      "GET_CC_current": "12"
+    },
+    {
+      "internal_index": 9,
+      "GET_CC_current": "11"
+    },
+    {
+      "internal_index": 10,
+      "GET_CC_current": "1A"
+    },
+    {
+      "internal_index": 11,
+      "GET_CC_current": "1F"
+    },
+    {
+      "internal_index": 12,
+      "GET_CC_current": "08"
+    },
+    {
+      "internal_index": 13,
+      "GET_CC_current": "0C"
+    },
+    {
+      "internal_index": 14,
+      "GET_CC_current": "0D"
+    },
+    {
+      "internal_index": 15,
+      "GET_CC_current": "01"
+    },
+    {
+      "internal_index": 16,
+      "GET_CC_current": "06"
+    },
+    {
+      "internal_index": 17,
+      "GET_CC_current": "07"
+    },
+    {
+      "internal_index": 18,
+      "GET_CC_current": "30"
+    },
+    {
+      "internal_index": 19,
+      "GET_CC_current": "23"
+    },
+    {
+      "internal_index": 20,
+      "GET_CC_current": "31"
+    }
+  ],
+  "reply_validation": "Original9:A3A0 dispatcher,13:6699 payload builder and187A checksum execute; existing GetVcp stops before9:1298 transport. Every tested frame XORs to50 including checksum.",
+  "limits": [
+    "No host/monitor/DDC command is sent; all execution is offline.",
+    "GET52 mutates the modeled notification state; do not classify it as side-effect-free merely because it is a protocol GET.",
+    "Protocol identifiers match pinned reference names, but native-script language names require separate glyph/source evidence.",
+    "GETCC does not clamp low6 indices itself; invalid21..63 behavior is outside this valid-language contract.",
+    "This establishes OSD-to-host change reporting, not a receive-side SET handler or a live charging/SOC primitive."
+  ]
+}
