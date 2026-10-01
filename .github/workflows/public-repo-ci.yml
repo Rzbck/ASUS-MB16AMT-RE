@@ -42,6 +42,9 @@ jobs:
       - name: Test bounded object provenance engine
         run: uv run --locked python tools/test_x86_object_flow.py
 
+      - name: Verify MCS-51 bit instruction semantics without firmware
+        run: uv run --locked python tools/check_mcs51_bit_logic.py
+
       - name: Public repository privacy/binary guard
         run: python tools/check_public_repo.py
 
@@ -69,6 +72,7 @@ jobs:
           python tools/map_osd_navigation_guards.py --help >/dev/null
           python tools/map_osd_navigation_fallback.py --help >/dev/null
           python tools/map_osd_event09.py --help >/dev/null
+          python tools/map_osd_event02.py --help >/dev/null
           python tools/analyze_banked_abi.py --help >/dev/null
           python tools/analyze_numeric_renderer.py --help >/dev/null
           python tools/analyze_value_provenance.py --help >/dev/null

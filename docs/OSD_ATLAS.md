@@ -1,6 +1,6 @@
 # ASUS MB16AMT V020 — OSD reverse-engineering atlas
 
-**CONFIRMED complete event09 consumer:** [OSD_EVENTS.md](OSD_EVENTS.md) verifies256 wholepaths/131,072 statuswriter fixtures. Resetmenu0/statuslow3,retainedpackedlanguage/gate/dirty,andclearedpendingevent. Nested0B publication is overwrittenbyouterBAE1; no globalpermanentlossclaim. Event02openatclockwait/unsupported82. Nextinterpreter82 support andevent02; fullOSDmapunfinished.
+**CONFIRMED event02 fixture completion:** [OSD_EVENTS.md](OSD_EVENTS.md) verifies 37 original whole paths under explicit early-wait/delay/error-polling snapshots and65,536 wait arguments. Timer11/08 requests, retained language/dirty and cleared menu/gate/event are checked. Opcode82 now has1,024 firmware-free CI checks. Physical success/timing remain unproved; next RAM42:43 clock and RAM36/RAM39 calibration. Full OSD map unfinished.
 
 The current objective is a complete, reproducible OSD map for later modification
 planning. **The complete map is not finished.** This page is the entry point;

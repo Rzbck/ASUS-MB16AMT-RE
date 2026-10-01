@@ -86,19 +86,61 @@ byte fixtures with R7=2/3. It replaces DCC9 low nibble with R7&0F while
 preserving the high nibble. Only R7=2 clears DCCA bit6 (when set); event09
 supplies3 and does not change DCCA.
 
-## Event02 execution boundary
+## Event02 earlier boundary and completed fixture paths
 
 Zero-clock whole event02 fixtures reach **2:FA66..FAAE**, a wait that compares
 RAM42:43 snapshots and a local elapsed counter. With9C70 bit2 clear and no
 interrupts, the zero-clock snapshot does not advance and hits the interpreter
 budget. Setting9C70 bit2 in a separate offline fixture takes the early wait
-exit, but then reaches unsupported opcode82 at2:FDF8. Neither is a complete
-event02 proof; no busy wait or unsupported instruction was silently skipped.
+exit, but initially reached unsupported opcode82 at2:FDF8. That earlier
+boundary has now been resolved; no instruction or wait routine was skipped.
 
-Next precise work: add and verify standard MCS-51 **ANL C,bit (82h)** support
-in the existing interpreter, then reconstruct event02 under explicit wait-exit
-fixtures and separately trace the real RAM42:43 producer. Keep synthetic
-completion separate from physical timing and display behavior.
+The existing interpreter now supports standard MCS-51 **ANL C,bit (82h)**.
+[check_mcs51_bit_logic.py](../tools/check_mcs51_bit_logic.py) checks its truth
+table, all256 bit addresses, carry alias and preservation of every other RAM
+bit in1,024 synthetic instruction cases, also run by CI without firmware.
+
+[map_osd_event02.py](../tools/map_osd_event02.py) verifies all65,536 duration
+arguments at2:FA66 with9C70 bit2 set: the original loop takes its early exit,
+stores the argument in D825:D826 and returns without clock progress.
+The [report](maps/osd-event02.json) also records37 complete event02 fixtures:
+16 state/gate/dirty cases with language1, plus all21 languages with state/gate/
+dirty zero (one deliberate overlapping baseline).
+
+```text
+9:B8B2 ->B935
+  ->1622/10:D760 withR7=1
+  ->BAF3 ->BAE7 withA=0
+  ->0C4A/6:98B9 withR7=2
+  ->DA6F low nibble cleared
+  ->BADE requests timer08 withargument3000
+  ->BAE1 clearsDA6C ->RET
+```
+
+Every original callee executes. Explicit prerequisites are bank13, RAM36=1,
+RAM39=1, nonzeroDAD3,9C70 bit2 set and Window's synthetic burst completion.
+**9DB1 remains zero:** bounded retries/error branches execute. Reaching the
+handler return is not successful physical I2C/display proof. The earlier
+RAM36=0 snapshot exhausted its2,000,000 instruction budget in the bounded
+software delay at2:ECDC; it was not labeled an infinite loop.
+
+All37 fixtures end with DA6B=0, DA72=0 and DA6C=0, retaining language and
+dirtybit0. Prepared window-frame counts depend on language (10..20 in these
+fixtures), with no claim of actual visible windows. Timer requests are:
+
+| Site | Primitive | Event | Argument |
+|---|---|---|---:|
+| 6:99E0 | 0B7E | 11 | 60000 |
+| 9:BADE | 0B7E | 08 | 3000 |
+
+Under the explicit zero software-clock snapshot the original timer slots start
+11:EA60 then08:0BB8. No physical time unit or screen name is assigned.
+Initial dirtybit0 again produces nested0B at8:E829, overwritten by the outer
+zero at9:BAE5; later save publication remains a separate runtime question.
+
+Next precise work: **RAM42:43 clock writers and RAM36/RAM39 delay calibration**,
+then the non-early-exit FA66 wait and real event02 polling prerequisites.
+Keep conditional fixture completion separate from physical timing/display.
 
 ## Caller integration
 

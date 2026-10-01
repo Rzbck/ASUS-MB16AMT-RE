@@ -4,7 +4,7 @@
 
 The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). Verified layers now include text pointers/segments, common font-byte output, the separate cell-stream renderer, menu category dispatch and menu-text language provenance. The complete map remains unfinished. No hardware mutation or flash is part of this task.
 
-Latest OSD milestone: [docs/OSD_EVENTS.md](docs/OSD_EVENTS.md) verifies256 complete event09 paths and131,072 statuswriter fixtures. Event09 resetsDA6B=0,writesDCC9low3,retainsDA03/DA72/dirtyDA69/DCCA,andclearsDA6C. Withdirtybit0,nestedF439 publishes0B at8:E829 butouterBAE1 overwrites0 at9:BAE5; localoverwrite isconfirmed,notpermanentglobalsettingsloss. Event02 reachesclockwait2:FA66;waitexit fixture thenhitsunsupported82 at2:FDF8. Next precise target: **verify/addANL C,bit82 support,event02waitexit paths andRAM42:43 producer**, thennavigationentry/DA6E lifecycle. FullOSDmap remainsunfinished.
+Latest OSD milestone: [docs/OSD_EVENTS.md](docs/OSD_EVENTS.md) verifies 37 complete event02 fixtures, including all 21 languages, under explicit early-wait-exit/delay/polling snapshots. Original callees execute and request timer11 with argument60000 and timer08 with3000; menu/gate/event finish0 while language/dirty survive. Zero9DB1 means bounded retries/error paths, not physical I2C success. ANL C,bit82 is supported and checked in1,024 firmware-free CI cases; all65,536 early-wait duration arguments pass. Next precise target: **RAM42:43 clock writers and RAM36/RAM39 delay calibration**, then normal wait/event02 polling prerequisites and navigation/repeat lifecycle. Full OSD mapping remains unfinished.
 
 ## Current hardware experiment gate
 

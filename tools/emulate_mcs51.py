@@ -105,6 +105,7 @@ class Machine:
             elif op==0xC3: self.c=0
             elif op==0xD3: self.c=1
             elif op==0xB3: self.c=not self.c
+            elif op==0x82: self.c=self.c and self.bit(x)  # ANL C,bit
             elif op==0xC4: self.a=(self.a<<4)|(self.a>>4)
             elif op in (3,0x13,0x23,0x33):
                 a,c=self.a,self.c

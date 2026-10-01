@@ -1,0 +1,1112 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "early_wait_exit_checks": 65536,
+  "complete_event02_checks": 37,
+  "fixtures": [
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 1,
+      "steps": 155144,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 1,
+      "language": 1,
+      "steps": 155111,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "8:E829=0B",
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "08",
+      "initial_dirty": 0,
+      "language": 1,
+      "steps": 156976,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "08",
+      "initial_dirty": 1,
+      "language": 1,
+      "steps": 156943,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "8:E829=0B",
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "32",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 1,
+      "steps": 155144,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "32",
+      "initial_DA72": "00",
+      "initial_dirty": 1,
+      "language": 1,
+      "steps": 155111,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "8:E829=0B",
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "32",
+      "initial_DA72": "08",
+      "initial_dirty": 0,
+      "language": 1,
+      "steps": 156976,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "32",
+      "initial_DA72": "08",
+      "initial_dirty": 1,
+      "language": 1,
+      "steps": 156943,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "8:E829=0B",
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "56",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 1,
+      "steps": 155144,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "56",
+      "initial_DA72": "00",
+      "initial_dirty": 1,
+      "language": 1,
+      "steps": 155111,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "8:E829=0B",
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "56",
+      "initial_DA72": "08",
+      "initial_dirty": 0,
+      "language": 1,
+      "steps": 156976,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "56",
+      "initial_DA72": "08",
+      "initial_dirty": 1,
+      "language": 1,
+      "steps": 156943,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "8:E829=0B",
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "58",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 1,
+      "steps": 155144,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "58",
+      "initial_DA72": "00",
+      "initial_dirty": 1,
+      "language": 1,
+      "steps": 155111,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "8:E829=0B",
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "58",
+      "initial_DA72": "08",
+      "initial_dirty": 0,
+      "language": 1,
+      "steps": 156976,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "58",
+      "initial_DA72": "08",
+      "initial_dirty": 1,
+      "language": 1,
+      "steps": 156943,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "8:E829=0B",
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 0,
+      "steps": 162332,
+      "final_DA72": "00",
+      "window_frames": 15,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 1,
+      "steps": 155144,
+      "final_DA72": "00",
+      "window_frames": 14,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 2,
+      "steps": 175017,
+      "final_DA72": "00",
+      "window_frames": 16,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 3,
+      "steps": 186984,
+      "final_DA72": "00",
+      "window_frames": 17,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 4,
+      "steps": 172465,
+      "final_DA72": "00",
+      "window_frames": 16,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 5,
+      "steps": 169264,
+      "final_DA72": "00",
+      "window_frames": 15,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 6,
+      "steps": 185005,
+      "final_DA72": "00",
+      "window_frames": 17,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 7,
+      "steps": 177758,
+      "final_DA72": "00",
+      "window_frames": 16,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 8,
+      "steps": 178647,
+      "final_DA72": "00",
+      "window_frames": 15,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 9,
+      "steps": 179338,
+      "final_DA72": "00",
+      "window_frames": 16,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 10,
+      "steps": 210610,
+      "final_DA72": "00",
+      "window_frames": 20,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 11,
+      "steps": 187978,
+      "final_DA72": "00",
+      "window_frames": 16,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 12,
+      "steps": 196837,
+      "final_DA72": "00",
+      "window_frames": 18,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 13,
+      "steps": 186032,
+      "final_DA72": "00",
+      "window_frames": 16,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 14,
+      "steps": 139833,
+      "final_DA72": "00",
+      "window_frames": 11,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 15,
+      "steps": 165551,
+      "final_DA72": "00",
+      "window_frames": 11,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 16,
+      "steps": 155964,
+      "final_DA72": "00",
+      "window_frames": 10,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 17,
+      "steps": 172557,
+      "final_DA72": "00",
+      "window_frames": 15,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 18,
+      "steps": 182719,
+      "final_DA72": "00",
+      "window_frames": 13,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 19,
+      "steps": 204960,
+      "final_DA72": "00",
+      "window_frames": 15,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    },
+    {
+      "initial_DA6B": "00",
+      "initial_DA72": "00",
+      "initial_dirty": 0,
+      "language": 20,
+      "steps": 212398,
+      "final_DA72": "00",
+      "window_frames": 19,
+      "timer_requests": [
+        {
+          "site": "6:99E0",
+          "primitive": "0B7E",
+          "argument": 60000,
+          "event": "11"
+        },
+        {
+          "site": "9:BADE",
+          "primitive": "0B7E",
+          "argument": 3000,
+          "event": "08"
+        }
+      ],
+      "event_writes": [
+        "9:BAE5=00"
+      ]
+    }
+  ],
+  "register_write_addresses_union": [
+    "0028",
+    "002A",
+    "0062",
+    "0064",
+    "0065",
+    "006C",
+    "006D",
+    "006E",
+    "006F",
+    "008F",
+    "0090",
+    "0091",
+    "0092",
+    "0094",
+    "009F",
+    "01C8",
+    "24A1",
+    "24A2",
+    "24A3",
+    "3880",
+    "3883",
+    "3884",
+    "3885",
+    "3886",
+    "3888",
+    "3889",
+    "388E",
+    "3891",
+    "38D5",
+    "3900",
+    "3A00",
+    "3A01",
+    "3A02",
+    "3A06",
+    "3A07",
+    "3A08",
+    "3A09",
+    "3A0A",
+    "3A0B",
+    "3A0C",
+    "3A0D",
+    "3A0E",
+    "3A17",
+    "3A18",
+    "3A19",
+    "3A1B",
+    "3A1C",
+    "3A21",
+    "3A22",
+    "3A24",
+    "3A25",
+    "3A26",
+    "3A27",
+    "3A28",
+    "3A29",
+    "5500",
+    "5501",
+    "550C",
+    "5526",
+    "5552",
+    "5553",
+    "5556",
+    "5557",
+    "5558",
+    "5561",
+    "5562",
+    "5563",
+    "5573",
+    "9C00",
+    "9C01",
+    "9C0D",
+    "9C10",
+    "9C13",
+    "9CA0",
+    "9CA1",
+    "9CA4",
+    "9CA8",
+    "9CA9",
+    "9CAA",
+    "9CAB",
+    "9CAC",
+    "9CAD",
+    "9CAE",
+    "9CB4",
+    "9CB5",
+    "9CB6",
+    "9CB7",
+    "9CB8",
+    "9CB9",
+    "9CBA",
+    "9CBB",
+    "9CBC",
+    "9CBD",
+    "9CBE",
+    "9CBF",
+    "9CC0",
+    "9CC1",
+    "9CC2",
+    "9CC3",
+    "9CC4",
+    "9CC5",
+    "9CC6",
+    "9CCA",
+    "9CCB",
+    "9CCC",
+    "9CCD",
+    "9CCE",
+    "9CD3",
+    "9CD4",
+    "9CD5",
+    "9CD7",
+    "9CD9",
+    "9CF3",
+    "9DA3",
+    "9DA4",
+    "9DA5",
+    "9DA6",
+    "9DA7",
+    "9DA8",
+    "9DAB",
+    "9DB0",
+    "9DB1"
+  ],
+  "chain": "9:B8B2 ->B935 ->1622/10:D760(R7=1) ->BAF3 ->BAE7(A=0) ->0C4A/6:98B9(R7=2) ->DA6F low-nibbleclear ->BADE timer08 argument3000 ->BAE1 eventclear.",
+  "wait_exit": "2:FA66..FAAE storesR6:R7 inD825:D826. With9C70.bit2 set, bit03 staysset and the loop returns without RAM42:43 advancing; verified all65536 arguments.",
+  "complete_effects": "Checked37 fixtures returnDA6B0/DA6C0, retainlanguage/dirtybit0; actual original timer slots contain11:EA60 then08:0BB8 underzero timing snapshot.",
+  "limits": [
+    "Offline bytearray execution only; nohardwarecommand.",
+    "Window syntheticburstcompletion,bank13,RAM36/RAM39=1,DAD3=60000000,9C70.bit2=1 are explicit fixtures, not measured hardwarestate.",
+    "9DB1 stayszero in polling portions: bounded retries/error branches execute. Whole handler completion is not successful physical I2C/display proof.",
+    "9C70.bit2 clear withstaticRAM42:43 doesnotprogress atwait; realclockproducer/interrupttiming remainsopen.",
+    "ANL C,bit82 nowexecuted byinterpreter and independently checked bycheck_mcs51_bit_logic.py.",
+    "No semanticname assignedtoevent02 screen/status or timer11."
+  ]
+}

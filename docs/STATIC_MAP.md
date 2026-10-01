@@ -1,6 +1,6 @@
 # Static firmware map — ASUS MB16AMT V020
 
-**CONFIRMED complete event09 consumer:** [OSD_EVENTS.md](OSD_EVENTS.md) verifies256 wholepaths/131,072 statuswriter fixtures. Resetmenu0/statuslow3,retainedpackedlanguage/gate/dirty,andclearedpendingevent. Nested0B publication is overwrittenbyouterBAE1; no globalpermanentlossclaim. Event02openatclockwait/unsupported82. Nextinterpreter82 support andevent02; fullOSDmapunfinished.
+**CONFIRMED event02 fixture completion:** [OSD_EVENTS.md](OSD_EVENTS.md) verifies 37 original whole paths under explicit early-wait/delay/error-polling snapshots and65,536 wait arguments. Timer11/08 requests, retained language/dirty and cleared menu/gate/event are checked. Opcode82 now has1,024 firmware-free CI checks. Physical success/timing remain unproved; next RAM42:43 clock and RAM36/RAM39 calibration. Full OSD map unfinished.
 
 **97% confirmed live:** three source reads at 07:00:34Z returned 6190/6742 -> x=9181 -> target 97%, matching the user OSD report. Timer setup 5:E268 now matches the reference millisecond routine: nominal acquisition ~1 s and continued filter steps ~13 s (strong evidence, physical timing unmeasured). FE GET dispatch was checked in 65,544 offline cases; remaining cache-read investigation is inside service 12:F684 and diagnostic leaves, not selector guessing. See [BATTERY_LIVE_PROXY.md](BATTERY_LIVE_PROXY.md).
 
