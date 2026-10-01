@@ -164,8 +164,9 @@ uv run --locked --offline python tools/map_osd_input.py <local-V020.bin> --out d
 ```
 
 [Derived checks](maps/osd-input.json) contain masks/addresses and counts,
-without proprietary bytes. Next: **E6B6/E20F** input consumers, button names,
-repeat behavior and DA6D/menu transitions; identify bit24h's producer, the
+without proprietary bytes. [OSD_COMMANDS.md](OSD_COMMANDS.md) now checks E20F's
+DD54 translation and F9FB publication/repeat producer. Next: **E6B6**, complete
+DA6D handler/menu transitions and button names; identify bit24h's producer, the
 delay clock/timer. Physical timings remain qualified until that proof.
 DDB3's validator/handoff and **01D0** page/frame/error behavior are now checked
 in [OSD_STORAGE.md](OSD_STORAGE.md), retaining the logical-offset and hardware

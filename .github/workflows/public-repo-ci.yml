@@ -56,6 +56,7 @@ jobs:
           python tools/map_osd_cells.py --help >/dev/null
           python tools/map_osd_input.py --help >/dev/null
           python tools/map_osd_storage.py --help >/dev/null
+          python tools/map_osd_commands.py --help >/dev/null
           python tools/analyze_banked_abi.py --help >/dev/null
           python tools/analyze_numeric_renderer.py --help >/dev/null
           python tools/analyze_value_provenance.py --help >/dev/null

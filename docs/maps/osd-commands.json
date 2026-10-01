@@ -1,0 +1,51 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "dispatch_checks": 65536,
+  "DD54_initial_branches": {
+    "0004": "2:DDA7",
+    "0008": "2:DDF0",
+    "0010": "2:DE3D",
+    "0020": "2:DE95",
+    "0080": "2:DD7B",
+    "otherwise": "2:DEF9"
+  },
+  "translation_checks": 105,
+  "translation_fixture": "DCB7&1F=3/4/6, D9FD.bit1=0, DA09 high nibble0; DA6B=00/01/03/04/05/59/5D",
+  "ordinary_translation": {
+    "0004": 2,
+    "0008": 1,
+    "0010": 3,
+    "0020": 0,
+    "0080": 0
+  },
+  "special_translation": [
+    "Setting59: inputs4/8 store DA6D=7 directly; 16/32 translate to1/2 and clear DA70.bit4 in these fixtures.",
+    "Setting5D: inputs4/8 translate to7, 16/32 to1/2.",
+    "Setting01: input32 translates to1; inputs4/8/32 replace DA0A low nibble from DA0C/DA0D/DA0B respectively.",
+    "Input128 sets DA68.bit6 for settings03/04/05."
+  ],
+  "repeat_checks": 139344,
+  "producer": "2:F9FB: R6:R7 mask, R5 command; current DC9E:DC9F, previous DCA0:DCA1",
+  "changed": "If ((current XOR previous) AND mask)!=0: DA6D=command; DA6E|=10; return without scheduling.",
+  "unchanged": "Exact masks0002/0040 clear DA6E.bit3; all others set it. If bit3 clear, return. If bit2 set, DA6D=command. Otherwise schedule event01 for 500 if bit4 set, else20.",
+  "timer": {
+    "flag_checks": 256,
+    "scheduler_checks": 145,
+    "cancel_checks": 16,
+    "timer1": "4:EC1F event01 -> 4:ECA3 ORs DA6E with 04",
+    "scheduler": "0B7E -> 5:E77F: sixteen 3-byte slots D92D..D95C; event byte then BE16 deadline",
+    "fixture_deadline": "First free slot gets event01 and fixed software clock RAM42:43 + period for tested clocks/periods.",
+    "existing_or_full": "Existing event01 is not rescheduled; all occupied by event02 yields no slot update.",
+    "cancel": "0B84 -> 5:F920 clears the first matching event byte; leaves its deadline intact."
+  },
+  "release_checks": 256,
+  "release": "DD54 default -> DEF9 clears DA6E bits2/3, then requests timer01 cancellation.",
+  "limits": [
+    "Offline synthetic state/software clocks; no device writes or measured repeat period.",
+    "Repeat producer code is checked; this does not prove the full menu-consumer cadence or flag lifecycle.",
+    "Initial DD54 translation branches are exhaustive; their mode/setting-dependent bodies remain to be mapped.",
+    "DA6D command semantics, physical button labels and menu handlers remain incomplete.",
+    "Timer units have primary-reference corroboration elsewhere, but these fixtures prove only argument/deadline arithmetic.",
+    "Scheduler checks use sixteen placements, two periods and four clocks below the wrap threshold; overflow/rescheduling policies are not fully covered."
+  ]
+}
