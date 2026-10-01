@@ -45,7 +45,7 @@ namespaces and must not be equated merely because their numeric values match.
 | Numeric rendering | 1:EAEB: D838..D83B input, D83C flags; known setting and countdown callers | Complete layout/format flags and hardware sink integration |
 | Battery display | Source → conversion → filter → DA4C → 10:F8F4 → 1:D7A1 | Live filtered DA4C read remains unavailable; broader layout integration |
 | Timer events | Exact 36-entry 4:EC1F dispatch; event 17 → 4:EFDB | Meaning and caller/scheduling provenance of other 35 IDs |
-| Font/icons/palette | References exist, no complete exported map | Font storage/widths, icon formats, palettes, SRAM allocation and coordinates |
+| Font/icons/palette | Common width formula and 27-byte cells to FF06 verified; four bank-11 bases mapped | Other language banks, legal glyph bounds, icon formats, palettes, SRAM allocation and coordinates |
 | Future modifications | No patch applied | Per-resource constraints, pointers, sizes, checksums and recovery prerequisites |
 
 Updated text layer: [OSD_TEXT_FORMAT.md](OSD_TEXT_FORMAT.md) verifies the
@@ -53,6 +53,12 @@ FF-segment traversal (36 checks) and the F8..FE prefix classifier (256 checks),
 records language-dependent width/font bank dispatch, and identifies font-byte
 writes at FF06. Language names, glyph bounds and complete hardware setup remain
 open; the original coverage rows above describe the initial atlas baseline.
+
+Font-output follow-up: 256 width cases, 2,340 triplet transfers and 256 loop
+guard cases verify the common-font arithmetic. See
+[OSD_TEXT_FORMAT.md](OSD_TEXT_FORMAT.md) and
+[output contract](maps/osd-font-output.json). The EEED/F7B2 resource path is
+separate from the E43B/D7A1 text path; its format remains to be reconstructed.
 
 ## Text family/index resolver — new verified subchain
 
@@ -97,8 +103,8 @@ firmware bytes nor font bitmaps are published.
 
 ## Next precise targets
 
-1. Recover resolver family bounds and language traversal around 1:D7D7 and
-   1:D800; reconstruct split glyphs and F9..FE tokens from their consumers.
+1. Recover resolver family bounds, remaining width/font banks and legal language
+   selection; segment traversal and common-font output are already checked.
 2. Map the menu event/state machine and key pipeline to these label families.
 3. Connect each setting to read/update/persistence and renderer coordinates.
 4. Finish hardware font/map/palette writes, then describe modification points

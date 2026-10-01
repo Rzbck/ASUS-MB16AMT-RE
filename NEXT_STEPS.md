@@ -243,3 +243,5 @@ Manufacturer evidence: official MB16AMT manual documents QC3.0 and 5–9 V/2 A. 
 
 OSD text follow-up: FF segment skipping and F8..FE classification are now checked offline (36 and 256 cases). See docs/OSD_TEXT_FORMAT.md and docs/maps/osd-text-format.json. Width/font dispatch branches and FF06 font-byte output are localized. Next: prove width/font table bounds and the menu language validator, then key/state transitions.
 
+
+OSD font milestone: tools/map_osd_font.py verifies 256 common widths, 2,340 three-byte transfers and 256 loop guards. A full cell uses 27 bytes; 1:DBCA computes 27*glyph + 3*triplet and writes three consecutive bytes to FF06. See docs/OSD_TEXT_FORMAT.md and docs/maps/osd-font-output.json. Pixel packing and peripheral setup remain unresolved. Next: recover menu category/label construction and distinguish EEED/F7B2 resources from E43B/D7A1 text; then navigation and persistence.

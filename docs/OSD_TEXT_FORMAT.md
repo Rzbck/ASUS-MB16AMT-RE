@@ -67,6 +67,32 @@ XDATA **FF06**. This is a concrete peripheral boundary for font-byte output.
 The setup of that port, glyph allocation, rotation and SRAM layout still need
 to be connected before claiming complete rendering semantics.
 
+## Verified common-font output arithmetic
+
+`1:DBCA` calculates `27 * RAM[29h] + 3 * RAM[26h]`: glyph code
+and triplet index respectively. It calls `1:FC2B` three times with consecutive
+offsets and writes the three returned bytes chronologically to **FF06**.
+For D842=0E, FA/FB/FC/FD select bank-11 bases 995A/B23E/CB8E/E4DE.
+The guard at `1:D11D` increments RAM[26h] and returns carry when the resulting
+byte is below 9; the renderer repeats at `1:DAB6` while that condition holds.
+A full cell starting at index zero therefore transfers **27 bytes**.
+
+`tools/map_osd_font.py` executes the actual instructions and independently
+checks 256 common-width inputs, 2,340 three-byte transfers and all 256 guard
+inputs. Common widths exactly equal `clamp(code[11:F11B + 2*glyph], 4, 12)`.
+The output checks cover FA codes 00..EB and eight codes for each of FB/FC/FD,
+with all nine triplets. Tested code ranges are mechanical coverage, not proof
+of legal glyph enum bounds. No bitmap bytes are exported.
+
+The checks record peripheral writes in memory. They do not establish pixel
+dimensions, packing, compression, rotation, timing or real SRAM configuration.
+The remaining language banks and full glyph bounds still need verification.
+See [derived output contract](maps/osd-font-output.json).
+
+```powershell
+uv run --locked --offline python tools/map_osd_font.py <local-V020.bin> --out docs/maps/osd-font-output.json
+```
+
 ## Consequences for future edits
 
 - Text is a glyph/token stream. An ordinary ASCII replacement is not an
