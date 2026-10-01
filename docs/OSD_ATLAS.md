@@ -171,3 +171,5 @@ firmware bytes nor font bitmaps are published.
 3. Connect each setting to read/update/persistence and renderer coordinates.
 4. Finish hardware font/map/palette writes, then describe modification points
    with explicit unresolved constraints. No flashing belongs to this mission.
+
+**CONFIRMED F73D snapshot guard:** 65,536 stable counters, 65,536 injected deltas and 50 wrapping fixtures verify RAM42:43 -> D82F:D830 -> R6:R7. One recopy for signed absolute distances 128..32767; none for 0..127 or the 8000 overflow edge. No retry after recopy. Controlled word injections do not prove ISR atomicity. See [OSD_CLOCK.md](OSD_CLOCK.md). Research paused by the user; next clock-source/divider setup and equal-current conversion path.

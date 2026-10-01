@@ -1,0 +1,17 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "stable_clock_checks": 65536,
+  "injected_delta_checks": 65536,
+  "wrap_edge_checks": 50,
+  "recopy_delta_count": 65280,
+  "contract": "F73D copiesRAM42:43 toD82F:D830; computes signed16-bit difference againstlaterRAMclock, calls002E absolute helper, and recopies once if signedabsolute>127. ReturnR6:R7 is retainedorrecopied scratchword.",
+  "edge": "Delta8000 has signedabsolute overflow and doesnotrecopy. Allother signed-distances128..32767 recopy; distances0..127 do not.",
+  "one_recapture": "Onrecopy, controlled thirdclock5A5A is returned evenwhenitdiffersfromsecond; nosecondcomparison/retryloop.",
+  "injection": "Afteroriginal initialcopy, readx at5:F743 injectssecondclock; before5:F75F recopy call injectsthirdclock. Original instructions andcopyhelpers are notskipped.",
+  "limits": [
+    "Offline only; nointerrupt delivered orhardwarecommand.",
+    "Whole-word controlledinjection doesnotmodel byte-tearing, IRQnesting orrealtime rates.",
+    "A guard againstlarge read differences is not a proof ofatomic/coherent reads underallinterleavings.",
+    "Delta8000 is mechanicaledgecoverage, not evidence itoccurs in normal firmwareoperation."
+  ]
+}

@@ -185,3 +185,20 @@ uv run --locked --offline python tools/map_osd_timer2_setup.py $fw --out docs/ma
 uv run --locked --offline python tools/map_osd_timer_conversion.py $fw --out docs/maps/osd-timer-conversion.json
 uv run --locked --offline python tools/map_osd_clock_reset.py $fw --out docs/maps/osd-clock-reset.json
 ```
+
+## Verified snapshot guard at 5:F73D
+
+The offline tool `tools/map_osd_clock_snapshot.py` and report
+`docs/maps/osd-clock-snapshot.json` verify 65,536 stable counters,
+65,536 injected modular deltas and 50 wrapping boundary fixtures.
+F73D copies RAM42:43 into D82F:D830 and returns that word in R6:R7.
+It compares the signed absolute difference against the current counter:
+absolute distances 128..32767 trigger exactly one additional copy;
+distances 0..127 do not. Delta8000 is an arithmetic-overflow edge and does
+not trigger the copy. A second copy is returned without another comparison
+or retry loop. Only D82F/D830 are written; stacks remain balanced.
+
+Changes are controlled whole-word injections, not actual ISR interleaving.
+These checks do not establish atomicity, byte-tearing behavior or physical
+timing. Next: clock-source/divider setup and equal-current conversion path.
+Research paused at the user's request while the monitor is off.

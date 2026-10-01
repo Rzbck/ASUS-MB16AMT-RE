@@ -77,6 +77,7 @@ jobs:
           python tools/map_osd_timer2_setup.py --help >/dev/null
           python tools/map_osd_timer_conversion.py --help >/dev/null
           python tools/map_osd_clock_reset.py --help >/dev/null
+          python tools/map_osd_clock_snapshot.py --help >/dev/null
           python tools/analyze_banked_abi.py --help >/dev/null
           python tools/analyze_numeric_renderer.py --help >/dev/null
           python tools/analyze_value_provenance.py --help >/dev/null
