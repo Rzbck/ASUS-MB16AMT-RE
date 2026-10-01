@@ -34,6 +34,32 @@ bytearray; no DDC command or hardware operation is sent.
 uv run --locked --offline python tools/map_osd_language_set.py $fw --out docs/maps/osd-language-set.json
 ```
 
-Next: execute10:F439 through its original selector callees, determine whether
-it publishes a save event, and trace the producers of DA72 bit3. Keep the
-verified SET dirty mark distinct from OSD apply's DA6C=0B publication.
+## Complete refresh and event/save integration
+
+The [complete-path verifier](../tools/map_osd_language_refresh.py) and
+[report](maps/osd-language-refresh.json) extend the earlier boundary:
+1,344 fixtures cover21 languages x4 DA03 high2 x2 DA72 bit3 x2 DA87 bit3 x4
+profiles. All original refresh callees execute; no drawing/selector leaf is
+skipped. The initial hardware state is synthetic (bank13, RAM39=1,
+DAD3=60,000,000, burst busy bits clear). This is bounded fixture coverage,
+not every possible F439 branch.
+
+With DA72 bit3 clear, **10:F439 ->167C/8:E7E4 publishes DA6C=0B** and the
+routine finishes with DA6B=0. The applied packed DA03 and dirty bit0 survive.
+Register/OSD port writes occur, but these fixtures prepare no window burst
+frames and issue no modeled FF55..FF5E I2C writes during SET/refresh.
+Unsupported codes00/FF also complete this reset/event path while retaining
+the old language.
+
+Each of the672 clear-gate states continues through actual9:B8B2/BA6E and
+8:DDB3 validation into01D0 storage. The existing storage model supplies
+synthetic FF5D success. The36-byte page payload equals D9FD..DA20 and byte6
+is the applied packed DA03; DA69/DA6C both finish0. DA87 bit3 selects the
+existing0E or32+36*profile destination. Real storage completion is unproved.
+
+With DA72 bit3 set, the other672 complete SETs bypass F439, retain DA6B=56,
+leave DA6C=0, and keep dirty bit0. Calling the event dispatcher immediately
+afterward still leaves the dirty bit pending: SET did not publish event0B.
+This does not prove permanent loss; later event producers/interrupts have
+not been executed. Next: trace DA72 bit3 setters/clearers and the command
+states that use this deferred path.

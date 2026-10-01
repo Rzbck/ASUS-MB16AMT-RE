@@ -1,6 +1,6 @@
 # ASUS MB16AMT V020 — OSD reverse-engineering atlas
 
-**CONFIRMED receive-side language SET:** [OSD_LANGUAGE_SET.md](OSD_LANGUAGE_SET.md) and its reproducible map establish the21-code inverse GET mapping into DA03, preserved high2, ignored payload high byte, and dirty marking even for unsupported codes. DCC4 is retained; DA72 bit3 gates10:F439. 133,120 bounded offline fixtures pass; refresh internals remain open.
+**CONFIRMED complete language SET/refresh:** [OSD_LANGUAGE_SET.md](OSD_LANGUAGE_SET.md) adds1,344 complete original SET/refresh paths and672 integrated synthetic-success saves to133,120 boundary fixtures. DA72 bit3 clear resetsDA6B=0/publishesDA6C=0B through10:F439; set defers refresh/event and leaves dirtybit0 pending. No live hardware operation. DA72 gate producers are next.
 
 The current objective is a complete, reproducible OSD map for later modification
 planning. **The complete map is not finished.** This page is the entry point;

@@ -1,6 +1,6 @@
 # Static firmware map — ASUS MB16AMT V020
 
-**CONFIRMED receive-side language SET:** [OSD_LANGUAGE_SET.md](OSD_LANGUAGE_SET.md) and its reproducible map establish the21-code inverse GET mapping into DA03, preserved high2, ignored payload high byte, and dirty marking even for unsupported codes. DCC4 is retained; DA72 bit3 gates10:F439. 133,120 bounded offline fixtures pass; refresh internals remain open.
+**CONFIRMED complete language SET/refresh:** [OSD_LANGUAGE_SET.md](OSD_LANGUAGE_SET.md) adds1,344 complete original SET/refresh paths and672 integrated synthetic-success saves to133,120 boundary fixtures. DA72 bit3 clear resetsDA6B=0/publishesDA6C=0B through10:F439; set defers refresh/event and leaves dirtybit0 pending. No live hardware operation. DA72 gate producers are next.
 
 **97% confirmed live:** three source reads at 07:00:34Z returned 6190/6742 -> x=9181 -> target 97%, matching the user OSD report. Timer setup 5:E268 now matches the reference millisecond routine: nominal acquisition ~1 s and continued filter steps ~13 s (strong evidence, physical timing unmeasured). FE GET dispatch was checked in 65,544 offline cases; remaining cache-read investigation is inside service 12:F684 and diagnostic leaves, not selector guessing. See [BATTERY_LIVE_PROXY.md](BATTERY_LIVE_PROXY.md).
 

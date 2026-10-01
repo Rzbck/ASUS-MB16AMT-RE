@@ -63,6 +63,7 @@ jobs:
           python tools/map_osd_language_list.py --help >/dev/null
           python tools/map_osd_notifications.py --help >/dev/null
           python tools/map_osd_language_set.py --help >/dev/null
+          python tools/map_osd_language_refresh.py --help >/dev/null
           python tools/analyze_banked_abi.py --help >/dev/null
           python tools/analyze_numeric_renderer.py --help >/dev/null
           python tools/analyze_value_provenance.py --help >/dev/null
