@@ -41,8 +41,27 @@ verified storage validator are distinct constraints.
 The next call **167C -> 8:E7E4** writes **DA6C=0B** if DA69 is nonzero,
 preserving DA69; zero DA69 leaves DA6C unchanged. All256 flag bytes with both
 incoming carry values pass. The existing display-event dispatcher sends
-0B to **9:BA6E**. This establishes a state-update to display-event connection;
-BA6E's complete save/redraw effects remain to be followed.
+0B to **9:BA6E**. That handler clears DA69.bit0 **before** calling
+`15C2 -> 8:DDB3`, the verified validator and 36-byte parameter save path.
+
+**672 integrated fixtures** execute C6B0 through E7E4, then the actual pending
+event dispatcher, validator, page writer and polling instructions with
+synthetic FF5D success status. Coverage is all21 language indices, four DA03
+high-bit combinations, both DA87.bit3 states and four profiles. Concatenating
+the prepared page payloads reproduces D9FD..DA20; **byte6 is the applied DA03**.
+The five logical save slots retain the previously verified page boundaries.
+BAE1 clears DA6C after dispatch. This is prepared-transfer provenance, not
+evidence that a real storage device accepted or persisted the bytes.
+
+Three actual timeout fixtures (initial readiness, transfer completion and
+polling) still leave DA69.bit0=0 and DA6C=0, with the changed DA03 in RAM.
+BA6E does not test the carry returned by 15C2 and issues no retry within this
+handler. Retries elsewhere and real medium state remain unproved.
+
+All256 dirty-flag inputs also verify BA6E's dispatch order: clear bit0 then
+call15C2; bit2/15EC; bit3/19BE; bit5/15F2; bit1/15E6. Bits4/6/7 are retained
+by this handler itself. These latter checks explicitly model leaf calls out;
+only the language bit0 save path has integrated leaf execution here.
 
 ```mermaid
 flowchart LR
@@ -51,13 +70,16 @@ flowchart LR
   U --> L[DA03 low6 committed language]
   U --> F[DA69.bit0]
   F --> E[E7E4: DA6C=0B]
-  E --> H[9:BA6E effects still open]
+  E --> H[9:BA6E clears dirty bit0]
+  H --> S[15C2: validate / prepare 36-byte save]
+  S --> B[DA03 at payload byte6]
   L --> T[Menu text segment / font selection]
 ```
 
-The diagram composes checked subcontracts. Apply fixtures execute the writer
-tail, not all drawing between C63A's comparison and that tail; preview fixtures
-stop before their refresh call. No real display, storage write or command occurs.
+The diagram composes checked subcontracts. Integrated save fixtures start at
+the writer tail, excluding drawing between C63A's comparison and that tail;
+preview fixtures stop before their refresh call. No real display, storage write
+or command occurs.
 
 ## Why the generic numeric route is excluded for row32
 
@@ -80,6 +102,6 @@ uv run --locked --offline python tools/map_osd_language_update.py <local-V020.bi
 
 [Derived checks](maps/osd-language-update.json) publish no resource bytes.
 Next precise targets: **entry transition from row32 into row56**, preview
-refresh **10:CA2A** and apply drawing, then **9:BA6E** and DA69 dirty/save/clear
-lifecycle. Tie language names to each index through rendered resources.
+refresh **10:CA2A** and apply drawing, then the other **9:BA6E** dirty-flag
+leaves. Tie language names to each index through rendered resources.
 Physical button labels, storage completion and the complete OSD map remain open.

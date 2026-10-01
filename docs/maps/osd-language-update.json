@@ -13,10 +13,21 @@
   "preview_checks": 10752,
   "preview": "Normal callback row56: command1 ->9:E7F9 increments staged DA48:DA49 modulo21; command2 ->9:FEEB ->E7F9 decrements modulo21. Uses19D6 ->8:B9A9, upper20/lower0/step1, stops before19DC refresh atE831. DA03 remains unchanged.",
   "apply_root": "Normal row56 command0 ->9:C63A; the checked C6B0 tail commits staged DA49 to DA03 and sets DA69.bit0.",
+  "save_event": {
+    "language_save_checks": 672,
+    "flag_dispatch_checks": 256,
+    "failed_save_checks": 3,
+    "chain": "9:C6B0 -> A93F dirty bit0 ->167C/8:E7E4 DA6C0B ->9:B8B2/BA6E clear dirty bit0 ->15C2/8:DDB3 validator ->01D0 page/FIFO writer ->9:BAE1 clears DA6C.",
+    "payload": "Applied DA03 survives validator and occupies source-block byte6 in every page-concatenated payload.",
+    "coverage": "All21 indices x four DA03 high-bit combinations x two DA87.bit3 states x four profiles; all256 dirty flags separately at modeled leaf boundaries.",
+    "dispatch_order": "BA6E clears bits before leaf calls in order0/2/3/5/1 ->15C2/15EC/19BE/15F2/15E6. Bits4/6/7 are retained by this handler itself.",
+    "save_failure": "For initial/completion/poll timeout fixtures, BA6E still leaves DA69.bit0=0 and DA6C=0 while changed DA03 remains in RAM. It clears the dirty bit before15C2 and does not test returned carry; no retry is issued within this handler.",
+    "qualification": "Language bit0 fixtures execute real validation/page/frame/poll instructions with synthetic FF5D success. Other dirty-flag leaf effects are modeled out and unproved. Real storage/display effects are not emulated."
+  },
   "entry_comparison": "9:C63A queries current selector32; with DA48=0 and staged DA49=current, returns via C743. Changed low6 values reach C652 before UI effects.",
   "limits": [
     "Every run is offline; no language/monitor/storage change.",
-    "C6B0 tail proves the staged-byte writer and dirty flag; it does not execute preceding drawing or following E7E4 effects.",
+    "Writer-only checks stop before E7E4; integrated save-event checks execute it and the pending-event save path, excluding preceding apply drawing.",
     "The equality fixtures use low6 values and DA48=0; entry transition into row56 and further preview/apply drawing effects remain open.",
     "The writer masks six bits but does not clamp0..20; the separate validator supplies the established stored range.",
     "Physical button/command labels and complete save/redraw flag lifecycle remain unproved."

@@ -88,7 +88,10 @@ exhaustive state-byte contract; its field consumers remain open.
 
 Language update follow-up: [OSD_LANGUAGE_UPDATE.md](OSD_LANGUAGE_UPDATE.md)
 verifies staged row56 selection, masked DA03 update, DA69 dirty flag and display
-event0B. Row32 navigation and the generic setter exclusion are kept explicit.
+event0B. Integrated fixtures follow the event through validation and prepared
+storage frames; applied DA03 occupies payload byte6. Timeout fixtures expose
+clear-before-save without a carry check in BA6E. Actual persistence is unproved.
+Row32 navigation and the generic setter exclusion are kept explicit.
 
 ## Text family/index resolver — new verified subchain
 

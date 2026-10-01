@@ -4,7 +4,7 @@
 
 The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). Verified layers now include text pointers/segments, common font-byte output, the separate cell-stream renderer, menu category dispatch and menu-text language provenance. The complete map remains unfinished. No hardware mutation or flash is part of this task.
 
-Latest OSD milestone: [docs/OSD_LANGUAGE_UPDATE.md](docs/OSD_LANGUAGE_UPDATE.md) separates row32 navigation from row56 language preview/application. DA48:DA49 wraps0..20; C6B0 writes DA03 and marks DA69.bit0; E7E4 produces display event0B. Next precise targets: **row32-to56 entry transition**, **10:CA2A** refresh and full apply drawing, **9:BA6E** save/redraw and dirty-flag lifecycle. Generic setter32 does not update language. Physical buttons/cadence, complete setting behavior and real storage completion remain open. Earlier power priorities below are retained history.
+Latest OSD milestone: [docs/OSD_LANGUAGE_UPDATE.md](docs/OSD_LANGUAGE_UPDATE.md) verifies 672 integrated language-save fixtures: C6B0 -> E7E4 event0B -> B8B2/BA6E clears DA69.bit0 ->15C2/8:DDB3 validates and prepares the 36-byte save; applied DA03 is payload byte6. Three timeout fixtures still clear dirty/event flags; this handler does not test save carry or retry. Other dirty leaves have dispatch-order checks only. Next precise targets: **row32-to56 entry transition**, **10:CA2A** refresh and full apply drawing, remaining BA6E leaves. Generic setter32 does not update language. Physical buttons/cadence, complete setting behavior and real storage completion remain open. Earlier power priorities below are retained history.
 
 ## Current hardware experiment gate
 
