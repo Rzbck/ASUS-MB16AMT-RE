@@ -3,15 +3,41 @@
   "whole_ISR_clock_checks": 65536,
   "ISR_register_checks": 1024,
   "delay_selector_checks": 256,
+  "provenance": {
+    "register_independent_coefficient_checks": 196608,
+    "isolated_deadline_checks": 262144,
+    "whole_reset_rebase_checks": 2304,
+    "callers": [
+      {
+        "site": "0:6396",
+        "R7": 0
+      },
+      {
+        "site": "7:D5BB",
+        "R7": 2
+      },
+      {
+        "site": "7:D5F5",
+        "R7": 1
+      }
+    ],
+    "coefficient_source": "FD5B readsFFEE/FFED and setsR5/B fromFFEE bits5..2; FD6C still selects coefficients solely from callerR7.",
+    "rebase": "5:D893 clearsRAM42:43 andbit1E, iterates16slots: nonzeroID keepsID and deadline=max(olddeadline-BE16D82D:D82E,0); zeroID deadline untouched. ClearsD82D:D82E and returnsR6:R7=0.",
+    "limits": [
+      "Rebase entered atD893 with explicit elapsedword; upstream decision to reset not proved by these fixtures.",
+      "No ISR interleaving; the bit1E recheck atD89A has no asynchronous producer during execution.",
+      "Coefficient caller mode/physical clock labels and interrupt setup remain unassigned."
+    ]
+  },
   "vector": "Common002B LJMP0140; entire0140..0189 ISR executes throughRETI.",
   "clock": "0171 incrementsRAM43; zero carry incrementsRAM42 at0177. BE16RAM42:43 advancesone modulo65536 per serviced interrupt.",
   "preservation": "ISR saves/restoresA,DPTR,PSW; retainsFFF4 throughDCA6; clearsSFRbitCF and setsRAMbits1E/1F.",
   "registers": "FFEB=(old&7F)|08; FFEA|=40 only ifFFAD&7>=5. No other XDATAwrites.",
-  "delay_selector": "At0:FD6C,R7=2 ->RAM39=26/RAM36=21;R7=1 ->3/6;other ->2/2. Caller/sourceofR7 notprovedhere.",
+  "delay_selector": "At0:FD6C,R7=2 ->RAM39=26/RAM36=21;R7=1 ->3/6;other ->2/2. Three directcaller prefixes and fullFD5B register independence are checked inprovenance.",
   "limits": [
     "Offline bytearray execution only; no hardwarecommand or actual interrupt delivery.",
     "OneincrementperISR is not a measured tickfrequency or millisecond proof.",
-    "Interrupt enable/reload/clock-source setup and calibrationcaller remainopen.",
+    "Interrupt enable/reload/clock-source setup and physical caller-mode names remainopen.",
     "No AC/OV/parity/interrupt nesting modeled; checked ISR preservesPSW snapshot viaexplicitstack."
   ]
 }

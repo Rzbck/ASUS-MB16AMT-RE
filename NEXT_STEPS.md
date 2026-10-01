@@ -4,7 +4,7 @@
 
 The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). Verified layers now include text pointers/segments, common font-byte output, the separate cell-stream renderer, menu category dispatch and menu-text language provenance. The complete map remains unfinished. No hardware mutation or flash is part of this task.
 
-Latest OSD milestone: [docs/OSD_CLOCK.md](docs/OSD_CLOCK.md) verifies the complete common002B ->0140 ISR over all65,536 RAM42:43 values,1,024 register fixtures and256 delay-coefficient selectors. The clock advances once modulo65536 per serviced interrupt; register preservation and FFEB/FFEA effects are checked. Tick frequency and FD6C selector provenance remain open. Next precise targets: **002B interrupt setup, FD6C caller and5:D893 clock reset**. Full OSD mapping remains unfinished.
+Latest OSD milestone: [docs/OSD_CLOCK.md](docs/OSD_CLOCK.md) adds 196,608 full FD5B register/selector fixtures, 262,144 isolated deadline fixtures and 2,304 complete clock reset/rebase fixtures. Callers supply selectors0/2/1; FFEE/FFED do not choose delay coefficients. D893 clears RAM42:43 and rebases active deadlines with saturation, preserving IDs and empty-slot deadlines. Timer2 identification is strong evidence from the pinned primary source; physical frequency remains open. Next precise targets: **002B enable/reload setup via0:6399 and5:CA9B, plus5:D83F reset decision**. Full OSD mapping remains unfinished.
 
 ## Current hardware experiment gate
 
