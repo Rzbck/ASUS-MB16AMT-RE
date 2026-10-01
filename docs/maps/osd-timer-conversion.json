@@ -1,0 +1,16 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "arithmetic_checks": 131072,
+  "complete_setup_checks": 640,
+  "formula": "New backup = (FFFF-floor(rate*previous/1000)) mod65536; rate7308 for mode1,2333 for mode2. Actual common32-bit multiply/divide helpers execute.",
+  "sources": "Timer0 previousD98A:D98B ->backupD982:D983; Timer1 previousD98C:D98D ->backupD984:D985.",
+  "history_gate": "Conversion only on changedD928 target and initiallyrunningtimer; target1 for mode1,target3/2 for mode2 FFED fragment1/other.",
+  "application": "Modes1/2 withtimerinitiallyrunning compare backup to current D95D/D95F(T0) orD95E/D960(T1); changed value copied tothosebytes andTL/TH SFRs, withtimer/interrupt brieflydisabled thenenabled. Stoppedtimer andmodes0/4 retaincurrentbytes.",
+  "coverage": "All65536 previouswords for bothrates;640 completefixtures:4modes x2FFED x4histories x4runningmasks x5previouswords.",
+  "limits": [
+    "Offline bytearray execution only; nohardwaretimer configured.",
+    "Exhaustive arithmetic includes overflow/truncation cases, not proofallpreviouswords are validruntime durations.",
+    "Fullsetup snapshots use fixedinitialbackup/currentvalues; equal-current fastpath and live timer advances are not covered here.",
+    "No physicalclock rate or wall-clock continuity claim; source ofprevious-duration words remainsopen."
+  ]
+}

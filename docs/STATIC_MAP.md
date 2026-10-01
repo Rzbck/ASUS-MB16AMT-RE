@@ -1,6 +1,6 @@
 # Static firmware map — ASUS MB16AMT V020
 
-**CONFIRMED Timer2 setup:** [OSD_CLOCK.md](OSD_CLOCK.md) adds66,560 full setup fixtures with Timer0/1 stopped, verifying count/reload/enable flags and D928 history. Mode4 first count00D3 differs from reloadF6E2. No measured duration assigned. Next clock-source/divider and running-timer conversion/reset decision. Full OSD map unfinished.
+**CONFIRMED running timer conversion:** [OSD_CLOCK.md](OSD_CLOCK.md) adds131,072 arithmetic and640 complete Timer0/1 setup fixtures. Mode/running gates, backup formula, reload/SFR writes and Timer1 battery-acquisition clock link are documented. Physical timing remains unproved. Next clock-source/divider, equal-current fast path and reset decision. Full OSD map unfinished.
 
 **97% confirmed live:** three source reads at 07:00:34Z returned 6190/6742 -> x=9181 -> target 97%, matching the user OSD report. Timer setup 5:E268 now matches the reference millisecond routine: nominal acquisition ~1 s and continued filter steps ~13 s (strong evidence, physical timing unmeasured). FE GET dispatch was checked in 65,544 offline cases; remaining cache-read investigation is inside service 12:F684 and diagnostic leaves, not selector guessing. See [BATTERY_LIVE_PROXY.md](BATTERY_LIVE_PROXY.md).
 

@@ -99,11 +99,51 @@ Mode4's first count and reload differ. No constant physical tick period can
 be assigned from reload alone. Actual clock-source/divider setup and running
 Timer0/1 adjustment remain open; register counts are not measured durations.
 
-Next precise targets: **clock-source/divider setup and running Timer0/1
-conversion branches** and the upstream **5:D83F..D893 reset decision**.
+## Running Timer0/1 conversion during mode changes
+
+[map_osd_timer_conversion.py](../tools/map_osd_timer_conversion.py) and its
+[report](maps/osd-timer-conversion.json) verify the original32-bit multiply/
+divide helpers over all65,536 previous-word values for each rate7308/2333
+(131,072 arithmetic fixtures), followed by640 complete CA9B setup fixtures.
+
+When the D928 mode target changes and the corresponding timer was running,
+the new backup is:
+
+```text
+backup = (FFFF - floor(rate * previous / 1000)) mod65536
+rate = 7308 for mode1; 2333 for mode2
+```
+
+Timer0 reads D98A:D98B and writes D982:D983. Timer1 reads D98C:D98D and
+writes D984:D985. Mode2 target is3 when FFED bits5..2 equal1, otherwise2;
+mode1 target is1. An unchanged target preserves the old backup words.
+Large arithmetic fixtures include truncation/wrap; they are not additional
+legal runtime duration assignments.
+
+For initially running timers in modes1/2, the tail compares backup against
+the current reload bytes: D95D/D95F forTimer0, D95E/D960 forTimer1.
+If different, it temporarily disables that timer/interrupt, copies the backup
+to those bytes and TL/TH SFRs, then enables the timer/interrupt. Stopped timers
+and modes0/4 preserve their current reloads. The640 complete fixtures cover
+four modes x two FFED branches x four histories x four running masks x five
+previous-word values. They use fixed unequal current/backup snapshots; the
+equal-current fast path and asynchronous timer progress remain open.
+
+The conversion structure matches pinned
+[ScalerTimerSetTimerCount](https://github.com/Kingdomwhisky/RTD-Scaler-TEST/blob/3d38340ec8518a8888fd5d8dbb181c2a7418e11c/Kernel/Scaler/ScalerCommonFunction/Code/ScalerCommonTimerFunction.c#L1218).
+Names such as previous/backup count and mode-switch continuity are strong
+source-correlated interpretations, not physical timing measurements.
+The existing [battery timing evidence](BATTERY_LIVE_PROXY.md) already ties
+D98C:D98D=03E8 to5:E268 called with argument1 by4:F3B3. Thus this conversion
+path intersects the Timer1 acquisition clock; it does not itself read SOC.
+
+Next precise targets: **clock-source/divider setup, equal-current conversion
+fast path and5:D83F..D893 reset decision**. Timer0 previous-word provenance
+and physical frequency remain open. Every verification is offline.
 Preserve the distinction between clock provenance and a wall-clock rate.
 
 ```powershell
 uv run --locked --offline python tools/map_osd_clock.py $fw --out docs/maps/osd-clock.json
 uv run --locked --offline python tools/map_osd_timer2_setup.py $fw --out docs/maps/osd-timer2-setup.json
+uv run --locked --offline python tools/map_osd_timer_conversion.py $fw --out docs/maps/osd-timer-conversion.json
 ```

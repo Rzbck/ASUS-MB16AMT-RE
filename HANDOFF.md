@@ -4,7 +4,7 @@
 
 The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). Verified layers now include text pointers/segments, common font-byte output, the separate cell-stream renderer, menu category dispatch and menu-text language provenance. The complete map remains unfinished. No hardware mutation or flash is part of this task.
 
-Latest OSD milestone: [docs/OSD_CLOCK.md](docs/OSD_CLOCK.md) verifies 66,560 complete Timer2 setup fixtures with Timer0/1 stopped. Modes1/2 load E373/F6E2; mode4 first count00D3 differs from reloadF6E2; other modes loadFB56. ET2/TR2 enable, TF2 clear, count/reload bytes and D928 history are checked. Initialization prefix suppliesmode0. Physical durations remain unproved. Next precise targets: **clock-source/divider setup, running Timer0/1 conversion branches and5:D83F reset decision**. Full OSD mapping remains unfinished.
+Latest OSD milestone: [docs/OSD_CLOCK.md](docs/OSD_CLOCK.md) verifies 131,072 original32-bit timer-conversion arithmetic cases and640 complete running Timer0/1 mode-change fixtures. Backup=(FFFF-floor(rate*previous/1000))mod65536, rate7308/2333; mode history and running flags gate conversion, then changed backup/current values are applied to reload bytes and TL/TH. Timer1 sourceD98C:D98D intersects the existing battery acquisition clock evidence. Physical frequency and equal-current fast path remain unproved here. Next precise targets: **clock-source/divider setup, equal-current fast path and5:D83F reset decision**. Full OSD mapping remains unfinished.
 
 ## Current hardware experiment gate
 
