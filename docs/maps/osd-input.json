@@ -1,5 +1,22 @@
 {
   "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "full_sampling": {
+    "checks": 12304,
+    "retry_cap_cases": 8,
+    "entry": "2:DF25 through E0A2",
+    "cache": "DCA2:DCA3 stores returned stable/suppressed word",
+    "unchanged": "If initial mask equals cache, return cache; clear DA6E bits0/1 when nonzero.",
+    "changed": "Compare successive FF09 bytes, accept absolute delta<2; otherwise replace saved byte, increment counter, retry up to 10 times.",
+    "accepted_sample": "Classification uses saved D828, not the just-compared FF09 byte when stability succeeds.",
+    "suppression": "On changed nonzero mask: clear DA6E bits0/1; if direct bit24h set, clear it and suppress all masks except 0001.",
+    "delay": "Each retry calls 0DAC -> 5:FBC3 with R6:R7=0001; tests set bit CAh=0 so actual delay returns immediately.",
+    "coverage": "Every ADC byte; stable, delta1, delta2/wrap sequences; both digital levels; matching/different cache; bit24h clear/set; 10-retry cases.",
+    "limits": [
+      "No physical debounce timing is measured or emulated.",
+      "Fixtures hold digital inputs constant and scratch D829..D82B remains zero as initialized.",
+      "Cache equivalence and suppression are verified byte behavior; flags and button names remain to be classified."
+    ]
+  },
   "initial_sampling": {
     "entry": "2:DF25",
     "boundary": "2:DF91 -> F27A, before first D826 read at F27D",
@@ -59,10 +76,10 @@
     "qualification": "Register-role corroboration; not proof of ASUS PCB/button wiring."
   },
   "limits": [
-    "Classification checks stop before DF25 stability/retry/delay logic.",
+    "Initial classification checks stop before stability; full sampling fixtures separately cover the return/retry path.",
     "ADC/GPIO values are synthetic memory/SFR fixtures; no device reads or timing proof.",
     "Button names and polarity at the physical switch remain unassigned.",
     "Writer/getter/copy byte contracts are exhaustive; parent control-flow conditions are not.",
-    "Next targets: DF25 full stability and E6B6/E20F navigation consumers; DCA2:DCA3 stable-word role."
+    "Next targets: E6B6/E20F navigation consumers, repeat and physical button mapping; delay clock/timer provenance."
   ]
 }

@@ -36,7 +36,7 @@ namespaces and must not be equated merely because their numeric values match.
 | Layer | Verified evidence | Remaining work |
 |---|---|---|
 | Bank/call ABI | Existing thunk inventory; current traversal 158,425 instructions, 52 recognized bounded tables, 20 unresolved indirect sites | Resolve OSD-relevant indirect flow; preserve static bank-model qualification |
-| Input/navigation | FF09/FE0D/SFR96 classifier and DC9E word storage verified; separate DA6C display-event service mapped | Full debounce/return contract, physical button names, repeat and menu transitions |
+| Input/navigation | ADC/GPIO classifier, cached stability/return path and current/previous input words verified; DA6C event service mapped | Physical debounce timing, button names, repeat and menu transitions |
 | Menu states | DA6B setting selector; DA0A low nibble feeds nine category handlers through D823 | Handler labels, key transitions, modal dialogs, shortcut behavior |
 | Value reads | Full 8:5FEF contract; R7 selector, R5 mode; R7 result | Tie every OSD selection to label and adjustment handler |
 | Value updates | Scattered proven setters and DDC handlers | Min/max/step handling, validation, dirty flags and persistence for every setting |
@@ -68,7 +68,8 @@ identifies service caller 6:FC3E -> 9:FB97. The raw-key pipeline remains open.
 
 Input follow-up: [OSD_INPUT.md](OSD_INPUT.md) verifies initial ADC/GPIO
 classification at 2:DF25 and exhaustive current/previous input-word accesses
-at DC9E..DCA1. The full stability and navigation consumer path remains open.
+at DC9E..DCA1. Full sampling fixtures also cover DCA2 cache, bounded stability
+retries and bit24h suppression; timing and navigation consumers remain open.
 
 ## Text family/index resolver — new verified subchain
 
@@ -116,7 +117,7 @@ firmware bytes nor font bitmaps are published.
 1. Recover resolver family bounds, legal glyph bounds and language
    adjustment/persistence; stored validation, segment traversal and common-font
    output are already checked.
-2. Complete 2:DF25 stability from DF91, then E6B6/E20F input consumption,
+2. Complete E6B6/E20F input consumption, the delay clock/timer,
    repeat and menu transitions to these label families.
 3. Connect each setting to read/update/persistence and renderer coordinates.
 4. Finish hardware font/map/palette writes, then describe modification points

@@ -1,8 +1,8 @@
 # OSD input acquisition: analog/GPIO classifier and runtime word
 
 SHA-pinned V020, existing static bank model, bounded offline execution only.
-This establishes an input subchain; **physical button names and full debounce/
-navigation are not mapped yet**. No device read, command or firmware patch.
+This establishes an input subchain; **physical button names, physical debounce
+timing and navigation are not mapped yet**. No device read, command or patch.
 
 ## Initial acquisition at 2:DF25
 
@@ -61,8 +61,37 @@ The coherent caller sequence is:
 ```
 
 This connects the hardware-facing acquisition routine to runtime input
-storage and navigation candidates. The classification tests cover the initial
-sample only; they do not substitute for the full DF25 return/stability contract.
+storage and navigation candidates. The initial classification checks and the
+full return/stability checks below are separate coverage layers.
+
+## Full sampling return and stability contract
+
+The extended interpreter checks execute **2:DF25 through E0A2** in **12,304
+fixtures**, using an independent input-sequence model. **DCA2:DCA3** is the
+big-endian cached result:
+
+1. If the initial mask equals the cache, return it immediately. A nonzero
+   result clears DA6E bits 0/1.
+2. On a changed mask, compare a new FF09 byte with saved D828. Absolute
+   difference below 2 accepts stability. Otherwise replace D828 with another
+   FF09 read, increment direct RAM 26h, and repeat up to ten attempts.
+3. Reclassify using **saved D828**, even when the just-compared ADC byte differs
+   by one and the stability test succeeds. The checks cover range boundaries.
+4. A changed nonzero mask clears DA6E bits 0/1. If direct bit **24h** is set,
+   clear that bit and suppress every mask except **0001**. Cache and return the
+   resulting word. The bit's system meaning remains unassigned.
+
+The fixtures cover every initial ADC byte, stable/delta-one/delta-two/wrap
+sequences, both digital levels, matching/different caches and both flag states.
+Eight extra cases reach the ten-retry cap. Digital inputs remain fixed within
+each fixture; D829..D82B remain zero following the actual prologue.
+
+Each retry calls thunk **0DAC → 5:FBC3** with R6:R7=0001. That delay routine
+returns immediately if bit CAh is clear. Otherwise it waits for direct bit
+1Eh and decrements its argument. The tests explicitly clear CAh and execute
+the routine's real early-return branch: no timer interrupt or elapsed duration
+is fabricated. Thus mask/cache/retry behavior is verified under these fixtures,
+while **physical debounce timing and clock/timer provenance remain open**.
 
 ## Distinct display/system-state inputs
 
@@ -79,7 +108,6 @@ uv run --locked --offline python tools/map_osd_input.py <local-V020.bin> --out d
 ```
 
 [Derived checks](maps/osd-input.json) contain masks/addresses and counts,
-without proprietary bytes. Next: **DF25 from DF91 through E0A2**, including
-DCA2:DCA3 comparison, the bounded retry counter and delay call through 0DAC;
-then **E6B6/E20F** input consumers, button names, repeat behavior and DA6D/menu
-transitions. Physical timings must remain qualified until clock/timer proof.
+without proprietary bytes. Next: **E6B6/E20F** input consumers, button names,
+repeat behavior and DA6D/menu transitions; identify bit24h's producer and the
+delay clock/timer. Physical timings remain qualified until that proof.
