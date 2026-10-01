@@ -629,3 +629,7 @@ OSD text follow-up: FF segment skipping and F8..FE classification are now checke
 
 
 OSD font milestone: tools/map_osd_font.py verifies 256 common widths, 2,340 three-byte transfers and 256 loop guards. A full cell uses 27 bytes; 1:DBCA computes 27*glyph + 3*triplet and writes three consecutive bytes to FF06. See docs/OSD_TEXT_FORMAT.md and docs/maps/osd-font-output.json. Pixel packing and peripheral setup remain unresolved. Next: recover menu category/label construction and distinguish EEED/F7B2 resources from E43B/D7A1 text; then navigation and persistence.
+
+## OSD cell and menu provenance milestone
+
+See [OSD_CELL_RENDERER.md](OSD_CELL_RENDERER.md) and maps/osd-cell-renderer.json. Separate resolver 1:EEED (512 checks) feeds 1:F7B2 cell streams; FE advances row, FD repeats the preceding glyph. The complete drawing leaf 8:D83D -> 6:F851 -> 8:EE13 -> 13:6137 writes C0/glyph/color to 0092 and configures 0090/0091/0094 (768 checks, 120 stream fixtures). Category query selector 0C returns DA0A low nibble into D823, selecting nine handlers (256 source + 256 dispatch checks). DA03 low six bits feed D855/D865 text segment selection through B613's fall-through into B617 (1,536 checks). Legal language bounds, handler identities, input transitions and SRAM setup remain open. No resource bytes or hardware I/O are included.

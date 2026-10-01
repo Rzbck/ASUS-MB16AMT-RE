@@ -37,15 +37,15 @@ namespaces and must not be equated merely because their numeric values match.
 |---|---|---|
 | Bank/call ABI | Existing thunk inventory; current traversal 158,425 instructions, 52 recognized bounded tables, 20 unresolved indirect sites | Resolve OSD-relevant indirect flow; preserve static bank-model qualification |
 | Input/navigation | No complete end-to-end key pipeline yet | Key sampling, debounce, key enum, dispatch and transition graph |
-| Menu states | DA6B is a setting selector in proven query callers; DA6C/DA6D occur in control flow | State meanings, transitions, modal dialogs, shortcut behavior |
+| Menu states | DA6B setting selector; DA0A low nibble feeds nine category handlers through D823 | Handler labels, key transitions, modal dialogs, shortcut behavior |
 | Value reads | Full 8:5FEF contract; R7 selector, R5 mode; R7 result | Tie every OSD selection to label and adjustment handler |
 | Value updates | Scattered proven setters and DDC handlers | Min/max/step handling, validation, dirty flags and persistence for every setting |
 | Text selection | New 1:E43B resolver map; 256 selectors × R5 values 0/1 executed | Legal family index bounds, all variants, language segment selection |
-| Text encoding | Base-font candidate transcription; battery warning fixture | Wide glyph fragments, punctuation, F9..FE controls, all languages |
+| Text encoding | Segment scanner/prefix classifier; menu language comes from DA03 low six bits | Legal language bounds/names, wide glyph fragments, punctuation, all languages |
 | Numeric rendering | 1:EAEB: D838..D83B input, D83C flags; known setting and countdown callers | Complete layout/format flags and hardware sink integration |
 | Battery display | Source → conversion → filter → DA4C → 10:F8F4 → 1:D7A1 | Live filtered DA4C read remains unavailable; broader layout integration |
 | Timer events | Exact 36-entry 4:EC1F dispatch; event 17 → 4:EFDB | Meaning and caller/scheduling provenance of other 35 IDs |
-| Font/icons/palette | Common width formula and 27-byte cells to FF06 verified; four bank-11 bases mapped | Other language banks, legal glyph bounds, icon formats, palettes, SRAM allocation and coordinates |
+| Font/icons/palette | Common width/27-byte cells to FF06; EEED/F7B2 cell streams to 0092 and address arithmetic verified | Other language banks, legal glyph bounds, resource identities, palettes, SRAM setup and coordinates |
 | Future modifications | No patch applied | Per-resource constraints, pointers, sizes, checksums and recovery prerequisites |
 
 Updated text layer: [OSD_TEXT_FORMAT.md](OSD_TEXT_FORMAT.md) verifies the
@@ -58,7 +58,9 @@ Font-output follow-up: 256 width cases, 2,340 triplet transfers and 256 loop
 guard cases verify the common-font arithmetic. See
 [OSD_TEXT_FORMAT.md](OSD_TEXT_FORMAT.md) and
 [output contract](maps/osd-font-output.json). The EEED/F7B2 resource path is
-separate from the E43B/D7A1 text path; its format remains to be reconstructed.
+separate from the E43B/D7A1 text path. Its resolver, FE/FD cell-stream format,
+0092 drawing leaf, menu category source and language provenance are now checked
+in [OSD_CELL_RENDERER.md](OSD_CELL_RENDERER.md).
 
 ## Text family/index resolver — new verified subchain
 

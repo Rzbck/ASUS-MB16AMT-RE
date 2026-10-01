@@ -2,7 +2,9 @@
 
 ## Current mission: complete OSD mapping
 
-The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). The new atlas verifies 512 resource resolver cases and the 36 timer-event targets; navigation, full language/font encoding and setting updates remain incomplete. No hardware mutation or flash is authorized by this mapping task.
+The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). Verified layers now include text pointers/segments, common font-byte output, the separate cell-stream renderer, menu category dispatch and menu-text language provenance. The complete map remains unfinished. No hardware mutation or flash is part of this task.
+
+Latest OSD milestone: [docs/OSD_CELL_RENDERER.md](docs/OSD_CELL_RENDERER.md), reproduced by `tools/map_osd_cells.py`: 512 resolver cases, 768 drawing cases, 120 stream fixtures, 256 category dispatch cases, 256 getter cases and 1,536 language provenance cases. DA03 low six bits feed text segment selection; DA0A low nibble feeds nine category handlers. Next precise targets: DA03 language validator, category handler labels/settings and key navigation; then SRAM bases/strides, palettes and persistence. Earlier power priorities below are retained history.
 
 ## Current hardware experiment gate
 

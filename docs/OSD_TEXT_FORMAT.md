@@ -27,6 +27,11 @@ exactly `1:A317`, the next resolved resource pointer. This proves the 21
 segment boundaries in that interval. It does not prove their language names,
 that all are selectable, or that all resources share the same cardinality.
 
+Menu provenance follow-up: `DA03 & 3F` feeds segment counts D855 and D865
+in the DC4F/D2D8 text paths, verified through their actual helpers/prologues.
+See [OSD_CELL_RENDERER.md](OSD_CELL_RENDERER.md). D842 is the count field in
+the D7A1 path; scratch addresses must be interpreted in their routine context.
+
 The public Realtek `OsdPropPutString` routine likewise decrements a language
 counter on terminators before rendering. This corroborates the language-index
 interpretation of D842; its ASUS enum and validation remain to be mapped.
