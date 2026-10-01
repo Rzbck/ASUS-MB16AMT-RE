@@ -41,7 +41,7 @@ namespaces and must not be equated merely because their numeric values match.
 | Value reads | Full 8:5FEF contract; R7 selector, R5 mode; R7 result | Tie every OSD selection to label and adjustment handler |
 | Value updates | Scattered proven setters and DDC handlers | Min/max/step handling, validation, dirty flags and persistence for every setting |
 | Text selection | New 1:E43B resolver map; 256 selectors × R5 values 0/1 executed | Legal family index bounds, all variants, language segment selection |
-| Text encoding | Segment scanner/prefix classifier; menu language comes from DA03 low six bits | Legal language bounds/names, wide glyph fragments, punctuation, all languages |
+| Text encoding | Segment scanner/prefix classifier; DA03 low six bits feed menu language; validator accepts 0..20 | Language names/selection/persistence, wide glyph fragments, punctuation, all font banks |
 | Numeric rendering | 1:EAEB: D838..D83B input, D83C flags; known setting and countdown callers | Complete layout/format flags and hardware sink integration |
 | Battery display | Source → conversion → filter → DA4C → 10:F8F4 → 1:D7A1 | Live filtered DA4C read remains unavailable; broader layout integration |
 | Timer events | Exact 36-entry 4:EC1F dispatch; event 17 → 4:EFDB | Meaning and caller/scheduling provenance of other 35 IDs |
@@ -105,8 +105,9 @@ firmware bytes nor font bitmaps are published.
 
 ## Next precise targets
 
-1. Recover resolver family bounds, remaining width/font banks and legal language
-   selection; segment traversal and common-font output are already checked.
+1. Recover resolver family bounds, remaining width/font banks and language
+   adjustment/persistence; stored validation, segment traversal and common-font
+   output are already checked.
 2. Map the menu event/state machine and key pipeline to these label families.
 3. Connect each setting to read/update/persistence and renderer coordinates.
 4. Finish hardware font/map/palette writes, then describe modification points

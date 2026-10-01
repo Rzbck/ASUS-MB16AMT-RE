@@ -34,7 +34,29 @@ the D7A1 path; scratch addresses must be interpreted in their routine context.
 
 The public Realtek `OsdPropPutString` routine likewise decrements a language
 counter on terminators before rendering. This corroborates the language-index
-interpretation of D842; its ASUS enum and validation remain to be mapped.
+interpretation of D842. ASUS validation is now checked below; language names
+and all caller paths remain to be mapped.
+
+## Stored language range and masked update
+
+The validator at **8:7911..7931** accepts `DA03 & 3F` in **0..20 inclusive**.
+Values 21..63 clear direct bit 03h and replace the low six bits with the code
+default at `8:40B2` (zero). The upper two bits are preserved. All 256 packed
+DA03 inputs were executed to the next-field boundary at 7935. The test leaves
+direct bit 03h set for valid values and observes it cleared for invalid ones;
+its wider meaning is not assigned by this field-local check.
+
+This matches setting-query selector **32**: mode 0 returns DA03 low six bits;
+modes 1/2/3 return 20/0/1. The query was checked in 259 additional cases. The
+validated range has 21 indices, matching the independently scanned 21 warning
+segments. This establishes the stored index range for this validator, not
+language names or a universal 21-segment claim for every resource.
+
+The masked update tail **6:BA79..BA9D** copies `D823 & 3F` into DA03 while
+preserving DA03 high bits, then clears DA87.bit3. All **65,536 previous/new
+byte pairs** pass. This tail accepts masked values above 20; do not attribute
+the validator's range restriction to this tail. The full upstream adjustment
+routine, navigation, persistence and validation invocation remain open.
 
 ## Prefix classification and width dispatch
 
@@ -108,7 +130,8 @@ uv run --locked --offline python tools/map_osd_font.py <local-V020.bin> --out do
   resource bases. The pointer resolver, bounds and layout widths must agree.
 - M/W fragments in the current index are still candidate transcriptions.
   Validate their bitmap/width pairing before normalizing them to single letters.
-- Exact language selection, supported indices and font limits remain open.
+- Stored language validation is established; names, all selection callers and
+  font limits remain open.
   No ready-to-flash patch is established by this document.
 
 ## Reproduce
@@ -119,4 +142,4 @@ uv run --locked --offline python tools/map_osd_text.py <local-V020.bin> --out do
 
 [Derived checks and segment boundaries](maps/osd-text-format.json) contain no
 firmware bytes or font bitmaps. Next: verify all width/font dispatch branches,
-then identify the menu's language validator and key/state transitions.
+then language adjustment/persistence and key/state transitions.

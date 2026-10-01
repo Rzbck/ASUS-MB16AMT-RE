@@ -1,5 +1,22 @@
 {
   "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "language_contract": {
+    "field": "DA03 low six bits; high two bits preserved",
+    "validator": "8:7911..7931, stop before DA04 read at 7935",
+    "valid_indices": "0..20 inclusive",
+    "invalid_indices": "21..63",
+    "invalid_action": "clear direct bit 03h; replace low six bits with code[8:40B2]&3F = 0",
+    "validator_checks": 256,
+    "query": "8:5FEF selector 32: mode0=DA03&3F, mode1=20, mode2=0, mode3=1",
+    "query_checks": 259,
+    "update_tail": "6:BA79..BA9D: DA03=(old&C0)|(D823&3F); clear DA87.bit3",
+    "update_tail_checks": 65536,
+    "limits": [
+      "Masked update tail does not clamp to 20; full upstream setter and navigation remain open.",
+      "Direct bit 03h meaning is not assigned by this field-local test.",
+      "The valid range matches the 21 warning-resource segments but does not assign language names."
+    ]
+  },
   "segment_scanner": {
     "entry": "1:D7D7",
     "boundary": "1:D7F1",
@@ -180,7 +197,7 @@
   "modification_constraint": "Changing a segment length moves later segments; FF bytes delimit the scanner. Preserve/rebuild all affected addresses and segment structure before considering a patch.",
   "limits": [
     "Segment skip tests stop before hardware rendering.",
-    "21 scanned segments fill the interval between two resolved resource pointers; they are not a proven supported/named-language list.",
+    "The validator accepts indices 0..20; language names and every resource cardinality remain unresolved.",
     "No hardware writes, language changes, firmware patch or flash."
   ]
 }

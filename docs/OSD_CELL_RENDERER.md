@@ -123,7 +123,9 @@ B613 -> BE58 -> D865 -> 1:D2D8 (reads count at D30F)
 1,536 checks execute the helpers and renderer prologues for all 256 packed
 DA03 values, family-03 indices 0/1/4, and both paths, stopping before segment
 traversal. This establishes menu-text provenance. It does not establish that
-all 64 masked indices are legal languages; the setter/validator remains open.
+all 64 masked indices are legal languages. Follow-up checks in
+[OSD_TEXT_FORMAT.md](OSD_TEXT_FORMAT.md) establish that 8:7911 accepts 0..20
+and resets 21..63 to zero. The complete setter and persistence remain open.
 
 ## Reproduce and remaining targets
 
@@ -132,6 +134,6 @@ uv run --locked --offline python tools/map_osd_cells.py <local-V020.bin> --out d
 ```
 
 [Derived contract](maps/osd-cell-renderer.json) exports addresses and checks,
-without proprietary resource bytes. Next: DA03 language validation; category
+without proprietary resource bytes. Next: DA03 adjustment/persistence; category
 handler labels/setting selectors; key navigation; DC04/DBF9 bases and DC09/DBFC
 stride initialization; font/cell connection, palette and persistence.

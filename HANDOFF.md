@@ -4,7 +4,7 @@
 
 The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). Verified layers now include text pointers/segments, common font-byte output, the separate cell-stream renderer, menu category dispatch and menu-text language provenance. The complete map remains unfinished. No hardware mutation or flash is part of this task.
 
-Latest OSD milestone: [docs/OSD_CELL_RENDERER.md](docs/OSD_CELL_RENDERER.md), reproduced by `tools/map_osd_cells.py`: 512 resolver cases, 768 drawing cases, 120 stream fixtures, 256 category dispatch cases, 256 getter cases and 1,536 language provenance cases. DA03 low six bits feed text segment selection; DA0A low nibble feeds nine category handlers. Next precise targets: DA03 language validator, category handler labels/settings and key navigation; then SRAM bases/strides, palettes and persistence. Earlier power priorities below are retained history.
+Latest OSD milestone: [docs/OSD_CELL_RENDERER.md](docs/OSD_CELL_RENDERER.md), reproduced by `tools/map_osd_cells.py`: 512 resolver cases, 768 drawing cases, 120 stream fixtures, 256 category dispatch cases, 256 getter cases and 1,536 language provenance cases. DA03 low six bits feed text segment selection; DA0A low nibble feeds nine category handlers. Next precise targets: DA03 adjustment/persistence (validator now checked), category handler labels/settings and key navigation; then SRAM bases/strides, palettes and persistence. Earlier power priorities below are retained history.
 
 ## Current hardware experiment gate
 
@@ -448,3 +448,5 @@ OSD text follow-up: FF segment skipping and F8..FE classification are now checke
 
 
 OSD font milestone: tools/map_osd_font.py verifies 256 common widths, 2,340 three-byte transfers and 256 loop guards. A full cell uses 27 bytes; 1:DBCA computes 27*glyph + 3*triplet and writes three consecutive bytes to FF06. See docs/OSD_TEXT_FORMAT.md and docs/maps/osd-font-output.json. Pixel packing and peripheral setup remain unresolved. Next: recover menu category/label construction and distinguish EEED/F7B2 resources from E43B/D7A1 text; then navigation and persistence.
+
+OSD language validation milestone: tools/map_osd_text.py now checks 8:7911 for every packed DA03 byte (0..20 accepted, 21..63 -> zero, high bits preserved), selector 32 in 259 getter cases and 6:BA79 masked update tail in all 65,536 old/new byte pairs. The update tail alone does not clamp to 20. See docs/OSD_TEXT_FORMAT.md and docs/maps/osd-text-format.json. Next: full language adjustment/persistence, category handler labels/settings and input/navigation; do not repeat validator discovery.
