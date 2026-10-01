@@ -1,5 +1,175 @@
 {
   "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "extended_dispatch": {
+    "width_checks": 37632,
+    "font_output_triplet_checks": 3096,
+    "tables": [
+      {
+        "language_index": 14,
+        "prefix": "FB",
+        "width_base": "11:F2F5",
+        "width_offset": "2*glyph",
+        "font_base": "11:B23E"
+      },
+      {
+        "language_index": 14,
+        "prefix": "FC",
+        "width_base": "11:F4D7",
+        "width_offset": "2*glyph",
+        "font_base": "11:CB8E"
+      },
+      {
+        "language_index": 14,
+        "prefix": "FD",
+        "width_base": "11:F6B9",
+        "width_offset": "(2*glyph)&FF",
+        "font_base": "11:E4DE"
+      },
+      {
+        "language_index": 15,
+        "prefix": "FB",
+        "width_base": "5:A487",
+        "width_offset": "2*glyph",
+        "font_base": "5:2DC4"
+      },
+      {
+        "language_index": 15,
+        "prefix": "FC",
+        "width_base": "5:A669",
+        "width_offset": "2*glyph",
+        "font_base": "5:4714"
+      },
+      {
+        "language_index": 15,
+        "prefix": "FD",
+        "width_base": "5:A84B",
+        "width_offset": "(2*glyph)&FF",
+        "font_base": "5:6064"
+      },
+      {
+        "language_index": 16,
+        "prefix": "FB",
+        "width_base": "5:A929",
+        "width_offset": "2*glyph",
+        "font_base": "5:6BFE"
+      },
+      {
+        "language_index": 16,
+        "prefix": "FC",
+        "width_base": "5:AB0B",
+        "width_offset": "2*glyph",
+        "font_base": "5:854E"
+      },
+      {
+        "language_index": 16,
+        "prefix": "FD",
+        "width_base": "5:ACED",
+        "width_offset": "(2*glyph)&FF",
+        "font_base": "5:9E9E"
+      },
+      {
+        "language_index": 17,
+        "prefix": "FB",
+        "width_base": "2:C8CF",
+        "width_offset": "2*glyph",
+        "font_base": "2:2DC4"
+      },
+      {
+        "language_index": 17,
+        "prefix": "FC",
+        "width_base": "2:CAB1",
+        "width_offset": "2*glyph",
+        "font_base": "2:4714"
+      },
+      {
+        "language_index": 18,
+        "prefix": "FB",
+        "width_base": "2:CC87",
+        "width_offset": "2*glyph",
+        "font_base": "2:5FC2"
+      },
+      {
+        "language_index": 18,
+        "prefix": "FC",
+        "width_base": "2:CE5F",
+        "width_offset": "2*glyph",
+        "font_base": "2:788B"
+      },
+      {
+        "language_index": 18,
+        "prefix": "FD",
+        "width_base": "2:D051",
+        "width_offset": "2*glyph",
+        "font_base": "2:92B3"
+      },
+      {
+        "language_index": 18,
+        "prefix": "FE",
+        "width_base": "2:D231",
+        "width_offset": "2*glyph",
+        "font_base": "2:ABE8"
+      },
+      {
+        "language_index": 18,
+        "prefix": "F9",
+        "width_base": "2:D387",
+        "width_offset": "(2*glyph)&FF",
+        "font_base": "2:BDD6"
+      },
+      {
+        "language_index": 19,
+        "prefix": "FB",
+        "width_base": "0:F0AF",
+        "width_offset": "2*glyph",
+        "font_base": "0:7002"
+      },
+      {
+        "language_index": 19,
+        "prefix": "FC",
+        "width_base": "0:F293",
+        "width_offset": "2*glyph",
+        "font_base": "0:896D"
+      },
+      {
+        "language_index": 19,
+        "prefix": "FD",
+        "width_base": "0:F475",
+        "width_offset": "2*glyph",
+        "font_base": "0:A2BD"
+      },
+      {
+        "language_index": 19,
+        "prefix": "FE",
+        "width_base": "0:F65F",
+        "width_offset": "2*glyph",
+        "font_base": "0:BC79"
+      },
+      {
+        "language_index": 19,
+        "prefix": "F9",
+        "width_base": "0:F825",
+        "width_offset": "2*glyph",
+        "font_base": "0:D44F"
+      },
+      {
+        "language_index": 19,
+        "prefix": "F8",
+        "width_base": "0:FA01",
+        "width_offset": "(2*glyph)&FF",
+        "font_base": "0:EE77"
+      }
+    ],
+    "common_FA": "All 21 language indices use width 11:F11B and font 11:995A",
+    "width_coverage": "21 stored language indices \u00d7 7 prefixes F8..FE \u00d7 256 glyph inputs",
+    "output_coverage": "FA for all 21 indices plus all 22 extension tables; glyphs 0..7, triplets 0..8",
+    "width_fallback": "For non-FA: indices 0E..13 return default 12 if no table matches; indices 00..0D and 14 return incoming language byte in R7 unchanged.",
+    "limits": [
+      "Width inputs above table/enum bounds are mechanical tests, not valid text resources.",
+      "Narrow width arithmetic aliases glyph codes differing by 80h; legal limits remain open.",
+      "Font output tests cover mapped bases; no-table byte lookup paths are not asserted valid.",
+      "Language names, glyph images and physical SRAM/pixel layout remain unresolved."
+    ]
+  },
   "common_width": {
     "entry": "1:FCE6 -> 11:FD9D",
     "inputs": "R7=0, R5=FA, R3=glyph",
@@ -289,6 +459,6 @@
   "limits": [
     "Input ranges tested are mechanical contracts, not proof of legal glyph enum bounds.",
     "Peripheral writes are recorded in memory; port setup, compression and displayed pixels are not emulated.",
-    "No font bitmap bytes are exported. Other language banks remain to be mapped."
+    "No font bitmap bytes are exported. Legal glyph bounds and pixel layout remain unresolved."
   ]
 }

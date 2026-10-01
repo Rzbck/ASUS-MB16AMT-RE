@@ -113,12 +113,63 @@ of legal glyph enum bounds. No bitmap bytes are exported.
 
 The checks record peripheral writes in memory. They do not establish pixel
 dimensions, packing, compression, rotation, timing or real SRAM configuration.
-The remaining language banks and full glyph bounds still need verification.
+The following section verifies the remaining dispatched font banks. Full
+glyph bounds still need verification.
 See [derived output contract](maps/osd-font-output.json).
 
 ```powershell
 uv run --locked --offline python tools/map_osd_font.py <local-V020.bin> --out docs/maps/osd-font-output.json
 ```
+
+## Remaining font banks: verified dispatch
+
+The extended `map_osd_font.py` checks **37,632 width cases**: all 21 stored
+language indices, all seven F8..FE prefixes and all 256 glyph bytes. It also
+checks **3,096 triplet outputs** from the actual DBCA renderer: the shared FA
+path for every language index and all 22 mapped extension tables, with eight
+glyph inputs and all nine triplets each. These supplement the common-cell
+checks above. All independent width/byte formulas match instruction execution.
+
+FA always selects width table 11:F11B and font base 11:995A, regardless of
+language index. Extension tables are:
+
+| Index (hex) | Prefix | Width base | Font base | Width index |
+|---|---|---|---|---|
+| 0E | FB | 11:F2F5 | 11:B23E | 2*glyph |
+| 0E | FC | 11:F4D7 | 11:CB8E | 2*glyph |
+| 0E | FD | 11:F6B9 | 11:E4DE | (2*glyph)&FF |
+| 0F | FB | 5:A487 | 5:2DC4 | 2*glyph |
+| 0F | FC | 5:A669 | 5:4714 | 2*glyph |
+| 0F | FD | 5:A84B | 5:6064 | (2*glyph)&FF |
+| 10 | FB | 5:A929 | 5:6BFE | 2*glyph |
+| 10 | FC | 5:AB0B | 5:854E | 2*glyph |
+| 10 | FD | 5:ACED | 5:9E9E | (2*glyph)&FF |
+| 11 | FB | 2:C8CF | 2:2DC4 | 2*glyph |
+| 11 | FC | 2:CAB1 | 2:4714 | 2*glyph |
+| 12 | FB | 2:CC87 | 2:5FC2 | 2*glyph |
+| 12 | FC | 2:CE5F | 2:788B | 2*glyph |
+| 12 | FD | 2:D051 | 2:92B3 | 2*glyph |
+| 12 | FE | 2:D231 | 2:ABE8 | 2*glyph |
+| 12 | F9 | 2:D387 | 2:BDD6 | (2*glyph)&FF |
+| 13 | FB | 0:F0AF | 0:7002 | 2*glyph |
+| 13 | FC | 0:F293 | 0:896D | 2*glyph |
+| 13 | FD | 0:F475 | 0:A2BD | 2*glyph |
+| 13 | FE | 0:F65F | 0:BC79 | 2*glyph |
+| 13 | F9 | 0:F825 | 0:D44F | 2*glyph |
+| 13 | F8 | 0:FA01 | 0:EE77 | (2*glyph)&FF |
+
+Width-table values are clamped to 4..12. Narrow indexing uses byte doubling
+and discards glyph bit 7; codes separated by 80h alias the width lookup. The
+font-byte offset still uses `27*glyph + 3*triplet`. This is an important edit
+constraint, but it does not establish legal glyph-code bounds.
+
+For non-FA prefixes without a matching table, indices 0E..13 return width 12.
+Indices 00..0D and 14 instead return the untouched incoming language byte in
+R7 from the width dispatcher. These are mechanical fallback results, not valid
+glyph widths or proof that those token combinations occur in real text.
+The font-byte tests cover mapped tables only; unsupported pointer paths are
+not asserted valid. Language names, full cell/pixel encoding and setup remain
+open.
 
 ## Consequences for future edits
 

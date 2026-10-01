@@ -45,7 +45,7 @@ namespaces and must not be equated merely because their numeric values match.
 | Numeric rendering | 1:EAEB: D838..D83B input, D83C flags; known setting and countdown callers | Complete layout/format flags and hardware sink integration |
 | Battery display | Source → conversion → filter → DA4C → 10:F8F4 → 1:D7A1 | Live filtered DA4C read remains unavailable; broader layout integration |
 | Timer events | Exact 36-entry 4:EC1F dispatch; event 17 → 4:EFDB | Meaning and caller/scheduling provenance of other 35 IDs |
-| Font/icons/palette | Common width/27-byte cells to FF06; EEED/F7B2 cell streams to 0092 and address arithmetic verified | Other language banks, legal glyph bounds, resource identities, palettes, SRAM setup and coordinates |
+| Font/icons/palette | 22 extension tables/shared FA mapped; width dispatch checked for all stored indices; cell streams to 0092 | Legal glyph bounds, resource identities/pixels, palettes, SRAM setup and coordinates |
 | Future modifications | No patch applied | Per-resource constraints, pointers, sizes, checksums and recovery prerequisites |
 
 Updated text layer: [OSD_TEXT_FORMAT.md](OSD_TEXT_FORMAT.md) verifies the
@@ -105,7 +105,7 @@ firmware bytes nor font bitmaps are published.
 
 ## Next precise targets
 
-1. Recover resolver family bounds, remaining width/font banks and language
+1. Recover resolver family bounds, legal glyph bounds and language
    adjustment/persistence; stored validation, segment traversal and common-font
    output are already checked.
 2. Map the menu event/state machine and key pipeline to these label families.
