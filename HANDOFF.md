@@ -4,7 +4,7 @@
 
 The user superseded the power-input investigation with complete static OSD mapping for future modification planning. Start at [docs/OSD_ATLAS.md](docs/OSD_ATLAS.md). Verified layers now include text pointers/segments, common font-byte output, the separate cell-stream renderer, menu category dispatch and menu-text language provenance. The complete map remains unfinished. No hardware mutation or flash is part of this task.
 
-Latest OSD milestone: [docs/OSD_EVENTS.md](docs/OSD_EVENTS.md) verifies 37 complete event02 fixtures, including all 21 languages, under explicit early-wait-exit/delay/polling snapshots. Original callees execute and request timer11 with argument60000 and timer08 with3000; menu/gate/event finish0 while language/dirty survive. Zero9DB1 means bounded retries/error paths, not physical I2C success. ANL C,bit82 is supported and checked in1,024 firmware-free CI cases; all65,536 early-wait duration arguments pass. Next precise target: **RAM42:43 clock writers and RAM36/RAM39 delay calibration**, then normal wait/event02 polling prerequisites and navigation/repeat lifecycle. Full OSD mapping remains unfinished.
+Latest OSD milestone: [docs/OSD_CLOCK.md](docs/OSD_CLOCK.md) verifies the complete common002B ->0140 ISR over all65,536 RAM42:43 values,1,024 register fixtures and256 delay-coefficient selectors. The clock advances once modulo65536 per serviced interrupt; register preservation and FFEB/FFEA effects are checked. Tick frequency and FD6C selector provenance remain open. Next precise targets: **002B interrupt setup, FD6C caller and5:D893 clock reset**. Full OSD mapping remains unfinished.
 
 ## Current hardware experiment gate
 

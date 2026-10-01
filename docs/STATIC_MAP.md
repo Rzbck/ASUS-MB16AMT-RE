@@ -1,6 +1,6 @@
 # Static firmware map — ASUS MB16AMT V020
 
-**CONFIRMED event02 fixture completion:** [OSD_EVENTS.md](OSD_EVENTS.md) verifies 37 original whole paths under explicit early-wait/delay/error-polling snapshots and65,536 wait arguments. Timer11/08 requests, retained language/dirty and cleared menu/gate/event are checked. Opcode82 now has1,024 firmware-free CI checks. Physical success/timing remain unproved; next RAM42:43 clock and RAM36/RAM39 calibration. Full OSD map unfinished.
+**CONFIRMED software clock producer:** [OSD_CLOCK.md](OSD_CLOCK.md) verifies common002B ->0140 ISR incrementing RAM42:43 with wrap and register preservation (65,536 clock cases),1,024 register cases and256 FD6C delay selectors. Physical tick rate and selector caller remain open. Next interrupt setup/FD6C caller/clock reset; full OSD map unfinished.
 
 **97% confirmed live:** three source reads at 07:00:34Z returned 6190/6742 -> x=9181 -> target 97%, matching the user OSD report. Timer setup 5:E268 now matches the reference millisecond routine: nominal acquisition ~1 s and continued filter steps ~13 s (strong evidence, physical timing unmeasured). FE GET dispatch was checked in 65,544 offline cases; remaining cache-read investigation is inside service 12:F684 and diagnostic leaves, not selector guessing. See [BATTERY_LIVE_PROXY.md](BATTERY_LIVE_PROXY.md).
 

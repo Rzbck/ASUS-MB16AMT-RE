@@ -1,6 +1,6 @@
 # ASUS MB16AMT V020 — OSD reverse-engineering atlas
 
-**CONFIRMED event02 fixture completion:** [OSD_EVENTS.md](OSD_EVENTS.md) verifies 37 original whole paths under explicit early-wait/delay/error-polling snapshots and65,536 wait arguments. Timer11/08 requests, retained language/dirty and cleared menu/gate/event are checked. Opcode82 now has1,024 firmware-free CI checks. Physical success/timing remain unproved; next RAM42:43 clock and RAM36/RAM39 calibration. Full OSD map unfinished.
+**CONFIRMED software clock producer:** [OSD_CLOCK.md](OSD_CLOCK.md) verifies common002B ->0140 ISR incrementing RAM42:43 with wrap and register preservation (65,536 clock cases),1,024 register cases and256 FD6C delay selectors. Physical tick rate and selector caller remain open. Next interrupt setup/FD6C caller/clock reset; full OSD map unfinished.
 
 The current objective is a complete, reproducible OSD map for later modification
 planning. **The complete map is not finished.** This page is the entry point;

@@ -1,0 +1,17 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "whole_ISR_clock_checks": 65536,
+  "ISR_register_checks": 1024,
+  "delay_selector_checks": 256,
+  "vector": "Common002B LJMP0140; entire0140..0189 ISR executes throughRETI.",
+  "clock": "0171 incrementsRAM43; zero carry incrementsRAM42 at0177. BE16RAM42:43 advancesone modulo65536 per serviced interrupt.",
+  "preservation": "ISR saves/restoresA,DPTR,PSW; retainsFFF4 throughDCA6; clearsSFRbitCF and setsRAMbits1E/1F.",
+  "registers": "FFEB=(old&7F)|08; FFEA|=40 only ifFFAD&7>=5. No other XDATAwrites.",
+  "delay_selector": "At0:FD6C,R7=2 ->RAM39=26/RAM36=21;R7=1 ->3/6;other ->2/2. Caller/sourceofR7 notprovedhere.",
+  "limits": [
+    "Offline bytearray execution only; no hardwarecommand or actual interrupt delivery.",
+    "OneincrementperISR is not a measured tickfrequency or millisecond proof.",
+    "Interrupt enable/reload/clock-source setup and calibrationcaller remainopen.",
+    "No AC/OV/parity/interrupt nesting modeled; checked ISR preservesPSW snapshot viaexplicitstack."
+  ]
+}
