@@ -60,11 +60,60 @@ dispatch choice atA212; see [OSD_HANDLERS.md](OSD_HANDLERS.md).
 DA00 bit2 and bit1C physical meanings remain unassigned. No assumption is
 made that state5D is a particular visible screen.
 
-Next precise targets: **9:A334..A384 fallback**, its modes4/6, command guard,
-timer cancellation/scheduling, then the preceding navigation entry and
-DA6E command/repeat flag lifecycle. Native glyph identities and other
-settings/windows remain separate open portions of the full OSD map.
+## Fallback A334..A384 and timer/event provenance
+
+[map_osd_navigation_fallback.py](../tools/map_osd_navigation_fallback.py) and
+its [report](maps/osd-navigation-fallback.json) now verify this branch.
+It acts only when all are true:
+
+- DCB7&1F is4 or6;
+- DA6D<5;
+- DA6C is not7;
+- 186E ->7:F2FC returns a value other than3.
+
+Otherwise it returns without an XDATA write.262,144 fixtures cover all raw
+DCB7/command bytes with event0/7 and status0/3;3,072 additional fixtures cover
+every event byte for modes4/6, commands0/4/5 and status0/3.
+
+The status helper returns DCC9 high nibble, except nibble2 is translated:
+DCCA bit6 set ->1; otherwise bit5 set ->3; otherwise2.131,072 packed/secondary
+byte/incoming-carry combinations verify priority, unused low bits and no writes.
+Physical meanings of these status values remain unknown.
+
+Accepted calls cancel timer0D then0E through0B84 ->5:F920, and invoke
+**0B72 ->5:E671 with R6:R7=1388h (5000)**. R5=05 in mode4 or0C in mode6.
+No DA6C publication occurs directly in this fallback.
+
+| Mode | Requested timer | Existing timer leaf | DA6C | Event consumer |
+|---|---|---|---|---|
+| 4 | 05 | 4:ECD1 | 02 | 9:B935 |
+| 6 | 0C | 4:EF47 | 09 | 9:BA15 |
+
+Both leaf writers are rechecked; the existing bounded timer dispatch map
+supplies their ID/target mapping. This is a static connection, not physical
+waiting or timer-expiration execution.5000 is the firmware argument, with
+physical units/timing unverified. See [OSD_EVENTS.md](OSD_EVENTS.md).
+
+**Complete original slot effects:**960 fixtures execute fallback, cancellation
+and scheduler, with canceled IDs at all distinct pairs of16 slot positions
+and otherwise empty/full tables. Slots are3 bytes atD92D+3*i: event ID followed
+by a16-bit deadline. Cancellation clears the first matching ID while retaining
+its deadline bytes. A duplicate fixture verifies that later duplicates survive;
+it does not establish duplicates are valid runtime state.
+
+18 fixtures verify that an existing requested timer is updated; otherwise
+the first empty slot is used. Two full-table fixtures with no canceled/requested
+ID leave the entire table unchanged. Under the explicit zero timing RAM/XDATA
+snapshot, the chosen slot contains05/0C:13:88. Scratch writes stay within
+D825..D828/D82A..D830, plus the timer table. Real clock/interrupt behavior is
+not modeled, and deadline1388 is not asserted for arbitrary timing state.
+
+Next precise targets: **event02 consumer9:B935** and **event09 consumer9:BA15**,
+including their callees, state updates and further timer requests. Then the
+preceding navigation entry/DA6E repeat flag lifecycle. Native glyph identities
+and other settings/windows remain separate open portions of the full OSD map.
 
 ```powershell
 uv run --locked --offline python tools/map_osd_navigation_guards.py $fw --out docs/maps/osd-navigation-guards.json
+uv run --locked --offline python tools/map_osd_navigation_fallback.py $fw --out docs/maps/osd-navigation-fallback.json
 ```

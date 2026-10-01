@@ -1,0 +1,33 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "status_checks": 131072,
+  "decision_checks": 262144,
+  "all_event_byte_checks": 3072,
+  "complete_timer_slot_checks": 960,
+  "existing_timer_checks": 18,
+  "full_table_checks": 2,
+  "duplicate_cancel_checks": 1,
+  "timer_event_links": [
+    {
+      "timer": "05",
+      "writer": "4:ECD1",
+      "DA6C": "02"
+    },
+    {
+      "timer": "0C",
+      "writer": "4:EF47",
+      "DA6C": "09"
+    }
+  ],
+  "gate": "9:A334 acceptsDCB7&1F in4/6,DA6D<5,DA6C!=7 and186E/7:F2FC result!=3. OtherwiseRET, noXDATAwrite.",
+  "status": "F2FC returnsDCC9 high nibble except2: DCCA.bit6 set ->1; elsebit5 set ->3; else2. Low nibble/incomingcarry irrelevant.",
+  "accepted": "Cancel timers0D then0E via0B84/5:F920; request0B72/5:E671 R6:R7=1388(5000),R5=05 mode4 or0C mode6. No directDA6C publication.",
+  "slots": "Actual cancellation/scheduler executes16 slots atD92D+3*i. Canceled slot IDs clear while deadline bytes remain. Existing requested timer is updated; otherwise first empty slot used. Full table withoutmatching IDs remains unchanged.",
+  "qualification": "Complete slot fixtures initialize timing RAM/XDATA tozero and verify deadline1388 only under that snapshot; physical time and interrupts are unmodeled.",
+  "limits": [
+    "Offline in-memory execution; no hardwarecommand.",
+    "Canceled duplicate test proves firstmatch-only behavior, not that duplicates are valid runtime state.",
+    "Timer leaves checked separately, not through a physical wait or expiration engine.",
+    "Mode/status physical meanings remain unassigned. DA6C7 suppresses this fallback but its full handler meaning remains open."
+  ]
+}

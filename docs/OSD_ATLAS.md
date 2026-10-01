@@ -1,6 +1,6 @@
 # ASUS MB16AMT V020 — OSD reverse-engineering atlas
 
-**CONFIRMED navigation command/mode guards:** [OSD_NAVIGATION_GUARDS.md](OSD_NAVIGATION_GUARDS.md) verifies404,224 offline comparison,mode/command,timer andnormal-transition fixtures. D820 threshold5/6,DCB7&1F routing,conditionaltimer16 argument+500 andstate5D guard are explicit. Physical mode labels remain unassigned; next9:A334 fallback. Full OSD map unfinished.
+**CONFIRMED navigation fallback/timer chain:** [OSD_NAVIGATION_GUARDS.md](OSD_NAVIGATION_GUARDS.md) verifiesA334 mode4/6 command/event/status gates,0D/0E cancellation and05/0C request ->DA6C02/09. Full16-slot cancellation/allocation fixtures includeexistingtimer/fulltable/duplicate behavior. All offline; physical timing unknown. Next9:B935/BA15 eventconsumers; complete OSD map unfinished.
 
 The current objective is a complete, reproducible OSD map for later modification
 planning. **The complete map is not finished.** This page is the entry point;

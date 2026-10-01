@@ -67,6 +67,7 @@ jobs:
           python tools/map_osd_overlay_gate.py --help >/dev/null
           python tools/map_osd_overlay_navigation.py --help >/dev/null
           python tools/map_osd_navigation_guards.py --help >/dev/null
+          python tools/map_osd_navigation_fallback.py --help >/dev/null
           python tools/analyze_banked_abi.py --help >/dev/null
           python tools/analyze_numeric_renderer.py --help >/dev/null
           python tools/analyze_value_provenance.py --help >/dev/null
