@@ -29,7 +29,7 @@ class FullEntry(Window):
         super().jump(target,call)
 
 
-def build(data,full=True):
+def build(data,full=True,lifecycle=False):
     assert len(data) == 0xE0000 and hashlib.sha256(data).hexdigest() == SHA
     thunks = inventory(data)
     assert thunks[0x1A4E] == (1,0xDC4F)
@@ -58,7 +58,7 @@ def build(data,full=True):
                         'base_font_candidate':base_font_candidate(chunk[start:end])})
         start = end+1
     assert start == limit
-    entries = []
+    entries = [];cycles = []
     if full:
         for language in range(21):
             m = FullEntry(data,thunks);m.x[0xDA6B] = 0x32;m.x[0xDA03] = language
@@ -79,8 +79,59 @@ def build(data,full=True):
                             'port_writes':len(m.ports),'return_setting':'56',
                             'preview':language})
             print('Full entry fixture:',language,'steps:',m.steps,flush=True)
+            if lifecycle:
+                m.x[0xDA6D] = 1;m.run(9,0xE7F9,budget=10000)
+                assert bytes(m.x[0xDA48:0xDA4A]) == bytes((0,(language+1)%21))
+                assert (m.x[0xDA03],m.x[0xDA69],m.x[0xDA6C]) == (language,0,0)
+                m.x[0xDA6D] = 2;m.run(9,0xFEEB,budget=10000)
+                assert bytes(m.x[0xDA48:0xDA4A]) == bytes((0,language))
+                frames = len(m.frames);m.x[0xDA6D] = 0
+                m.run(9,0xC63A,budget=1000)
+                assert len(m.frames) == frames
+                assert (m.x[0xDA03],m.x[0xDA69],m.x[0xDA6C]) == (language,0,0)
+                m.x[0xDA6D] = 2;m.run(9,0xFEEB,budget=10000)
+                selected = (language-1)%21
+                assert bytes(m.x[0xDA48:0xDA4A]) == bytes((0,selected))
+                m.x[0xDA6D] = 0;steps = m.steps;frames = len(m.frames)
+                m.run(9,0xC63A,budget=2000000)
+                apply_steps = m.steps-steps;apply_frames = len(m.frames)-frames
+                assert (m.x[0xDA03],m.x[0xDA69],m.x[0xDA6C]) == (selected,1,11)
+                assert m.x[0xDA6B] == 0x56 and m.x[0xDA49] == selected
+                assert bytes(m.x[0xDCC4:0xDCC6]) == bytes((2,0xCC)) and not m.bit(0x25)
+                assert not m.calls and not m.stack
+                m.x[0xDA6D] = 3;steps = m.steps;frames = len(m.frames)
+                m.run(9,0xFA18,budget=500000)
+                assert m.x[0xDA6B] == 0x32 and m.x[0xDA03] == selected
+                assert (m.x[0xDA69],m.x[0xDA6C]) == (1,11)
+                assert not m.calls and not m.stack
+                assert not ({a for _,_,a in m.writes}&set(range(0xFF55,0xFF5F)))
+                cycles.append({'stored':language,'applied':selected,'apply_steps':apply_steps,
+                               'apply_window_bursts':apply_frames,'exit_steps':m.steps-steps,
+                               'exit_window_bursts':len(m.frames)-frames,'exit_setting':'32',
+                               'dirty':1,'event':'0B','DCC4_DCC5':'02CC'})
+                print('Full preview/apply/exit fixture:',language,'->',selected,flush=True)
+    class ExitBoundary(Exception):pass
+    class Exit(Machine):
+        def jump(self,target,call=False):
+            if (self.bank,self.origin,target) == (9,0xFA36,0x1676):raise ExitBoundary
+            super().jump(target,call)
+    exit_gate_checks = 0
+    for flags in range(256):
+        for setting in range(256):
+            for state in (0,7):
+                m = Exit(data,thunks);m.x[0xDA68] = flags;m.x[0xDA6B] = setting;m.x[0xDA83] = state
+                try:m.run(9,0xFA18,budget=100)
+                except ExitBoundary:pass
+                else:raise AssertionError('Expected exit transition boundary')
+                assert m.r(7) == (setting if flags&64 else 0x32)
+                assert m.x[0xDA6B] == setting and m.x[0xDA68] == flags
+                exit_gate_checks += 1
     return {'firmware_sha256':SHA,'name_selection_checks':63,
             'full_entry_checks':len(entries),'segments':records,'entry_fixtures':entries,
+            'lifecycle_checks':len(cycles),'lifecycle_fixtures':cycles,
+            'exit_gate_checks':exit_gate_checks,
+            'exit_gate':'9:FA18 selects target32 iff DA68.bit6 clear; otherwise currentDA6B. Calls1676/10:DE50, then tail167C/8:E7E4. Gate fixtures stop before transition.',
+            'lifecycle':'When enabled: complete entry ->increment preview ->decrement back ->equal apply(no drawing/dirty) ->decrement preview ->changed C63A full apply ->FA18 full exit. Changed apply sets DA03,dirty1,event0B,DCC4:DCC5=02CC/clearbit25. Exit returns row32 retaining dirty/event until dispatcher runs.',
             'resource':'Family0E/index0 ->code1:6D77, exactly21 FF-delimited name segments before next family09 resource1:6E1B.',
             'selector':'1:DC4F/FC8F/E43B resolves family D853=0E/indexD854=0; actual DC8A..DCA2 loop skips D855 name segments. It uses explicit index, independently of stored DA03 in checked fixtures.',
             'list':'10:D153..D1C1 iterates D82F0..20; D1BB ->1A4E/1:DC4F receives rows5+2*(index%8), columns26+13*(index//8), style3 and D853:D854:D855=0E:00:index.',
@@ -89,16 +140,20 @@ def build(data,full=True):
                       'Full entry uses Window synthetic FFF3 busy-bit completion, RAM39=1, FFFF=13, DAD3=60000000 and DC09/DBFC=40. These are fixtures, not proven live startup state.',
                       'Burst-engine copies, display visibility, interrupts and physical timing are not emulated.',
                       'Base-font candidates reuse the atlas partial alphabet; extension tokens and duplicated letters remain unresolved. Do not promote candidates to complete language-ID names.',
-                      'Only ordinary row32 command0 entry is integrated, not all exit/apply/re-entry state variants.']}
+                      'Integrated entry and optional lifecycle use ordinary row32/row56 state; other re-entry/modal/high-flag variants are not fully executed.',
+                      'Lifecycle does not run pending save dispatcher; its page/FIFO path is independently verified in map_osd_language_update.py.']}
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('firmware',type=Path);p.add_argument('--out',type=Path,required=True)
-    p.add_argument('--segments-only',action='store_true',help='Exclude expensive full-entry fixtures')
-    args = p.parse_args();result = build(args.firmware.read_bytes(),not args.segments_only)
+    group = p.add_mutually_exclusive_group()
+    group.add_argument('--segments-only',action='store_true',help='Exclude expensive full-entry fixtures')
+    group.add_argument('--lifecycle',action='store_true',help='Also execute complete preview/apply/exit cycles')
+    args = p.parse_args();result = build(args.firmware.read_bytes(),not args.segments_only,args.lifecycle)
     args.out.write_text(json.dumps(result,indent=2)+'\n')
-    print('Name/full-entry checks:',result['name_selection_checks'],result['full_entry_checks'])
+    print('Name/full-entry/lifecycle/exit-gate checks:',result['name_selection_checks'],
+          result['full_entry_checks'],result['lifecycle_checks'],result['exit_gate_checks'])
 
 
 if __name__ == '__main__':main()

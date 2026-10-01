@@ -2,8 +2,9 @@
 
 All evidence is offline on the pinned V020 image. This closes the ordinary
 row32 command0 entry that [earlier layout checks](OSD_LANGUAGE_LAYOUT.md)
-had intentionally split at drawing boundaries. Other entry/exit/apply variants
-and actual monitor behavior remain outside these fixtures.
+had intentionally split at drawing boundaries, and now follows ordinary preview,
+apply and exit. Other modal/re-entry/high-flag variants and actual monitor
+behavior remain outside these fixtures.
 
 ## Confirmed list resource and explicit index
 
@@ -70,6 +71,33 @@ interrupts, actual timing and display visibility are not emulated. The runs
 do not write FF55..FF5E hardware-I2C registers. This proves the integrated
 code path under the stated fixture conditions, not live startup equivalence.
 
+## Confirmed preview, apply and exit cycles
+
+The `--lifecycle` campaign executes **21 complete cycles**, one from each
+stored language, using the same explicit synthetic entry prerequisites:
+
+1. Execute F550 entry, then command1/E7F9 preview increment with refresh.
+2. Execute command2/FEEB ->E7F9 preview decrement back to the stored value.
+3. Execute command0/C63A unchanged apply: no window preparation and no
+   DA03/DA69/DA6C change.
+4. Decrement preview again, including0-to20 wrapping, then execute full
+   C63A changed apply through RET. DA03 becomes selected, DA69=1, DA6C=0B,
+   DA6B stays56 and preview stays selected. Full drawing calls execute.
+5. Execute command3/FA18 through RET: DA6B returns32; selected DA03 and
+   DA69=1/DA6C=0B are retained. Save dispatch has not run in this cycle.
+
+Changed apply also ends with **DCC4:DCC5=02:CC and direct bit25 cleared**,
+via the verified FD52 leaf. The downstream meaning of that pair is not assigned
+here. These cycles do not write FF55..FF5E and do not persist a setting.
+The independent [save integration](OSD_LANGUAGE_UPDATE.md) establishes what
+the pending event does when its dispatcher later runs.
+
+**131,072 exit-gate fixtures** cover all256 DA68 values, all256 current
+settings and DA83=0/7, stopping before FA36's transition call. FA18 selects
+target32 when **DA68.bit6 is clear**, otherwise current DA6B; it calls
+`1676 ->10:DE50`, then tail-calls `167C ->8:E7E4`. Only the ordinary
+clear-bit6 target32 case has complete exit drawing execution here.
+
 ## Modification constraints and continuation
 
 Each entry is selected by skipping FF delimiters from the same base. Changing
@@ -80,11 +108,12 @@ all three contracts, the font dispatch and geometry groups; none is approved
 or patched here. Names/bytes are not ASCII strings.
 
 ```powershell
-uv run --locked --offline python tools/map_osd_language_list.py <local-V020.bin> --out docs/maps/osd-language-list.json
+uv run --locked --offline python tools/map_osd_language_list.py <local-V020.bin> --lifecycle --out docs/maps/osd-language-list.json
 ```
 
-`--segments-only` checks pointers without integrated entry execution.
+Without `--lifecycle`, full entry still runs but apply/exit cycles are omitted.
+`--segments-only` checks pointers and exit gates without integrated entry.
 [Derived report](maps/osd-language-list.json) includes no resource payloads.
-Next precise target: **row56 command0 9:C63A** full apply drawing through its
-writer and refresh, then **row56 command3 9:FA18** exit/transition; reconstruct
-accented/native glyph fragments before assigning remaining language names.
+Next precise target: **DCC4:DCC5=02:CC downstream consumers**, then
+re-entry/modal/high-flag transition variants; reconstruct accented/native glyph
+fragments before assigning remaining language names.

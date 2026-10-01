@@ -41,7 +41,7 @@ namespaces and must not be equated merely because their numeric values match.
 | Value reads | Full 8:5FEF contract; R7 selector, R5 mode; R7 result | Tie every OSD selection to label and adjustment handler |
 | Value updates | Scattered setters/DDC; hold validator, 36-byte page/FIFO/error save contract verified | Full adjustments, dirty flags and persistence for every setting; real storage completion |
 | Text selection | New 1:E43B resolver map; 256 selectors × R5 values 0/1 executed | Legal family index bounds, all variants, language segment selection |
-| Text encoding | Segment/font dispatch; DA03 language0..20; row56 preview/apply/save; 21 complete row32-to56 entry fixtures and explicit language-list segments | Full apply/exit variants, native/accents and complete names, wide glyph fragments/legal token bounds |
+| Text encoding | Segment/font dispatch; DA03 language0..20; row56 preview/apply/save; 21 complete entry/preview/apply/exit cycles and explicit language-list segments | Modal/re-entry/high-flag variants, native/accents and complete names, wide glyph fragments/legal token bounds |
 | Numeric rendering | 1:EAEB: D838..D83B input, D83C flags; known setting and countdown callers | Complete layout/format flags and hardware sink integration |
 | Battery display | Source → conversion → filter → DA4C → 10:F8F4 → 1:D7A1 | Live filtered DA4C read remains unavailable; broader layout integration |
 | Timer events | Exact 36-entry dispatch; 17→countdown; five leaf writers feed DA6C | Other handler meanings, producer conditions and scheduling |
@@ -108,6 +108,9 @@ use synthetic burst completion; physical display effects remain untested.
 entry through RET for all21 stored languages, with no drawing callee skipped.
 It binds all21 list positions to explicit-index FF segments in family0E at
 1:6D77; native/accents remain partial candidates rather than assigned names.
+The lifecycle campaign adds21 complete preview/unchanged-apply/changed-apply/
+exit cycles and131,072 bounded FA18 target-gate cases; DCC4:DCC5=02CC's
+downstream meaning remains a precise open target.
 
 ## Text family/index resolver — new verified subchain
 

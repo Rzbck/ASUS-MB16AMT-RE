@@ -104,7 +104,8 @@ uv run --locked --offline python tools/map_osd_language_update.py <local-V020.bi
 [Entry/layout follow-up](OSD_LANGUAGE_LAYOUT.md) checks the row32-to56 caller,
 DA6B transition prefix, staged-value seed and CD7E refresh geometry with explicit
 drawing boundaries, then executes window packing/register preparation with
-synthetic burst completion. Next precise targets: **10:D662/F249 and C436/EBCD**
-language-list drawing and full apply drawing, then the other **9:BA6E** dirty-flag
-leaves. Tie language names to each index through rendered resources.
+synthetic burst completion. [List/lifecycle integration](OSD_LANGUAGE_LIST.md)
+now executes ordinary entry, preview, apply and exit for all21 indices.
+Next precise targets: **DCC4:DCC5=02CC consumers**, transition variants and the
+other **9:BA6E** dirty-flag leaves. Native/accents still require glyph evidence.
 Physical button labels, storage completion and the complete OSD map remain open.

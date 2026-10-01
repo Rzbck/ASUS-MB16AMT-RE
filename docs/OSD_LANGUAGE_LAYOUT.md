@@ -108,6 +108,7 @@ uv run --locked --offline python tools/map_osd_language_layout.py <local-V020.bi
 [Derived check report](maps/osd-language-layout.json) contains no firmware
 resources. [Language-list follow-up](OSD_LANGUAGE_LIST.md) now executes the
 ordinary entry through RET for all21 stored languages under explicit synthetic
-state and binds each name index to its segment/position. Next: full **9:C63A**
-apply drawing and **9:FA18** exit, plus native glyphs and other dirty-save leaves.
+state and binds each name index to its segment/position; its lifecycle mode also
+executes ordinary **9:C63A** apply and **9:FA18** exit. Next: DCC4:DCC5=02CC
+consumers, modal/high-flag/re-entry cases, native glyphs and other dirty-save leaves.
 DAD3's producer/units and real burst completion remain unproved.
