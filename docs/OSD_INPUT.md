@@ -144,8 +144,8 @@ bit6 clear/set, all four slot indices and both DA87.bit3 states. The bit6 value
 survives validation in these fixtures and the expected handoff is reached.
 
 Execution stops before **01D0**. This establishes the source/length/slot
-selection after the hold toggle. Actual storage-medium mapping, write/update
-semantics and completion are still open; no hardware or storage write occurred.
+selection after the hold toggle. The writer page/frame/error contract is now checked in [OSD_STORAGE.md](OSD_STORAGE.md).
+Storage-medium identity and real completion remain open; no hardware or storage write occurred.
 The full validator checks cover sixteen fixtures, not every combination of
 all 36 state bytes.
 
@@ -166,7 +166,7 @@ uv run --locked --offline python tools/map_osd_input.py <local-V020.bin> --out d
 [Derived checks](maps/osd-input.json) contain masks/addresses and counts,
 without proprietary bytes. Next: **E6B6/E20F** input consumers, button names,
 repeat behavior and DA6D/menu transitions; identify bit24h's producer, the
-delay clock/timer and **8:DDB3** post-toggle effects. Physical timings remain
-qualified until that proof. DDB3's validator/handoff is now checked; the next
-storage target is **01D0** from its DE1A call, retaining the logical-offset
-qualification.
+delay clock/timer. Physical timings remain qualified until that proof.
+DDB3's validator/handoff and **01D0** page/frame/error behavior are now checked
+in [OSD_STORAGE.md](OSD_STORAGE.md), retaining the logical-offset and hardware
+completion qualifications.

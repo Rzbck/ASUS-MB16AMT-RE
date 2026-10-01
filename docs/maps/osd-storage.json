@@ -1,0 +1,177 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "entry": "common 01D0, executed in bank 8",
+  "abi": {
+    "source": "R3:R2:R1 generic pointer",
+    "length": "R4:R5 BE16",
+    "offset": "R6:R7 BE16",
+    "return": "Carry=1 after all nonempty chunks complete; zero length returns 0; transfer/poll timeout returns 0."
+  },
+  "configuration": {
+    "slave_base": "A0 (eight-bit bus byte)",
+    "address_mode": 1,
+    "interface": "0B",
+    "page_size": 16
+  },
+  "page_rule": "min(remaining,16-(offset&15)); slave=(A0+2*((offset>>8)&FF))&FF; one low address byte",
+  "page_checks": 1656,
+  "frame_checks": 4096,
+  "full_slot_checks": 5,
+  "validated_save_checks": 16,
+  "slots": [
+    {
+      "offset": "000E",
+      "pages": [
+        {
+          "offset": "000E",
+          "length": 2,
+          "slave": "A0"
+        },
+        {
+          "offset": "0010",
+          "length": 16,
+          "slave": "A0"
+        },
+        {
+          "offset": "0020",
+          "length": 16,
+          "slave": "A0"
+        },
+        {
+          "offset": "0030",
+          "length": 2,
+          "slave": "A0"
+        }
+      ]
+    },
+    {
+      "offset": "0032",
+      "pages": [
+        {
+          "offset": "0032",
+          "length": 14,
+          "slave": "A0"
+        },
+        {
+          "offset": "0040",
+          "length": 16,
+          "slave": "A0"
+        },
+        {
+          "offset": "0050",
+          "length": 6,
+          "slave": "A0"
+        }
+      ]
+    },
+    {
+      "offset": "0056",
+      "pages": [
+        {
+          "offset": "0056",
+          "length": 10,
+          "slave": "A0"
+        },
+        {
+          "offset": "0060",
+          "length": 16,
+          "slave": "A0"
+        },
+        {
+          "offset": "0070",
+          "length": 10,
+          "slave": "A0"
+        }
+      ]
+    },
+    {
+      "offset": "007A",
+      "pages": [
+        {
+          "offset": "007A",
+          "length": 6,
+          "slave": "A0"
+        },
+        {
+          "offset": "0080",
+          "length": 16,
+          "slave": "A0"
+        },
+        {
+          "offset": "0090",
+          "length": 14,
+          "slave": "A0"
+        }
+      ]
+    },
+    {
+      "offset": "009E",
+      "pages": [
+        {
+          "offset": "009E",
+          "length": 2,
+          "slave": "A0"
+        },
+        {
+          "offset": "00A0",
+          "length": 16,
+          "slave": "A0"
+        },
+        {
+          "offset": "00B0",
+          "length": 16,
+          "slave": "A0"
+        },
+        {
+          "offset": "00C0",
+          "length": 2,
+          "slave": "A0"
+        }
+      ]
+    }
+  ],
+  "frame": "0707: FF5E receives slave, low address and count payload bytes; FF55 final command=C0+2*count for count 1..16, mode1.",
+  "status": "0707 waits for FF5D.bit5 before FIFO setup and FF5D.bit0 after launch; each waits up to 600 decrement passes. Successful return writes old FF5D|07 and sets carry.",
+  "poll": "14CC -> 0:6C06, mode1 sends same slave then zero byte; waits for FF5D.bit0 up to 240 decrement passes. Caller retries at most 50 poll calls per page.",
+  "pin": "FE08=0 before frame, restored to 1 after page success or any checked failure; zero-length does not touch FE08.",
+  "mux": {
+    "entry": "0FB0 -> 8:EAFE",
+    "checks": 256,
+    "selector_0B": "1019=80, 1032=0, 1033=0; leaves 101A unchanged",
+    "reference_role": "RL6492 reference names selector11 _HW_IIC_PIN_40_41; 1019 value80 is _PIN_40_EEIICSCL. ASUS PCB wiring unproved."
+  },
+  "failure_checks": [
+    {
+      "status_fixture": "initial",
+      "carry": 0,
+      "FF5D_reads": 601,
+      "poll_calls": 0
+    },
+    {
+      "status_fixture": "completion",
+      "carry": 0,
+      "FF5D_reads": 602,
+      "poll_calls": 0
+    },
+    {
+      "status_fixture": "poll",
+      "carry": 0,
+      "FF5D_reads": 12003,
+      "poll_calls": 50
+    }
+  ],
+  "reference": {
+    "repo": "Kingdomwhisky/RTD-Scaler-TEST",
+    "commit": "3d38340ec8518a8888fd5d8dbb181c2a7418e11c",
+    "file": "Kernel/Scaler/RL6492_Series_Scaler/Code/RL6492_Series_Mcu.c",
+    "registers": "FF55/57/58 I2CM control, FF5D status, FF5E transmit data; FE08 PORT50"
+  },
+  "limits": [
+    "Entirely offline bytearray execution; no monitor/storage access.",
+    "Page checks explicitly model only 0707/14CC successful carry at call boundaries; separate frame/slot checks execute both routines with synthetic FF5D values.",
+    "Synthetic peripheral status is not I2C bus simulation, real ACK proof or storage completion.",
+    "EEPROM/page-write and FE08 write-protect roles are strong evidence; physical chip/pins and legal capacity unproved.",
+    "Only the configuration initialized by 01D0 is mapped; alternative modes of 0226/0707 are not complete.",
+    "Bank model, timers/physical delays, interrupt effects and unsupported CPU flags retain interpreter qualifications."
+  ]
+}

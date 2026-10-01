@@ -36,10 +36,10 @@ namespaces and must not be equated merely because their numeric values match.
 | Layer | Verified evidence | Remaining work |
 |---|---|---|
 | Bank/call ABI | Existing thunk inventory; current traversal 158,425 instructions, 52 recognized bounded tables, 20 unresolved indirect sites | Resolve OSD-relevant indirect flow; preserve static bank-model qualification |
-| Input/navigation | ADC/GPIO classifier, stability cache, word storage and 0010 hold/bit6 toggle verified; DA6C event service mapped | Physical timing, button names, repeat, save effects and menu transitions |
+| Input/navigation | ADC/GPIO classifier, stability cache, word storage and 0010 hold/bit6 toggle verified; DA6C event service mapped | Physical timing, button names, repeat and menu transitions |
 | Menu states | DA6B setting selector; DA0A low nibble feeds nine category handlers through D823 | Handler labels, key transitions, modal dialogs, shortcut behavior |
 | Value reads | Full 8:5FEF contract; R7 selector, R5 mode; R7 result | Tie every OSD selection to label and adjustment handler |
-| Value updates | Scattered setters/DDC; hold toggle's validator and 36-byte storage handoff verified | Full adjustments, dirty flags, writer completion and persistence for every setting |
+| Value updates | Scattered setters/DDC; hold validator, 36-byte page/FIFO/error save contract verified | Full adjustments, dirty flags and persistence for every setting; real storage completion |
 | Text selection | New 1:E43B resolver map; 256 selectors × R5 values 0/1 executed | Legal family index bounds, all variants, language segment selection |
 | Text encoding | Segment scanner/prefix classifier; DA03 low six bits feed menu language; validator accepts 0..20 | Language names/selection/persistence, wide glyph fragments, punctuation, all font banks |
 | Numeric rendering | 1:EAEB: D838..D83B input, D83C flags; known setting and countdown callers | Complete layout/format flags and hardware sink integration |
@@ -70,6 +70,11 @@ Input follow-up: [OSD_INPUT.md](OSD_INPUT.md) verifies initial ADC/GPIO
 classification at 2:DF25 and exhaustive current/previous input-word accesses
 at DC9E..DCA1. Full sampling fixtures also cover DCA2 cache, bounded stability
 retries and bit24h suppression; timing and navigation consumers remain open.
+
+Storage follow-up: [OSD_STORAGE.md](OSD_STORAGE.md) verifies the 01D0 page planner,
+0707 I2CM register frames, selected interface, bounded polling and error returns.
+The 36-byte OSD parameter block reaches the prepared page payloads. EEPROM
+semantics are strong evidence; real hardware completion remains open.
 
 ## Text family/index resolver — new verified subchain
 
