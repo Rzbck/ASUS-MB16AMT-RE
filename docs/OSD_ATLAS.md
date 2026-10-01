@@ -93,6 +93,11 @@ storage frames; applied DA03 occupies payload byte6. Timeout fixtures expose
 clear-before-save without a carry check in BA6E. Actual persistence is unproved.
 Row32 navigation and the generic setter exclusion are kept explicit.
 
+[Language entry/layout](OSD_LANGUAGE_LAYOUT.md) adds verified target56
+handoff, DA6B transition-prefix writes, the DA03-derived preview seed and
+three groups of prepared selection coordinates. Full entry drawing and
+final physical coordinate interpretation remain open.
+
 ## Text family/index resolver — new verified subchain
 
 `1:E43B` clears pointer scratch `D893..D895`, dispatches on R7 via the common

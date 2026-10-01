@@ -1,0 +1,253 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "caller_checks": 512,
+  "entry_prologue_checks": 65536,
+  "entry_guard_checks": 1024,
+  "history_checks": 512,
+  "row32_history_route_checks": 2,
+  "geometry_checks": 168,
+  "caller": "Row32 command0 ->9:F550: pre-drawing19E8 gets R3=4/R7=28/R5=2; F569 passes R7=56 to19EE ->10:D370. F578 tail seeds DA48:DA49 from DA03&3F.",
+  "entry": "10:D370 saves target to D824, clears direct bit03 and D825..D82D; DA68.bit6 is set iff previous DA6B equals target, otherwise cleared. Target56/new row reaches D64B drawing call; same row returns D686.",
+  "history": "10:D735 ->BE8C receives R7=1/R5=D824. Prefix BE8C..BEA4 writes DA6B=56 and D82E..D832=01,previous-setting,00,00,00. Two separate row32 fixtures continue to EBCD at C436 with R7=10h; arbitrary previous-row drawing is excluded.",
+  "geometry": "10:CA2A row56 branch ->CD7E..CEC6 uses selected index in D834, splits0..7/8..15/16..20 and prepares four BE16 fields D83C/D83E/D840/D842, D844:D845=00:07 and direct bit05=1 before F142 with R7=6.",
+  "formula": "g=index//8, n=index%8: (12*(25+13*g),72+36*n,780 if g==2 else12*(25+13*g)+155,108+36*n). Third group omits the minus1 used by the first two.",
+  "indices": [
+    {
+      "index": 0,
+      "group": 0,
+      "local": 0,
+      "D83C_D83E_D840_D842": [
+        300,
+        72,
+        455,
+        108
+      ]
+    },
+    {
+      "index": 1,
+      "group": 0,
+      "local": 1,
+      "D83C_D83E_D840_D842": [
+        300,
+        108,
+        455,
+        144
+      ]
+    },
+    {
+      "index": 2,
+      "group": 0,
+      "local": 2,
+      "D83C_D83E_D840_D842": [
+        300,
+        144,
+        455,
+        180
+      ]
+    },
+    {
+      "index": 3,
+      "group": 0,
+      "local": 3,
+      "D83C_D83E_D840_D842": [
+        300,
+        180,
+        455,
+        216
+      ]
+    },
+    {
+      "index": 4,
+      "group": 0,
+      "local": 4,
+      "D83C_D83E_D840_D842": [
+        300,
+        216,
+        455,
+        252
+      ]
+    },
+    {
+      "index": 5,
+      "group": 0,
+      "local": 5,
+      "D83C_D83E_D840_D842": [
+        300,
+        252,
+        455,
+        288
+      ]
+    },
+    {
+      "index": 6,
+      "group": 0,
+      "local": 6,
+      "D83C_D83E_D840_D842": [
+        300,
+        288,
+        455,
+        324
+      ]
+    },
+    {
+      "index": 7,
+      "group": 0,
+      "local": 7,
+      "D83C_D83E_D840_D842": [
+        300,
+        324,
+        455,
+        360
+      ]
+    },
+    {
+      "index": 8,
+      "group": 1,
+      "local": 0,
+      "D83C_D83E_D840_D842": [
+        456,
+        72,
+        611,
+        108
+      ]
+    },
+    {
+      "index": 9,
+      "group": 1,
+      "local": 1,
+      "D83C_D83E_D840_D842": [
+        456,
+        108,
+        611,
+        144
+      ]
+    },
+    {
+      "index": 10,
+      "group": 1,
+      "local": 2,
+      "D83C_D83E_D840_D842": [
+        456,
+        144,
+        611,
+        180
+      ]
+    },
+    {
+      "index": 11,
+      "group": 1,
+      "local": 3,
+      "D83C_D83E_D840_D842": [
+        456,
+        180,
+        611,
+        216
+      ]
+    },
+    {
+      "index": 12,
+      "group": 1,
+      "local": 4,
+      "D83C_D83E_D840_D842": [
+        456,
+        216,
+        611,
+        252
+      ]
+    },
+    {
+      "index": 13,
+      "group": 1,
+      "local": 5,
+      "D83C_D83E_D840_D842": [
+        456,
+        252,
+        611,
+        288
+      ]
+    },
+    {
+      "index": 14,
+      "group": 1,
+      "local": 6,
+      "D83C_D83E_D840_D842": [
+        456,
+        288,
+        611,
+        324
+      ]
+    },
+    {
+      "index": 15,
+      "group": 1,
+      "local": 7,
+      "D83C_D83E_D840_D842": [
+        456,
+        324,
+        611,
+        360
+      ]
+    },
+    {
+      "index": 16,
+      "group": 2,
+      "local": 0,
+      "D83C_D83E_D840_D842": [
+        612,
+        72,
+        780,
+        108
+      ]
+    },
+    {
+      "index": 17,
+      "group": 2,
+      "local": 1,
+      "D83C_D83E_D840_D842": [
+        612,
+        108,
+        780,
+        144
+      ]
+    },
+    {
+      "index": 18,
+      "group": 2,
+      "local": 2,
+      "D83C_D83E_D840_D842": [
+        612,
+        144,
+        780,
+        180
+      ]
+    },
+    {
+      "index": 19,
+      "group": 2,
+      "local": 3,
+      "D83C_D83E_D840_D842": [
+        612,
+        180,
+        780,
+        216
+      ]
+    },
+    {
+      "index": 20,
+      "group": 2,
+      "local": 4,
+      "D83C_D83E_D840_D842": [
+        612,
+        216,
+        780,
+        252
+      ]
+    }
+  ],
+  "limits": [
+    "All execution is offline; no monitor/storage command.",
+    "Entry checks compose separate caller/prologue/history/seed contracts; full entry drawing between them is not executed.",
+    "Geometry fixtures start at CD7E after refresh setup and stop before F142; physical dimensions, orientation and final hardware coordinates remain unproved.",
+    "Language names, full apply drawing and other dirty-save leaves remain open."
+  ]
+}
