@@ -1,6 +1,6 @@
 # Static firmware map — ASUS MB16AMT V020
 
-**CONFIRMED running timer conversion:** [OSD_CLOCK.md](OSD_CLOCK.md) adds131,072 arithmetic and640 complete Timer0/1 setup fixtures. Mode/running gates, backup formula, reload/SFR writes and Timer1 battery-acquisition clock link are documented. Physical timing remains unproved. Next clock-source/divider, equal-current fast path and reset decision. Full OSD map unfinished.
+**CONFIRMED scheduler clock reset decision:** [OSD_CLOCK.md](OSD_CLOCK.md) adds393,216 decision sweeps and300 whole static-clock calls. D83F caps its decision argument at61000 and resets/rebases only when the mathematical sum exceeds61000, including wrap. Reference scheduler identity is strong evidence; no measured physical duration. Next F73D snapshot and clock-source setup; full OSD map unfinished.
 
 **97% confirmed live:** three source reads at 07:00:34Z returned 6190/6742 -> x=9181 -> target 97%, matching the user OSD report. Timer setup 5:E268 now matches the reference millisecond routine: nominal acquisition ~1 s and continued filter steps ~13 s (strong evidence, physical timing unmeasured). FE GET dispatch was checked in 65,544 offline cases; remaining cache-read investigation is inside service 12:F684 and diagnostic leaves, not selector guessing. See [BATTERY_LIVE_PROXY.md](BATTERY_LIVE_PROXY.md).
 

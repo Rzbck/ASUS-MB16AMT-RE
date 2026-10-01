@@ -1,0 +1,16 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "argument_sweep_checks": 196608,
+  "clock_sweep_checks": 196608,
+  "complete_static_clock_checks": 300,
+  "contract": "5:D83F receivesR6:R7 argument; snapshotclock viaF73D; effective=min(argument,61000). Reset/rebase iff snapshotclock+effective>61000 using unbounded sum; return0 afterreset, snapshotclock otherwise.",
+  "implementation": "D853..D864 clampsargument; D865..D877 testswrapped16-bit sumagainst61000; D879..D88E detectswrap. Combined condition matchesunbounded sumthreshold.",
+  "equality": "Sum61000 doesnotreset. Argumentabove61000 clamped, so withclock0 evenFFFF argumentdoesnotreset.",
+  "rebase": "Onreset, existing16-slot rebase subtractssnapshotclock withsaturation whilepreservingactiveIDs/emptydeadlines.",
+  "limits": [
+    "Offlineonly, nohardwarecommand.",
+    "F73D executeswithstableRAM42:43; ISRinterleaving andsnapshot retry/stability semantics remainopen.",
+    "61000 is a counter-unitthreshold, not a measured61-second interval.",
+    "Wholefixtures useoneactive slotat0/7/15 andotherwiseempty slots; completeall-slot transformation verified separately bymap_osd_clock."
+  ]
+}

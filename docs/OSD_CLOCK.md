@@ -137,13 +137,51 @@ The existing [battery timing evidence](BATTERY_LIVE_PROXY.md) already ties
 D98C:D98D=03E8 to5:E268 called with argument1 by4:F3B3. Thus this conversion
 path intersects the Timer1 acquisition clock; it does not itself read SOC.
 
-Next precise targets: **clock-source/divider setup, equal-current conversion
-fast path and5:D83F..D893 reset decision**. Timer0 previous-word provenance
-and physical frequency remain open. Every verification is offline.
+## Reset decision before event scheduling
+
+[map_osd_clock_reset.py](../tools/map_osd_clock_reset.py) and its
+[report](maps/osd-clock-reset.json) verify196,608 argument-sweep fixtures,
+196,608 clock-sweep fixtures and300 complete static-clock calls.
+
+**5:D83F** receives R6:R7 as argument and snapshots the software counter
+through F73D. Its checked contract is:
+
+```text
+effective = min(argument, 61000)
+if snapshot_clock + effective > 61000:
+    reset clock; rebase active slots; return0
+else:
+    return snapshot_clock
+```
+
+The sum here is mathematical (no16-bit truncation). The original code first
+compares the wrapped16-bit sum to61000, then detects wrap separately.
+Together these implement the condition above. Equality61000 does not reset.
+With clock0, even argumentFFFF is clamped and does not reset. Clamping is
+local to the reset decision; it does not prove every caller's scheduling
+argument is independently clamped.
+
+All300 complete calls execute F73D and the original16-slot rebasing code
+with stable RAM42:43. They cover ten boundary arguments x ten clock values
+x active slot0/7/15; empty slots contain BEEF deadline bytes to verify their
+preservation. After reset, the active deadline is reduced by the original
+snapshot with saturation, clock/return become0, and its ID survives.
+
+The structure matches pinned
+[ScalerTimerCheckTimerEvent](https://github.com/Kingdomwhisky/RTD-Scaler-TEST/blob/3d38340ec8518a8888fd5d8dbb181c2a7418e11c/Kernel/Scaler/ScalerCommonFunction/Code/ScalerCommonTimerFunction.c#L2495).
+**STRONG EVIDENCE:** this is the scheduler's pre-allocation counter-range
+check. Reference units are nominal milliseconds; no physical61-second
+measurement is claimed for V020. F73D's concurrent snapshot/retry behavior
+remains separate from these static-clock fixtures.
+
+Next precise targets: **F73D snapshot guard**, clock-source/divider setup and
+equal-current conversion fast path. Timer0 previous-word provenance and
+physical frequency remain open. Every verification is offline.
 Preserve the distinction between clock provenance and a wall-clock rate.
 
 ```powershell
 uv run --locked --offline python tools/map_osd_clock.py $fw --out docs/maps/osd-clock.json
 uv run --locked --offline python tools/map_osd_timer2_setup.py $fw --out docs/maps/osd-timer2-setup.json
 uv run --locked --offline python tools/map_osd_timer_conversion.py $fw --out docs/maps/osd-timer-conversion.json
+uv run --locked --offline python tools/map_osd_clock_reset.py $fw --out docs/maps/osd-clock-reset.json
 ```

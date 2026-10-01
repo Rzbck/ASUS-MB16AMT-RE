@@ -1,6 +1,6 @@
 # ASUS MB16AMT V020 — OSD reverse-engineering atlas
 
-**CONFIRMED running timer conversion:** [OSD_CLOCK.md](OSD_CLOCK.md) adds131,072 arithmetic and640 complete Timer0/1 setup fixtures. Mode/running gates, backup formula, reload/SFR writes and Timer1 battery-acquisition clock link are documented. Physical timing remains unproved. Next clock-source/divider, equal-current fast path and reset decision. Full OSD map unfinished.
+**CONFIRMED scheduler clock reset decision:** [OSD_CLOCK.md](OSD_CLOCK.md) adds393,216 decision sweeps and300 whole static-clock calls. D83F caps its decision argument at61000 and resets/rebases only when the mathematical sum exceeds61000, including wrap. Reference scheduler identity is strong evidence; no measured physical duration. Next F73D snapshot and clock-source setup; full OSD map unfinished.
 
 The current objective is a complete, reproducible OSD map for later modification
 planning. **The complete map is not finished.** This page is the entry point;
