@@ -35,9 +35,9 @@ namespaces and must not be equated merely because their numeric values match.
 
 | Layer | Verified evidence | Remaining work |
 |---|---|---|
-| Bank/call ABI | Existing thunk inventory; current traversal 158,425 instructions, 52 recognized bounded tables, 20 unresolved indirect sites | Resolve OSD-relevant indirect flow; preserve static bank-model qualification |
+| Bank/call ABI | Default graph158,425 starts; verified callbacks extend it to166,916 (+8,491); 52 bounded tables, 20 unresolved indirect sites | Resolve OSD-relevant indirect flow; preserve static bank-model qualification |
 | Input/navigation | ADC/GPIO classifier/cache/hold verified; DD54 translation, DA6D publication/repeat timer01 and DA6C service mapped | Physical timing, button names, complete repeat flag lifecycle and menu transitions |
-| Menu states | DA6B setting selector; DA0A low nibble feeds nine category handlers through D823 | Handler labels, key transitions, modal dialogs, shortcut behavior |
+| Menu states | DA6B setting selector; DA0A feeds nine categories; normal/alternate command callback matrices checked | Handler labels, key transitions, modal dialogs, shortcut behavior |
 | Value reads | Full 8:5FEF contract; R7 selector, R5 mode; R7 result | Tie every OSD selection to label and adjustment handler |
 | Value updates | Scattered setters/DDC; hold validator, 36-byte page/FIFO/error save contract verified | Full adjustments, dirty flags and persistence for every setting; real storage completion |
 | Text selection | New 1:E43B resolver map; 256 selectors × R5 values 0/1 executed | Legal family index bounds, all variants, language segment selection |
@@ -80,6 +80,11 @@ Command follow-up: [OSD_COMMANDS.md](OSD_COMMANDS.md) connects the input word
 to DD54 translation, F9FB command publication and timer01 repeat flag.
 Setting01 input branches update the DA0A category nibble; handler identity
 and the complete flag lifecycle remain next.
+
+Callback follow-up: [OSD_HANDLERS.md](OSD_HANDLERS.md) maps DA6B/DA6D pointers
+through2133 and the carry-sensitive alternate guard, adding coherent handler
+bodies through explicit CFG roots. Shared prelude1934 ->10:FEB0 now has an
+exhaustive state-byte contract; its field consumers remain open.
 
 ## Text family/index resolver — new verified subchain
 

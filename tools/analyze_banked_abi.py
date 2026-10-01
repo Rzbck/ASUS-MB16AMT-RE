@@ -104,11 +104,13 @@ def verified_jump_tables(data):
     return tables
 
 
-def traverse(data, thunks):
+def traverse(data, thunks, extra_seeds=()):
     # These are static entry candidates: vectors and linker thunk destinations.
     # The latter need not all be reachable in the running configuration.
     seeds = {(bank, p) for bank in range(14) for p in (0, 3, 0xB, 0x13, 0x1B, 0x23, 0x2B, 0x33, 0x3B, 0x43)}
     seeds.update(thunks.values())
+    # Explicit caller-verified callback entries; default traversal is unchanged.
+    seeds.update(extra_seeds)
     jump_tables = verified_jump_tables(data)
     pending = deque(sorted(seeds))
     decoded, edges, indirect, reserved = {}, set(), set(), set()

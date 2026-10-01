@@ -1,0 +1,4955 @@
+{
+  "firmware_sha256": "1e75681279bf974d2810e6d2ed91aabbeda35de3fabe1881733aa8a12319cb0c",
+  "normal": {
+    "entry": "9:A23E..A26A",
+    "base": "9:8FAF",
+    "stride": 12,
+    "cell_stride": 3,
+    "checked_setting_range": "00..5D",
+    "commands": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "checks": 376,
+    "rows": [
+      {
+        "setting": "00",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:8FAF",
+            "tag": "FF",
+            "target": "9:FD5E"
+          },
+          {
+            "command": 1,
+            "cell": "9:8FB2",
+            "tag": "FF",
+            "target": "9:FDD4"
+          },
+          {
+            "command": 2,
+            "cell": "9:8FB5",
+            "tag": "FF",
+            "target": "9:FDD7"
+          },
+          {
+            "command": 3,
+            "cell": "9:8FB8",
+            "tag": "FF",
+            "target": "9:FD5E"
+          }
+        ]
+      },
+      {
+        "setting": "01",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:8FBB",
+            "tag": "FF",
+            "target": "9:FB43"
+          },
+          {
+            "command": 1,
+            "cell": "9:8FBE",
+            "tag": "FF",
+            "target": "9:F9AA"
+          },
+          {
+            "command": 2,
+            "cell": "9:8FC1",
+            "tag": "FF",
+            "target": "9:FDDA"
+          },
+          {
+            "command": 3,
+            "cell": "9:8FC4",
+            "tag": "FF",
+            "target": "9:FAC3"
+          }
+        ]
+      },
+      {
+        "setting": "02",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:8FC7",
+            "tag": "FF",
+            "target": "9:FB43"
+          },
+          {
+            "command": 1,
+            "cell": "9:8FCA",
+            "tag": "FF",
+            "target": "9:F9AA"
+          },
+          {
+            "command": 2,
+            "cell": "9:8FCD",
+            "tag": "FF",
+            "target": "9:FDDA"
+          },
+          {
+            "command": 3,
+            "cell": "9:8FD0",
+            "tag": "FF",
+            "target": "9:FAC3"
+          }
+        ]
+      },
+      {
+        "setting": "03",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:8FD3",
+            "tag": "FF",
+            "target": "9:F7EA"
+          },
+          {
+            "command": 1,
+            "cell": "9:8FD6",
+            "tag": "FF",
+            "target": "9:E2EA"
+          },
+          {
+            "command": 2,
+            "cell": "9:8FD9",
+            "tag": "FF",
+            "target": "9:FE4F"
+          },
+          {
+            "command": 3,
+            "cell": "9:8FDC",
+            "tag": "FF",
+            "target": "9:FDC2"
+          }
+        ]
+      },
+      {
+        "setting": "04",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:8FDF",
+            "tag": "FF",
+            "target": "9:FCE4"
+          },
+          {
+            "command": 1,
+            "cell": "9:8FE2",
+            "tag": "FF",
+            "target": "9:DEF8"
+          },
+          {
+            "command": 2,
+            "cell": "9:8FE5",
+            "tag": "FF",
+            "target": "9:FE52"
+          },
+          {
+            "command": 3,
+            "cell": "9:8FE8",
+            "tag": "FF",
+            "target": "9:FE55"
+          }
+        ]
+      },
+      {
+        "setting": "05",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:8FEB",
+            "tag": "FF",
+            "target": "9:E58A"
+          },
+          {
+            "command": 1,
+            "cell": "9:8FEE",
+            "tag": "FF",
+            "target": "9:DF8B"
+          },
+          {
+            "command": 2,
+            "cell": "9:8FF1",
+            "tag": "FF",
+            "target": "9:FE67"
+          },
+          {
+            "command": 3,
+            "cell": "9:8FF4",
+            "tag": "FF",
+            "target": "9:FE6A"
+          }
+        ]
+      },
+      {
+        "setting": "06",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:8FF7",
+            "tag": "FF",
+            "target": "9:F5B6"
+          },
+          {
+            "command": 1,
+            "cell": "9:8FFA",
+            "tag": "FF",
+            "target": "9:C3F8"
+          },
+          {
+            "command": 2,
+            "cell": "9:8FFD",
+            "tag": "FF",
+            "target": "9:FDE0"
+          },
+          {
+            "command": 3,
+            "cell": "9:9000",
+            "tag": "FF",
+            "target": "9:FAE3"
+          }
+        ]
+      },
+      {
+        "setting": "07",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9003",
+            "tag": "FF",
+            "target": "9:F351"
+          },
+          {
+            "command": 1,
+            "cell": "9:9006",
+            "tag": "FF",
+            "target": "9:C3F8"
+          },
+          {
+            "command": 2,
+            "cell": "9:9009",
+            "tag": "FF",
+            "target": "9:FDE0"
+          },
+          {
+            "command": 3,
+            "cell": "9:900C",
+            "tag": "FF",
+            "target": "9:FAE3"
+          }
+        ]
+      },
+      {
+        "setting": "08",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:900F",
+            "tag": "FF",
+            "target": "9:EF09"
+          },
+          {
+            "command": 1,
+            "cell": "9:9012",
+            "tag": "FF",
+            "target": "9:C3F8"
+          },
+          {
+            "command": 2,
+            "cell": "9:9015",
+            "tag": "FF",
+            "target": "9:FDE0"
+          },
+          {
+            "command": 3,
+            "cell": "9:9018",
+            "tag": "FF",
+            "target": "9:FAE3"
+          }
+        ]
+      },
+      {
+        "setting": "09",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:901B",
+            "tag": "FF",
+            "target": "9:EDD5"
+          },
+          {
+            "command": 1,
+            "cell": "9:901E",
+            "tag": "FF",
+            "target": "9:C3F8"
+          },
+          {
+            "command": 2,
+            "cell": "9:9021",
+            "tag": "FF",
+            "target": "9:FDE0"
+          },
+          {
+            "command": 3,
+            "cell": "9:9024",
+            "tag": "FF",
+            "target": "9:FAE3"
+          }
+        ]
+      },
+      {
+        "setting": "0A",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9027",
+            "tag": "FF",
+            "target": "9:FBCC"
+          },
+          {
+            "command": 1,
+            "cell": "9:902A",
+            "tag": "FF",
+            "target": "9:C3F8"
+          },
+          {
+            "command": 2,
+            "cell": "9:902D",
+            "tag": "FF",
+            "target": "9:FDE0"
+          },
+          {
+            "command": 3,
+            "cell": "9:9030",
+            "tag": "FF",
+            "target": "9:FAE3"
+          }
+        ]
+      },
+      {
+        "setting": "0B",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9033",
+            "tag": "FF",
+            "target": "9:EE22"
+          },
+          {
+            "command": 1,
+            "cell": "9:9036",
+            "tag": "FF",
+            "target": "9:C3F8"
+          },
+          {
+            "command": 2,
+            "cell": "9:9039",
+            "tag": "FF",
+            "target": "9:FDE0"
+          },
+          {
+            "command": 3,
+            "cell": "9:903C",
+            "tag": "FF",
+            "target": "9:FAE3"
+          }
+        ]
+      },
+      {
+        "setting": "0C",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:903F",
+            "tag": "FF",
+            "target": "9:FC9C"
+          },
+          {
+            "command": 1,
+            "cell": "9:9042",
+            "tag": "FF",
+            "target": "9:C3F8"
+          },
+          {
+            "command": 2,
+            "cell": "9:9045",
+            "tag": "FF",
+            "target": "9:FDE0"
+          },
+          {
+            "command": 3,
+            "cell": "9:9048",
+            "tag": "FF",
+            "target": "9:FAE3"
+          }
+        ]
+      },
+      {
+        "setting": "0D",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:904B",
+            "tag": "FF",
+            "target": "9:FA81"
+          },
+          {
+            "command": 1,
+            "cell": "9:904E",
+            "tag": "FF",
+            "target": "9:C3F8"
+          },
+          {
+            "command": 2,
+            "cell": "9:9051",
+            "tag": "FF",
+            "target": "9:FDE0"
+          },
+          {
+            "command": 3,
+            "cell": "9:9054",
+            "tag": "FF",
+            "target": "9:FAE3"
+          }
+        ]
+      },
+      {
+        "setting": "0E",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9057",
+            "tag": "FF",
+            "target": "9:FD1E"
+          },
+          {
+            "command": 1,
+            "cell": "9:905A",
+            "tag": "FF",
+            "target": "9:FDE3"
+          },
+          {
+            "command": 2,
+            "cell": "9:905D",
+            "tag": "FF",
+            "target": "9:FDE6"
+          },
+          {
+            "command": 3,
+            "cell": "9:9060",
+            "tag": "FF",
+            "target": "9:FDE9"
+          }
+        ]
+      },
+      {
+        "setting": "0F",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9063",
+            "tag": "FF",
+            "target": "9:FEFB"
+          },
+          {
+            "command": 1,
+            "cell": "9:9066",
+            "tag": "FF",
+            "target": "9:E507"
+          },
+          {
+            "command": 2,
+            "cell": "9:9069",
+            "tag": "FF",
+            "target": "9:FDEC"
+          },
+          {
+            "command": 3,
+            "cell": "9:906C",
+            "tag": "FF",
+            "target": "9:F9CF"
+          }
+        ]
+      },
+      {
+        "setting": "10",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:906F",
+            "tag": "FF",
+            "target": "9:FEFB"
+          },
+          {
+            "command": 1,
+            "cell": "9:9072",
+            "tag": "FF",
+            "target": "9:E507"
+          },
+          {
+            "command": 2,
+            "cell": "9:9075",
+            "tag": "FF",
+            "target": "9:FDEC"
+          },
+          {
+            "command": 3,
+            "cell": "9:9078",
+            "tag": "FF",
+            "target": "9:F9CF"
+          }
+        ]
+      },
+      {
+        "setting": "11",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:907B",
+            "tag": "FF",
+            "target": "9:FEFB"
+          },
+          {
+            "command": 1,
+            "cell": "9:907E",
+            "tag": "FF",
+            "target": "9:E507"
+          },
+          {
+            "command": 2,
+            "cell": "9:9081",
+            "tag": "FF",
+            "target": "9:FDEC"
+          },
+          {
+            "command": 3,
+            "cell": "9:9084",
+            "tag": "FF",
+            "target": "9:F9CF"
+          }
+        ]
+      },
+      {
+        "setting": "12",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9087",
+            "tag": "FF",
+            "target": "9:FEFB"
+          },
+          {
+            "command": 1,
+            "cell": "9:908A",
+            "tag": "FF",
+            "target": "9:E507"
+          },
+          {
+            "command": 2,
+            "cell": "9:908D",
+            "tag": "FF",
+            "target": "9:FDEC"
+          },
+          {
+            "command": 3,
+            "cell": "9:9090",
+            "tag": "FF",
+            "target": "9:F9CF"
+          }
+        ]
+      },
+      {
+        "setting": "13",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9093",
+            "tag": "FF",
+            "target": "9:FEFB"
+          },
+          {
+            "command": 1,
+            "cell": "9:9096",
+            "tag": "FF",
+            "target": "9:E507"
+          },
+          {
+            "command": 2,
+            "cell": "9:9099",
+            "tag": "FF",
+            "target": "9:FDEC"
+          },
+          {
+            "command": 3,
+            "cell": "9:909C",
+            "tag": "FF",
+            "target": "9:F9CF"
+          }
+        ]
+      },
+      {
+        "setting": "14",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:909F",
+            "tag": "FF",
+            "target": "9:FEFB"
+          },
+          {
+            "command": 1,
+            "cell": "9:90A2",
+            "tag": "FF",
+            "target": "9:E507"
+          },
+          {
+            "command": 2,
+            "cell": "9:90A5",
+            "tag": "FF",
+            "target": "9:FDEC"
+          },
+          {
+            "command": 3,
+            "cell": "9:90A8",
+            "tag": "FF",
+            "target": "9:F9CF"
+          }
+        ]
+      },
+      {
+        "setting": "15",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:90AB",
+            "tag": "FF",
+            "target": "9:FEFB"
+          },
+          {
+            "command": 1,
+            "cell": "9:90AE",
+            "tag": "FF",
+            "target": "9:E507"
+          },
+          {
+            "command": 2,
+            "cell": "9:90B1",
+            "tag": "FF",
+            "target": "9:FDEC"
+          },
+          {
+            "command": 3,
+            "cell": "9:90B4",
+            "tag": "FF",
+            "target": "9:F9CF"
+          }
+        ]
+      },
+      {
+        "setting": "16",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:90B7",
+            "tag": "FF",
+            "target": "9:FEFB"
+          },
+          {
+            "command": 1,
+            "cell": "9:90BA",
+            "tag": "FF",
+            "target": "9:E507"
+          },
+          {
+            "command": 2,
+            "cell": "9:90BD",
+            "tag": "FF",
+            "target": "9:FDEC"
+          },
+          {
+            "command": 3,
+            "cell": "9:90C0",
+            "tag": "FF",
+            "target": "9:F9CF"
+          }
+        ]
+      },
+      {
+        "setting": "17",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:90C3",
+            "tag": "FF",
+            "target": "9:FEFC"
+          },
+          {
+            "command": 1,
+            "cell": "9:90C6",
+            "tag": "FF",
+            "target": "9:C2C5"
+          },
+          {
+            "command": 2,
+            "cell": "9:90C9",
+            "tag": "FF",
+            "target": "9:FDEF"
+          },
+          {
+            "command": 3,
+            "cell": "9:90CC",
+            "tag": "FF",
+            "target": "9:F841"
+          }
+        ]
+      },
+      {
+        "setting": "18",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:90CF",
+            "tag": "FF",
+            "target": "9:FEFC"
+          },
+          {
+            "command": 1,
+            "cell": "9:90D2",
+            "tag": "FF",
+            "target": "9:C2C5"
+          },
+          {
+            "command": 2,
+            "cell": "9:90D5",
+            "tag": "FF",
+            "target": "9:FDEF"
+          },
+          {
+            "command": 3,
+            "cell": "9:90D8",
+            "tag": "FF",
+            "target": "9:F841"
+          }
+        ]
+      },
+      {
+        "setting": "19",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:90DB",
+            "tag": "FF",
+            "target": "9:FEFC"
+          },
+          {
+            "command": 1,
+            "cell": "9:90DE",
+            "tag": "FF",
+            "target": "9:C2C5"
+          },
+          {
+            "command": 2,
+            "cell": "9:90E1",
+            "tag": "FF",
+            "target": "9:FDEF"
+          },
+          {
+            "command": 3,
+            "cell": "9:90E4",
+            "tag": "FF",
+            "target": "9:F841"
+          }
+        ]
+      },
+      {
+        "setting": "1A",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:90E7",
+            "tag": "FF",
+            "target": "9:FEFC"
+          },
+          {
+            "command": 1,
+            "cell": "9:90EA",
+            "tag": "FF",
+            "target": "9:C2C5"
+          },
+          {
+            "command": 2,
+            "cell": "9:90ED",
+            "tag": "FF",
+            "target": "9:FDEF"
+          },
+          {
+            "command": 3,
+            "cell": "9:90F0",
+            "tag": "FF",
+            "target": "9:F841"
+          }
+        ]
+      },
+      {
+        "setting": "1B",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:90F3",
+            "tag": "FF",
+            "target": "9:FEFC"
+          },
+          {
+            "command": 1,
+            "cell": "9:90F6",
+            "tag": "FF",
+            "target": "9:C2C5"
+          },
+          {
+            "command": 2,
+            "cell": "9:90F9",
+            "tag": "FF",
+            "target": "9:FDEF"
+          },
+          {
+            "command": 3,
+            "cell": "9:90FC",
+            "tag": "FF",
+            "target": "9:F841"
+          }
+        ]
+      },
+      {
+        "setting": "1C",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:90FF",
+            "tag": "FF",
+            "target": "9:D3A2"
+          },
+          {
+            "command": 1,
+            "cell": "9:9102",
+            "tag": "FF",
+            "target": "9:CC1B"
+          },
+          {
+            "command": 2,
+            "cell": "9:9105",
+            "tag": "FF",
+            "target": "9:FDF2"
+          },
+          {
+            "command": 3,
+            "cell": "9:9108",
+            "tag": "FF",
+            "target": "9:F7BE"
+          }
+        ]
+      },
+      {
+        "setting": "1D",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:910B",
+            "tag": "FF",
+            "target": "9:D464"
+          },
+          {
+            "command": 1,
+            "cell": "9:910E",
+            "tag": "FF",
+            "target": "9:DBA6"
+          },
+          {
+            "command": 2,
+            "cell": "9:9111",
+            "tag": "FF",
+            "target": "9:FDF5"
+          },
+          {
+            "command": 3,
+            "cell": "9:9114",
+            "tag": "FF",
+            "target": "9:FDF8"
+          }
+        ]
+      },
+      {
+        "setting": "1E",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9117",
+            "tag": "FF",
+            "target": "9:CEC9"
+          },
+          {
+            "command": 1,
+            "cell": "9:911A",
+            "tag": "FF",
+            "target": "9:D149"
+          },
+          {
+            "command": 2,
+            "cell": "9:911D",
+            "tag": "FF",
+            "target": "9:FDFB"
+          },
+          {
+            "command": 3,
+            "cell": "9:9120",
+            "tag": "FF",
+            "target": "9:FDFE"
+          }
+        ]
+      },
+      {
+        "setting": "1F",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9123",
+            "tag": "FF",
+            "target": "9:F737"
+          },
+          {
+            "command": 1,
+            "cell": "9:9126",
+            "tag": "FF",
+            "target": "9:FD7F"
+          },
+          {
+            "command": 2,
+            "cell": "9:9129",
+            "tag": "FF",
+            "target": "9:FE01"
+          },
+          {
+            "command": 3,
+            "cell": "9:912C",
+            "tag": "FF",
+            "target": "9:FE04"
+          }
+        ]
+      },
+      {
+        "setting": "20",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:912F",
+            "tag": "FF",
+            "target": "9:F816"
+          },
+          {
+            "command": 1,
+            "cell": "9:9132",
+            "tag": "FF",
+            "target": "9:E483"
+          },
+          {
+            "command": 2,
+            "cell": "9:9135",
+            "tag": "FF",
+            "target": "9:FE07"
+          },
+          {
+            "command": 3,
+            "cell": "9:9138",
+            "tag": "FF",
+            "target": "9:FE0A"
+          }
+        ]
+      },
+      {
+        "setting": "21",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:913B",
+            "tag": "FF",
+            "target": "9:D526"
+          },
+          {
+            "command": 1,
+            "cell": "9:913E",
+            "tag": "FF",
+            "target": "9:CDE9"
+          },
+          {
+            "command": 2,
+            "cell": "9:9141",
+            "tag": "FF",
+            "target": "9:FE0D"
+          },
+          {
+            "command": 3,
+            "cell": "9:9144",
+            "tag": "FF",
+            "target": "9:F64B"
+          }
+        ]
+      },
+      {
+        "setting": "22",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9147",
+            "tag": "FF",
+            "target": "9:DC56"
+          },
+          {
+            "command": 1,
+            "cell": "9:914A",
+            "tag": "FF",
+            "target": "9:DD03"
+          },
+          {
+            "command": 2,
+            "cell": "9:914D",
+            "tag": "FF",
+            "target": "9:FE10"
+          },
+          {
+            "command": 3,
+            "cell": "9:9150",
+            "tag": "FF",
+            "target": "9:FE13"
+          }
+        ]
+      },
+      {
+        "setting": "23",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9153",
+            "tag": "FF",
+            "target": "9:F1CC"
+          },
+          {
+            "command": 1,
+            "cell": "9:9156",
+            "tag": "FF",
+            "target": "9:E1D0"
+          },
+          {
+            "command": 2,
+            "cell": "9:9159",
+            "tag": "FF",
+            "target": "9:FE16"
+          },
+          {
+            "command": 3,
+            "cell": "9:915C",
+            "tag": "FF",
+            "target": "9:FE19"
+          }
+        ]
+      },
+      {
+        "setting": "24",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:915F",
+            "tag": "FF",
+            "target": "9:DDB0"
+          },
+          {
+            "command": 1,
+            "cell": "9:9162",
+            "tag": "FF",
+            "target": "9:FD2B"
+          },
+          {
+            "command": 2,
+            "cell": "9:9165",
+            "tag": "FF",
+            "target": "9:FE1C"
+          },
+          {
+            "command": 3,
+            "cell": "9:9168",
+            "tag": "FF",
+            "target": "9:FE1F"
+          }
+        ]
+      },
+      {
+        "setting": "25",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:916B",
+            "tag": "FF",
+            "target": "9:F3CD"
+          },
+          {
+            "command": 1,
+            "cell": "9:916E",
+            "tag": "FF",
+            "target": "9:D764"
+          },
+          {
+            "command": 2,
+            "cell": "9:9171",
+            "tag": "FF",
+            "target": "9:FE22"
+          },
+          {
+            "command": 3,
+            "cell": "9:9174",
+            "tag": "FF",
+            "target": "9:FE25"
+          }
+        ]
+      },
+      {
+        "setting": "26",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9177",
+            "tag": "FF",
+            "target": "9:E937"
+          },
+          {
+            "command": 1,
+            "cell": "9:917A",
+            "tag": "FF",
+            "target": "9:F478"
+          },
+          {
+            "command": 2,
+            "cell": "9:917D",
+            "tag": "FF",
+            "target": "9:FE28"
+          },
+          {
+            "command": 3,
+            "cell": "9:9180",
+            "tag": "FF",
+            "target": "9:F67B"
+          }
+        ]
+      },
+      {
+        "setting": "27",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9183",
+            "tag": "FF",
+            "target": "9:E937"
+          },
+          {
+            "command": 1,
+            "cell": "9:9186",
+            "tag": "FF",
+            "target": "9:F478"
+          },
+          {
+            "command": 2,
+            "cell": "9:9189",
+            "tag": "FF",
+            "target": "9:FE28"
+          },
+          {
+            "command": 3,
+            "cell": "9:918C",
+            "tag": "FF",
+            "target": "9:F67B"
+          }
+        ]
+      },
+      {
+        "setting": "28",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:918F",
+            "tag": "FF",
+            "target": "9:F8BF"
+          },
+          {
+            "command": 1,
+            "cell": "9:9192",
+            "tag": "FF",
+            "target": "9:C031"
+          },
+          {
+            "command": 2,
+            "cell": "9:9195",
+            "tag": "FF",
+            "target": "9:FE2B"
+          },
+          {
+            "command": 3,
+            "cell": "9:9198",
+            "tag": "FF",
+            "target": "9:F406"
+          }
+        ]
+      },
+      {
+        "setting": "29",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:919B",
+            "tag": "FF",
+            "target": "9:F43F"
+          },
+          {
+            "command": 1,
+            "cell": "9:919E",
+            "tag": "FF",
+            "target": "9:E01E"
+          },
+          {
+            "command": 2,
+            "cell": "9:91A1",
+            "tag": "FF",
+            "target": "9:FE34"
+          },
+          {
+            "command": 3,
+            "cell": "9:91A4",
+            "tag": "FF",
+            "target": "9:FE37"
+          }
+        ]
+      },
+      {
+        "setting": "2A",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:91A7",
+            "tag": "FF",
+            "target": "9:CD06"
+          },
+          {
+            "command": 1,
+            "cell": "9:91AA",
+            "tag": "FF",
+            "target": "9:F2D3"
+          },
+          {
+            "command": 2,
+            "cell": "9:91AD",
+            "tag": "FF",
+            "target": "9:FE3A"
+          },
+          {
+            "command": 3,
+            "cell": "9:91B0",
+            "tag": "FF",
+            "target": "9:FE3D"
+          }
+        ]
+      },
+      {
+        "setting": "2B",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:91B3",
+            "tag": "FF",
+            "target": "9:D2DC"
+          },
+          {
+            "command": 1,
+            "cell": "9:91B6",
+            "tag": "FF",
+            "target": "9:D98C"
+          },
+          {
+            "command": 2,
+            "cell": "9:91B9",
+            "tag": "FF",
+            "target": "9:FE2E"
+          },
+          {
+            "command": 3,
+            "cell": "9:91BC",
+            "tag": "FF",
+            "target": "9:FE31"
+          }
+        ]
+      },
+      {
+        "setting": "2C",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:91BF",
+            "tag": "FF",
+            "target": "9:FE40"
+          },
+          {
+            "command": 1,
+            "cell": "9:91C2",
+            "tag": "FF",
+            "target": "9:E3FE"
+          },
+          {
+            "command": 2,
+            "cell": "9:91C5",
+            "tag": "FF",
+            "target": "9:FE43"
+          },
+          {
+            "command": 3,
+            "cell": "9:91C8",
+            "tag": "FF",
+            "target": "9:FE46"
+          }
+        ]
+      },
+      {
+        "setting": "2D",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:91CB",
+            "tag": "FF",
+            "target": "9:ED35"
+          },
+          {
+            "command": 1,
+            "cell": "9:91CE",
+            "tag": "FF",
+            "target": "9:FD89"
+          },
+          {
+            "command": 2,
+            "cell": "9:91D1",
+            "tag": "FF",
+            "target": "9:FE49"
+          },
+          {
+            "command": 3,
+            "cell": "9:91D4",
+            "tag": "FF",
+            "target": "9:FE4C"
+          }
+        ]
+      },
+      {
+        "setting": "2E",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:91D7",
+            "tag": "FF",
+            "target": "9:EAC6"
+          },
+          {
+            "command": 1,
+            "cell": "9:91DA",
+            "tag": "FF",
+            "target": "9:F312"
+          },
+          {
+            "command": 2,
+            "cell": "9:91DD",
+            "tag": "FF",
+            "target": "9:FE61"
+          },
+          {
+            "command": 3,
+            "cell": "9:91E0",
+            "tag": "FF",
+            "target": "9:FE64"
+          }
+        ]
+      },
+      {
+        "setting": "2F",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:91E3",
+            "tag": "FF",
+            "target": "9:EF9D"
+          },
+          {
+            "command": 1,
+            "cell": "9:91E6",
+            "tag": "FF",
+            "target": "9:F51D"
+          },
+          {
+            "command": 2,
+            "cell": "9:91E9",
+            "tag": "FF",
+            "target": "9:FE6D"
+          },
+          {
+            "command": 3,
+            "cell": "9:91EC",
+            "tag": "FF",
+            "target": "9:FE70"
+          }
+        ]
+      },
+      {
+        "setting": "30",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:91EF",
+            "tag": "FF",
+            "target": "9:F764"
+          },
+          {
+            "command": 1,
+            "cell": "9:91F2",
+            "tag": "FF",
+            "target": "9:E25E"
+          },
+          {
+            "command": 2,
+            "cell": "9:91F5",
+            "tag": "FF",
+            "target": "9:FE73"
+          },
+          {
+            "command": 3,
+            "cell": "9:91F8",
+            "tag": "FF",
+            "target": "9:FE76"
+          }
+        ]
+      },
+      {
+        "setting": "31",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:91FB",
+            "tag": "FF",
+            "target": "9:F144"
+          },
+          {
+            "command": 1,
+            "cell": "9:91FE",
+            "tag": "FF",
+            "target": "9:FD93"
+          },
+          {
+            "command": 2,
+            "cell": "9:9201",
+            "tag": "FF",
+            "target": "9:FE79"
+          },
+          {
+            "command": 3,
+            "cell": "9:9204",
+            "tag": "FF",
+            "target": "9:FE7C"
+          }
+        ]
+      },
+      {
+        "setting": "32",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9207",
+            "tag": "FF",
+            "target": "9:F550"
+          },
+          {
+            "command": 1,
+            "cell": "9:920A",
+            "tag": "FF",
+            "target": "9:FD9D"
+          },
+          {
+            "command": 2,
+            "cell": "9:920D",
+            "tag": "FF",
+            "target": "9:FE7F"
+          },
+          {
+            "command": 3,
+            "cell": "9:9210",
+            "tag": "FF",
+            "target": "9:FE82"
+          }
+        ]
+      },
+      {
+        "setting": "33",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9213",
+            "tag": "FF",
+            "target": "9:F074"
+          },
+          {
+            "command": 1,
+            "cell": "9:9216",
+            "tag": "FF",
+            "target": "9:F4B0"
+          },
+          {
+            "command": 2,
+            "cell": "9:9219",
+            "tag": "FF",
+            "target": "9:FE85"
+          },
+          {
+            "command": 3,
+            "cell": "9:921C",
+            "tag": "FF",
+            "target": "9:FE88"
+          }
+        ]
+      },
+      {
+        "setting": "34",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:921F",
+            "tag": "FF",
+            "target": "9:E375"
+          },
+          {
+            "command": 1,
+            "cell": "9:9222",
+            "tag": "FF",
+            "target": "9:FDA7"
+          },
+          {
+            "command": 2,
+            "cell": "9:9225",
+            "tag": "FF",
+            "target": "9:FE8B"
+          },
+          {
+            "command": 3,
+            "cell": "9:9228",
+            "tag": "FF",
+            "target": "9:FE8E"
+          }
+        ]
+      },
+      {
+        "setting": "35",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:922B",
+            "tag": "FF",
+            "target": "9:FE91"
+          },
+          {
+            "command": 1,
+            "cell": "9:922E",
+            "tag": "FF",
+            "target": "9:E140"
+          },
+          {
+            "command": 2,
+            "cell": "9:9231",
+            "tag": "FF",
+            "target": "9:FE94"
+          },
+          {
+            "command": 3,
+            "cell": "9:9234",
+            "tag": "FF",
+            "target": "9:FE97"
+          }
+        ]
+      },
+      {
+        "setting": "36",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9237",
+            "tag": "FF",
+            "target": "9:F20E"
+          },
+          {
+            "command": 1,
+            "cell": "9:923A",
+            "tag": "FF",
+            "target": "9:F583"
+          },
+          {
+            "command": 2,
+            "cell": "9:923D",
+            "tag": "FF",
+            "target": "9:FE9A"
+          },
+          {
+            "command": 3,
+            "cell": "9:9240",
+            "tag": "FF",
+            "target": "9:FE9D"
+          }
+        ]
+      },
+      {
+        "setting": "37",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9243",
+            "tag": "FF",
+            "target": "9:EE6F"
+          },
+          {
+            "command": 1,
+            "cell": "9:9246",
+            "tag": "FF",
+            "target": "9:F6AB"
+          },
+          {
+            "command": 2,
+            "cell": "9:9249",
+            "tag": "FF",
+            "target": "9:FEA0"
+          },
+          {
+            "command": 3,
+            "cell": "9:924C",
+            "tag": "FF",
+            "target": "9:F937"
+          }
+        ]
+      },
+      {
+        "setting": "38",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:924F",
+            "tag": "FF",
+            "target": "9:EE6F"
+          },
+          {
+            "command": 1,
+            "cell": "9:9252",
+            "tag": "FF",
+            "target": "9:F6AB"
+          },
+          {
+            "command": 2,
+            "cell": "9:9255",
+            "tag": "FF",
+            "target": "9:FEA0"
+          },
+          {
+            "command": 3,
+            "cell": "9:9258",
+            "tag": "FF",
+            "target": "9:F937"
+          }
+        ]
+      },
+      {
+        "setting": "39",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:925B",
+            "tag": "FF",
+            "target": "9:EE6F"
+          },
+          {
+            "command": 1,
+            "cell": "9:925E",
+            "tag": "FF",
+            "target": "9:F6AB"
+          },
+          {
+            "command": 2,
+            "cell": "9:9261",
+            "tag": "FF",
+            "target": "9:FEA0"
+          },
+          {
+            "command": 3,
+            "cell": "9:9264",
+            "tag": "FF",
+            "target": "9:F937"
+          }
+        ]
+      },
+      {
+        "setting": "3A",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9267",
+            "tag": "FF",
+            "target": "9:ED85"
+          },
+          {
+            "command": 1,
+            "cell": "9:926A",
+            "tag": "FF",
+            "target": "9:EA03"
+          },
+          {
+            "command": 2,
+            "cell": "9:926D",
+            "tag": "FF",
+            "target": "9:FEA6"
+          },
+          {
+            "command": 3,
+            "cell": "9:9270",
+            "tag": "FF",
+            "target": "9:FA5F"
+          }
+        ]
+      },
+      {
+        "setting": "3B",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9273",
+            "tag": "FF",
+            "target": "9:FEA9"
+          },
+          {
+            "command": 1,
+            "cell": "9:9276",
+            "tag": "FF",
+            "target": "9:FEAC"
+          },
+          {
+            "command": 2,
+            "cell": "9:9279",
+            "tag": "FF",
+            "target": "9:FEAF"
+          },
+          {
+            "command": 3,
+            "cell": "9:927C",
+            "tag": "FF",
+            "target": "9:FEB2"
+          }
+        ]
+      },
+      {
+        "setting": "3C",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:927F",
+            "tag": "FF",
+            "target": "9:FEB5"
+          },
+          {
+            "command": 1,
+            "cell": "9:9282",
+            "tag": "FF",
+            "target": "9:FEB8"
+          },
+          {
+            "command": 2,
+            "cell": "9:9285",
+            "tag": "FF",
+            "target": "9:FEBB"
+          },
+          {
+            "command": 3,
+            "cell": "9:9288",
+            "tag": "FF",
+            "target": "9:FEBE"
+          }
+        ]
+      },
+      {
+        "setting": "3D",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:928B",
+            "tag": "FF",
+            "target": "9:FEC1"
+          },
+          {
+            "command": 1,
+            "cell": "9:928E",
+            "tag": "FF",
+            "target": "9:FEC4"
+          },
+          {
+            "command": 2,
+            "cell": "9:9291",
+            "tag": "FF",
+            "target": "9:FEC7"
+          },
+          {
+            "command": 3,
+            "cell": "9:9294",
+            "tag": "FF",
+            "target": "9:FECA"
+          }
+        ]
+      },
+      {
+        "setting": "3E",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9297",
+            "tag": "FF",
+            "target": "9:F38F"
+          },
+          {
+            "command": 1,
+            "cell": "9:929A",
+            "tag": "FF",
+            "target": "9:D81E"
+          },
+          {
+            "command": 2,
+            "cell": "9:929D",
+            "tag": "FF",
+            "target": "9:FECD"
+          },
+          {
+            "command": 3,
+            "cell": "9:92A0",
+            "tag": "FF",
+            "target": "9:F86B"
+          }
+        ]
+      },
+      {
+        "setting": "3F",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:92A3",
+            "tag": "FF",
+            "target": "9:F38F"
+          },
+          {
+            "command": 1,
+            "cell": "9:92A6",
+            "tag": "FF",
+            "target": "9:D81E"
+          },
+          {
+            "command": 2,
+            "cell": "9:92A9",
+            "tag": "FF",
+            "target": "9:FECD"
+          },
+          {
+            "command": 3,
+            "cell": "9:92AC",
+            "tag": "FF",
+            "target": "9:F86B"
+          }
+        ]
+      },
+      {
+        "setting": "40",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:92AF",
+            "tag": "FF",
+            "target": "9:F38F"
+          },
+          {
+            "command": 1,
+            "cell": "9:92B2",
+            "tag": "FF",
+            "target": "9:D81E"
+          },
+          {
+            "command": 2,
+            "cell": "9:92B5",
+            "tag": "FF",
+            "target": "9:FECD"
+          },
+          {
+            "command": 3,
+            "cell": "9:92B8",
+            "tag": "FF",
+            "target": "9:F86B"
+          }
+        ]
+      },
+      {
+        "setting": "41",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:92BB",
+            "tag": "FF",
+            "target": "9:F38F"
+          },
+          {
+            "command": 1,
+            "cell": "9:92BE",
+            "tag": "FF",
+            "target": "9:D81E"
+          },
+          {
+            "command": 2,
+            "cell": "9:92C1",
+            "tag": "FF",
+            "target": "9:FECD"
+          },
+          {
+            "command": 3,
+            "cell": "9:92C4",
+            "tag": "FF",
+            "target": "9:F86B"
+          }
+        ]
+      },
+      {
+        "setting": "42",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:92C7",
+            "tag": "FF",
+            "target": "9:FEFD"
+          },
+          {
+            "command": 1,
+            "cell": "9:92CA",
+            "tag": "FF",
+            "target": "9:E8CE"
+          },
+          {
+            "command": 2,
+            "cell": "9:92CD",
+            "tag": "FF",
+            "target": "9:FE58"
+          },
+          {
+            "command": 3,
+            "cell": "9:92D0",
+            "tag": "FF",
+            "target": "9:F95E"
+          }
+        ]
+      },
+      {
+        "setting": "43",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:92D3",
+            "tag": "FF",
+            "target": "9:F709"
+          },
+          {
+            "command": 1,
+            "cell": "9:92D6",
+            "tag": "FF",
+            "target": "9:F0BA"
+          },
+          {
+            "command": 2,
+            "cell": "9:92D9",
+            "tag": "FF",
+            "target": "9:FE5B"
+          },
+          {
+            "command": 3,
+            "cell": "9:92DC",
+            "tag": "FF",
+            "target": "9:FE5E"
+          }
+        ]
+      },
+      {
+        "setting": "44",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:92DF",
+            "tag": "FF",
+            "target": "9:ECE3"
+          },
+          {
+            "command": 1,
+            "cell": "9:92E2",
+            "tag": "FF",
+            "target": "9:EB85"
+          },
+          {
+            "command": 2,
+            "cell": "9:92E5",
+            "tag": "FF",
+            "target": "9:FED0"
+          },
+          {
+            "command": 3,
+            "cell": "9:92E8",
+            "tag": "FF",
+            "target": "9:F984"
+          }
+        ]
+      },
+      {
+        "setting": "45",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:92EB",
+            "tag": "FF",
+            "target": "9:F61A"
+          },
+          {
+            "command": 1,
+            "cell": "9:92EE",
+            "tag": "FF",
+            "target": "9:E99F"
+          },
+          {
+            "command": 2,
+            "cell": "9:92F1",
+            "tag": "FF",
+            "target": "9:FED3"
+          },
+          {
+            "command": 3,
+            "cell": "9:92F4",
+            "tag": "FF",
+            "target": "9:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "46",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:92F7",
+            "tag": "FF",
+            "target": "9:EFE6"
+          },
+          {
+            "command": 1,
+            "cell": "9:92FA",
+            "tag": "FF",
+            "target": "9:F02D"
+          },
+          {
+            "command": 2,
+            "cell": "9:92FD",
+            "tag": "FF",
+            "target": "9:FED9"
+          },
+          {
+            "command": 3,
+            "cell": "9:9300",
+            "tag": "FF",
+            "target": "9:FEDC"
+          }
+        ]
+      },
+      {
+        "setting": "47",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9303",
+            "tag": "FF",
+            "target": "9:FEFE"
+          },
+          {
+            "command": 1,
+            "cell": "9:9306",
+            "tag": "FF",
+            "target": "9:DE5C"
+          },
+          {
+            "command": 2,
+            "cell": "9:9309",
+            "tag": "FF",
+            "target": "9:FEA3"
+          },
+          {
+            "command": 3,
+            "cell": "9:930C",
+            "tag": "FF",
+            "target": "9:FBB2"
+          }
+        ]
+      },
+      {
+        "setting": "48",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:930F",
+            "tag": "FF",
+            "target": "9:FEFE"
+          },
+          {
+            "command": 1,
+            "cell": "9:9312",
+            "tag": "FF",
+            "target": "9:DE5C"
+          },
+          {
+            "command": 2,
+            "cell": "9:9315",
+            "tag": "FF",
+            "target": "9:FEA3"
+          },
+          {
+            "command": 3,
+            "cell": "9:9318",
+            "tag": "FF",
+            "target": "9:FBB2"
+          }
+        ]
+      },
+      {
+        "setting": "49",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:931B",
+            "tag": "FF",
+            "target": "9:FEFE"
+          },
+          {
+            "command": 1,
+            "cell": "9:931E",
+            "tag": "FF",
+            "target": "9:DE5C"
+          },
+          {
+            "command": 2,
+            "cell": "9:9321",
+            "tag": "FF",
+            "target": "9:FEA3"
+          },
+          {
+            "command": 3,
+            "cell": "9:9324",
+            "tag": "FF",
+            "target": "9:FBB2"
+          }
+        ]
+      },
+      {
+        "setting": "4A",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9327",
+            "tag": "FF",
+            "target": "9:FEFE"
+          },
+          {
+            "command": 1,
+            "cell": "9:932A",
+            "tag": "FF",
+            "target": "9:DE5C"
+          },
+          {
+            "command": 2,
+            "cell": "9:932D",
+            "tag": "FF",
+            "target": "9:FEA3"
+          },
+          {
+            "command": 3,
+            "cell": "9:9330",
+            "tag": "FF",
+            "target": "9:FBB2"
+          }
+        ]
+      },
+      {
+        "setting": "4B",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9333",
+            "tag": "FF",
+            "target": "9:FEFE"
+          },
+          {
+            "command": 1,
+            "cell": "9:9336",
+            "tag": "FF",
+            "target": "9:DE5C"
+          },
+          {
+            "command": 2,
+            "cell": "9:9339",
+            "tag": "FF",
+            "target": "9:FEA3"
+          },
+          {
+            "command": 3,
+            "cell": "9:933C",
+            "tag": "FF",
+            "target": "9:FBB2"
+          }
+        ]
+      },
+      {
+        "setting": "4C",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:933F",
+            "tag": "FF",
+            "target": "9:FEFE"
+          },
+          {
+            "command": 1,
+            "cell": "9:9342",
+            "tag": "FF",
+            "target": "9:DE5C"
+          },
+          {
+            "command": 2,
+            "cell": "9:9345",
+            "tag": "FF",
+            "target": "9:FEA3"
+          },
+          {
+            "command": 3,
+            "cell": "9:9348",
+            "tag": "FF",
+            "target": "9:FBB2"
+          }
+        ]
+      },
+      {
+        "setting": "4D",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:934B",
+            "tag": "FF",
+            "target": "9:FEFE"
+          },
+          {
+            "command": 1,
+            "cell": "9:934E",
+            "tag": "FF",
+            "target": "9:DE5C"
+          },
+          {
+            "command": 2,
+            "cell": "9:9351",
+            "tag": "FF",
+            "target": "9:FEA3"
+          },
+          {
+            "command": 3,
+            "cell": "9:9354",
+            "tag": "FF",
+            "target": "9:FBB2"
+          }
+        ]
+      },
+      {
+        "setting": "4E",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9357",
+            "tag": "FF",
+            "target": "9:FEFE"
+          },
+          {
+            "command": 1,
+            "cell": "9:935A",
+            "tag": "FF",
+            "target": "9:DE5C"
+          },
+          {
+            "command": 2,
+            "cell": "9:935D",
+            "tag": "FF",
+            "target": "9:FEA3"
+          },
+          {
+            "command": 3,
+            "cell": "9:9360",
+            "tag": "FF",
+            "target": "9:FBB2"
+          }
+        ]
+      },
+      {
+        "setting": "4F",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9363",
+            "tag": "FF",
+            "target": "9:FEFE"
+          },
+          {
+            "command": 1,
+            "cell": "9:9366",
+            "tag": "FF",
+            "target": "9:DE5C"
+          },
+          {
+            "command": 2,
+            "cell": "9:9369",
+            "tag": "FF",
+            "target": "9:FEA3"
+          },
+          {
+            "command": 3,
+            "cell": "9:936C",
+            "tag": "FF",
+            "target": "9:FBB2"
+          }
+        ]
+      },
+      {
+        "setting": "50",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:936F",
+            "tag": "FF",
+            "target": "9:CA3A"
+          },
+          {
+            "command": 1,
+            "cell": "9:9372",
+            "tag": "FF",
+            "target": "9:C523"
+          },
+          {
+            "command": 2,
+            "cell": "9:9375",
+            "tag": "FF",
+            "target": "9:FEDF"
+          },
+          {
+            "command": 3,
+            "cell": "9:9378",
+            "tag": "FF",
+            "target": "9:F9F4"
+          }
+        ]
+      },
+      {
+        "setting": "51",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:937B",
+            "tag": "FF",
+            "target": "9:CA3A"
+          },
+          {
+            "command": 1,
+            "cell": "9:937E",
+            "tag": "FF",
+            "target": "9:C523"
+          },
+          {
+            "command": 2,
+            "cell": "9:9381",
+            "tag": "FF",
+            "target": "9:FEDF"
+          },
+          {
+            "command": 3,
+            "cell": "9:9384",
+            "tag": "FF",
+            "target": "9:F9F4"
+          }
+        ]
+      },
+      {
+        "setting": "52",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9387",
+            "tag": "FF",
+            "target": "9:CA3A"
+          },
+          {
+            "command": 1,
+            "cell": "9:938A",
+            "tag": "FF",
+            "target": "9:C523"
+          },
+          {
+            "command": 2,
+            "cell": "9:938D",
+            "tag": "FF",
+            "target": "9:FEDF"
+          },
+          {
+            "command": 3,
+            "cell": "9:9390",
+            "tag": "FF",
+            "target": "9:F9F4"
+          }
+        ]
+      },
+      {
+        "setting": "53",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:9393",
+            "tag": "FF",
+            "target": "9:F250"
+          },
+          {
+            "command": 1,
+            "cell": "9:9396",
+            "tag": "FF",
+            "target": "9:F6DA"
+          },
+          {
+            "command": 2,
+            "cell": "9:9399",
+            "tag": "FF",
+            "target": "9:FEE2"
+          },
+          {
+            "command": 3,
+            "cell": "9:939C",
+            "tag": "FF",
+            "target": "9:FCAE"
+          }
+        ]
+      },
+      {
+        "setting": "54",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:939F",
+            "tag": "FF",
+            "target": "9:EF53"
+          },
+          {
+            "command": 1,
+            "cell": "9:93A2",
+            "tag": "FF",
+            "target": "9:E687"
+          },
+          {
+            "command": 2,
+            "cell": "9:93A5",
+            "tag": "FF",
+            "target": "9:FEE5"
+          },
+          {
+            "command": 3,
+            "cell": "9:93A8",
+            "tag": "FF",
+            "target": "9:FBE3"
+          }
+        ]
+      },
+      {
+        "setting": "55",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:93AB",
+            "tag": "FF",
+            "target": "9:DAF3"
+          },
+          {
+            "command": 1,
+            "cell": "9:93AE",
+            "tag": "FF",
+            "target": "9:FA3C"
+          },
+          {
+            "command": 2,
+            "cell": "9:93B1",
+            "tag": "FF",
+            "target": "9:FEE8"
+          },
+          {
+            "command": 3,
+            "cell": "9:93B4",
+            "tag": "FF",
+            "target": "9:FDB1"
+          }
+        ]
+      },
+      {
+        "setting": "56",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:93B7",
+            "tag": "FF",
+            "target": "9:C63A"
+          },
+          {
+            "command": 1,
+            "cell": "9:93BA",
+            "tag": "FF",
+            "target": "9:E7F9"
+          },
+          {
+            "command": 2,
+            "cell": "9:93BD",
+            "tag": "FF",
+            "target": "9:FEEB"
+          },
+          {
+            "command": 3,
+            "cell": "9:93C0",
+            "tag": "FF",
+            "target": "9:FA18"
+          }
+        ]
+      },
+      {
+        "setting": "57",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:93C3",
+            "tag": "FF",
+            "target": "9:F4E8"
+          },
+          {
+            "command": 1,
+            "cell": "9:93C6",
+            "tag": "FF",
+            "target": "9:B01B"
+          },
+          {
+            "command": 2,
+            "cell": "9:93C9",
+            "tag": "FF",
+            "target": "9:FEEE"
+          },
+          {
+            "command": 3,
+            "cell": "9:93CC",
+            "tag": "FF",
+            "target": "9:FB03"
+          }
+        ]
+      },
+      {
+        "setting": "58",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:93CF",
+            "tag": "FF",
+            "target": "9:FEFA"
+          },
+          {
+            "command": 1,
+            "cell": "9:93D2",
+            "tag": "FF",
+            "target": "9:FEFA"
+          },
+          {
+            "command": 2,
+            "cell": "9:93D5",
+            "tag": "FF",
+            "target": "9:FEFA"
+          },
+          {
+            "command": 3,
+            "cell": "9:93D8",
+            "tag": "FF",
+            "target": "9:FEFA"
+          }
+        ]
+      },
+      {
+        "setting": "59",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:93DB",
+            "tag": "FF",
+            "target": "9:FB5F"
+          },
+          {
+            "command": 1,
+            "cell": "9:93DE",
+            "tag": "FF",
+            "target": "9:FC26"
+          },
+          {
+            "command": 2,
+            "cell": "9:93E1",
+            "tag": "FF",
+            "target": "9:FEF1"
+          },
+          {
+            "command": 3,
+            "cell": "9:93E4",
+            "tag": "FF",
+            "target": "9:FCC0"
+          }
+        ]
+      },
+      {
+        "setting": "5A",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:93E7",
+            "tag": "FF",
+            "target": "9:FCD2"
+          },
+          {
+            "command": 1,
+            "cell": "9:93EA",
+            "tag": "FF",
+            "target": "9:FC50"
+          },
+          {
+            "command": 2,
+            "cell": "9:93ED",
+            "tag": "FF",
+            "target": "9:FC3B"
+          },
+          {
+            "command": 3,
+            "cell": "9:93F0",
+            "tag": "FF",
+            "target": "9:FB7B"
+          }
+        ]
+      },
+      {
+        "setting": "5B",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:93F3",
+            "tag": "FF",
+            "target": "9:FD5E"
+          },
+          {
+            "command": 1,
+            "cell": "9:93F6",
+            "tag": "FF",
+            "target": "9:FD5E"
+          },
+          {
+            "command": 2,
+            "cell": "9:93F9",
+            "tag": "FF",
+            "target": "9:FD5E"
+          },
+          {
+            "command": 3,
+            "cell": "9:93FC",
+            "tag": "FF",
+            "target": "9:FD5E"
+          }
+        ]
+      },
+      {
+        "setting": "5C",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:93FF",
+            "tag": "FF",
+            "target": "9:165E"
+          },
+          {
+            "command": 1,
+            "cell": "9:9402",
+            "tag": "FF",
+            "target": "9:E864"
+          },
+          {
+            "command": 2,
+            "cell": "9:9405",
+            "tag": "FF",
+            "target": "9:FEF4"
+          },
+          {
+            "command": 3,
+            "cell": "9:9408",
+            "tag": "FF",
+            "target": "9:FEF7"
+          }
+        ]
+      },
+      {
+        "setting": "5D",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "9:940B",
+            "tag": "FF",
+            "target": "9:FC8A"
+          },
+          {
+            "command": 1,
+            "cell": "9:940E",
+            "tag": "FF",
+            "target": "9:EB26"
+          },
+          {
+            "command": 2,
+            "cell": "9:9411",
+            "tag": "FF",
+            "target": "9:FDDD"
+          },
+          {
+            "command": 3,
+            "cell": "9:9414",
+            "tag": "FF",
+            "target": "9:FD11"
+          }
+        ]
+      }
+    ],
+    "qualification": "No local setting/command bound at A23E; tested range follows the normal/alternate partition and FF-tagged cells. Out-of-range reads are not classified as callbacks."
+  },
+  "alternate": {
+    "entry": "8:E49A..E4EB",
+    "base": "8:38C0",
+    "guard_setting_range": "5E..A8",
+    "checks": 65536,
+    "selected_cases": 300,
+    "common_exit_cases": 150,
+    "commands": "0..3 select table; 4/5 jump FED6 -> F7D5; >=6 return",
+    "rows": [
+      {
+        "setting": "5E",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3D28",
+            "tag": "FF",
+            "target": "8:FE92"
+          },
+          {
+            "command": 1,
+            "cell": "8:3D2B",
+            "tag": "FF",
+            "target": "8:F596"
+          },
+          {
+            "command": 2,
+            "cell": "8:3D2E",
+            "tag": "FF",
+            "target": "8:F822"
+          },
+          {
+            "command": 3,
+            "cell": "8:3D31",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "5F",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3D34",
+            "tag": "FF",
+            "target": "8:F831"
+          },
+          {
+            "command": 1,
+            "cell": "8:3D37",
+            "tag": "FF",
+            "target": "8:FB09"
+          },
+          {
+            "command": 2,
+            "cell": "8:3D3A",
+            "tag": "FF",
+            "target": "8:F840"
+          },
+          {
+            "command": 3,
+            "cell": "8:3D3D",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "60",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3D40",
+            "tag": "FF",
+            "target": "8:F84F"
+          },
+          {
+            "command": 1,
+            "cell": "8:3D43",
+            "tag": "FF",
+            "target": "8:FB16"
+          },
+          {
+            "command": 2,
+            "cell": "8:3D46",
+            "tag": "FF",
+            "target": "8:F85E"
+          },
+          {
+            "command": 3,
+            "cell": "8:3D49",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "61",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3D4C",
+            "tag": "FF",
+            "target": "8:F86D"
+          },
+          {
+            "command": 1,
+            "cell": "8:3D4F",
+            "tag": "FF",
+            "target": "8:FB23"
+          },
+          {
+            "command": 2,
+            "cell": "8:3D52",
+            "tag": "FF",
+            "target": "8:FB30"
+          },
+          {
+            "command": 3,
+            "cell": "8:3D55",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "62",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3D58",
+            "tag": "FF",
+            "target": "8:F87C"
+          },
+          {
+            "command": 1,
+            "cell": "8:3D5B",
+            "tag": "FF",
+            "target": "8:FB3D"
+          },
+          {
+            "command": 2,
+            "cell": "8:3D5E",
+            "tag": "FF",
+            "target": "8:FB4A"
+          },
+          {
+            "command": 3,
+            "cell": "8:3D61",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "63",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3D64",
+            "tag": "FF",
+            "target": "8:F88B"
+          },
+          {
+            "command": 1,
+            "cell": "8:3D67",
+            "tag": "FF",
+            "target": "8:FB57"
+          },
+          {
+            "command": 2,
+            "cell": "8:3D6A",
+            "tag": "FF",
+            "target": "8:FB64"
+          },
+          {
+            "command": 3,
+            "cell": "8:3D6D",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "64",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3D70",
+            "tag": "FF",
+            "target": "8:F89A"
+          },
+          {
+            "command": 1,
+            "cell": "8:3D73",
+            "tag": "FF",
+            "target": "8:F0DF"
+          },
+          {
+            "command": 2,
+            "cell": "8:3D76",
+            "tag": "FF",
+            "target": "8:FB71"
+          },
+          {
+            "command": 3,
+            "cell": "8:3D79",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "65",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3D7C",
+            "tag": "FF",
+            "target": "8:F5A7"
+          },
+          {
+            "command": 1,
+            "cell": "8:3D7F",
+            "tag": "FF",
+            "target": "8:F8A9"
+          },
+          {
+            "command": 2,
+            "cell": "8:3D82",
+            "tag": "FF",
+            "target": "8:F0FC"
+          },
+          {
+            "command": 3,
+            "cell": "8:3D85",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "66",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3D88",
+            "tag": "FF",
+            "target": "8:F5B8"
+          },
+          {
+            "command": 1,
+            "cell": "8:3D8B",
+            "tag": "FF",
+            "target": "8:F8B8"
+          },
+          {
+            "command": 2,
+            "cell": "8:3D8E",
+            "tag": "FF",
+            "target": "8:F5C9"
+          },
+          {
+            "command": 3,
+            "cell": "8:3D91",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "67",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3D94",
+            "tag": "FF",
+            "target": "8:F5DA"
+          },
+          {
+            "command": 1,
+            "cell": "8:3D97",
+            "tag": "FF",
+            "target": "8:EF09"
+          },
+          {
+            "command": 2,
+            "cell": "8:3D9A",
+            "tag": "FF",
+            "target": "8:F8C7"
+          },
+          {
+            "command": 3,
+            "cell": "8:3D9D",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "68",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3DA0",
+            "tag": "FF",
+            "target": "8:F5EB"
+          },
+          {
+            "command": 1,
+            "cell": "8:3DA3",
+            "tag": "FF",
+            "target": "8:F8D6"
+          },
+          {
+            "command": 2,
+            "cell": "8:3DA6",
+            "tag": "FF",
+            "target": "8:EFCD"
+          },
+          {
+            "command": 3,
+            "cell": "8:3DA9",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "69",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3DAC",
+            "tag": "FF",
+            "target": "8:F5FC"
+          },
+          {
+            "command": 1,
+            "cell": "8:3DAF",
+            "tag": "FF",
+            "target": "8:F8E5"
+          },
+          {
+            "command": 2,
+            "cell": "8:3DB2",
+            "tag": "FF",
+            "target": "8:F8F4"
+          },
+          {
+            "command": 3,
+            "cell": "8:3DB5",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "6A",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3DB8",
+            "tag": "FF",
+            "target": "8:F60D"
+          },
+          {
+            "command": 1,
+            "cell": "8:3DBB",
+            "tag": "FF",
+            "target": "8:EF2A"
+          },
+          {
+            "command": 2,
+            "cell": "8:3DBE",
+            "tag": "FF",
+            "target": "8:F903"
+          },
+          {
+            "command": 3,
+            "cell": "8:3DC1",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "6B",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3DC4",
+            "tag": "FF",
+            "target": "8:F61E"
+          },
+          {
+            "command": 1,
+            "cell": "8:3DC7",
+            "tag": "FF",
+            "target": "8:F912"
+          },
+          {
+            "command": 2,
+            "cell": "8:3DCA",
+            "tag": "FF",
+            "target": "8:EF4B"
+          },
+          {
+            "command": 3,
+            "cell": "8:3DCD",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "6C",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3DD0",
+            "tag": "FF",
+            "target": "8:F62F"
+          },
+          {
+            "command": 1,
+            "cell": "8:3DD3",
+            "tag": "FF",
+            "target": "8:F921"
+          },
+          {
+            "command": 2,
+            "cell": "8:3DD6",
+            "tag": "FF",
+            "target": "8:F930"
+          },
+          {
+            "command": 3,
+            "cell": "8:3DD9",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "6D",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3DDC",
+            "tag": "FF",
+            "target": "8:F640"
+          },
+          {
+            "command": 1,
+            "cell": "8:3DDF",
+            "tag": "FF",
+            "target": "8:F049"
+          },
+          {
+            "command": 2,
+            "cell": "8:3DE2",
+            "tag": "FF",
+            "target": "8:F93F"
+          },
+          {
+            "command": 3,
+            "cell": "8:3DE5",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "6E",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3DE8",
+            "tag": "FF",
+            "target": "8:F651"
+          },
+          {
+            "command": 1,
+            "cell": "8:3DEB",
+            "tag": "FF",
+            "target": "8:F94E"
+          },
+          {
+            "command": 2,
+            "cell": "8:3DEE",
+            "tag": "FF",
+            "target": "8:EF6C"
+          },
+          {
+            "command": 3,
+            "cell": "8:3DF1",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "6F",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3DF4",
+            "tag": "FF",
+            "target": "8:F662"
+          },
+          {
+            "command": 1,
+            "cell": "8:3DF7",
+            "tag": "FF",
+            "target": "8:F95D"
+          },
+          {
+            "command": 2,
+            "cell": "8:3DFA",
+            "tag": "FF",
+            "target": "8:F96C"
+          },
+          {
+            "command": 3,
+            "cell": "8:3DFD",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "70",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E00",
+            "tag": "FF",
+            "target": "8:F673"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E03",
+            "tag": "FF",
+            "target": "8:ED24"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E06",
+            "tag": "FF",
+            "target": "8:F97B"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E09",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "71",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E0C",
+            "tag": "FF",
+            "target": "8:F684"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E0F",
+            "tag": "FF",
+            "target": "8:F98A"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E12",
+            "tag": "FF",
+            "target": "8:EDEE"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E15",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "72",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E18",
+            "tag": "FF",
+            "target": "8:F695"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E1B",
+            "tag": "FF",
+            "target": "8:F999"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E1E",
+            "tag": "FF",
+            "target": "8:F9A8"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E21",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "73",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E24",
+            "tag": "FF",
+            "target": "8:F6A6"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E27",
+            "tag": "FF",
+            "target": "8:EDA1"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E2A",
+            "tag": "FF",
+            "target": "8:F9B7"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E2D",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "74",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E30",
+            "tag": "FF",
+            "target": "8:F6B7"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E33",
+            "tag": "FF",
+            "target": "8:F9C6"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E36",
+            "tag": "FF",
+            "target": "8:ED4E"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E39",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "75",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E3C",
+            "tag": "FF",
+            "target": "8:F6C8"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E3F",
+            "tag": "FF",
+            "target": "8:F9D5"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E42",
+            "tag": "FF",
+            "target": "8:F9E4"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E45",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "76",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E48",
+            "tag": "FF",
+            "target": "8:F6D9"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E4B",
+            "tag": "FF",
+            "target": "8:F6EA"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E4E",
+            "tag": "FF",
+            "target": "8:F9F3"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E51",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "77",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E54",
+            "tag": "FF",
+            "target": "8:F6FB"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E57",
+            "tag": "FF",
+            "target": "8:FA02"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E5A",
+            "tag": "FF",
+            "target": "8:F119"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E5D",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "78",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E60",
+            "tag": "FF",
+            "target": "8:F70C"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E63",
+            "tag": "FF",
+            "target": "8:F71D"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E66",
+            "tag": "FF",
+            "target": "8:F72E"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E69",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "79",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E6C",
+            "tag": "FF",
+            "target": "8:F73F"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E6F",
+            "tag": "FF",
+            "target": "8:F00C"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E72",
+            "tag": "FF",
+            "target": "8:FA11"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E75",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "7A",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E78",
+            "tag": "FF",
+            "target": "8:F750"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E7B",
+            "tag": "FF",
+            "target": "8:F067"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E7E",
+            "tag": "FF",
+            "target": "8:F32C"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E81",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "7B",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E84",
+            "tag": "FF",
+            "target": "8:F761"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E87",
+            "tag": "FF",
+            "target": "8:F18A"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E8A",
+            "tag": "FF",
+            "target": "8:F085"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E8D",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "7C",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E90",
+            "tag": "FF",
+            "target": "8:F2E3"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E93",
+            "tag": "FF",
+            "target": "8:F384"
+          },
+          {
+            "command": 2,
+            "cell": "8:3E96",
+            "tag": "FF",
+            "target": "8:F0A3"
+          },
+          {
+            "command": 3,
+            "cell": "8:3E99",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "7D",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3E9C",
+            "tag": "FF",
+            "target": "8:FA20"
+          },
+          {
+            "command": 1,
+            "cell": "8:3E9F",
+            "tag": "FF",
+            "target": "8:FA2F"
+          },
+          {
+            "command": 2,
+            "cell": "8:3EA2",
+            "tag": "FF",
+            "target": "8:FB7E"
+          },
+          {
+            "command": 3,
+            "cell": "8:3EA5",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "7E",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3EA8",
+            "tag": "FF",
+            "target": "8:FEAE"
+          },
+          {
+            "command": 1,
+            "cell": "8:3EAB",
+            "tag": "FF",
+            "target": "8:FB98"
+          },
+          {
+            "command": 2,
+            "cell": "8:3EAE",
+            "tag": "FF",
+            "target": "8:FB8B"
+          },
+          {
+            "command": 3,
+            "cell": "8:3EB1",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "7F",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3EB4",
+            "tag": "FF",
+            "target": "8:FEB3"
+          },
+          {
+            "command": 1,
+            "cell": "8:3EB7",
+            "tag": "FF",
+            "target": "8:F772"
+          },
+          {
+            "command": 2,
+            "cell": "8:3EBA",
+            "tag": "FF",
+            "target": "8:F783"
+          },
+          {
+            "command": 3,
+            "cell": "8:3EBD",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "80",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3EC0",
+            "tag": "FF",
+            "target": "8:FA3E"
+          },
+          {
+            "command": 1,
+            "cell": "8:3EC3",
+            "tag": "FF",
+            "target": "8:FBA5"
+          },
+          {
+            "command": 2,
+            "cell": "8:3EC6",
+            "tag": "FF",
+            "target": "8:FBB2"
+          },
+          {
+            "command": 3,
+            "cell": "8:3EC9",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "81",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3ECC",
+            "tag": "FF",
+            "target": "8:FA4D"
+          },
+          {
+            "command": 1,
+            "cell": "8:3ECF",
+            "tag": "FF",
+            "target": "8:FA5C"
+          },
+          {
+            "command": 2,
+            "cell": "8:3ED2",
+            "tag": "FF",
+            "target": "8:FBCC"
+          },
+          {
+            "command": 3,
+            "cell": "8:3ED5",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "82",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3ED8",
+            "tag": "FF",
+            "target": "8:FEB8"
+          },
+          {
+            "command": 1,
+            "cell": "8:3EDB",
+            "tag": "FF",
+            "target": "8:FA7A"
+          },
+          {
+            "command": 2,
+            "cell": "8:3EDE",
+            "tag": "FF",
+            "target": "8:FA6B"
+          },
+          {
+            "command": 3,
+            "cell": "8:3EE1",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "83",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3EE4",
+            "tag": "FF",
+            "target": "8:FA89"
+          },
+          {
+            "command": 1,
+            "cell": "8:3EE7",
+            "tag": "FF",
+            "target": "8:F794"
+          },
+          {
+            "command": 2,
+            "cell": "8:3EEA",
+            "tag": "FF",
+            "target": "8:FBD9"
+          },
+          {
+            "command": 3,
+            "cell": "8:3EED",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "84",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3EF0",
+            "tag": "FF",
+            "target": "8:FEBD"
+          },
+          {
+            "command": 1,
+            "cell": "8:3EF3",
+            "tag": "FF",
+            "target": "8:FA98"
+          },
+          {
+            "command": 2,
+            "cell": "8:3EF6",
+            "tag": "FF",
+            "target": "8:FBF3"
+          },
+          {
+            "command": 3,
+            "cell": "8:3EF9",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "85",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3EFC",
+            "tag": "FF",
+            "target": "8:FEC2"
+          },
+          {
+            "command": 1,
+            "cell": "8:3EFF",
+            "tag": "FF",
+            "target": "8:F399"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F02",
+            "tag": "FF",
+            "target": "8:FAA7"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F05",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "86",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F08",
+            "tag": "FF",
+            "target": "8:FED9"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F0B",
+            "tag": "FF",
+            "target": "8:F0C1"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F0E",
+            "tag": "FF",
+            "target": "8:FAB6"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F11",
+            "tag": "FF",
+            "target": "8:FEE3"
+          }
+        ]
+      },
+      {
+        "setting": "87",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F14",
+            "tag": "FF",
+            "target": "8:FC00"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F17",
+            "tag": "FF",
+            "target": "8:FCC8"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F1A",
+            "tag": "FF",
+            "target": "8:FCC8"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F1D",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "88",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F20",
+            "tag": "FF",
+            "target": "8:FC0D"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F23",
+            "tag": "FF",
+            "target": "8:FCD4"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F26",
+            "tag": "FF",
+            "target": "8:FCD4"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F29",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "89",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F2C",
+            "tag": "FF",
+            "target": "8:FC1A"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F2F",
+            "tag": "FF",
+            "target": "8:FCE0"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F32",
+            "tag": "FF",
+            "target": "8:FCE0"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F35",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "8A",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F38",
+            "tag": "FF",
+            "target": "8:FC27"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F3B",
+            "tag": "FF",
+            "target": "8:FCEC"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F3E",
+            "tag": "FF",
+            "target": "8:FCEC"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F41",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "8B",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F44",
+            "tag": "FF",
+            "target": "8:FC34"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F47",
+            "tag": "FF",
+            "target": "8:FCF8"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F4A",
+            "tag": "FF",
+            "target": "8:FCF8"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F4D",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "8C",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F50",
+            "tag": "FF",
+            "target": "8:FC41"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F53",
+            "tag": "FF",
+            "target": "8:FD04"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F56",
+            "tag": "FF",
+            "target": "8:FD04"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F59",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      },
+      {
+        "setting": "8D",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F5C",
+            "tag": "FF",
+            "target": "8:FEE7"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F5F",
+            "tag": "FF",
+            "target": "8:FD10"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F62",
+            "tag": "FF",
+            "target": "8:FD10"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F65",
+            "tag": "FF",
+            "target": "8:F7E5"
+          }
+        ]
+      },
+      {
+        "setting": "8E",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F68",
+            "tag": "FF",
+            "target": "8:FEE8"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F6B",
+            "tag": "FF",
+            "target": "8:FD1C"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F6E",
+            "tag": "FF",
+            "target": "8:FD1C"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F71",
+            "tag": "FF",
+            "target": "8:F41D"
+          }
+        ]
+      },
+      {
+        "setting": "8F",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F74",
+            "tag": "FF",
+            "target": "8:FEE9"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F77",
+            "tag": "FF",
+            "target": "8:FD28"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F7A",
+            "tag": "FF",
+            "target": "8:FD28"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F7D",
+            "tag": "FF",
+            "target": "8:F42F"
+          }
+        ]
+      },
+      {
+        "setting": "90",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F80",
+            "tag": "FF",
+            "target": "8:FEEA"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F83",
+            "tag": "FF",
+            "target": "8:FD34"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F86",
+            "tag": "FF",
+            "target": "8:FD34"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F89",
+            "tag": "FF",
+            "target": "8:F441"
+          }
+        ]
+      },
+      {
+        "setting": "91",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F8C",
+            "tag": "FF",
+            "target": "8:FEEB"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F8F",
+            "tag": "FF",
+            "target": "8:FD40"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F92",
+            "tag": "FF",
+            "target": "8:FD40"
+          },
+          {
+            "command": 3,
+            "cell": "8:3F95",
+            "tag": "FF",
+            "target": "8:F453"
+          }
+        ]
+      },
+      {
+        "setting": "92",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3F98",
+            "tag": "FF",
+            "target": "8:FEEC"
+          },
+          {
+            "command": 1,
+            "cell": "8:3F9B",
+            "tag": "FF",
+            "target": "8:FD4C"
+          },
+          {
+            "command": 2,
+            "cell": "8:3F9E",
+            "tag": "FF",
+            "target": "8:FD4C"
+          },
+          {
+            "command": 3,
+            "cell": "8:3FA1",
+            "tag": "FF",
+            "target": "8:F465"
+          }
+        ]
+      },
+      {
+        "setting": "93",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3FA4",
+            "tag": "FF",
+            "target": "8:FEED"
+          },
+          {
+            "command": 1,
+            "cell": "8:3FA7",
+            "tag": "FF",
+            "target": "8:FD58"
+          },
+          {
+            "command": 2,
+            "cell": "8:3FAA",
+            "tag": "FF",
+            "target": "8:FD58"
+          },
+          {
+            "command": 3,
+            "cell": "8:3FAD",
+            "tag": "FF",
+            "target": "8:F477"
+          }
+        ]
+      },
+      {
+        "setting": "94",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3FB0",
+            "tag": "FF",
+            "target": "8:FEEE"
+          },
+          {
+            "command": 1,
+            "cell": "8:3FB3",
+            "tag": "FF",
+            "target": "8:FD64"
+          },
+          {
+            "command": 2,
+            "cell": "8:3FB6",
+            "tag": "FF",
+            "target": "8:FD64"
+          },
+          {
+            "command": 3,
+            "cell": "8:3FB9",
+            "tag": "FF",
+            "target": "8:F489"
+          }
+        ]
+      },
+      {
+        "setting": "95",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3FBC",
+            "tag": "FF",
+            "target": "8:FEEF"
+          },
+          {
+            "command": 1,
+            "cell": "8:3FBF",
+            "tag": "FF",
+            "target": "8:FD70"
+          },
+          {
+            "command": 2,
+            "cell": "8:3FC2",
+            "tag": "FF",
+            "target": "8:FD70"
+          },
+          {
+            "command": 3,
+            "cell": "8:3FC5",
+            "tag": "FF",
+            "target": "8:F49B"
+          }
+        ]
+      },
+      {
+        "setting": "96",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3FC8",
+            "tag": "FF",
+            "target": "8:FEF0"
+          },
+          {
+            "command": 1,
+            "cell": "8:3FCB",
+            "tag": "FF",
+            "target": "8:FD7C"
+          },
+          {
+            "command": 2,
+            "cell": "8:3FCE",
+            "tag": "FF",
+            "target": "8:FD7C"
+          },
+          {
+            "command": 3,
+            "cell": "8:3FD1",
+            "tag": "FF",
+            "target": "8:F4AD"
+          }
+        ]
+      },
+      {
+        "setting": "97",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3FD4",
+            "tag": "FF",
+            "target": "8:FEF1"
+          },
+          {
+            "command": 1,
+            "cell": "8:3FD7",
+            "tag": "FF",
+            "target": "8:FD88"
+          },
+          {
+            "command": 2,
+            "cell": "8:3FDA",
+            "tag": "FF",
+            "target": "8:FD88"
+          },
+          {
+            "command": 3,
+            "cell": "8:3FDD",
+            "tag": "FF",
+            "target": "8:F4BF"
+          }
+        ]
+      },
+      {
+        "setting": "98",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3FE0",
+            "tag": "FF",
+            "target": "8:FEF2"
+          },
+          {
+            "command": 1,
+            "cell": "8:3FE3",
+            "tag": "FF",
+            "target": "8:FD94"
+          },
+          {
+            "command": 2,
+            "cell": "8:3FE6",
+            "tag": "FF",
+            "target": "8:FD94"
+          },
+          {
+            "command": 3,
+            "cell": "8:3FE9",
+            "tag": "FF",
+            "target": "8:F4D1"
+          }
+        ]
+      },
+      {
+        "setting": "99",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3FEC",
+            "tag": "FF",
+            "target": "8:FEF3"
+          },
+          {
+            "command": 1,
+            "cell": "8:3FEF",
+            "tag": "FF",
+            "target": "8:FDA0"
+          },
+          {
+            "command": 2,
+            "cell": "8:3FF2",
+            "tag": "FF",
+            "target": "8:FDA0"
+          },
+          {
+            "command": 3,
+            "cell": "8:3FF5",
+            "tag": "FF",
+            "target": "8:F4E3"
+          }
+        ]
+      },
+      {
+        "setting": "9A",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:3FF8",
+            "tag": "FF",
+            "target": "8:FEF4"
+          },
+          {
+            "command": 1,
+            "cell": "8:3FFB",
+            "tag": "FF",
+            "target": "8:FDAC"
+          },
+          {
+            "command": 2,
+            "cell": "8:3FFE",
+            "tag": "FF",
+            "target": "8:FDAC"
+          },
+          {
+            "command": 3,
+            "cell": "8:4001",
+            "tag": "FF",
+            "target": "8:F4F5"
+          }
+        ]
+      },
+      {
+        "setting": "9B",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:4004",
+            "tag": "FF",
+            "target": "8:FEF5"
+          },
+          {
+            "command": 1,
+            "cell": "8:4007",
+            "tag": "FF",
+            "target": "8:FDB8"
+          },
+          {
+            "command": 2,
+            "cell": "8:400A",
+            "tag": "FF",
+            "target": "8:FDB8"
+          },
+          {
+            "command": 3,
+            "cell": "8:400D",
+            "tag": "FF",
+            "target": "8:F507"
+          }
+        ]
+      },
+      {
+        "setting": "9C",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:4010",
+            "tag": "FF",
+            "target": "8:FEF6"
+          },
+          {
+            "command": 1,
+            "cell": "8:4013",
+            "tag": "FF",
+            "target": "8:FDC4"
+          },
+          {
+            "command": 2,
+            "cell": "8:4016",
+            "tag": "FF",
+            "target": "8:FDC4"
+          },
+          {
+            "command": 3,
+            "cell": "8:4019",
+            "tag": "FF",
+            "target": "8:F519"
+          }
+        ]
+      },
+      {
+        "setting": "9D",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:401C",
+            "tag": "FF",
+            "target": "8:FEF7"
+          },
+          {
+            "command": 1,
+            "cell": "8:401F",
+            "tag": "FF",
+            "target": "8:F3AD"
+          },
+          {
+            "command": 2,
+            "cell": "8:4022",
+            "tag": "FF",
+            "target": "8:F3AD"
+          },
+          {
+            "command": 3,
+            "cell": "8:4025",
+            "tag": "FF",
+            "target": "8:F52B"
+          }
+        ]
+      },
+      {
+        "setting": "9E",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:4028",
+            "tag": "FF",
+            "target": "8:FEF8"
+          },
+          {
+            "command": 1,
+            "cell": "8:402B",
+            "tag": "FF",
+            "target": "8:FDD0"
+          },
+          {
+            "command": 2,
+            "cell": "8:402E",
+            "tag": "FF",
+            "target": "8:FDD0"
+          },
+          {
+            "command": 3,
+            "cell": "8:4031",
+            "tag": "FF",
+            "target": "8:F53D"
+          }
+        ]
+      },
+      {
+        "setting": "9F",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:4034",
+            "tag": "FF",
+            "target": "8:FEF9"
+          },
+          {
+            "command": 1,
+            "cell": "8:4037",
+            "tag": "FF",
+            "target": "8:FDDC"
+          },
+          {
+            "command": 2,
+            "cell": "8:403A",
+            "tag": "FF",
+            "target": "8:FDDC"
+          },
+          {
+            "command": 3,
+            "cell": "8:403D",
+            "tag": "FF",
+            "target": "8:F54F"
+          }
+        ]
+      },
+      {
+        "setting": "A0",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:4040",
+            "tag": "FF",
+            "target": "8:FEFA"
+          },
+          {
+            "command": 1,
+            "cell": "8:4043",
+            "tag": "FF",
+            "target": "8:FDE8"
+          },
+          {
+            "command": 2,
+            "cell": "8:4046",
+            "tag": "FF",
+            "target": "8:FDE8"
+          },
+          {
+            "command": 3,
+            "cell": "8:4049",
+            "tag": "FF",
+            "target": "8:F561"
+          }
+        ]
+      },
+      {
+        "setting": "A1",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:404C",
+            "tag": "FF",
+            "target": "8:FEFB"
+          },
+          {
+            "command": 1,
+            "cell": "8:404F",
+            "tag": "FF",
+            "target": "8:FDF4"
+          },
+          {
+            "command": 2,
+            "cell": "8:4052",
+            "tag": "FF",
+            "target": "8:FDF4"
+          },
+          {
+            "command": 3,
+            "cell": "8:4055",
+            "tag": "FF",
+            "target": "8:F573"
+          }
+        ]
+      },
+      {
+        "setting": "A2",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:4058",
+            "tag": "FF",
+            "target": "8:FEFC"
+          },
+          {
+            "command": 1,
+            "cell": "8:405B",
+            "tag": "FF",
+            "target": "8:FE00"
+          },
+          {
+            "command": 2,
+            "cell": "8:405E",
+            "tag": "FF",
+            "target": "8:FE00"
+          },
+          {
+            "command": 3,
+            "cell": "8:4061",
+            "tag": "FF",
+            "target": "8:F1A6"
+          }
+        ]
+      },
+      {
+        "setting": "A3",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:4064",
+            "tag": "FF",
+            "target": "8:FEFD"
+          },
+          {
+            "command": 1,
+            "cell": "8:4067",
+            "tag": "FF",
+            "target": "8:FE0C"
+          },
+          {
+            "command": 2,
+            "cell": "8:406A",
+            "tag": "FF",
+            "target": "8:FE0C"
+          },
+          {
+            "command": 3,
+            "cell": "8:406D",
+            "tag": "FF",
+            "target": "8:F2FC"
+          }
+        ]
+      },
+      {
+        "setting": "A4",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:4070",
+            "tag": "FF",
+            "target": "8:FEFE"
+          },
+          {
+            "command": 1,
+            "cell": "8:4073",
+            "tag": "FF",
+            "target": "8:FE18"
+          },
+          {
+            "command": 2,
+            "cell": "8:4076",
+            "tag": "FF",
+            "target": "8:FE18"
+          },
+          {
+            "command": 3,
+            "cell": "8:4079",
+            "tag": "FF",
+            "target": "8:FC4E"
+          }
+        ]
+      },
+      {
+        "setting": "A5",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:407C",
+            "tag": "FF",
+            "target": "8:FEFF"
+          },
+          {
+            "command": 1,
+            "cell": "8:407F",
+            "tag": "FF",
+            "target": "8:FE24"
+          },
+          {
+            "command": 2,
+            "cell": "8:4082",
+            "tag": "FF",
+            "target": "8:FE24"
+          },
+          {
+            "command": 3,
+            "cell": "8:4085",
+            "tag": "FF",
+            "target": "8:FC5B"
+          }
+        ]
+      },
+      {
+        "setting": "A6",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:4088",
+            "tag": "FF",
+            "target": "8:FEE4"
+          },
+          {
+            "command": 1,
+            "cell": "8:408B",
+            "tag": "FF",
+            "target": "8:FCA4"
+          },
+          {
+            "command": 2,
+            "cell": "8:408E",
+            "tag": "FF",
+            "target": "8:FCA4"
+          },
+          {
+            "command": 3,
+            "cell": "8:4091",
+            "tag": "FF",
+            "target": "8:FBBF"
+          }
+        ]
+      },
+      {
+        "setting": "A7",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:4094",
+            "tag": "FF",
+            "target": "8:FEE6"
+          },
+          {
+            "command": 1,
+            "cell": "8:4097",
+            "tag": "FF",
+            "target": "8:FCBC"
+          },
+          {
+            "command": 2,
+            "cell": "8:409A",
+            "tag": "FF",
+            "target": "8:FCBC"
+          },
+          {
+            "command": 3,
+            "cell": "8:409D",
+            "tag": "FF",
+            "target": "8:FBE6"
+          }
+        ]
+      },
+      {
+        "setting": "A8",
+        "callbacks": [
+          {
+            "command": 0,
+            "cell": "8:40A0",
+            "tag": "FF",
+            "target": "8:FEE5"
+          },
+          {
+            "command": 1,
+            "cell": "8:40A3",
+            "tag": "FF",
+            "target": "8:FCB0"
+          },
+          {
+            "command": 2,
+            "cell": "8:40A6",
+            "tag": "FF",
+            "target": "8:FCB0"
+          },
+          {
+            "command": 3,
+            "cell": "8:40A9",
+            "tag": "FF",
+            "target": "8:FED6"
+          }
+        ]
+      }
+    ],
+    "carry_guard": "Chained SUBB instructions retain carry; do not infer bounds from immediate operands alone."
+  },
+  "indirect_call": "Cells use bytes1/2 as R2:R1; byte0 is not loaded by these callers. Common2133 sets DPTR=R2:R1 and jumps with A=0 in current bank.",
+  "graph": {
+    "original_instructions": 158425,
+    "instructions_with_verified_callbacks": 166916,
+    "new_instruction_starts": 8491,
+    "explicit_callback_seeds": 455,
+    "new_indirect_sites": [],
+    "reserved_opcode_sites": 0,
+    "overlap_sites": 0
+  },
+  "callback_prelude": {
+    "thunk": "1934 -> 10:FEB0",
+    "checks": 65536,
+    "writes": "DBFD..DC00=00,24,04,08; if DA6B=0, DA83=07; otherwise DA83 unchanged. R7 is not consumed on this checked path."
+  },
+  "limits": [
+    "Selection/callback addresses are verified in the static bank model; handler bodies are traversed, not functionally proved.",
+    "Full dynamic validity, setting names, command labels and upstream gate/lifecycle coverage remain open.",
+    "A command outside0..3 can mechanically read another row; this is not promoted to valid normal-table behavior.",
+    "Physical firmware-bank identity retains the existing static-model qualification.",
+    "No firmware bytes, callback payloads or monitor commands are published."
+  ]
+}
